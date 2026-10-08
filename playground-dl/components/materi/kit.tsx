@@ -154,7 +154,7 @@ export function Story({ steps, step, onStep }: { steps: StoryStep[]; step: numbe
         </button>
       </div>
       <div aria-live="polite" className="space-y-1.5 text-body text-ink">
-        <p>{glossify(s.say)}</p>
+        {typeof s.say === "string" ? s.say.split("\n\n").map((para, i) => <p key={i}>{glossify(para)}</p>) : <p>{glossify(s.say)}</p>}
         {s.look && (
           <p className="text-caption text-ash">
             <span aria-hidden>👁 </span>

@@ -79,3 +79,10 @@ Sesuaikan porsi materi/task naik-turun berdasar alokasi jam itu — gak masalah 
 - Konvensi stack konsisten: Next static export, Zustand+persist, no animation/DnD/PDF libs.
 - Disiplin verifikasi: typecheck+build lalu tes langsung di browser dari state bersih.
 - **Khusus DL:** situsnya sendiri harus lolos standar yang diajarkan kursus: target WCAG 2.2 AA, bisa dipakai penuh dengan keyboard, reflow di 320 px / zoom 400 %, kontras AA, `prefers-reduced-motion`. Cek aksesibilitas (keyboard, zoom, axe/Lighthouse, satu pass screen reader) jadi bagian dari "verifikasi" tiap hari (`CLAUDE.md` #49).
+
+## Gaya menulis penjelasan (DL, aturan `CLAUDE.md` #51)
+- Jangan langsung ke inti. Mulai dari situasinya: siapa atau apa yang kita lihat, dan apa masalahnya, baru angkanya.
+- Sambungkan fakta dengan kata penghubung (karena, jadi, tetapi, akibatnya, artinya, misalnya). Dua fakta yang ditaruh berdampingan belum menjelaskan apa-apa.
+- Bilang dulu untuk apa sebuah bagian ("kita akan menilai tiap ide dengan tiga pertanyaan…"), dan setelah sebuah fakta, bilang apa akibatnya ("…jadi usahanya Rendah").
+- Kalimat penuh, satu gagasan baru per kalimat, kata sehari-hari; bicara seperti rekan kerja ("Mari kita ikuti Mia…"), tanpa tanda seru dan tanpa pujian.
+- Uji: tutup semuanya kecuali satu langkah. Apakah pembaca baru tahu kenapa kalimat itu ada dan bagaimana ia menyambung ke kalimat sebelumnya?

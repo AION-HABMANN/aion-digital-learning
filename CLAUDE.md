@@ -1420,8 +1420,8 @@ learner operate the picture; this rule makes the picture tell its own story.
   **(DL) Stories are real stories, 2 to 4 steps, as long as the interaction needs (user decision 2026-10-09, #18).** A DL reader said the three-step, 25-word form
   "lacked context". For DL the story is a short narrative: **a named person or company in a situation** (Mia has twenty minutes and cannot find lesson 3; Daniel opens a
   500-word lesson in the evening), what happens to them, what changes, and the point. The number of steps follows the picture: one step for each state the learner must see
-  (Day 1: four steps for each of the four diagrams, because each has four states to meet), never fewer than two, never more than four. A step is a short paragraph of about 40 to
-  70 words, still in everyday words, still with the "Look at" line and still driving the same state the learner's own buttons set. The last step carries the point and invites the learner
+  (Day 1: four steps for each of the four diagrams, because each has four states to meet), never fewer than two, never more than four. A step is one or two short paragraphs (a blank line splits them) of about 40 to
+  100 words, still in everyday words, still with the "Look at" line and still driving the same state the learner's own buttons set. The last step carries the point and invites the learner
   to try the buttons. Numbers still come from the same state that draws the picture, and the story still shows the method on the worked-example company, never the task's own answer.
   The launcher says "A short story in N steps". The CS limits above stay for CS.
 - **"What this shows" (#20) is now written the same way:** start with *In plain words:* and give the verdict in everyday
@@ -2131,3 +2131,30 @@ decided** (see Pending decisions 1); until the user answers, the agenda lists UE
    its own Materi, while the plan has one *Wissen* UE a day.
 7. **Sketching tasks** (Day 6 sketch the user journey, Day 12 low-fidelity prototype, personas): the stack has no drawing library (#9). Constrained builders, or words only.
 8. **Weight of the supporting layers** (#19 glossary, #22 plain-words box, #36 stories for every diagram, #42 clue kit for every field, #46) for senior professionals.
+
+## 51. Write to explain: context first, every step connected, the reason said out loud
+
+The user's standing request (2026-10-09), made after reading a story step on Day 1: *"Meet LearnLoop, an online-course provider. 30 of every 100 new learners leave in the first week.
+LearnLoop has €30,000 and six weeks, and three ideas on the table."* felt unnatural and left the reader to join the facts alone. The version the user wanted says what the situation
+is and how the facts relate: *"Let us look at LearnLoop, an online-course provider. It has a problem: 30 of every 100 new learners leave in the first week. To improve this, LearnLoop has
+€30,000 and six weeks, and three ideas on the table."* A learner who is new to the topic should never have to infer how one sentence relates to the next. This applies to **every
+learner-facing explanation** in DL (stories, "In plain words", "What this shows", case briefs, field help, clues, the German text too); it does not apply to labels, buttons and table cells.
+
+**The rules**
+
+1. **Set the scene before the fact.** Say who or what we are looking at, and what situation they are in, before the number or the claim ("Let us follow Mia, a project manager… Today she has
+   twenty free minutes, so she opens the platform"). Start from what the reader already knows (plainlanguage.gov: think about what the audience knows now, then guide them from there).
+2. **Join the facts with words that say how they relate.** Use *because, so, but, however, as a result, in other words, for example, instead, which means, then*. Two facts side by side are not
+   an explanation: "30 of every 100 leave in week one" and "LearnLoop has €30,000" need "To improve this, …" between them. A text that connects its ideas helps readers who are new to a topic
+   most (McNamara, Kintsch, Songer and Kintsch 1996), and our learners are working adults who often are.
+3. **Say what a part is for before you give it** (an advance organiser; Mayer's pre-training and signaling principles): "We will rate each idea on three questions: …", "The first question is
+   *where am I?*". Name a term or a number before you use it, and say what it counts and why it matters in this case.
+4. **After a fact, say what follows from it**, in one clause: "…so the effort is Low", "…which also helps the business, only more slowly". Never end a step on a bare figure.
+5. **Full sentences, one new idea each, joined into a paragraph.** About 15 to 25 words a sentence; no clipped fragments, no dropped articles, no stacked noun phrases. Everyday words, as before (#19, #46).
+6. **Speak to the reader like a colleague** (Mayer's personalisation principle): "Let us follow…", "Imagine being Daniel: how long would you keep reading?", "Look at the menu on the left". Stories
+   are told in the third person about a named person or company; instructions address "you" (German: *Sie*, #32). No exclamation marks, no praise (#15).
+7. **Test before it ships.** Cover everything except one step and ask: does a newcomer know *why this sentence is here* and *how it follows from the one before*? Then read it aloud: if it sounds
+   like notes, add the missing "because", "so" or "to do this". The German is written the same way, by hand, never word for word (#32).
+
+**Coverage check before a day ships (adds to #11, #22, #36, #46):** read every story step, every "In plain words" and every "What this shows" with the cover test above; list any sentence that is a bare
+fact and add its connection. Day 1's four stories and its "What this shows" lines were rewritten to this rule on 2026-10-09; its other card text is to be checked against it when the user points at a spot.
