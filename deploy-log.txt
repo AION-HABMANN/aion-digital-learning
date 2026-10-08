@@ -1,0 +1,397 @@
+== day2 ==
+    "id": "dpl_5Vb5KSp4dEHFEftRxcYTPhuDf1W3",
+    "url": "https://day2-lbj2gdf5z-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day2/5Vb5KSp4dEHFEftRxcYTPhuDf1W3",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_5Vb5KSp4dEHFEftRxcYTPhuDf1W3",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day2-lbj2gdf5z-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day2-lbj2gdf5z-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day2-lbj2gdf5z-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day2 RESULT: https://day2-lbj2gdf5z-attoyibis-projects.vercel.app
+
+== day3 ==
+    "id": "dpl_9u6r7BBQKdjUHVfEdKjQoMKFTsEx",
+    "url": "https://day3-go1us7kxg-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day3/9u6r7BBQKdjUHVfEdKjQoMKFTsEx",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_9u6r7BBQKdjUHVfEdKjQoMKFTsEx",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day3-go1us7kxg-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day3-go1us7kxg-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day3-go1us7kxg-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day3 RESULT: https://day3-go1us7kxg-attoyibis-projects.vercel.app
+
+== day4 ==
+    "id": "dpl_EANzsnkCyr1gkpCQLaUBUcFJqNMe",
+    "url": "https://day4-ncat3g6wy-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day4/EANzsnkCyr1gkpCQLaUBUcFJqNMe",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_EANzsnkCyr1gkpCQLaUBUcFJqNMe",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day4-ncat3g6wy-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day4-ncat3g6wy-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day4-ncat3g6wy-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day4 RESULT: https://day4-ncat3g6wy-attoyibis-projects.vercel.app
+
+== day5 ==
+    "id": "dpl_4WGPUdHHBN2VGaZdRy2r2KCWgWAp",
+    "url": "https://day5-adw2zvg4r-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day5/4WGPUdHHBN2VGaZdRy2r2KCWgWAp",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_4WGPUdHHBN2VGaZdRy2r2KCWgWAp",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day5-adw2zvg4r-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day5-adw2zvg4r-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day5-adw2zvg4r-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day5 RESULT: https://day5-adw2zvg4r-attoyibis-projects.vercel.app
+
+== day6 ==
+    "id": "dpl_FDUsxPJg7WWrm4gcrRJKEfFck4Ls",
+    "url": "https://day6-1vemdzqqf-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day6/FDUsxPJg7WWrm4gcrRJKEfFck4Ls",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_FDUsxPJg7WWrm4gcrRJKEfFck4Ls",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day6-1vemdzqqf-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day6-1vemdzqqf-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day6-1vemdzqqf-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day6 RESULT: https://day6-1vemdzqqf-attoyibis-projects.vercel.app
+
+== day7 ==
+    "id": "dpl_FnrYnLFDF6x4rfB1dFJYyCPGL18M",
+    "url": "https://day7-72dsiea8f-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day7/FnrYnLFDF6x4rfB1dFJYyCPGL18M",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_FnrYnLFDF6x4rfB1dFJYyCPGL18M",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day7-72dsiea8f-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day7-72dsiea8f-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day7-72dsiea8f-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day7 RESULT: https://day7-72dsiea8f-attoyibis-projects.vercel.app
+
+== day8 ==
+    "id": "dpl_3SaVjGdW5prpWPaETEQGxLrQDrDU",
+    "url": "https://day8-qu162ly3w-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day8/3SaVjGdW5prpWPaETEQGxLrQDrDU",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_3SaVjGdW5prpWPaETEQGxLrQDrDU",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day8-qu162ly3w-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day8-qu162ly3w-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day8-qu162ly3w-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day8 RESULT: https://day8-qu162ly3w-attoyibis-projects.vercel.app
+
+== day9 ==
+    "id": "dpl_AZLnuRpeFFvuktg9jt8hXjPPgcv7",
+    "url": "https://day9-pbdpm2t3z-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day9/AZLnuRpeFFvuktg9jt8hXjPPgcv7",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_AZLnuRpeFFvuktg9jt8hXjPPgcv7",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day9-pbdpm2t3z-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day9-pbdpm2t3z-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day9-pbdpm2t3z-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day9 RESULT: https://day9-pbdpm2t3z-attoyibis-projects.vercel.app
+
+== day10 ==
+    "id": "dpl_G2h421QHLFQio6VNYsVejLSRLkPj",
+    "url": "https://day10-i0p51olcy-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day10/G2h421QHLFQio6VNYsVejLSRLkPj",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_G2h421QHLFQio6VNYsVejLSRLkPj",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day10-i0p51olcy-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day10-i0p51olcy-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day10-i0p51olcy-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day10 RESULT: https://day10-i0p51olcy-attoyibis-projects.vercel.app
+
+== day11 ==
+    "id": "dpl_GzxLJ2Mq8aCz8ur4VnisRfhpY4CT",
+    "url": "https://day11-av515rsth-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day11/GzxLJ2Mq8aCz8ur4VnisRfhpY4CT",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_GzxLJ2Mq8aCz8ur4VnisRfhpY4CT",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day11-av515rsth-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day11-av515rsth-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day11-av515rsth-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day11 RESULT: https://day11-av515rsth-attoyibis-projects.vercel.app
+
+== day12 ==
+    "id": "dpl_Gjbjd82ifum47RXoCJjsGD1HWjwq",
+    "url": "https://day12-pcj0v54sd-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day12/Gjbjd82ifum47RXoCJjsGD1HWjwq",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_Gjbjd82ifum47RXoCJjsGD1HWjwq",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day12-pcj0v54sd-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day12-pcj0v54sd-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day12-pcj0v54sd-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day12 RESULT: https://day12-pcj0v54sd-attoyibis-projects.vercel.app
+
+== day13 ==
+    "id": "dpl_2GZD1kU67sEGQjDBGJQMrWTKsVQF",
+    "url": "https://day13-h20ikmwcj-attoyibis-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/attoyibis-projects/day13/2GZD1kU67sEGQjDBGJQMrWTKsVQF",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_2GZD1kU67sEGQjDBGJQMrWTKsVQF",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    }
+  },
+  "message": "Deployment day13-h20ikmwcj-attoyibis-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://day13-h20ikmwcj-attoyibis-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect day13-h20ikmwcj-attoyibis-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}
+day13 RESULT: https://day13-h20ikmwcj-attoyibis-projects.vercel.app
+
+ALL DONE
