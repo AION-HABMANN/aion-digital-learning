@@ -2,244 +2,29 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "day1-dev",
+      "name": "dl-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "--prefix",
-        "day1",
+        "playground-dl",
         "run",
         "dev",
         "--",
         "-p",
-        "3001"
+        "3100"
       ],
-      "port": 3001,
+      "port": 3100,
       "autoPort": true
     },
     {
-      "name": "day2-dev",
-      "runtimeExecutable": "npm",
+      "name": "dl-static",
+      "runtimeExecutable": "node",
       "runtimeArgs": [
-        "--prefix",
-        "day2",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3002"
+        "playground-dl/scripts/serve-out.cjs",
+        "4100"
       ],
-      "port": 3002,
-      "autoPort": true
-    },
-    {
-      "name": "day3-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day3",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3003"
-      ],
-      "port": 3003,
-      "autoPort": true
-    },
-    {
-      "name": "day4-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day4",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3004"
-      ],
-      "port": 3004,
-      "autoPort": true
-    },
-    {
-      "name": "day5-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day5",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3005"
-      ],
-      "port": 3005,
-      "autoPort": true
-    },
-    {
-      "name": "day6-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day6",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3006"
-      ],
-      "port": 3006,
-      "autoPort": true
-    },
-    {
-      "name": "day7-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day7",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3007"
-      ],
-      "port": 3007,
-      "autoPort": true
-    },
-    {
-      "name": "day8-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day8",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3008"
-      ],
-      "port": 3008,
-      "autoPort": true
-    },
-    {
-      "name": "day9-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day9",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3009"
-      ],
-      "port": 3009,
-      "autoPort": true
-    },
-    {
-      "name": "day10-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day10",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3010"
-      ],
-      "port": 3010,
-      "autoPort": true
-    },
-    {
-      "name": "day11-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day11",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3011"
-      ],
-      "port": 3011,
-      "autoPort": true
-    },
-    {
-      "name": "day12-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day12",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3012"
-      ],
-      "port": 3012,
-      "autoPort": true
-    },
-    {
-      "name": "day13-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day13",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3013"
-      ],
-      "port": 3013,
-      "autoPort": true
-    },
-    {
-      "name": "day14-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day14",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3014"
-      ],
-      "port": 3014,
-      "autoPort": true
-    },
-    {
-      "name": "day15-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day15",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3015"
-      ],
-      "port": 3015,
-      "autoPort": true
-    },
-    {
-      "name": "day16-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "day16",
-        "run",
-        "dev",
-        "--",
-        "-p",
-        "3016"
-      ],
-      "port": 3016,
-      "autoPort": true
+      "port": 4100,
+      "autoPort": false
     }
   ]
 }

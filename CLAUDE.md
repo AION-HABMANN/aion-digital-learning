@@ -13,8 +13,8 @@ the fix generalized). Apply them to every new day and when touching an existing 
 regardless of what that day's material is about.
 
 **This folder is the Digital Learning course ("DL"): UX/UI design for digital learning
-platforms** (`Strukturplan 11_F_128 (04-26).xlsx`, 16 days, 8 modules, German-language
-plan, Habmann AufstiegsAkademie). It reuses the standards that were first written for the
+platforms** (`One Stop Digital Learning - Strukturplan 11_F_128 (04-26).xlsx`, 16 days, 8 modules, three sheets *Deutsch* (the source),
+*English* and *Bahasa Indonesia* with identical structure, Habmann AufstiegsAkademie). It reuses the standards that were first written for the
 Customer Retention / Customer Success course ("CS", `aion-cs-dayN`) and the Green IT days
 before it. **Read "DL adaptation" (#49) first**: it lists what changes for this course and
 how to read the examples below.
@@ -378,8 +378,8 @@ several items on the same several dimensions," not for every prediction exercise
 
 Every CS and DL day looks the same: a consulting working paper, sober, adult. Copy the tokens from
 `day1/tailwind.config.ts` and `day1/styles/globals.css` (the CS `day1` until DL has its own); do not
-re-pick colours per day. **(DL)** DL keeps these tokens for now, so the two AION courses read as one
-family; whether DL gets its own accent is the user's call (open question, see #49) and is not decided here.
+re-pick colours per day. **(DL)** The Digital Learning course has its **own palette, "Ocean"** (user decision
+2026-10-08), given below the CS table. Never put the CS palette into a DL day or the reverse; the meaning of the colours (below) is the same in both.
 
 | Token | Hex | Use |
 |---|---|---|
@@ -395,6 +395,39 @@ family; whether DL gets its own accent is the user's call (open question, see #4
 | `signal` / `signalSoft` | #0F6B6B / #DFEEEB | **teal** — structure, an OK-state, never "correct" |
 | `rust` / `rustSoft` | #A4472A / #F6E3DB | **warning** — missing items, an exceeded constraint |
 | data fill | #2F5D62 (solid), #8B9098 (grey) | bars and segments |
+
+### DL palette: "Ocean" (clear blue, friendly; a cool "screen" ground instead of CS's warm paper)
+
+The user's standing choice for the Digital Learning course (2026-10-08, picked from three candidates). **Use these values in a DL day's
+`tailwind.config.ts` and `styles/globals.css`; keep the CS token names** (`ink`, `slate`, `accent`, `signal`, `rust`, …) so shared components copy over
+unchanged: only the values differ. A DL day also uses the DL shadow colour below. Contrast was computed on 2026-10-08 (WCAG 2 ratio).
+
+| Token | Hex | Use | Contrast |
+|---|---|---|---|
+| `ink` | #17212E | text | 16.2 on paper, 15.0 on canvas |
+| `slate` / `slateHi` | #1B2736 / #2A3849 | top bar | white on slate 15.1 |
+| `ash` | #556274 | secondary text, axes | 6.2 on paper, 5.2 on mist |
+| `paper` | #FFFFFF | cards, fields | |
+| `canvas` | #F3F6FA | page ground (cool, like a screen) | |
+| `mist` | #E6ECF4 | quiet fills, table heads | |
+| `line` | #D5DEE9 | hairlines (decorative, not text) | |
+| `accent` / `accentHi` / `accentSoft` | #1750A8 / #123E85 / #E3ECFA | **blue**: attention and selection; primary buttons, focus ring, check flags, ref flash | accent on paper 7.6, on accentSoft 6.4; white on accent 7.6 |
+| `gold` | #4C8BE0 | blue for graphics and outlines only (never text; 3.5 on paper) | graphics ≥ 3 |
+| `signal` / `signalSoft` | #0B6F69 / #DCF0EE | **teal**: structure, an OK-state, never "correct" | signal on signalSoft 5.1, on paper 6.0 |
+| `rust` / `rustSoft` | #AD3F26 / #F8E4DE | **warning**: missing items, an exceeded constraint | rust on rustSoft 4.9, white on rust 6.0 |
+| data fill | #2B5F8E (solid), #8793A3 (grey) | bars and segments | 6.7 / 3.1 (graphics) |
+| shadows | `rgba(23,33,46, .06 / .08 / .16)` | `sm` / `md` / `lg` | |
+
+- **The three meanings are unchanged** (see the CS bullets below): blue = look here / your selection / flagged by a Check (a blue outline, never red,
+  never a tick or cross); teal = structure and states such as *read*, *filed*; rust = missing or a constraint broken. Nothing is green or red for right and wrong.
+- **Blue and teal are close in lightness (accent against signal 1.27), so colour never separates them alone.** Every use of `signal` carries a label, a glyph or a
+  pattern (the CS rule "colour is never the only channel" is enforced harder here). The hatch that CS draws in amber for "an interpretation, an over-cap amount, an
+  axis the file does not record" is drawn in `gold` blue in DL; dashed outline and the glyphs ● ◐ ○ ? stay.
+- **Text links are always underlined.** The accent blue is close to the browser's default link blue, so an underline (not the colour) is what marks a link; glossary
+  terms keep the dotted underline (#19) and stay `ink`-coloured text, never styled as links.
+- **A learning interface teaches with its own colour.** Where a DL day shows a mock platform (#49), the mock screens use their own neutral greys plus whatever
+  colours the *problem* needs (a low-contrast grey on grey, a too-bright banner), clearly inside a framed device; the site's three roles never colour the mock
+  itself, so a learner cannot mistake the site's "look here" for part of the evidence.
 
 - **Meaning of the three colours is fixed.** Amber = look here / your selection / flagged by a
   Check (an amber outline, **never red, never a tick or cross**). Teal = structure and states such
@@ -472,10 +505,14 @@ These come from the day1 build and are the defaults a prompt does not need to re
   derives every missing list from state.
 - **Each CS day has its own GitHub repository** (`aion-cs-dayN`); check `git remote -v` before pushing,
   because a day copied from the previous one may still point at the old repo. Push only when asked.
-  **(DL)** This folder is itself the repository `AION-HABMANN/aion-digital-learning`: the standards files
-  are tracked here and each day is a folder `dayN/` with its own `package.json`, deployed with that folder as
-  the project root (site name `aion-dl-dayN`). A day gets its own repository only if the user asks. The
-  parent `.claude/launch.json` lists one `dayN-dev` entry per day. Push only when asked.
+  **(DL)** This folder is itself the repository `AION-HABMANN/aion-digital-learning`, and **all sixteen days live in
+  ONE Next.js project, `playground-dl/`** (user decision 2026-10-08, unlike CS where each day was its own project and repo):
+  `/day/{n}/` is a day's home and `/day/{n}/route-{1|2}/` its two routes, one persisted store with one slice per day
+  (`d1`, later `d2`, …), one glossary, shared `components/chrome` and `components/ui`, and per-day `components/dayN`,
+  `data/dayN`, `lib/dayN`. A day not built yet keeps its page as a placeholder (#12). Export file names stay
+  `{route}-{name}-day{N}-…` (CURRICULUM-GUIDE §7). A day gets its own repository only if the user asks. Push only when asked.
+  `playground-dl/README.md` says how to add the next day. The older `playground/` folder is a copy of CS Day 13 and is
+  reference only: never push from it (its git still points at the CS repository).
 - **README per day** with the routes table, layout, the mentor bar and a "Notes on deviations"
   section (see #18).
 
@@ -1066,7 +1103,7 @@ stay in English, and everything around them (explanations, instructions, questio
 goal is that a native German speaker reads it without effort, and without meeting made-up German terms that nobody uses
 at work.
 
-**(DL) The DL plan itself is written in German** (`Strukturplan 11_F_128`), so for DL the German text is not an
+**(DL) The DL plan itself is written in German** (sheet *Deutsch* of the One Stop workbook; *English* is its official translation), so for DL the German text is not an
 add-on: the plan's own German wording for tasks, levels and requirements (*Arbeitsauftrag, Fallstudie, Transferprojekt,
 Nutzerwirkung, Aufwand, Risiko*) is the source for the German version, and the English is written from it. English is
 still written first and is still the default (CURRICULUM-GUIDE §1); open question for the user: whether DL should
@@ -1641,7 +1678,7 @@ gives day-specific feedback (Day 6 first). Days 1 to 5 are not retrofitted unles
 this rule.
 
 **(DL) For the Digital Learning course this rule applies from Day 1**: there are no legacy DL days. The plan is
-`Strukturplan 11_F_128 (04-26).xlsx`, one column per day. Checked against the plan (2026-10-08): **the plan contains no
+`One Stop Digital Learning - Strukturplan 11_F_128 (04-26).xlsx`, one column per day. Checked against the plan (2026-10-08): **the plan contains no
 calculation at all.** The only numbers it prints are Day 1's budget (€50.000) and time limit (2 months), Day 1's drop-out rate (40 %)
 and Day 16's abandonment rate (70 %); every other day says only "Budget begrenzt" and a time limit in weeks or months. Its recurring
 structure is a three-criterion **judgement** of each measure (*Nutzerwirkung / Wirkung, Aufwand, Risiko*), rated by the learner, with
@@ -1922,7 +1959,7 @@ from its own material (for example Day 12: *Now / Later / Not now* for adaptive-
 ## 49. DL adaptation — what is different in the Digital Learning course
 
 Written 2026-10-08 when this folder was repurposed from the CS course to **DL: UX/UI design for digital learning platforms**
-(`Strukturplan 11_F_128 (04-26).xlsx`). Rules #1–#48 stand as written, read through the "How to read the examples" note at the top.
+(`One Stop Digital Learning - Strukturplan 11_F_128 (04-26).xlsx`). Rules #1–#48 stand as written, read through the "How to read the examples" note at the top.
 This rule lists only what is *different*. Everything marked **Decided** is an adaptation made without a user answer; the user can
 overrule it. Everything under **Open** needs a user answer before it is built.
 
@@ -2006,15 +2043,83 @@ A UX class cannot ship a site that breaks the principles it teaches, and a revie
 
 ### Decided
 
-1. DL day folders live in this repository as `dayN/` (#17). 2. Level 1 and 2 merge into Route 1, Level 3 is Route 2 (#30). 3. Deliverable names
-and export file names are in CURRICULUM-GUIDE §7 (`1-{name}-dayN-l1l2-ux-analysis`, `2-{name}-dayN-l3-ux-strategy`). 4. The CS palette is kept (#15). 5. The mentor passcode is unchanged (#7).
+1. All DL days live in one Next.js project, `playground-dl/`, inside this repository (#17). 2. Level 1 and 2 merge into Route 1, Level 3 is Route 2 (#30). 3. Deliverable names
+and export file names are in CURRICULUM-GUIDE §7 (`1-{name}-dayN-l1l2-ux-analysis`, `2-{name}-dayN-l3-ux-strategy`). 4. DL uses the **Ocean palette** (#15; the user's choice, 2026-10-08). 5. The mentor passcode is unchanged (#7).
 6. English is written first (CURRICULUM-GUIDE §1); German follows #32. 7. No DL Friday form (#29) and no Day 13 to 16 form (#48) until the user says so.
 
 ### Open (ask before building Day 1)
 
 1. Default language: English first with EN | DE (as CS), or German by default because the plan, the learners and the provider are German?
-2. Accent colour: keep the CS palette or give DL its own?
-3. Repository: one repo with `dayN/` folders (current), or one repo per day as CS did?
+2. ~~Accent colour~~ Decided: Ocean (#15).
+3. Repository: one repo with `dayN/` folders (current), or one repo per day as CS did? The existing `playground/` folder is a copy of CS Day 13 with its own `.git` pointing at `AION-CS/aion-cs-day13`: never push from it; DL days are clean copies without `.git`.
 4. Which DL days, if any, are Fridays (#29), and which share their day with other tasks (#48)?
 5. Does the facilitator debrief card (Feedbackrunde) belong in the mentor tools, or should it be left out?
 6. The CS files still in this folder (`Module1-Retention-Muchson.pptx`, `Perkenalan-Muchson-Attoyibi.pptx`, the two CS Strukturpläne, `deploy-log.txt`): move to a `reference-cs/` folder, rebuild for DL, or delete?
+
+## 50. DL plan fidelity and the adult-learner supplement
+
+Written 2026-10-08 after a full read of the One Stop workbook (all three sheets; *English* and *Bahasa Indonesia* are translations of *Deutsch*). It
+**supplements** #1–#49: it adds, it removes nothing, and where something here collides with an existing rule or with the plan itself, the collision is
+listed under "Pending decisions" and **nothing is built on either side until the user chooses**. The audience is senior professionals at a German
+training provider, in an eight-hour live day: keep it to what is sensible and good; do not build for completeness' sake.
+
+### What the plan is made of
+
+- **A day is eight UE (Unterrichtseinheiten), one row each:** UE1 Wissensvermittlung · UE2 Level 1 Arbeitsauftrag 1 (*Grundlagen strukturieren*) · UE3 Level 1
+  Arbeitsauftrag 2 (*Bewertung und Priorisierung*) · UE4 Coaching, transition Level 1+2 · UE5–6 Level 2 Fallstudie incl. Musterlösung (2 UE) · UE7 Feedbackrunde
+  Level 2+3 "mit Management-Brille" · UE8 Senior Level 3 Transferprojekt. UE6 carries no text of its own (it is the second unit of the Fallstudie); UE9 and UE10 exist as empty rows.
+- **One thread runs through every day: UX is a decision problem, not a design problem** ("Denken wie Entscheider, nicht Designer"). Each day's *Wissen* cell ends
+  in a `Ziel:` line that states it, and each ends its topic groups with the day's **Zielkonflikte** (usability vs depth vs time; personalisation vs transparency;
+  motivation vs overload vs manipulation; …). Those conflicts are the Level 3 lens.
+- **The task shapes repeat, so the site's blocks can repeat too:** Arbeitsauftrag 1 = describe problems from the user's side, sort them into the day's categories,
+  suggest improvements; Arbeitsauftrag 2 = rate three options on the day's three criteria under stated constraints, prioritise, say what information is missing;
+  Fallstudie = analyse, find causes, develop measures, prioritise, justify; Transferprojekt = a role (Chief … Officer), five numbered items, and one decision made
+  despite incomplete data.
+
+### Build from the plan, not beyond it
+
+1. **Materi cards are the plan's own topic groups** of the day's *Wissen* cell, in the plan's order (four or five per day), each card carrying that group's bullets and
+   nothing the plan does not name. The `Ziel:` line becomes the Materi's one-sentence takeaway. Extra frameworks, laws or theories (the candidate list in
+   `MATERIAL-GUIDE.md`) enter a card only when a task needs them to be answered; that list is background, not a checklist.
+2. **The Zielkonflikte groups are the spine of Materi B** (the Level 3 route); the Coaching row's bullets and the Feedback row's "Input Level 3" questions
+   feed it. Do not invent a separate Level 3 theory.
+3. **Every task block says which plan item it answers** (the coverage table of #44), including the plan's *Musterlösung (Kernlogik)* as the source of the mentor key.
+4. **Where the plan asks "Welche Information fehlt Ihnen?" or "Treffen Sie eine Entscheidung trotz unvollständiger Datenlage"**, that is a required free-text field
+   with a reason (#38, #44), never an optional extra.
+
+### Andragogy, kept light (Knowles' principles, applied where they cost little)
+
+| Principle | How it shows up, and nothing more |
+|---|---|
+| Need to know why | The Materi opens with the day's `Ziel:` and one line on why it matters at work (#22, #27). |
+| Experience as a resource | The plan's own "from the user's side" prompts and the Coaching row's *Reflexion* questions are short **optional notes** in the learner's words; they appear in the export under "Reflection" and are never scored or flagged missing. |
+| Problem-centred, not subject-centred | Every task is a decision in a role with constraints (the plan already gives the roles). No quiz-shaped tasks. |
+| Readiness tied to real tasks | Cases are workplace situations of an EdTech or training provider; each day's WIIFM names a use at the learner's own desk (#27). |
+| Self-direction | Nothing is locked (#6); Core and Optional (#35) let a senior skip what they know. |
+| Respect for time and status | Formal *Sie*, short paragraphs, the decision first and the reasoning behind a click, no praise, no hype, no cute elements (#15). Text size at least 16 px on cards (the CS body is 15.5 px) and contrast per #49. |
+| Peer exchange | The plan's *Diskussion* lines ("X vs Y") and "Input Level 3" questions are shown as **discussion prompts for the live session**, in the mentor tools (#49) until the user decides otherwise. |
+
+Gamification for adults: no points, streaks, badges or leaderboards from the site itself (#15). The only game-like parts are analytical ones the plan already
+implies: sorting into categories, ranking measures, a trade-off view. Where the subject *is* gamification (Day 11) it is analysed critically, as the plan's coaching asks
+("Motivation ≠ Gamification", "Gefahr der Überstimulation", "Motivation vs. Manipulation").
+
+### The day's agenda
+
+Each day's home page shows the plan's UE as the day's agenda, built from a data file: UE, plan row, what the learner does on the site, minutes. **The minutes are not
+decided** (see Pending decisions 1); until the user answers, the agenda lists UE and parts without minutes.
+
+### Pending decisions (the user chooses; do not build until answered)
+
+1. **Time.** The plan gives the case study 2 UE and the Transferprojekt 1 UE; `MATERIAL-GUIDE.md` and `CURRICULUM-GUIDE.md` §3 carry the earlier weights (tasks of 15, 15 and 20
+   minutes). The user's new rhythm is one hour of explanation, then work and discussion in blocks of about 30 minutes, twice a day. Which timetable applies, and where lunch falls
+   relative to the case study and Materi B, is open.
+2. **Level 1 is not objective in the plan.** Arbeitsauftrag 1 asks for spontaneous, open answers ("Beschreiben Sie spontan 5 Probleme", "Welche Plattform würden Sie bevorzugen
+   und warum?") and Arbeitsauftrag 2 is already a judgement with a missing-information question. `MATERIAL-GUIDE.md` and the aion-task-design skill define Level 1 as OBJECTIVE.
+3. **Fixed counts.** The plan names counts (5 problems, 3 improvements, 4 causes, 4 measures, 3 KPIs, 2 test methods, five Transferprojekt items). #35, #44 and #48 keep Core to
+   one or two blocks and few fields.
+4. **The Musterlösung is one answer with a ranking line** ("Rationale: Impact > Effort > User impact"), against #38 (decisions are free; a check is a hint).
+5. **Group work.** The Feedbackrunde has groups present their solutions; the site has one participant name and one export per learner.
+6. **Order of the day.** The plan puts the Fallstudie (Level 2) after the Coaching and Level 3 after the Feedback; #30 puts Level 1 and 2 in Route 1 and Level 3 in Route 2, each with
+   its own Materi, while the plan has one *Wissen* UE a day.
+7. **Sketching tasks** (Day 6 sketch the user journey, Day 12 low-fidelity prototype, personas): the stack has no drawing library (#9). Constrained builders, or words only.
+8. **Weight of the supporting layers** (#19 glossary, #22 plain-words box, #36 stories for every diagram, #42 clue kit for every field, #46) for senior professionals.
