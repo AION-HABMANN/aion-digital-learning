@@ -1,6 +1,5 @@
 import { DayView } from "@/components/day/DayView";
 
-export const dynamicParams = false;
 export function generateStaticParams() {
   return Array.from({ length: 16 }, (_, i) => ({ n: String(i + 1) }));
 }

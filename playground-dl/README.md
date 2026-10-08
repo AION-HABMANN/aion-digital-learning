@@ -50,6 +50,10 @@ npm run build        # stop `npm run dev` first; writes the static site to out/
 node scripts/serve-out.cjs 4100   # serve out/ to test the production build
 ```
 
+**Two gotchas.** (1) `export const dynamicParams = false` breaks `npm run dev` with `output: "export"` (Next 14.2 says "missing exported function generateStaticParams()"
+although it is there); the three `app/day/[n]/…/page.tsx` files therefore export only `generateStaticParams`, and a day outside 1 to 16 is a 404 in the built site.
+(2) Never run `npm run build` while `npm run dev` runs, and delete `.next` after a build before you start dev again (both write `.next`).
+
 ## Mentor bar
 
 First element on every page. `muchson123` fills every model answer of both routes of the day you are on (and the name if empty); answer keys and worked
