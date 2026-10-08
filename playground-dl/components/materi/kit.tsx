@@ -135,8 +135,8 @@ export function Story({ steps, step, onStep }: { steps: StoryStep[]; step: numbe
         </button>
         <p className="min-w-[14rem] flex-1 text-caption text-ink">
           {tt(
-            `${steps.length} short steps in plain words. The picture changes as you press Next. Or skip this and use the buttons below on your own.`,
-            `${steps.length} kurze Schritte in einfachen Worten. Das Bild ändert sich, wenn Sie auf Weiter drücken. Oder überspringen Sie das und nutzen Sie die Schaltflächen unten selbst.`,
+            `A short story in ${steps.length} steps, with a person and a situation. The picture changes as you press Next. Or skip it and use the buttons below on your own.`,
+            `Eine kurze Geschichte in ${steps.length} Schritten, mit einer Person und einer Situation. Das Bild ändert sich, wenn Sie auf Weiter drücken. Oder überspringen Sie sie und nutzen Sie die Schaltflächen unten selbst.`,
           )}
         </p>
       </div>

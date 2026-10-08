@@ -1416,6 +1416,14 @@ learner operate the picture; this rule makes the picture tell its own story.
   (never retyped), so story, picture, "What this shows" and the task's own arithmetic cannot drift. Terms explained in words
   the first time (a "break-even" is named and explained where it first appears in the story).
   The story shows the *method* on the worked-example company, never the task's own answer (#11, #24).
+
+  **(DL) Stories are real stories, 2 to 4 steps, as long as the interaction needs (user decision 2026-10-09, #18).** A DL reader said the three-step, 25-word form
+  "lacked context". For DL the story is a short narrative: **a named person or company in a situation** (Mia has twenty minutes and cannot find lesson 3; Daniel opens a
+  500-word lesson in the evening), what happens to them, what changes, and the point. The number of steps follows the picture: one step for each state the learner must see
+  (Day 1: four steps for each of the four diagrams, because each has four states to meet), never fewer than two, never more than four. A step is a short paragraph of about 40 to
+  70 words, still in everyday words, still with the "Look at" line and still driving the same state the learner's own buttons set. The last step carries the point and invites the learner
+  to try the buttons. Numbers still come from the same state that draws the picture, and the story still shows the method on the worked-example company, never the task's own answer.
+  The launcher says "A short story in N steps". The CS limits above stay for CS.
 - **"What this shows" (#20) is now written the same way:** start with *In plain words:* and give the verdict in everyday
   language (what it earns, what it costs, what is left), then the numbers, then the rule of thumb. It is still always
   visible, still `aria-live`, and never replaced by the story.
