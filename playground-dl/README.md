@@ -5,6 +5,10 @@ build has **Day 1** (Module 1, Day 1 of 2: UX/UI for learning platforms and user
 (EN | DE in the top bar): study material with live instruments, two tasks and two working documents. It carries the shared standards
 `../CLAUDE.md` #1 to #50 and the two-route form of #30. Palette: the DL "Ocean" palette (#15).
 
+**Live site:** https://aion-dl.vercel.app (Day 1 at https://aion-dl.vercel.app/day/1/). Vercel project `aion-dl` of the account `attoyibi`; deployed from this folder with the CLI.
+It is not connected to GitHub yet, so a push does not deploy: run `vercel deploy --prod --yes` in this folder (Vercel detects Next.js and the static export; when the project is connected to the
+repository, set its Root Directory to `playground-dl`).
+
 The case: **SkillUp GmbH** runs the learning platform LearnFast. 40 of every 100 learners who start a course do not finish it. Budget €50,000, two months
 (Route 1); the Chief UX Officer's year (Route 2, budget €120,000 is a Case assumption).
 
