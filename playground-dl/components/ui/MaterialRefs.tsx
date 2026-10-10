@@ -2,8 +2,8 @@
 
 import { scrollToAndFlash } from "@/lib/flash";
 import { showCardPart } from "@/store/useCardMore";
-import { MATERIAL_BY_ID, materialAnchorId } from "@/data/day1/materials";
 import type { MaterialId } from "@/data/day1/materials";
+import { useMaterials } from "@/lib/useMaterials";
 import { tt } from "@/lib/lang";
 
 /**
@@ -12,6 +12,7 @@ import { tt } from "@/lib/lang";
  * first, so a jump from a task never lands on a closed part (CLAUDE.md #37).
  */
 export function MaterialRefs({ refs: raw, lead }: { refs: MaterialId[]; lead?: string }) {
+  const { MATERIAL_BY_ID, materialAnchorId } = useMaterials();
   const refs = [...new Set(raw)];
   if (refs.length === 0) return null;
   return (

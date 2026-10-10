@@ -2,8 +2,10 @@
 
 import type { ReactNode } from "react";
 import clsx from "clsx";
-import { MATERIAL_BY_ID, MATERIAL_PLAIN, REFERENCES, materialAnchorId, readKey, refFull } from "@/data/day1/materials";
-import type { MaterialId, RefKey } from "@/data/day1/materials";
+import { REFERENCES, refFull } from "@/data/references";
+import type { RefKey } from "@/data/references";
+import type { MaterialId } from "@/data/day1/materials";
+import { useMaterials } from "@/lib/useMaterials";
 import { CorePill } from "@/components/ui/AnswerBlock";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { scrollToAndFlash } from "@/lib/flash";
@@ -36,6 +38,7 @@ export function SourceChip({ refKey, block }: { refKey: RefKey; block: "A" | "B"
  * rules sit one click away.
  */
 export function MaterialCard({ id, scan, children, reasoning, sources }: { id: MaterialId; scan: string; children: ReactNode; reasoning?: string[]; sources: RefKey[] }) {
+  const { MATERIAL_BY_ID, MATERIAL_PLAIN, materialAnchorId, readKey } = useMaterials();
   const meta = MATERIAL_BY_ID[id];
   const hydrated = useHydrated();
   const read = useStore((s) => !!s.ui.sectionsRead[readKey(id)]);

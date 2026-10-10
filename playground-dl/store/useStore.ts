@@ -8,6 +8,10 @@ import type { AreaId, CauseId, ClaimBin, ClaimId, FindingId, MeasureId, ReflectK
 import { R2_PICK } from "@/data/day1/route2";
 import type { DecisionId, EvidenceId, OwnerId, RiskId } from "@/data/day1/route2";
 import { KEY_D1_R1, KEY_D1_R2 } from "@/lib/day1/mentorKey";
+import { KEY_D2_R1, KEY_D2_R2 } from "@/lib/day2/mentorKey";
+import { KEY_D3_R1, KEY_D3_R2 } from "@/lib/day3/mentorKey";
+import { emptyD2, emptyD2R1, emptyD2R2, emptyD3, emptyD3R1, emptyD3R2 } from "@/store/dayTypes";
+import type { D2R1, D2R2, D2State, D3R1, D3R2, D3State } from "@/store/dayTypes";
 import type { RouteNo } from "@/data/course";
 
 /**
@@ -16,6 +20,7 @@ import type { RouteNo } from "@/data/course";
  * and is covered by the deep `merge` (CLAUDE.md #9).
  */
 export const STORAGE_KEY = "dl-v1";
+export const PERSIST_VERSION = 2;
 const HISTORY_CAP = 100;
 
 /** 0 means not chosen yet; 1 Low, 2 Mid, 3 High. */
@@ -87,6 +92,8 @@ export type Persisted = {
   participant: { name: string };
   ui: { bannerDismissed: Record<string, boolean>; sectionsRead: Record<string, boolean>; lang: "en" | "de" };
   d1: D1State;
+  d2: D2State;
+  d3: D3State;
 };
 
 type Session = { mentorUnlocked: boolean; resetCount: number };
@@ -99,6 +106,10 @@ type Actions = {
   setLang: (l: "en" | "de") => void;
   patchD1R1: (p: Patch<D1R1>) => void;
   patchD1R2: (p: Patch<D1R2>) => void;
+  patchD2R1: (p: Patch<D2R1>) => void;
+  patchD2R2: (p: Patch<D2R2>) => void;
+  patchD3R1: (p: Patch<D3R1>) => void;
+  patchD3R2: (p: Patch<D3R2>) => void;
   placeFinding: (id: FindingId, area: AreaId | null) => void;
   undoSort: () => void;
   redoSort: () => void;
@@ -173,6 +184,8 @@ const emptyPersisted = (): Persisted => ({
   participant: { name: "" },
   ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" },
   d1: { r1: emptyD1R1(), r2: emptyD1R2() },
+  d2: emptyD2(),
+  d3: emptyD3(),
 });
 
 const pushCapped = <T,>(list: T[], item: T) => [...list, item].slice(-HISTORY_CAP);
@@ -215,10 +228,14 @@ export function mergeDefaults<T>(base: T, saved: unknown): T {
   return typeof saved === typeof base || base === null ? (saved as T) : base;
 }
 
-/** The migration of a saved blob to the current shape. Pure, so it can be tested without a browser. Version 1 is the first shape. */
+/**
+ * The migration of a saved blob to the current shape. Pure, so it can be tested without a browser. Version 1 held Day 1 only; version 2
+ * adds the slices of Day 2 and Day 3 (d2, d3). A blob that lacks them gets empty ones here, and the deep merge fills any single field.
+ */
 export function migratePersisted(persisted: unknown, from: number): Persisted {
-  void from;
-  return (persisted ?? {}) as Persisted;
+  const p = (persisted ?? {}) as Partial<Persisted>;
+  if (from < 2) return { ...p, d2: p.d2 ?? emptyD2(), d3: p.d3 ?? emptyD3() } as Persisted;
+  return p as Persisted;
 }
 
 export const useStore = create<Persisted & Session & Actions>()(
@@ -235,6 +252,10 @@ export const useStore = create<Persisted & Session & Actions>()(
 
       patchD1R1: (p) => set((s) => ({ d1: { ...s.d1, r1: { ...s.d1.r1, ...resolve(p, s.d1.r1) } } })),
       patchD1R2: (p) => set((s) => ({ d1: { ...s.d1, r2: { ...s.d1.r2, ...resolve(p, s.d1.r2) } } })),
+      patchD2R1: (p) => set((s) => ({ d2: { ...s.d2, r1: { ...s.d2.r1, ...resolve(p, s.d2.r1) } } })),
+      patchD2R2: (p) => set((s) => ({ d2: { ...s.d2, r2: { ...s.d2.r2, ...resolve(p, s.d2.r2) } } })),
+      patchD3R1: (p) => set((s) => ({ d3: { ...s.d3, r1: { ...s.d3.r1, ...resolve(p, s.d3.r1) } } })),
+      patchD3R2: (p) => set((s) => ({ d3: { ...s.d3, r2: { ...s.d3.r2, ...resolve(p, s.d3.r2) } } })),
 
       placeFinding: (id, area) =>
         set((s) => {
@@ -311,10 +332,20 @@ export const useStore = create<Persisted & Session & Actions>()(
       // Mentor autofill: every model answer of both routes of the day, plus the participant name if it is empty, so each document can be exported at once.
       mentorFill: (day) =>
         set((s) => {
-          if (day !== 1) return {};
-          const d1: D1State = { r1: { ...emptyD1R1(), ...KEY_D1_R1() }, r2: { ...emptyD1R2(), ...KEY_D1_R2() } };
           const participant = { name: s.participant.name.trim() ? s.participant.name : "Mentor Check" };
-          return { participant, d1, resetCount: s.resetCount + 1 };
+          if (day === 1) {
+            const d1: D1State = { r1: { ...emptyD1R1(), ...KEY_D1_R1() }, r2: { ...emptyD1R2(), ...KEY_D1_R2() } };
+            return { participant, d1, resetCount: s.resetCount + 1 };
+          }
+          if (day === 2) {
+            const d2: D2State = { r1: { ...emptyD2R1(), ...KEY_D2_R1() }, r2: { ...emptyD2R2(), ...KEY_D2_R2() } };
+            return { participant, d2, resetCount: s.resetCount + 1 };
+          }
+          if (day === 3) {
+            const d3: D3State = { r1: { ...emptyD3R1(), ...KEY_D3_R1() }, r2: { ...emptyD3R2(), ...KEY_D3_R2() } };
+            return { participant, d3, resetCount: s.resetCount + 1 };
+          }
+          return {};
         }),
 
       resetRoute: (day, route) =>
@@ -327,15 +358,17 @@ export const useStore = create<Persisted & Session & Actions>()(
             delete bannerDismissed[`d${day}r2`];
           } else delete bannerDismissed[`d${day}r${route}`];
           const d1 = day === 1 ? { r1: route === null || route === 1 ? emptyD1R1() : s.d1.r1, r2: route === null || route === 2 ? emptyD1R2() : s.d1.r2 } : s.d1;
-          return { d1, ui: { bannerDismissed, sectionsRead, lang: s.ui.lang }, resetCount: s.resetCount + 1 };
+          const d2 = day === 2 ? { r1: route === null || route === 1 ? emptyD2R1() : s.d2.r1, r2: route === null || route === 2 ? emptyD2R2() : s.d2.r2 } : s.d2;
+          const d3 = day === 3 ? { r1: route === null || route === 1 ? emptyD3R1() : s.d3.r1, r2: route === null || route === 2 ? emptyD3R2() : s.d3.r2 } : s.d3;
+          return { d1, d2, d3, ui: { bannerDismissed, sectionsRead, lang: s.ui.lang }, resetCount: s.resetCount + 1 };
         }),
     }),
     {
       name: STORAGE_KEY,
-      version: 1,
+      version: PERSIST_VERSION,
       skipHydration: true,
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ participant: s.participant, ui: s.ui, d1: s.d1 }),
+      partialize: (s) => ({ participant: s.participant, ui: s.ui, d1: s.d1, d2: s.d2, d3: s.d3 }),
       migrate: migratePersisted,
       merge: (persisted, current) => {
         const merged = mergeDefaults(emptyPersisted(), (persisted ?? {}) as Partial<Persisted>);

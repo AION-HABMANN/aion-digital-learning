@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "verify:day1": "tsx scripts/verify-day1.ts"
+    "verify:day1": "tsx scripts/verify-day1.ts",
+    "verify:day2": "tsx scripts/verify-day2.ts",
+    "verify:day3": "tsx scripts/verify-day3.ts"
   },
   "dependencies": {
     "clsx": "2.1.1",

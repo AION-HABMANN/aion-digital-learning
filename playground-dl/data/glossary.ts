@@ -1,4 +1,5 @@
 import { getLang } from "@/lib/lang";
+import { GLOSSARY_MORE } from "@/data/glossaryMore";
 
 /**
  * Plain-language glossary (CLAUDE.md #19), in English and German (#32). Every technical term, abbreviation or foreign word that the material
@@ -21,7 +22,7 @@ export type GlossEntry = {
   de?: GlossDe;
 };
 
-export const GLOSSARY: GlossEntry[] = [
+const GLOSSARY_BASE: GlossEntry[] = [
   {
     id: "ux",
     title: "UX (user experience)",
@@ -199,6 +200,9 @@ export const GLOSSARY: GlossEntry[] = [
     de: { title: "KI (künstliche Intelligenz)", match: ["KI", "KI-gestützte", "KI-gestützten", "KI-gestützt"], plain: "Software, die Muster aus Daten lernt und damit vorhersagt oder auswählt, zum Beispiel welche Lektion als Nächstes vorgeschlagen wird. Sie braucht genug gute Daten; mit wenigen Daten rät sie." },
   },
 ];
+
+/** Day 1 entries, then the entries added for Day 2 and Day 3 (data/glossaryMore.ts). */
+export const GLOSSARY: GlossEntry[] = [...GLOSSARY_BASE, ...GLOSSARY_MORE];
 
 // --- lookup ---------------------------------------------------------------------
 

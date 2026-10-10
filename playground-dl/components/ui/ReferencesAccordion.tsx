@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { REFERENCE_ORDER, refFull } from "@/data/day1/materials";
-import type { RefKey } from "@/data/day1/materials";
+import { REFERENCE_ORDER, refFull } from "@/data/references";
+import type { RefKey } from "@/data/references";
 import { tt } from "@/lib/lang";
 
 /** Turns the URLs in a citation into real links (opened in a new tab, no referrer). */

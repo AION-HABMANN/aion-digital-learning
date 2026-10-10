@@ -1,37 +1,64 @@
 "use client";
 
 import Link from "next/link";
+import type { ComponentType } from "react";
 import { HashFlash } from "@/components/chrome/HashFlash";
 import { PageNav } from "@/components/chrome/PageNav";
+import type { NavGroup } from "@/components/chrome/PageNav";
 import { SectionRail } from "@/components/chrome/SectionRail";
-import { MateriA, MateriB } from "@/components/day1/Materi";
-import { Task1 } from "@/components/day1/Task1";
-import { Task2 } from "@/components/day1/Task2";
 import { SuggestedOrderBanner } from "@/components/ui/Banner";
 import { ResetRoute } from "@/components/ui/ResetRoute";
-import { Gloss } from "@/lib/glossify";
-import { DAY_INTRO, ROUTE_CARDS, pageNav, railSections } from "@/data/day1/day";
-import { COURSE, dayOf, routeHref } from "@/data/course";
+import type { RailSection } from "@/data/day1/materials";
+import { dayOf, routeHref } from "@/data/course";
 import type { RouteNo } from "@/data/course";
-import { dossierProgress, taskBlocks } from "@/lib/day1/progress";
+import { Gloss } from "@/lib/glossify";
 import { tt } from "@/lib/lang";
 import { usePersisted } from "@/store/usePersisted";
 import { useHydrated } from "@/store/useStore";
+import type { Persisted } from "@/store/useStore";
 
-const TITLE = () => dayOf(1)!;
+/**
+ * The page frames shared by the days built after Day 1 (Day 2, Day 3, …): a day's home page (CLAUDE.md #27) and its two routes (#28, #30).
+ * A day supplies its content in one `DayConfig` (components/day/dayConfigs.tsx); the frame never knows what a day teaches. Day 1 keeps its own
+ * pages (components/day1/Pages.tsx), which this was copied from.
+ */
+export type RoutePlan = { title: string; blurb: string; plan: { label: string; minutes: number }[]; optional: string; export: string };
+export type DayIntro = {
+  about: string;
+  caseLine: string;
+  story: { route: RouteNo; verb: string; question: string; output: string }[];
+  wiifm: { route: RouteNo; skill: string; payoff: string }[];
+};
 
-/* ------------------------------------------------------------------ the day's home page (CLAUDE.md #27) */
+export type DayConfig = {
+  n: number;
+  /** The day's own heading on its home page, in the active language. */
+  heading: () => string;
+  intro: DayIntro;
+  routeCard: (route: RouteNo) => RoutePlan;
+  railSections: (route: RouteNo) => RailSection[];
+  pageNav: (route: RouteNo) => NavGroup[];
+  MateriA: ComponentType;
+  MateriB: ComponentType;
+  Task1: ComponentType;
+  Task2: ComponentType;
+  progress: (p: Persisted, route: RouteNo) => { done: number; total: number };
+  taskBlocks: (p: Persisted) => Record<string, boolean>;
+  routeHeading: (route: RouteNo) => { kicker: string; h1: string; order: string };
+};
 
-export function Day1Home() {
-  const meta = TITLE();
-  const total = [1, 2].reduce((s, r) => s + ROUTE_CARDS(r as RouteNo).plan.reduce((t, p) => t + p.minutes, 0), 0);
+/* ------------------------------------------------------------------ the day's home page */
+
+export function DayHome({ cfg }: { cfg: DayConfig }) {
+  const meta = dayOf(cfg.n)!;
+  const total = ([1, 2] as RouteNo[]).reduce((s, r) => s + cfg.routeCard(r).plan.reduce((t, p) => t + p.minutes, 0), 0);
   return (
     <div className="space-y-8 pt-6">
       <header className="space-y-2">
         <p className="smallcaps text-accent">
           {meta.module} · {meta.part}
         </p>
-        <h1 className="text-display">{tt("Day 1 · UX/UI for learning platforms", "Tag 1 · UX/UI für Lernplattformen")}</h1>
+        <h1 className="text-display">{cfg.heading()}</h1>
         <p className="max-w-prose text-body text-ash">{meta.topic}.</p>
       </header>
 
@@ -41,18 +68,18 @@ export function Day1Home() {
             {tt("What today is about", "Worum es heute geht")}
           </h2>
           <p className="max-w-prose text-body text-ink">
-            <Gloss>{DAY_INTRO.about}</Gloss>
+            <Gloss>{cfg.intro.about}</Gloss>
           </p>
           <p className="max-w-prose text-body text-ink">
-            <Gloss>{DAY_INTRO.caseLine}</Gloss>
+            <Gloss>{cfg.intro.caseLine}</Gloss>
           </p>
         </div>
         <div className="space-y-2">
           <p className="smallcaps">{tt("One story, two routes", "Eine Geschichte, zwei Routen")}</p>
           <ol className="grid gap-3 md:grid-cols-2">
-            {DAY_INTRO.story.map((st) => (
+            {cfg.intro.story.map((st) => (
               <li key={st.route}>
-                <Link href={routeHref(1, st.route)} className="block h-full space-y-1.5 rounded-lg border border-line bg-canvas p-3 transition-colors hover:border-accent">
+                <Link href={routeHref(cfg.n, st.route)} className="block h-full space-y-1.5 rounded-lg border border-line bg-canvas p-3 transition-colors hover:border-accent">
                   <p className="smallcaps text-accent">
                     Route {st.route} · {st.verb}
                   </p>
@@ -83,7 +110,7 @@ export function Day1Home() {
           <p className="max-w-prose text-body text-ink">{tt("Each skill below is one you can use at your own desk next week, not only in this case.", "Jede Fähigkeit unten können Sie nächste Woche an Ihrem eigenen Arbeitsplatz nutzen, nicht nur in diesem Fall.")}</p>
         </div>
         <ul className="grid gap-3 md:grid-cols-2">
-          {DAY_INTRO.wiifm.map((w) => (
+          {cfg.intro.wiifm.map((w) => (
             <li key={w.skill} className="space-y-1 rounded-lg border border-line bg-paper p-3">
               <p className="flex flex-wrap items-baseline justify-between gap-x-2">
                 <span className="font-semibold text-ink">{w.skill}</span>
@@ -103,9 +130,9 @@ export function Day1Home() {
         </h2>
         <div className="grid gap-4 md:grid-cols-2">
           {([1, 2] as RouteNo[]).map((n) => {
-            const c = ROUTE_CARDS(n);
+            const c = cfg.routeCard(n);
             return (
-              <Link key={n} href={routeHref(1, n)} className="card group block space-y-3 p-5 transition-shadow hover:shadow-md">
+              <Link key={n} href={routeHref(cfg.n, n)} className="card group block space-y-3 p-5 transition-shadow hover:shadow-md">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3">
                   <span className="smallcaps text-accent">Route {n}</span>
                   <span className="text-micro font-semibold uppercase text-ash">{n === 1 ? tt("Levels 1 + 2", "Level 1 + 2") : tt("Level 3", "Level 3")}</span>
@@ -125,7 +152,9 @@ export function Day1Home() {
                     ))}
                     {c.optional && (
                       <tr className="border-t border-line">
-                        <td className="py-1.5 text-ash" colSpan={2}>{c.optional}</td>
+                        <td className="py-1.5 text-ash" colSpan={2}>
+                          {c.optional}
+                        </td>
                       </tr>
                     )}
                     <tr className="border-t-2 border-ink font-semibold">
@@ -161,79 +190,31 @@ export function Day1Home() {
 
 /* ------------------------------------------------------------------ the two routes */
 
-function useRouteProgress(route: RouteNo) {
+function useRouteProgress(cfg: DayConfig, route: RouteNo) {
   const p = usePersisted();
   const hydrated = useHydrated();
-  const prog = dossierProgress(p, route);
-  const blocks = taskBlocks(p) as unknown as Record<string, boolean>;
-  const readCards = p.ui.sectionsRead;
-  return { done: hydrated ? prog.done : 0, total: prog.total, blocks, readCards };
+  const prog = cfg.progress(p, route);
+  return { done: hydrated ? prog.done : 0, total: prog.total, blocks: cfg.taskBlocks(p), readCards: p.ui.sectionsRead };
 }
 
-export function Day1Route1() {
-  const pr = useRouteProgress(1);
+export function DayRoute({ cfg, route }: { cfg: DayConfig; route: RouteNo }) {
+  const pr = useRouteProgress(cfg, route);
+  const h = cfg.routeHeading(route);
+  const Materi = route === 1 ? cfg.MateriA : cfg.MateriB;
+  const Task = route === 1 ? cfg.Task1 : cfg.Task2;
   return (
     <div className="space-y-8 pt-4">
       <HashFlash />
       <header className="space-y-1">
-        <p className="smallcaps text-accent">{tt("Day 1 · Route 1 · Levels 1 and 2 · Knowledge and application", "Tag 1 · Route 1 · Level 1 und 2 · Wissen und Anwendung")}</p>
-        <h1>{tt("UX and UI for learning platforms: read the platform from the learner's side, then choose the measures", "UX und UI für Lernplattformen: die Plattform aus Sicht der Lernenden lesen, dann die Maßnahmen wählen")}</h1>
+        <p className="smallcaps text-accent">{h.kicker}</p>
+        <h1>{h.h1}</h1>
       </header>
-      <SuggestedOrderBanner
-        routeKey="d1r1"
-        text={tt("Materi A (all five cards, four are core) → the UX Analysis task, one case in two parts (read the platform, choose measures), with two core blocks. Every section stays open, so you can start anywhere.", "Materi A (alle fünf Karten, vier sind Kern) → die Aufgabe UX Analysis, ein Fall in zwei Teilen (die Plattform lesen, Maßnahmen wählen), mit zwei Kernblöcken. Jeder Abschnitt bleibt offen, Sie können überall beginnen.")}
-      />
-      <SectionRail route={1} sections={railSections(1)} done={pr.done} total={pr.total} />
-      <PageNav route={1} groups={pageNav(1)} readCards={pr.readCards} blocks={pr.blocks} />
-      <MateriA />
-      <Task1 />
-      <ResetRoute day={1} route={1} />
-    </div>
-  );
-}
-
-export function Day1Route2() {
-  const pr = useRouteProgress(2);
-  return (
-    <div className="space-y-8 pt-4">
-      <HashFlash />
-      <header className="space-y-1">
-        <p className="smallcaps text-accent">{tt("Day 1 · Route 2 · Level 3 · Management decision", "Tag 1 · Route 2 · Level 3 · Managemententscheidung")}</p>
-        <h1>{tt("UX as a strategic decision: vision, three decisions, the risk, and what you give up", "UX als strategische Entscheidung: Vision, drei Entscheidungen, das Risiko und worauf Sie verzichten")}</h1>
-      </header>
-      <SuggestedOrderBanner
-        routeKey="d1r2"
-        text={tt("Materi B (three cards) → the UX Strategy task, one frame with two core blocks and a memo that builds below. Route 1 is a good start but not needed; every section stays open.", "Materi B (drei Karten) → die Aufgabe UX Strategy, ein Rahmen mit zwei Kernblöcken und einem Memo, das darunter entsteht. Route 1 ist ein guter Einstieg, aber nicht nötig; jeder Abschnitt bleibt offen.")}
-      />
-      <SectionRail route={2} sections={railSections(2)} done={pr.done} total={pr.total} />
-      <PageNav route={2} groups={pageNav(2)} readCards={pr.readCards} blocks={pr.blocks} />
-      <MateriB />
-      <Task2 />
-      <ResetRoute day={1} route={2} />
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ a day that is not built yet (CLAUDE.md #12) */
-
-export function DayPlaceholder({ n }: { n: number }) {
-  const meta = dayOf(n);
-  return (
-    <div className="space-y-4 pt-6">
-      <p className="smallcaps text-accent">
-        {meta ? `${meta.module} · ${meta.part}` : ""}
-      </p>
-      <h1>{tt(`Day ${n}`, `Tag ${n}`)}</h1>
-      <p className="max-w-prose text-body text-ash">{meta?.topic}.</p>
-      <div className="card max-w-prose p-4 text-body">
-        <p>{tt("This day is not built yet. Its place is kept here so the shape of the course does not change when it is filled in. Nothing is locked: Days 1 to 3 are open.", "Dieser Tag ist noch nicht gebaut. Sein Platz ist hier reserviert, damit sich die Form des Kurses nicht ändert, wenn er gefüllt wird. Nichts ist gesperrt: Tag 1 bis 3 sind offen.")}</p>
-        <p className="mt-2">
-          <Link href="/day/1/" className="font-semibold text-accent underline decoration-dotted underline-offset-2">
-            {tt("Open Day 1 →", "Tag 1 öffnen →")}
-          </Link>
-        </p>
-      </div>
-      <p className="text-caption text-ash">{COURSE.course}</p>
+      <SuggestedOrderBanner routeKey={`d${cfg.n}r${route}`} text={h.order} />
+      <SectionRail route={route} sections={cfg.railSections(route)} done={pr.done} total={pr.total} />
+      <PageNav route={route} groups={cfg.pageNav(route)} readCards={pr.readCards} blocks={pr.blocks} />
+      <Materi />
+      <Task />
+      <ResetRoute day={cfg.n} route={route} />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { parsePath } from "@/data/course";
+import { isBuilt, parsePath } from "@/data/course";
 import { MENTOR_PASSCODE } from "@/lib/day1/mentorKey";
 import { scrollToAndFlash } from "@/lib/flash";
 import { useStore } from "@/store/useStore";
@@ -30,7 +30,7 @@ export function MentorBar() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { day, route } = parsePath(pathname);
-  const built = day === 1;
+  const built = day !== null && isBuilt(day);
   const exportId = route === 1 ? "export-l1l2" : route === 2 ? "export-l3" : null;
 
   const submit = () => {
@@ -118,7 +118,7 @@ export function MentorBar() {
               className="btn-primary btn-sm"
               onClick={() => {
                 if (!day || !built) {
-                  setMsg("Open a built day (Day 1) first: model answers are filled for the day you are on.");
+                  setMsg("Open a built day (Days 1 to 3) first: model answers are filled for the day you are on.");
                   return;
                 }
                 mentorFill(day);
@@ -144,7 +144,7 @@ export function MentorBar() {
               className="btn-ghost btn-sm"
               onClick={() => {
                 if (!day || !built) {
-                  setMsg("Open a built day (Day 1) first.");
+                  setMsg("Open a built day (Days 1 to 3) first.");
                   return;
                 }
                 resetRoute(day, route);

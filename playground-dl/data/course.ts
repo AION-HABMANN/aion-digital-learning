@@ -18,8 +18,8 @@ type DayDef = { n: number; module: Tx; part: Tx; short: Tx; topic: Tx; built?: b
 
 const DAY_DEFS: DayDef[] = [
   { n: 1, built: true, module: t("Module 1", "Modul 1"), part: t("Day 1 of 2", "Tag 1 von 2"), short: t("UX/UI for learning platforms", "UX/UI für Lernplattformen"), topic: t("Fundamentals of UX/UI design for digital learning platforms and user-centred design of learning interfaces", "Grundlagen des UX/UI-Designs für digitale Lernplattformen und nutzerzentrierte Gestaltung von Lerninterfaces") },
-  { n: 2, module: t("Module 1", "Modul 1"), part: t("Day 2 of 2", "Tag 2 von 2"), short: t("Platforms in practice, prototyping, testing", "Plattformen in der Praxis, Prototyping, Testing"), topic: t("Practical analysis of successful e-learning platforms, prototyping and testing of learning interfaces, future technologies and adaptive learning systems", "Praxisanalyse erfolgreicher E-Learning-Plattformen, Prototyping und Testing von Lerninterfaces, Zukunftstechnologien und adaptive Lernsysteme") },
-  { n: 3, module: t("Module 2", "Modul 2"), part: t("Day 1 of 2", "Tag 1 von 2"), short: t("Learning psychology, cognitive load", "Lernpsychologie, kognitive Belastung"), topic: t("Fundamentals of learning psychology for UX designers, cognitive load and information processing", "Grundlagen der Lernpsychologie für UX-Designer, kognitive Belastung und Informationsverarbeitung") },
+  { n: 2, built: true, module: t("Module 1", "Modul 1"), part: t("Day 2 of 2", "Tag 2 von 2"), short: t("Platforms in practice, prototyping, testing", "Plattformen in der Praxis, Prototyping, Testing"), topic: t("Practical analysis of successful e-learning platforms, prototyping and testing of learning interfaces, future technologies and adaptive learning systems", "Praxisanalyse erfolgreicher E-Learning-Plattformen, Prototyping und Testing von Lerninterfaces, Zukunftstechnologien und adaptive Lernsysteme") },
+  { n: 3, built: true, module: t("Module 2", "Modul 2"), part: t("Day 1 of 2", "Tag 1 von 2"), short: t("Learning psychology, cognitive load", "Lernpsychologie, kognitive Belastung"), topic: t("Fundamentals of learning psychology for UX designers, cognitive load and information processing", "Grundlagen der Lernpsychologie für UX-Designer, kognitive Belastung und Informationsverarbeitung") },
   { n: 4, module: t("Module 2", "Modul 2"), part: t("Day 2 of 2", "Tag 2 von 2"), short: t("Motivation and design principles", "Motivation und Designprinzipien"), topic: t("Motivation and engagement through design psychology, design principles for effective learning experiences, evaluation and optimisation", "Motivation und Engagement durch Design Psychology, Designprinzipien für effektive Lernerfahrungen, Evaluation und Optimierung") },
   { n: 5, module: t("Module 3", "Modul 3"), part: t("Day 1 of 3", "Tag 1 von 3"), short: t("User-centred UX design", "Nutzerzentriertes UX-Design"), topic: t("Fundamentals of user-centred UX design for learning platforms", "Grundlagen des nutzerzentrierten UX-Designs für Lernplattformen") },
   { n: 6, module: t("Module 3", "Modul 3"), part: t("Day 2 of 3", "Tag 2 von 3"), short: t("Personas and user journeys", "Personas und User Journeys"), topic: t("Developing personas for learners and teachers and mapping user journeys in the learning context", "Entwicklung von Personas für Lernende und Lehrende und Mapping von User Journeys im Lernkontext") },
@@ -38,6 +38,8 @@ const DAY_DEFS: DayDef[] = [
 export const DAYS = bi(DAY_DEFS);
 export type DayMeta = (typeof DAYS)[number];
 export const dayOf = (n: number): DayMeta | undefined => DAYS.find((d) => d.n === n);
+/** A day is built when its content module exists and the day is listed with `built: true`. */
+export const isBuilt = (n: number) => !!DAY_DEFS.find((d) => d.n === n)?.built;
 
 /** The two routes of every day (CLAUDE.md #30). */
 export type RouteNo = 1 | 2;
