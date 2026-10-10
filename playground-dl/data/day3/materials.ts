@@ -37,8 +37,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 beschreiben Sie, wie sich ein Lernbildschirm für die Lernende anfühlt. Die drei Schritte geben Ihnen Worte dafür: „Ich wusste nicht, worauf ich schauen sollte“ ist ein Aufnahmeproblem, „Ich habe den Faden des Gelesenen verloren“ ein Verarbeitungsproblem.",
     ),
     picture: t(
-      "The first picture shows the three steps from left to right. The second shows the three levels of learning, from taking in to applying. Read both from left to right. Nothing to click.",
-      "Das erste Bild zeigt die drei Schritte von links nach rechts. Das zweite zeigt die drei Stufen des Lernens, vom Aufnehmen bis zum Anwenden. Lesen Sie beide von links nach rechts. Nichts zum Klicken.",
+      "Three small pictures show the three steps: a screen of which attention picks one block, working memory as four slots with a fifth item that does not fit, and a cabinet that long-term memory fills and that a loop leads back to. Below them, three screens show the three levels of learning: a page that only presents, a page with an example linked to something known, and a page with a task, a result and a next step. Nothing to click.",
+      "Drei kleine Bilder zeigen die drei Schritte: einen Bildschirm, aus dem die Aufmerksamkeit einen Block wählt, das Arbeitsgedächtnis als vier Fächer mit einem fünften Element, das nicht passt, und einen Schrank, den das Langzeitgedächtnis füllt und zu dem eine Schleife zurückführt. Darunter zeigen drei Bildschirme die drei Stufen des Lernens: eine Seite, die nur präsentiert, eine Seite mit einem Beispiel, das mit Bekanntem verbunden ist, und eine Seite mit Aufgabe, Ergebnis und nächstem Schritt. Nichts zum Klicken.",
     ),
   },
   A2: {
@@ -51,8 +51,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 analysieren Sie eine Plattform, die Lernende „zu kompliziert“ nennen, und entscheiden, was zu ändern ist. Die drei Belastungen sagen Ihnen, welchen Teil Sie durch Gestaltung ändern können (den zweiten), welchen Sie nur ordnen können (den ersten) und wofür Sie Platz lassen wollen (den dritten).",
     ),
     picture: t(
-      "Each bar is the learner's working memory at one moment. Switch between “Overloaded” and “Redesigned” to see how the same lesson uses it. The subject stays the same; the design decides how much is wasted. The numbers are illustrative. Press “Walk me through it” for a short story.",
-      "Jeder Balken ist das Arbeitsgedächtnis der Lernenden in einem Moment. Wechseln Sie zwischen „Überlastet“ und „Neu gestaltet“, um zu sehen, wie dieselbe Lektion es nutzt. Das Thema bleibt gleich; die Gestaltung entscheidet, wie viel vergeudet wird. Die Zahlen sind veranschaulichend. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The two lesson pages are the same lesson: the overloaded page has a menu, a banner, a block of text and a chat window; the redesigned page has one heading, short parts, a diagram and a question. Select either page, or use the story, and the bar below shows how it uses the learner's working memory. The subject stays the same; the design decides how much is wasted. The numbers are illustrative. Press “Walk me through it” for a short story.",
+      "Die beiden Lektionsseiten sind dieselbe Lektion: Die überlastete Seite hat ein Menü, ein Banner, einen Textblock und ein Chat-Fenster; die neu gestaltete Seite hat eine Überschrift, kurze Teile, ein Diagramm und eine Frage. Wählen Sie eine der Seiten oder nutzen Sie die Geschichte, und der Balken darunter zeigt, wie sie das Arbeitsgedächtnis der Lernenden nutzt. Das Thema bleibt gleich; die Gestaltung entscheidet, wie viel vergeudet wird. Die Zahlen sind veranschaulichend. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -65,8 +65,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 entscheiden Sie, wie Sie die Belastung senken. Chunking und visuelle Hierarchie sind die zwei direktesten Werkzeuge, und die Maßnahmen der Aufgabe tragen ihre Namen.",
     ),
     picture: t(
-      "Switch between “Loose items” and “Three chunks”. The same twelve items appear either as twelve separate things or as three groups with a name each. Count how many things you must hold in each case. Press “Walk me through it” for a short story.",
-      "Wechseln Sie zwischen „Lose Elemente“ und „Drei Chunks“. Dieselben zwölf Elemente erscheinen entweder als zwölf einzelne Dinge oder als drei Gruppen mit je einem Namen. Zählen Sie, wie viele Dinge Sie jeweils im Kopf halten müssen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Below the story, the same start page is drawn twice: as twelve loose items and as three named groups. Switch between “Loose items” and “Three chunks” and count how many things you must hold in each case. A second picture shows the same lesson page flat, where every line looks the same, and with a visual hierarchy: a large heading, a marked key sentence, quiet body text and one main button. Press “Walk me through it” for a short story.",
+      "Unter der Geschichte ist dieselbe Startseite zweimal gezeichnet: als zwölf lose Elemente und als drei benannte Gruppen. Wechseln Sie zwischen „Lose Elemente“ und „Drei Chunks“ und zählen Sie, wie viele Dinge Sie jeweils im Kopf halten müssen. Ein zweites Bild zeigt dieselbe Lektionsseite flach, auf der jede Zeile gleich aussieht, und mit visueller Hierarchie: einer großen Überschrift, einem markierten Kernsatz, ruhigem Fließtext und einem Haupt-Button. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -79,8 +79,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Es gibt Ihnen eine Checkliste, um jeden Lernbildschirm zu lesen, und eine einfache Art zu sagen, was jeder Fehler mit den Lernenden macht.",
     ),
     picture: t(
-      "Each row of the table reads from left to right: the mistake, what it does in the learner's head, and a way to reduce it. Nothing to click.",
-      "Jede Zeile der Tabelle liest sich von links nach rechts: der Fehler, was er im Kopf der Lernenden bewirkt und eine Möglichkeit, ihn zu verringern. Nichts zum Klicken.",
+      "Four small screens show the same lesson platform with one mistake each: many things competing at once, one block of text with no structure, a quiz that shows no result after Submit, and five menu levels before a lesson. Each row of the table then reads from left to right: the mistake, what it does in the learner's head, and a way to reduce it. Nothing to click.",
+      "Vier kleine Bildschirme zeigen dieselbe Lernplattform mit je einem Fehler: viele Dinge, die zugleich konkurrieren, ein Textblock ohne Struktur, ein Quiz, das nach „Absenden“ kein Ergebnis zeigt, und fünf Menüebenen bis zu einer Lektion. Jede Zeile der Tabelle liest sich dann von links nach rechts: der Fehler, was er im Kopf der Lernenden bewirkt und eine Möglichkeit, ihn zu verringern. Nichts zum Klicken.",
     ),
   },
   A5: {
@@ -93,8 +93,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 2.2 der Aufgabe verlangt genau das unter einem Zeitlimit. Das Beispiel hier nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "The bars show the cost of three LearnLoop measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Die Balken zeigen die Kosten von drei LearnLoop-Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three ideas: a lesson cut by a third, a block of text replaced by a diagram, and one long lesson split into short modules. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Walk me through it” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine um ein Drittel gekürzte Lektion, einen Textblock, durch ein Diagramm ersetzt, und eine lange Lektion, in kurze Module geteilt. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -107,8 +107,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 verlangt, eine Definition von lerneffektivem UX zu schreiben und drei Maßnahmen danach zu priorisieren. Die Definition erlaubt Ihnen, „Nein“ zu einer Maßnahme zu sagen, die nur alles einfacher aussehen lässt.",
     ),
     picture: t(
-      "The chain reads from left to right: learning effectiveness, cognitive efficiency, and where both lead: learners who finish and employers who see results. Nothing to click.",
-      "Die Kette liest sich von links nach rechts: Lerneffektivität, kognitive Effizienz und wohin beide führen: Lernende, die abschließen, und Arbeitgeber, die Ergebnisse sehen. Nichts zum Klicken.",
+      "The three paths show the two lenses side by side. A learner who reaches the goal by a short path is effective and efficient; one who reaches it around banners and chat windows is effective but not efficient; one whose short path stops before the goal is efficient but not effective. Nothing to click.",
+      "Die drei Wege zeigen die beiden Linsen nebeneinander. Eine Lernende, die das Ziel auf einem kurzen Weg erreicht, ist effektiv und effizient; eine, die es um Banner und Chat-Fenster herum erreicht, ist effektiv, aber nicht effizient; eine, deren kurzer Weg vor dem Ziel endet, ist effizient, aber nicht effektiv. Nichts zum Klicken.",
     ),
   },
   B2: {

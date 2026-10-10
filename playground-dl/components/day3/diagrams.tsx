@@ -4,7 +4,8 @@ import { useState } from "react";
 import clsx from "clsx";
 import { OptionGrid } from "@/components/day1/diagrams";
 import type { GridRow } from "@/components/day1/diagrams";
-import { ChainFig, CostBands, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
+import { CostBands, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
+import { LevelsPicture, LoadPages, MemoryPicture, ThreeIdeas, TwoLensesPicture } from "@/components/day3/mocks";
 import type { MatrixPoint } from "@/components/materi/figures";
 import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
 import type { StoryPlan } from "@/components/materi/kit";
@@ -20,31 +21,11 @@ import { euro, tt } from "@/lib/lang";
 /* ------------------------------------------------------------------ A1 · how people learn (static) */
 
 export function MemoryFlow() {
-  return (
-    <ChainFig
-      label={tt("How people learn: intake, processing, storage", "Wie Menschen lernen: Aufnahme, Verarbeitung, Speicherung")}
-      steps={[
-        { h: tt("Intake", "Aufnahme"), b: tt("Attention picks a few things from the screen. The rest is ignored.", "Die Aufmerksamkeit wählt wenige Dinge vom Bildschirm. Der Rest wird ignoriert."), kind: "a" },
-        { h: tt("Processing", "Verarbeitung"), b: tt("Working memory holds and works on about four chunks at a time.", "Das Arbeitsgedächtnis hält und bearbeitet etwa vier Chunks gleichzeitig."), kind: "a" },
-        { h: tt("Storage", "Speicherung"), b: tt("Long-term memory keeps what was understood and revisited.", "Das Langzeitgedächtnis behält, was verstanden und wieder aufgegriffen wurde."), kind: "s" },
-      ]}
-      caption={tt("Design can help at each step: guide attention (intake), do not overfill working memory (processing), and bring learners back to the content later (storage).", "Gestaltung kann bei jedem Schritt helfen: die Aufmerksamkeit lenken (Aufnahme), das Arbeitsgedächtnis nicht überfüllen (Verarbeitung) und Lernende später zum Inhalt zurückbringen (Speicherung).")}
-    />
-  );
+  return <MemoryPicture />;
 }
 
 export function LearningLevels() {
-  return (
-    <ChainFig
-      label={tt("Three levels of learning: each needs more from the interface than the one before", "Drei Stufen des Lernens: Jede verlangt mehr vom Interface als die vorige")}
-      steps={[
-        { h: tt("Taking in", "Aufnehmen"), b: tt("The learner can repeat what was shown.", "Die Lernende kann wiederholen, was gezeigt wurde."), kind: "m" },
-        { h: tt("Understanding", "Verstehen"), b: tt("The learner can explain it in their own words and give an example.", "Die Lernende kann es in eigenen Worten erklären und ein Beispiel geben."), kind: "a" },
-        { h: tt("Applying", "Anwenden"), b: tt("The learner can use it in a new situation at work.", "Die Lernende kann es in einer neuen Situation bei der Arbeit nutzen."), kind: "s" },
-      ]}
-      caption={tt("A screen that only presents content supports the first level. Examples and connections support the second. Tasks and feedback support the third.", "Ein Bildschirm, der Inhalt nur präsentiert, stützt die erste Stufe. Beispiele und Verknüpfungen stützen die zweite. Aufgaben und Feedback stützen die dritte.")}
-    />
-  );
+  return <LevelsPicture />;
 }
 
 /* ------------------------------------------------------------------ A2 · the three loads in one learner's working memory (interactive) */
@@ -63,7 +44,7 @@ export function ThreeLoads() {
   const v = LOAD[mode];
   const part = (cls: string, label: string, pct: number) => (
     <div className={clsx("flex min-h-[3.5rem] items-center justify-center border-r-2 border-paper px-1 text-center text-caption font-bold text-paper", cls)} style={{ width: `${pct}%` }}>
-      <span>{`${label} ${pct}%`}</span>
+      <span className="break-words">{pct >= 20 ? `${label} ${pct}%` : `${pct}%`}</span>
     </div>
   );
   return (
@@ -71,16 +52,7 @@ export function ThreeLoads() {
       <div className="space-y-3">
         <ThePoint>{tt("The subject sets part of the mental effort, and design decides how much of the rest is wasted. Cut the waste, and keep room for understanding.", "Das Thema legt einen Teil der geistigen Anstrengung fest, und die Gestaltung entscheidet, wie viel vom Rest vergeudet wird. Kürzen Sie die Vergeudung, und lassen Sie Platz fürs Verstehen.")}</ThePoint>
         <Story steps={story.plan} step={story.step} onStep={story.go} />
-        <div role="radiogroup" aria-label={tt("The lesson", "Die Lektion")} className="flex flex-wrap gap-2">
-          {([
-            ["over", tt("Overloaded", "Überlastet")],
-            ["redesigned", tt("Redesigned", "Neu gestaltet")],
-          ] as [LoadMode, string][]).map(([id, label]) => (
-            <button key={id} type="button" aria-pressed={mode === id} onClick={() => { story.leave(); setMode(id); }} className={clsx("btn btn-sm min-h-[40px] border", mode === id ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
-              {label}
-            </button>
-          ))}
-        </div>
+        <LoadPages mode={mode} onPick={(m) => { story.leave(); setMode(m); }} />
         <div className={clsx("overflow-hidden rounded-lg border-2 border-ink", story.step !== null && "anim-pulse")} role="img" aria-label={tt(`Working memory: subject ${v.intrinsic}%, waste ${v.extraneous}%, making sense ${v.germane}%`, `Arbeitsgedächtnis: Thema ${v.intrinsic} %, Vergeudung ${v.extraneous} %, Verstehen ${v.germane} %`)}>
           <div className="flex w-full">
             {part("bg-ash", tt("Subject", "Thema"), v.intrinsic)}
@@ -90,13 +62,13 @@ export function ThreeLoads() {
         </div>
         <div className="grid gap-2 text-caption sm:grid-cols-3">
           <p className="rounded-lg border-2 border-ash/50 bg-mist p-2.5 text-ink">
-            <span className="font-bold">{tt("Intrinsic", "Intrinsisch")}</span> · {tt("how complex the content is", "wie komplex der Inhalt ist")}
+            <span className="font-bold">{tt("Intrinsic", "Intrinsisch")}</span> · {tt("the subject: how complex the content is", "das Thema: wie komplex der Inhalt ist")}
           </p>
           <p className="rounded-lg border-2 border-rust/60 bg-rustSoft p-2.5 text-ink">
-            <span className="font-bold">{tt("Extraneous", "Extrinsisch")}</span> · {tt("effort caused by poor design", "Anstrengung durch schlechte Gestaltung")}
+            <span className="font-bold">{tt("Extraneous", "Extrinsisch")}</span> · {tt("waste: effort caused by poor design", "Vergeudung: Anstrengung durch schlechte Gestaltung")}
           </p>
           <p className="rounded-lg border-2 border-signal/60 bg-signalSoft p-2.5 text-ink">
-            <span className="font-bold">{tt("Germane", "Lernbezogen")}</span> · {tt("effort that builds understanding", "Anstrengung, die Verstehen aufbaut")}
+            <span className="font-bold">{tt("Germane", "Lernbezogen")}</span> · {tt("making sense: effort that builds understanding", "Verstehen: Anstrengung, die Verstehen aufbaut")}
           </p>
         </div>
         <Insight>
@@ -214,6 +186,7 @@ export function WeighExample() {
       <div className="space-y-3">
         <ThePoint>{tt("Rate each measure on how much it helps learning, what it costs and what could go wrong. Cheap and direct usually beats big and slow when time is short, but a measure that only makes the screen lighter does not help learning.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dem Lernen hilft, was sie kostet und was schiefgehen kann. Günstig und direkt schlägt bei knapper Zeit meist groß und langsam, aber eine Maßnahme, die den Bildschirm nur leichter macht, hilft dem Lernen nicht.")}</ThePoint>
         <Story steps={story.plan} step={story.step} onStep={story.go} />
+        <ThreeIdeas />
         <CostBands
           title={tt("LearnLoop, three measures: cost against the effort rule and the €30,000 budget", "LearnLoop, drei Maßnahmen: Kosten gegen die Aufwandsregel und das Budget von 30.000 €")}
           bars={[
@@ -241,17 +214,7 @@ export function WeighExample() {
 /* ------------------------------------------------------------------ B1 · two lenses on a UX decision (static) */
 
 export function EffectivenessChain() {
-  return (
-    <ChainFig
-      label={tt("Two lenses on a UX decision, and where they lead", "Zwei Linsen auf eine UX-Entscheidung, und wohin sie führen")}
-      steps={[
-        { h: tt("Learning effectiveness", "Lerneffektivität"), b: tt("Did the learner learn what the course promised?", "Hat die Lernende gelernt, was der Kurs versprach?"), kind: "a" },
-        { h: tt("Cognitive efficiency", "Kognitive Effizienz"), b: tt("How much effort was needed to get there?", "Wie viel Anstrengung war nötig, um dorthin zu kommen?"), kind: "m" },
-        { h: tt("Completion and trust", "Completion und Vertrauen"), b: tt("Learners finish and employers see results.", "Lernende schließen ab, und Arbeitgeber sehen Ergebnisse."), kind: "s" },
-      ]}
-      caption={tt("Effectiveness asks whether learning happened. Efficiency asks at what mental cost. A decision that raises one and lowers the other needs a stated reason.", "Effektivität fragt, ob Lernen stattgefunden hat. Effizienz fragt, zu welchen geistigen Kosten. Eine Entscheidung, die eine hebt und die andere senkt, braucht einen genannten Grund.")}
-    />
-  );
+  return <TwoLensesPicture />;
 }
 
 /* ------------------------------------------------------------------ B2 · five options for a hard course: load removed against depth kept (interactive) */

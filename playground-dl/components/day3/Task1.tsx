@@ -10,6 +10,8 @@ import { BudgetBar } from "@/components/ui/BudgetBar";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { Field } from "@/components/ui/Field";
+import { MeasureThumb } from "@/components/day3/mocks";
+import type { MeasureKind } from "@/components/day3/mocks";
 import { CheckBar, OptionList, Reading, ScorePick, TextBox } from "@/components/ui/Inputs";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
@@ -119,6 +121,9 @@ function useR1() {
 }
 
 /* ------------------------------------------------------------------ Block 1.1 (Core, Level 1) */
+
+/** A small picture for each measure, so a learner chooses by looking and not only by reading a name (CLAUDE.md #52). */
+const MEASURE_THUMB: Record<MeasureId, MeasureKind> = { m1: "chunk", m2: "visual", m3: "structure", m4: "extras", m5: "outline", m6: "points", m7: "brand", m8: "chatbot", m9: "library" };
 
 export function Block11({ missing }: { missing: MissingEntry[] }) {
   const { r, patch, mentor } = useR1();
@@ -408,7 +413,7 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
 
       <Field id={IDS.measurePick} label={tt(`Step 1 · Choose exactly ${PICK_MEASURES} of the nine measures`, `Schritt 1 · Wählen Sie genau ${PICK_MEASURES} der neun Maßnahmen`)} help={tt("Each shows what it does, what a learner notices, its cost and its weeks, and what it acts on. You have chosen:", "Jede zeigt, was sie tut, was Lernende bemerken, ihre Kosten und Wochen, und worauf sie wirkt. Sie haben gewählt:") + ` ${chosen.length} / ${PICK_MEASURES}`}>
         <OptionList<MeasureId>
-          options={MEASURES.map((m) => ({ id: m.id, label: `${m.no} · ${m.name} · ${euro(m.cost)} · ${m.weeks} ${tt("weeks", "Wochen")}`, tag: MEASURE_AREA[m.area], sub: `${m.what}\n${tt("A learner notices:", "Lernende bemerken:")} ${m.notice}` }))}
+          options={MEASURES.map((m) => ({ id: m.id, label: `${m.no} · ${m.name} · ${euro(m.cost)} · ${m.weeks} ${tt("weeks", "Wochen")}`, tag: MEASURE_AREA[m.area], visual: <MeasureThumb kind={MEASURE_THUMB[m.id]} />, sub: `${m.what}\n${tt("A learner notices:", "Lernende bemerken:")} ${m.notice}` }))}
           value={chosen}
           onChange={(id) => {
             setNote("");

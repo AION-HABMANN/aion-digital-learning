@@ -8,6 +8,8 @@ import { BudgetBar } from "@/components/ui/BudgetBar";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { Field } from "@/components/ui/Field";
+import { MeasureThumb } from "@/components/day3/mocks";
+import type { MeasureKind } from "@/components/day3/mocks";
 import { OptionList, TextBox } from "@/components/ui/Inputs";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
@@ -97,6 +99,9 @@ function useR2() {
 
 /* ------------------------------------------------------------------ Block 3.1 */
 
+/** A small picture for each measure of the strategy (CLAUDE.md #52). */
+const DECISION_THUMB: Record<DecisionId, MeasureKind> = { d1: "rebuild", d2: "standard", d3: "testing", d4: "cut", d5: "feedback", d6: "summary", d7: "brand" };
+
 export function Block31({ missing }: { missing: MissingEntry[] }) {
   const { r, patch, mentor } = useR2();
   const [note, setNote] = useState("");
@@ -156,7 +161,7 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
 
       <Field id={IDS.decisionPick} label={tt(`Choose exactly ${R2_PICK} measures`, `Wählen Sie genau ${R2_PICK} Maßnahmen`)} help={tt("Each shows what it is, its cost and its weeks, and what it acts on. You have chosen:", "Jede zeigt, was sie ist, ihre Kosten und Wochen und worauf sie wirkt. Sie haben gewählt:") + ` ${r.picks.length} / ${R2_PICK}`}>
         <OptionList<DecisionId>
-          options={DECISIONS.map((d) => ({ id: d.id, label: `${d.no} · ${d.name} · ${euro(d.cost)} · ${d.weeks} ${tt("weeks", "Wochen")}`, tag: DECISION_AREA[d.area], sub: d.what }))}
+          options={DECISIONS.map((d) => ({ id: d.id, label: `${d.no} · ${d.name} · ${euro(d.cost)} · ${d.weeks} ${tt("weeks", "Wochen")}`, tag: DECISION_AREA[d.area], visual: <MeasureThumb kind={DECISION_THUMB[d.id]} />, sub: d.what }))}
           value={r.picks}
           onChange={(id) => {
             setNote("");

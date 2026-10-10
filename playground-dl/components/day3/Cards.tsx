@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Bul } from "@/components/materi/kit";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
+import { HierarchyPair, MistakesPicture } from "@/components/day3/mocks";
 import { Chunking, DecisionFrame, EffectivenessChain, LearningLevels, LoadVsDepth, MemoryFlow, ThreeLoads, WeighExample } from "@/components/day3/diagrams";
 import { tt } from "@/lib/lang";
 
@@ -106,6 +107,7 @@ export function CardA3() {
       ]}
     >
       <Chunking />
+      <HierarchyPair />
       <Bul
         items={[
           tt("Chunking in a lesson: split a long lesson into units of five to seven minutes, each with one goal; group menu entries; give each group a name.", "Chunking in einer Lektion: eine lange Lektion in Einheiten von fünf bis sieben Minuten teilen, jede mit einem Ziel; Menüeinträge gruppieren; jeder Gruppe einen Namen geben."),
@@ -134,6 +136,7 @@ export function CardA4() {
         tt("Do not call something a mistake only because it looks plain: ask what it does to the learner.", "Nennen Sie etwas nicht einen Fehler, nur weil es schlicht aussieht: Fragen Sie, was es mit der Lernenden macht."),
       ]}
     >
+      <MistakesPicture />
       <DataTable
         caption={tt("Four typical UX mistakes, what they do in the learner's head, and a way to reduce each", "Vier typische UX-Fehler, was sie im Kopf der Lernenden bewirken, und ein Weg, jeden zu verringern")}
         head={[tt("Typical UX mistake", "Typischer UX-Fehler"), tt("What it does in the learner's head", "Was er im Kopf der Lernenden bewirkt"), tt("A way to reduce it", "Ein Weg, ihn zu verringern")]}
