@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import clsx from "clsx";
 import { OptionGrid } from "@/components/day1/diagrams";
 import type { GridRow } from "@/components/day1/diagrams";
-import { ChainFig, CompareFig, CostBands, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
+import { CourseStartMock, PlatformMock } from "@/components/day2/mocks";
+import type { Fidelity } from "@/components/day2/mocks";
+import { ChainFig, CostBands, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
 import type { MatrixPoint } from "@/components/materi/figures";
 import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
 import type { StoryPlan } from "@/components/materi/kit";
@@ -18,56 +20,110 @@ import { euro, tt } from "@/lib/lang";
  * task is answered here.
  */
 
-/* ------------------------------------------------------------------ A1 · same content, two designs (static) */
+/* ------------------------------------------------------------------ A1 · the same content built two ways, drawn (static) */
 
 export function SuccessVsFailing() {
   return (
-    <CompareFig
+    <Diagram
       label={tt("Same content, two designs · a typical contrast, not a measurement", "Derselbe Inhalt, zwei Gestaltungen · ein typischer Kontrast, keine Messung")}
-      left={tt("A platform that learners finish", "Eine Plattform, die Lernende abschließen")}
-      right={tt("A platform that learners leave", "Eine Plattform, die Lernende verlassen")}
-      rows={[
-        [tt("A clear path: the learner always sees the next step", "Ein klarer Pfad: Die Lernende sieht immer den nächsten Schritt"), tt("No navigation: the only way on is to scroll", "Keine Navigation: weiter kommt man nur durch Scrollen")],
-        [tt("Short units with one goal each", "Kurze Einheiten mit je einem Ziel"), tt("One long page of content", "Eine lange Seite mit Inhalt")],
-        [tt("Progress is shown and a result follows every quiz", "Der Fortschritt wird gezeigt, und nach jedem Quiz folgt ein Ergebnis"), tt("No sign of progress, no message at the end", "Kein Zeichen für den Fortschritt, keine Meldung am Ende")],
-        [tt("Typical result: learners carry on and come back", "Typisches Ergebnis: Lernende machen weiter und kommen wieder"), tt("Typical result: learners stop early and do not return", "Typisches Ergebnis: Lernende hören früh auf und kommen nicht zurück")],
-      ]}
-      caption={tt("The left platform shows the way; the right one makes the learner find it alone.", "Die linke Plattform zeigt den Weg; die rechte lässt die Lernende ihn allein finden.")}
-    />
+      caption={tt("The left platform shows the way; the right one makes the learner find it alone. Both screens carry the same course.", "Die linke Plattform zeigt den Weg; die rechte lässt die Lernende ihn allein finden. Beide Bildschirme tragen denselben Kurs.")}
+    >
+      <div className="grid gap-3 md:grid-cols-2">
+        <figure className="space-y-1.5">
+          <div className="rounded-lg border-2 border-signal/60 bg-signalSoft p-2">
+            <PlatformMock kind="guided" />
+          </div>
+          <figcaption className="text-caption font-semibold text-ink">{tt("A platform that learners finish", "Eine Plattform, die Lernende abschließen")}</figcaption>
+          <ul className="list-disc space-y-0.5 pl-5 text-caption text-ink">
+            <li>{tt("A path of steps, the current one marked", "Ein Pfad aus Schritten, der aktuelle markiert")}</li>
+            <li>{tt("Short units with a duration and one goal", "Kurze Einheiten mit Dauer und einem Ziel")}</li>
+            <li>{tt("A progress bar and a result after the quiz", "Eine Fortschrittsleiste und ein Ergebnis nach dem Quiz")}</li>
+          </ul>
+        </figure>
+        <figure className="space-y-1.5">
+          <div className="rounded-lg border-2 border-rust/60 bg-rustSoft p-2">
+            <PlatformMock kind="flat" />
+          </div>
+          <figcaption className="text-caption font-semibold text-ink">{tt("A platform that learners leave", "Eine Plattform, die Lernende verlassen")}</figcaption>
+          <ul className="list-disc space-y-0.5 pl-5 text-caption text-ink">
+            <li>{tt("No menu: the only way on is to scroll", "Kein Menü: weiter kommt man nur durch Scrollen")}</li>
+            <li>{tt("One long page, about 40 minutes", "Eine lange Seite, etwa 40 Minuten")}</li>
+            <li>{tt("No sign of progress, no message at the end", "Kein Zeichen für den Fortschritt, keine Meldung am Ende")}</li>
+          </ul>
+        </figure>
+      </div>
+      <p className="mt-2 text-caption text-ash">{tt("Typical result: learners on the left carry on and come back; learners on the right stop early and do not return.", "Typisches Ergebnis: Lernende links machen weiter und kommen wieder; Lernende rechts hören früh auf und kommen nicht zurück.")}</p>
+    </Diagram>
   );
 }
 
 /* ------------------------------------------------------------------ A2 · the loop of iterative design (static) and the fidelity ladder (interactive) */
 
+const wrap = (s: string, n: number) => {
+  const out: string[] = [];
+  let cur = "";
+  for (const w of s.split(" ")) {
+    if ((cur + " " + w).trim().length > n && cur) {
+      out.push(cur);
+      cur = w;
+    } else cur = (cur + " " + w).trim();
+  }
+  if (cur) out.push(cur);
+  return out;
+};
+
 export function BuildMeasureLearn() {
+  const uid = useId().replace(/:/g, "");
+  const nodes = [
+    { h: tt("Build", "Build"), b: tt("the smallest version that can be tested", "die kleinste testbare Version"), x: 20, fill: "#E3ECFA", stroke: "#1750A8" },
+    { h: tt("Measure", "Measure"), b: tt("watch what learners do and say", "beobachten, was Lernende tun und sagen"), x: 235, fill: "#DCF0EE", stroke: "#0B6F69" },
+    { h: tt("Learn", "Learn"), b: tt("decide: keep, change or drop", "entscheiden: behalten, ändern oder verwerfen"), x: 450, fill: "#E6ECF4", stroke: "#556274" },
+  ];
+  const title = tt("Build–Measure–Learn: the loop of iterative design", "Build–Measure–Learn: die Schleife des iterativen Designs");
+  const desc = tt("Three boxes, Build, Measure and Learn, joined by arrows left to right, with a long arrow from Learn back to Build labelled repeat in days, not months.", "Drei Kästen, Build, Measure und Learn, mit Pfeilen von links nach rechts verbunden, und ein langer Pfeil von Learn zurück zu Build mit der Beschriftung in Tagen wiederholen, nicht in Monaten.");
   return (
-    <ChainFig
-      label={tt("Build–Measure–Learn: the loop of iterative design", "Build–Measure–Learn: die Schleife des iterativen Designs")}
-      steps={[
-        { h: tt("Build", "Build"), b: tt("the smallest version that can be tested", "die kleinste testbare Version"), kind: "a" },
-        { h: tt("Measure", "Measure"), b: tt("watch what learners do and say", "beobachten, was Lernende tun und sagen"), kind: "s" },
-        { h: tt("Learn", "Learn"), b: tt("decide: keep, change or drop", "entscheiden: behalten, ändern oder verwerfen"), kind: "m" },
-      ]}
-      loop={tt("Repeat in days, not months", "In Tagen wiederholen, nicht in Monaten")}
-    />
+    <Diagram label={title}>
+      <svg viewBox="0 0 640 230" className="mx-auto h-auto w-full max-w-[640px]" role="img" aria-labelledby={`${uid}-t ${uid}-d`}>
+        <title id={`${uid}-t`}>{title}</title>
+        <desc id={`${uid}-d`}>{desc}</desc>
+        <defs>
+          <marker id={`${uid}-ar`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" fill="#556274" />
+          </marker>
+        </defs>
+        {nodes.map((n, i) => (
+          <g key={n.h}>
+            <rect x={n.x} y="20" width="170" height="86" rx="10" fill={n.fill} stroke={n.stroke} strokeWidth="2" />
+            <text x={n.x + 85} y="52" textAnchor="middle" fontSize="18" fontWeight="700" fill="#17212E">{n.h}</text>
+            {wrap(n.b, 24).map((l, k) => (
+              <text key={k} x={n.x + 85} y={74 + k * 16} textAnchor="middle" fontSize="12.5" fill="#17212E">{l}</text>
+            ))}
+            {i < 2 && <path d={`M${n.x + 172} 63 H${n.x + 211}`} stroke="#556274" strokeWidth="2.4" markerEnd={`url(#${uid}-ar)`} />}
+          </g>
+        ))}
+        <path d="M535 108 V160 Q535 176 519 176 H121 Q105 176 105 160 V110" fill="none" stroke="#556274" strokeWidth="2.4" strokeDasharray="7 5" markerEnd={`url(#${uid}-ar)`} />
+        <text x="320" y="206" textAnchor="middle" fontSize="14" fontWeight="700" fill="#17212E">{tt("↺ Repeat in days, not months", "↺ In Tagen wiederholen, nicht in Monaten")}</text>
+      </svg>
+    </Diagram>
   );
 }
 
-type Rung = { id: string; name: string; time: string; change: string; tests: string; kind: "g" | "a" | "m" };
+type Rung = { id: Fidelity; name: string; time: string; changeLabel: string; changePct: number; tests: string; talk: string };
 
 export function FidelityLadder() {
   const [sel, setSel] = useState<number | null>(null);
+  const [moved, setMoved] = useState(false);
   const rungs: Rung[] = [
-    { id: "sketch", kind: "g", name: tt("Sketch on paper", "Skizze auf Papier"), time: tt("minutes", "Minuten"), change: tt("seconds", "Sekunden"), tests: tt("the idea and the order of steps", "die Idee und die Reihenfolge der Schritte") },
-    { id: "wire", kind: "a", name: tt("Low-fidelity wireframe", "Low-Fidelity-Wireframe"), time: tt("hours", "Stunden"), change: tt("minutes", "Minuten"), tests: tt("structure and flow, with plain boxes and no colours", "Struktur und Ablauf, mit schlichten Kästen und ohne Farben") },
-    { id: "click", kind: "a", name: tt("Clickable prototype", "Klickbarer Prototyp"), time: tt("days", "Tage"), change: tt("hours", "Stunden"), tests: tt("tasks from start to end, by clicking through boxes", "Aufgaben von Anfang bis Ende, durch Klicken durch Kästen") },
-    { id: "hifi", kind: "m", name: tt("High-fidelity prototype", "High-Fidelity-Prototyp"), time: tt("weeks", "Wochen"), change: tt("hours to days", "Stunden bis Tage"), tests: tt("the look and small details, once the structure is settled", "das Aussehen und kleine Details, wenn die Struktur steht") },
+    { id: "paper", name: tt("Sketch on paper", "Skizze auf Papier"), time: tt("minutes", "Minuten"), changeLabel: tt("about 10 minutes: redraw one card", "etwa 10 Minuten: eine Karte neu zeichnen"), changePct: 8, tests: tt("the idea and the order of steps", "die Idee und die Reihenfolge der Schritte"), talk: tt("what the screen is for and where things go", "wofür der Bildschirm da ist und wohin die Dinge gehören") },
+    { id: "wire", name: tt("Low-fidelity wireframe", "Low-Fidelity-Wireframe"), time: tt("hours", "Stunden"), changeLabel: tt("about half an hour: move one box", "etwa eine halbe Stunde: einen Kasten verschieben"), changePct: 20, tests: tt("structure and flow, with plain boxes and no colours", "Struktur und Ablauf, mit schlichten Kästen und ohne Farben"), talk: tt("structure, order and wording", "Struktur, Reihenfolge und Wortlaut") },
+    { id: "click", name: tt("Clickable prototype", "Klickbarer Prototyp"), time: tt("days", "Tage"), changeLabel: tt("a few hours: move the box and relink the screens", "einige Stunden: den Kasten verschieben und die Bildschirme neu verknüpfen"), changePct: 50, tests: tt("tasks from start to end, by clicking through the boxes", "Aufgaben von Anfang bis Ende, durch Klicken durch die Kästen"), talk: tt("whether they can finish a task, and where they hesitate", "ob sie eine Aufgabe abschließen können und wo sie zögern") },
+    { id: "hifi", name: tt("High-fidelity design", "High-Fidelity-Design"), time: tt("weeks", "Wochen"), changeLabel: tt("one to two days: redo layout, colours and states", "ein bis zwei Tage: Layout, Farben und Zustände neu machen"), changePct: 100, tests: tt("the look and small details, once the structure is settled", "das Aussehen und kleine Details, wenn die Struktur steht"), talk: tt("colours, spacing and small details", "Farben, Abstände und kleine Details") },
   ];
   const story = useStory([
-    { title: tt("Sofia's idea", "Sofias Idee"), say: tt("Let us follow Sofia, a product designer at LearnLoop, an online-course provider. She has an idea for a new “course start” screen that shows the learning path with a Next button, and her team could build it in six weeks. She is not sure that learners will notice the button, and a mistake found after six weeks of building would be expensive to fix.", "Begleiten wir Sofia, Produktdesignerin bei LearnLoop, einem Anbieter von Online-Kursen. Sie hat eine Idee für einen neuen Bildschirm „Kursstart“, der den Lernpfad mit einem Weiter-Button zeigt, und ihr Team könnte ihn in sechs Wochen bauen. Sie ist nicht sicher, ob Lernende den Button bemerken, und ein Fehler, der nach sechs Wochen Bauen auffällt, wäre teuer zu beheben."), look: tt("the right end of the ladder: weeks of work", "das rechte Ende der Leiter: Wochen Arbeit"), apply: () => setSel(3) },
-    { title: tt("A paper test in one afternoon", "Ein Papiertest an einem Nachmittag"), say: tt("Instead of building, Sofia draws the screen on six paper cards and asks five learners to “find your next lesson”. Four of the five do not see the Next button, because it sits in the top corner where nobody looks. This took one afternoon and cost almost nothing, and it already answered her question.", "Statt zu bauen, zeichnet Sofia den Bildschirm auf sechs Papierkarten und bittet fünf Lernende, „Ihre nächste Lektion zu finden“. Vier von fünf sehen den Weiter-Button nicht, weil er in der oberen Ecke sitzt, wohin niemand schaut. Das dauerte einen Nachmittag, kostete fast nichts und beantwortete ihre Frage schon."), look: tt("the left end of the ladder: minutes of work", "das linke Ende der Leiter: Minuten Arbeit"), apply: () => setSel(0) },
-    { title: tt("Change it in ten minutes", "In zehn Minuten ändern"), say: tt("Sofia moves the button below the lesson list, redraws one card in ten minutes, and tests with five more learners. This time four of five find it at once. Because the sketch is rough, a change takes seconds; the same finding after a build would have meant reworking finished code.", "Sofia verschiebt den Button unter die Lektionsliste, zeichnet eine Karte in zehn Minuten neu und testet mit fünf weiteren Lernenden. Diesmal finden ihn vier von fünf sofort. Weil die Skizze grob ist, dauert eine Änderung Sekunden; derselbe Befund nach dem Bauen hätte bedeutet, fertigen Code umzuarbeiten."), look: tt("the line “cost to change” of the rung", "die Zeile „Aufwand für eine Änderung“ der Stufe"), apply: () => setSel(1) },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So prototyping is risk reduction, not design play: it lets you be wrong cheaply. Climb the ladder only as far as the question needs. A question about order and wording needs paper or grey boxes; a question about the exact look needs a polished version, and only later. Select any rung yourself to compare what each one tests.", "Prototyping ist also Risikominderung, kein Gestaltungsspiel: Es lässt Sie günstig falschliegen. Steigen Sie auf der Leiter nur so weit, wie die Frage es braucht. Eine Frage zu Reihenfolge und Wortlaut braucht Papier oder graue Kästen; eine Frage zum genauen Aussehen braucht eine ausgearbeitete Version, und erst später. Wählen Sie selbst eine Stufe, um zu vergleichen, was jede testet."), apply: () => setSel(null) },
+    { title: tt("Sofia's idea", "Sofias Idee"), say: tt("Let us follow Sofia, a product designer at LearnLoop, an online-course provider. She has an idea for a new “course start” screen that shows the learning path with a Next button, and her team could build it as a polished design in six weeks. She is not sure that learners will notice the button, and a mistake found after six weeks of building would be expensive to fix.", "Begleiten wir Sofia, Produktdesignerin bei LearnLoop, einem Anbieter von Online-Kursen. Sie hat eine Idee für einen neuen Bildschirm „Kursstart“, der den Lernpfad mit einem Weiter-Button zeigt, und ihr Team könnte ihn in sechs Wochen als ausgearbeitetes Design bauen. Sie ist nicht sicher, ob Lernende den Button bemerken, und ein Fehler, der nach sechs Wochen Bauen auffällt, wäre teuer zu beheben."), look: tt("the polished design on the right: weeks of work", "das ausgearbeitete Design rechts: Wochen Arbeit"), apply: () => { setSel(3); setMoved(false); } },
+    { title: tt("A paper test in one afternoon", "Ein Papiertest an einem Nachmittag"), say: tt("Instead of building, Sofia draws the screen on paper and asks five learners to “find your next lesson”. Four of the five do not see the Next button, because it sits in the top corner where nobody looks. This took one afternoon and cost almost nothing, and it already answered her question.", "Statt zu bauen, zeichnet Sofia den Bildschirm auf Papier und bittet fünf Lernende, „Ihre nächste Lektion zu finden“. Vier von fünf sehen den Weiter-Button nicht, weil er in der oberen Ecke sitzt, wohin niemand schaut. Das dauerte einen Nachmittag, kostete fast nichts und beantwortete ihre Frage schon."), look: tt("the paper sketch on the left, with the button in the top corner", "die Papierskizze links, mit dem Button in der oberen Ecke"), apply: () => { setSel(0); setMoved(false); } },
+    { title: tt("Change it, and compare the cost", "Ändern, und die Kosten vergleichen"), say: tt("Sofia moves the button below the lesson list. On paper she redraws one card in about ten minutes, and four of five new testers find it at once. Look at the bars under each picture: the same change would have cost half an hour in the wireframe, a few hours in the clickable prototype and one to two days in the polished design.", "Sofia verschiebt den Button unter die Lektionsliste. Auf Papier zeichnet sie eine Karte in etwa zehn Minuten neu, und vier von fünf neuen Testpersonen finden ihn sofort. Sehen Sie auf die Balken unter jedem Bild: Dieselbe Änderung hätte im Wireframe eine halbe Stunde gekostet, im klickbaren Prototyp einige Stunden und im ausgearbeiteten Design ein bis zwei Tage."), look: tt("the bars under each picture", "die Balken unter jedem Bild"), apply: () => { setSel(0); setMoved(true); } },
+    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So prototyping is risk reduction, not design play: it lets you be wrong cheaply. Climb the ladder only as far as the question needs. A question about order and wording needs paper or grey boxes; a question about the exact look needs a polished version, and only later. Use the button above the pictures to move the Next button yourself, and select a picture to read what it tests.", "Prototyping ist also Risikominderung, kein Gestaltungsspiel: Es lässt Sie günstig falschliegen. Steigen Sie auf der Leiter nur so weit, wie die Frage es braucht. Eine Frage zu Reihenfolge und Wortlaut braucht Papier oder graue Kästen; eine Frage zum genauen Aussehen braucht eine ausgearbeitete Version, und erst später. Verschieben Sie mit der Schaltfläche über den Bildern selbst den Weiter-Button und wählen Sie ein Bild, um zu lesen, was es testet."), apply: () => { setSel(null); setMoved(true); } },
   ] satisfies StoryPlan[]);
   const cur = sel === null ? null : rungs[sel];
   const pick = (i: number) => {
@@ -75,23 +131,47 @@ export function FidelityLadder() {
     setSel(sel === i ? null : i);
   };
   return (
-    <Diagram label={tt("The fidelity ladder: how finished a prototype looks · Exploratory", "Die Fidelity-Leiter: wie fertig ein Prototyp aussieht · Explorativ")}>
+    <Diagram label={tt("The fidelity ladder: the same screen at four levels of finish · Exploratory", "Die Fidelity-Leiter: derselbe Bildschirm in vier Fertigstellungsgraden · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("The rougher a prototype, the faster and cheaper it is to change. Climb the ladder only as far as the question you want answered needs.", "Je gröber ein Prototyp, desto schneller und billiger lässt er sich ändern. Steigen Sie auf der Leiter nur so weit, wie die Frage, die Sie beantwortet haben wollen, es braucht.")}</ThePoint>
         <Story steps={story.plan} step={story.step} onStep={story.go} />
-        <ol className="grid gap-2 md:grid-cols-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            aria-pressed={moved}
+            onClick={() => {
+              story.leave();
+              setMoved((m) => !m);
+            }}
+            className={clsx("btn btn-sm min-h-[40px] border", moved ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ink hover:border-ash")}
+          >
+            {moved ? tt("↩ Put the Next button back in the corner", "↩ Den Weiter-Button zurück in die Ecke setzen") : tt("↕ Move the Next button below the list", "↕ Den Weiter-Button unter die Liste verschieben")}
+          </button>
+          <p className="text-caption text-ash">{tt("Same change, four levels: watch the time bar under each picture.", "Dieselbe Änderung, vier Stufen: Beachten Sie den Zeitbalken unter jedem Bild.")}</p>
+        </div>
+        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {rungs.map((r, i) => (
             <li key={r.id}>
               <button
                 type="button"
                 aria-pressed={sel === i}
                 onClick={() => pick(i)}
-                className={clsx("flex h-full min-h-[44px] w-full flex-col items-start gap-0.5 rounded-lg border-2 p-2.5 text-left transition-colors", sel === i ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash", story.step !== null && sel === i && "anim-pulse")}
+                className={clsx("flex h-full w-full flex-col items-stretch gap-1.5 rounded-lg border-2 p-2 text-left transition-colors", sel === i ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash", story.step !== null && sel === i && "anim-pulse")}
               >
                 <span className="smallcaps text-ash">{tt(`Rung ${i + 1}`, `Stufe ${i + 1}`)}</span>
+                <span className="block overflow-hidden rounded-md border border-line bg-canvas">
+                  <CourseStartMock level={r.id} moved={moved} />
+                </span>
                 <span className="text-body font-semibold text-ink">{r.name}</span>
                 <span className="text-caption text-ash">{tt(`Takes ${r.time} to make`, `Dauert ${r.time} in der Herstellung`)}</span>
-                <span className="text-caption text-ash">{tt(`Cost to change: ${r.change}`, `Aufwand für eine Änderung: ${r.change}`)}</span>
+                {moved && (
+                  <span className="fade-in block space-y-0.5">
+                    <span className="block h-2.5 overflow-hidden rounded-full bg-mist" aria-hidden>
+                      <span className="block h-2.5 rounded-full bg-ink" style={{ width: `${r.changePct}%` }} />
+                    </span>
+                    <span className="block text-micro normal-case tracking-normal text-ink">{r.changeLabel}</span>
+                  </span>
+                )}
               </button>
             </li>
           ))}
@@ -101,8 +181,10 @@ export function FidelityLadder() {
         </p>
         <Insight>
           {cur
-            ? tt(`In plain words: a “${cur.name}” takes ${cur.time} to make and ${cur.change} to change, and it tests ${cur.tests}. ${sel === 3 ? "It is worth it only after the cheaper rungs have settled the structure." : "It is cheap enough that a wrong idea costs little."}`, `In einfachen Worten: Ein „${cur.name}“ braucht ${cur.time} in der Herstellung und ${cur.change} für eine Änderung und testet ${cur.tests}. ${sel === 3 ? "Er lohnt sich erst, wenn die günstigeren Stufen die Struktur geklärt haben." : "Er ist so günstig, dass eine falsche Idee wenig kostet."}`)
-            : tt("Select a rung to read what it tests and what it costs to change. A rung is a tool for one question, not a better or worse design.", "Wählen Sie eine Stufe, um zu lesen, was sie testet und was eine Änderung kostet. Eine Stufe ist ein Werkzeug für eine Frage, kein besseres oder schlechteres Design.")}
+            ? tt(`In plain words: the “${cur.name}” takes ${cur.time} to make. Testers talk about ${cur.talk}, so it tests ${cur.tests}. ${moved ? `Moving the Next button costs ${cur.changeLabel}.` : "Press the button above to see what a change costs here."}`, `In einfachen Worten: Das „${cur.name}“ braucht ${cur.time} in der Herstellung. Testpersonen sprechen über ${cur.talk}, es testet also ${cur.tests}. ${moved ? `Den Weiter-Button zu verschieben kostet ${cur.changeLabel}.` : "Drücken Sie die Schaltfläche oben, um zu sehen, was hier eine Änderung kostet."}`)
+            : moved
+              ? tt("In plain words: the same change, moving one button, costs minutes on paper and days in the polished design. The rougher the version, the cheaper it is to be wrong.", "In einfachen Worten: Dieselbe Änderung, ein Button verschoben, kostet auf Papier Minuten und im ausgearbeiteten Design Tage. Je gröber die Version, desto günstiger ist es, falschzuliegen.")
+              : tt("Select a picture to read what it tests, or move the Next button to compare what a change costs. A rung is a tool for one question, not a better or worse design.", "Wählen Sie ein Bild, um zu lesen, was es testet, oder verschieben Sie den Weiter-Button, um zu vergleichen, was eine Änderung kostet. Eine Stufe ist ein Werkzeug für eine Frage, kein besseres oder schlechteres Design.")}
         </Insight>
       </div>
     </Diagram>
@@ -165,21 +247,65 @@ export function FiveUsers() {
 }
 
 export function QualVsQuant() {
+  const uid = useId().replace(/:/g, "");
+  const titleQual = tt("Qualitative: five learners, each with a speech bubble saying what confuses them", "Qualitativ: fünf Lernende, jeweils mit einer Sprechblase, was sie verwirrt");
+  const descQual = tt("Five people drawn as figures. Above each is a speech bubble with a question such as where the Next button is.", "Fünf Personen als Figuren. Über jeder steht eine Sprechblase mit einer Frage, etwa wo der Weiter-Button ist.");
+  const titleQuant = tt("Quantitative: a bar chart of the drop-out per lesson", "Quantitativ: ein Balkendiagramm des Abbruchs pro Lektion");
+  const descQuant = tt("Eight bars for eight lessons. The bar for lesson 3 is by far the tallest, at 31 percent.", "Acht Balken für acht Lektionen. Der Balken für Lektion 3 ist mit 31 Prozent deutlich der höchste.");
+  const says = [tt("Where is Next?", "Wo ist Weiter?"), tt("Is this a title?", "Ist das ein Titel?"), tt("Too long…", "Zu lang…"), tt("Where am I?", "Wo bin ich?"), tt("Can I skip?", "Kann ich überspringen?")];
+  const drop = [5, 8, 31, 12, 9, 6, 5, 4];
   return (
-    <CompareFig
+    <Diagram
       label={tt("Two kinds of test data answer two different questions", "Zwei Arten von Testdaten beantworten zwei verschiedene Fragen")}
-      left={tt("Qualitative: why", "Qualitativ: warum")}
-      right={tt("Quantitative: how many", "Quantitativ: wie viele")}
-      leftKind="a"
-      rightKind="s"
-      rows={[
-        [tt("Question: why do learners get stuck?", "Frage: Warum bleiben Lernende hängen?"), tt("Question: how many get stuck, and where?", "Frage: Wie viele bleiben hängen, und wo?")],
-        [tt("Few learners (about 5 per group), watched or interviewed", "Wenige Lernende (etwa 5 pro Gruppe), beobachtet oder befragt"), tt("Many learners, counted from logs or a larger test", "Viele Lernende, gezählt aus Logs oder einem größeren Test")],
-        [tt("Examples: observation, think-aloud, interviews", "Beispiele: Beobachtung, Think-aloud, Interviews"), tt("Examples: drop-out per lesson, time on task, quiz score", "Beispiele: Abbruch pro Lektion, Zeit pro Aufgabe, Quizergebnis")],
-        [tt("Strength: finds causes and surprises", "Stärke: findet Ursachen und Überraschungen"), tt("Strength: sizes a problem and tracks change", "Stärke: bemisst ein Problem und verfolgt Veränderung")],
-        [tt("Weakness: cannot say how common a problem is", "Schwäche: kann nicht sagen, wie verbreitet ein Problem ist"), tt("Weakness: shows the symptom, not the cause", "Schwäche: zeigt das Symptom, nicht die Ursache")],
-      ]}
-    />
+      caption={tt("Qualitative: watch a few learners to learn why they struggle. Quantitative: count many learners to learn how many struggle, and where. Chart figures are a Case assumption (LearnLoop).", "Qualitativ: wenige Lernende beobachten, um zu erfahren, warum sie sich schwertun. Quantitativ: viele Lernende zählen, um zu erfahren, wie viele und wo. Die Zahlen im Diagramm sind eine Fallannahme (LearnLoop).")}
+    >
+      <div className="mx-auto grid w-full max-w-[660px] gap-3 sm:grid-cols-2">
+        <svg viewBox="0 0 314 270" className="h-auto w-full" role="img" aria-labelledby={`${uid}-t1 ${uid}-d1`}>
+          <title id={`${uid}-t1`}>{titleQual}</title>
+          <desc id={`${uid}-d1`}>{descQual}</desc>
+          <rect x="4" y="4" width="306" height="262" rx="10" fill="#E3ECFA" stroke="#1750A8" strokeWidth="1.6" />
+          <text x="157" y="28" textAnchor="middle" fontSize="15" fontWeight="700" fill="#17212E">{tt("Qualitative: why", "Qualitativ: warum")}</text>
+          <text x="157" y="46" textAnchor="middle" fontSize="11.5" fill="#556274">{tt("about 5 learners, watched or interviewed", "etwa 5 Lernende, beobachtet oder befragt")}</text>
+          {says.map((s, i) => {
+            const cx = 42 + i * 57.5;
+            const by = i % 2 === 0 ? 68 : 104;
+            return (
+              <g key={s}>
+                <rect x={cx - 31} y={by} width="62" height="26" rx="8" fill="#FFFFFF" stroke="#556274" />
+                <path d={`M${cx - 4} ${by + 26} l4 8 l4 -8`} fill="#FFFFFF" stroke="#556274" />
+                <text x={cx} y={by + 16} textAnchor="middle" fontSize="9.5" fill="#17212E">{s}</text>
+                <circle cx={cx} cy="170" r="11" fill="#FFFFFF" stroke="#17212E" strokeWidth="1.6" />
+                <path d={`M${cx} 181 v26 M${cx - 14} 192 h28 M${cx} 207 l-10 22 M${cx} 207 l10 22`} fill="none" stroke="#17212E" strokeWidth="1.8" strokeLinecap="round" />
+              </g>
+            );
+          })}
+          <text x="157" y="255" textAnchor="middle" fontSize="11.5" fill="#556274">{tt("Finds causes and surprises", "Findet Ursachen und Überraschungen")}</text>
+        </svg>
+        <svg viewBox="326 0 314 270" className="h-auto w-full" role="img" aria-labelledby={`${uid}-t2 ${uid}-d2`}>
+          <title id={`${uid}-t2`}>{titleQuant}</title>
+          <desc id={`${uid}-d2`}>{descQuant}</desc>
+          <rect x="330" y="4" width="306" height="262" rx="10" fill="#DCF0EE" stroke="#0B6F69" strokeWidth="1.6" />
+          <text x="483" y="28" textAnchor="middle" fontSize="15" fontWeight="700" fill="#17212E">{tt("Quantitative: how many", "Quantitativ: wie viele")}</text>
+          <text x="483" y="46" textAnchor="middle" fontSize="11.5" fill="#556274">{tt("many learners, counted from logs", "viele Lernende, aus Logs gezählt")}</text>
+          <line x1="352" y1="216" x2="620" y2="216" stroke="#556274" strokeWidth="1.5" />
+          <line x1="352" y1="70" x2="352" y2="216" stroke="#556274" strokeWidth="1.5" />
+          {drop.map((v, i) => {
+            const h = v * 4;
+            const x = 362 + i * 32;
+            return (
+              <g key={i}>
+                <rect x={x} y={216 - h} width="22" height={h} fill={i === 2 ? "#2B5F8E" : "#8793A3"} stroke="#17212E" strokeWidth="0.8" />
+                <text x={x + 11} y="232" textAnchor="middle" fontSize="10.5" fill="#17212E">{i + 1}</text>
+                {i === 2 && <text x={x + 11} y={216 - h - 6} textAnchor="middle" fontSize="12" fontWeight="700" fill="#17212E">31%</text>}
+              </g>
+            );
+          })}
+          <text x="486" y="246" textAnchor="middle" fontSize="10.5" fill="#556274">{tt("Lesson", "Lektion")}</text>
+          <text x="358" y="66" fontSize="10.5" fill="#556274">{tt("Drop-out per lesson", "Abbruch pro Lektion")}</text>
+          <text x="483" y="260" textAnchor="middle" fontSize="11.5" fill="#556274">{tt("Shows where and how many, not why", "Zeigt wo und wie viele, nicht warum")}</text>
+        </svg>
+      </div>
+    </Diagram>
   );
 }
 
@@ -197,6 +323,91 @@ export function AdaptiveLoop() {
       ]}
       loop={tt("Adaptive learning loop", "Schleife des adaptiven Lernens")}
     />
+  );
+}
+
+/* ------------------------------------------------------------------ A4 · three levels of adaptive learning, shown working (interactive) */
+
+type Pick3 = "basics" | "standard" | "advanced";
+
+export function AdaptiveLevels() {
+  const [choice, setChoice] = useState<Pick3 | null>(null);
+  const [score, setScore] = useState(65);
+  const story = useStory([
+    { title: tt("Level 1: the learner chooses", "Stufe 1: Die Lernende wählt"), say: tt("Let us follow Lena, a new learner at LearnLoop, an online-course provider. At the start of a course, the platform shows her three paths and lets her pick one: Basics, Standard or Advanced. Lena picks Standard. Nothing here is adaptive in a technical sense: the learner decides, and she may choose badly or not at all.", "Begleiten wir Lena, eine neue Lernende bei LearnLoop, einem Anbieter von Online-Kursen. Zu Beginn eines Kurses zeigt die Plattform ihr drei Pfade und lässt sie einen wählen: Grundlagen, Standard oder Fortgeschritten. Lena wählt Standard. Nichts davon ist im technischen Sinn adaptiv: Die Lernende entscheidet, und sie kann schlecht oder gar nicht wählen."), look: tt("the first panel: the three path buttons", "das erste Feld: die drei Pfad-Schaltflächen"), apply: () => setChoice("standard") },
+    { title: tt("Level 2: a rule decides", "Stufe 2: Eine Regel entscheidet"), say: tt("Now LearnLoop adds one rule: if the pre-test score is at least 80 percent, skip unit 1. Lena scores 85, so the platform starts her at unit 2 without asking. A learner with 65 would start at unit 1. This is adaptive learning at its simplest: it needs only a pre-test and a few rules, and it is easy to explain.", "Nun fügt LearnLoop eine Regel hinzu: Erreicht der Vortest mindestens 80 Prozent, wird Einheit 1 übersprungen. Lena erreicht 85, die Plattform startet sie also ohne Nachfrage bei Einheit 2. Eine Lernende mit 65 würde bei Einheit 1 beginnen. Das ist adaptives Lernen in seiner einfachsten Form: Es braucht nur einen Vortest und ein paar Regeln und lässt sich leicht erklären."), look: tt("the middle panel: move the slider across 80", "das mittlere Feld: den Regler über 80 schieben"), apply: () => setScore(85) },
+    { title: tt("Level 3: a model decides", "Stufe 3: Ein Modell entscheidet"), say: tt("At the third level a model trained on the data of many learners picks the next step for each person, and it can show why: “learners like you finished this”. It needs many learners, good data and content in several variants, and it brings the risks of a cold start, a black box and legal duties. So start with the simplest level that answers the problem, and add complexity step by step.", "Auf der dritten Stufe wählt ein mit den Daten vieler Lernender trainiertes Modell für jede Person den nächsten Schritt, und es kann zeigen, warum: „Lernende wie Sie haben dies abgeschlossen“. Es braucht viele Lernende, gute Daten und Inhalte in mehreren Varianten, und es bringt die Risiken von Cold Start, Black Box und rechtlichen Pflichten. Beginnen Sie deshalb mit der einfachsten Stufe, die das Problem beantwortet, und fügen Sie Komplexität Schritt für Schritt hinzu."), look: tt("the last panel: what a model needs", "das letzte Feld: was ein Modell braucht"), apply: () => undefined },
+  ] satisfies StoryPlan[]);
+  const skip = score >= 80;
+  const paths: [Pick3, string][] = [["basics", tt("Basics", "Grundlagen")], ["standard", tt("Standard", "Standard")], ["advanced", tt("Advanced", "Fortgeschritten")]];
+  const units = [tt("Unit 1", "Einheit 1"), tt("Unit 2", "Einheit 2"), tt("Unit 3", "Einheit 3")];
+  return (
+    <Diagram label={tt("Three levels of adaptive learning, working · Exploratory", "Drei Stufen adaptiven Lernens, in Aktion · Explorativ")}>
+      <div className="space-y-3">
+        <ThePoint>{tt("Adaptive learning ranges from the learner choosing, through a simple rule, to a model trained on data. Each step adds power and also data needs and risks, so start with the simplest level that answers the problem.", "Adaptives Lernen reicht von der Wahl der Lernenden über eine einfache Regel bis zu einem mit Daten trainierten Modell. Jede Stufe bringt mehr Kraft und auch mehr Datenbedarf und Risiken, beginnen Sie also mit der einfachsten Stufe, die das Problem beantwortet.")}</ThePoint>
+        <Story steps={story.plan} step={story.step} onStep={story.go} />
+        <div className="grid gap-3 md:grid-cols-3">
+          <section aria-label={tt("Level 1 · Learner choice", "Stufe 1 · Wahl der Lernenden")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3", story.step === 0 && "anim-pulse border-gold")}>
+            <p className="smallcaps text-ash">{tt("Level 1 · Learner choice", "Stufe 1 · Wahl der Lernenden")}</p>
+            <p className="text-caption text-ink">{tt("Pick your path:", "Wählen Sie Ihren Pfad:")}</p>
+            <div className="grid gap-1.5" role="radiogroup" aria-label={tt("Paths", "Pfade")}>
+              {paths.map(([id, label]) => (
+                <button key={id} type="button" aria-pressed={choice === id} onClick={() => { story.leave(); setChoice(id); }} className={clsx("min-h-[40px] rounded-md border-2 px-3 text-left text-caption font-semibold", choice === id ? "border-ink bg-mist text-ink" : "border-line bg-paper text-ink hover:border-ash")}>
+                  {label}
+                </button>
+              ))}
+            </div>
+            <p className="rounded-md bg-canvas px-2 py-1.5 text-caption text-ink" aria-live="polite">
+              {choice ? tt(`You start on the ${paths.find((p) => p[0] === choice)![1]} path.`, `Sie beginnen auf dem Pfad ${paths.find((p) => p[0] === choice)![1]}.`) : tt("The platform waits for you to choose.", "Die Plattform wartet auf Ihre Wahl.")}
+            </p>
+          </section>
+          <section aria-label={tt("Level 2 · Rules", "Stufe 2 · Regeln")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3", story.step === 1 && "anim-pulse border-gold")}>
+            <p className="smallcaps text-ash">{tt("Level 2 · Rules", "Stufe 2 · Regeln")}</p>
+            <label htmlFor="pretest" className="block text-caption text-ink">
+              {tt("Pre-test score:", "Ergebnis des Vortests:")} <span className="tnum font-bold">{score}%</span>
+            </label>
+            <input id="pretest" type="range" min={0} max={100} step={5} value={score} onChange={(e) => { story.leave(); setScore(Number(e.target.value)); }} className="h-10 w-full" aria-describedby="rule-note" />
+            <p id="rule-note" className="text-micro normal-case tracking-normal text-ash">{tt("Rule: if the score is at least 80%, skip unit 1.", "Regel: Ist das Ergebnis mindestens 80 %, Einheit 1 überspringen.")}</p>
+            <div className="flex items-center gap-1" aria-hidden>
+              {units.map((u, i) => (
+                <span key={u} className={clsx("flex h-9 flex-1 items-center justify-center rounded border-2 text-micro font-bold", i === 0 && skip ? "border-dashed border-ash/60 bg-mist text-ash line-through" : "border-ink bg-paper text-ink")}>
+                  {u}
+                </span>
+              ))}
+            </div>
+            <p className="rounded-md bg-canvas px-2 py-1.5 text-caption text-ink" aria-live="polite">
+              {skip ? tt("The rule fires: the learner starts at unit 2.", "Die Regel greift: Die Lernende beginnt bei Einheit 2.") : tt("The rule does not fire: the learner starts at unit 1.", "Die Regel greift nicht: Die Lernende beginnt bei Einheit 1.")}
+            </p>
+          </section>
+          <section aria-label={tt("Level 3 · Algorithms", "Stufe 3 · Algorithmen")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3", story.step === 2 && "anim-pulse border-gold")}>
+            <p className="smallcaps text-ash">{tt("Level 3 · Algorithms", "Stufe 3 · Algorithmen")}</p>
+            <div className="flex items-center gap-1.5 text-micro font-semibold text-ink" aria-hidden>
+              <span className="grid flex-1 grid-cols-6 gap-0.5 rounded border border-ash/50 bg-mist p-1.5">
+                {Array.from({ length: 18 }, (_, i) => (
+                  <span key={i} className="h-1.5 w-1.5 rounded-full bg-ash" />
+                ))}
+              </span>
+              <span>→</span>
+              <span className="rounded border-2 border-ink bg-paper px-1.5 py-2">{tt("Model", "Modell")}</span>
+              <span>→</span>
+              <span className="rounded border border-ash/50 bg-mist px-1.5 py-2">{tt("Next step", "Nächster Schritt")}</span>
+            </div>
+            <p className="rounded-md bg-canvas px-2 py-1.5 text-caption text-ink">{tt("Suggested: Unit 4, because learners like you finished it.", "Vorgeschlagen: Einheit 4, weil Lernende wie Sie sie abgeschlossen haben.")}</p>
+            <ul className="list-disc space-y-0.5 pl-4 text-micro normal-case tracking-normal text-ash">
+              <li>{tt("Needs many learners and good data", "Braucht viele Lernende und gute Daten")}</li>
+              <li>{tt("Needs content in several variants", "Braucht Inhalte in mehreren Varianten")}</li>
+              <li>{tt("Risks: cold start, black box, legal duties", "Risiken: Cold Start, Black Box, rechtliche Pflichten")}</li>
+            </ul>
+          </section>
+        </div>
+        <Insight>
+          {tt(
+            `In plain words: with a pre-test score of ${score} percent the rule ${skip ? "fires, so the learner skips unit 1 and the platform saves them time" : "does not fire, so the learner starts at unit 1"}. The rule is easy to explain to the learner. A model at level 3 could do more, but it could not be explained as simply, and it would need data that LearnLoop may not have.`,
+            `In einfachen Worten: Bei einem Vortestergebnis von ${score} Prozent ${skip ? "greift die Regel, die Lernende überspringt also Einheit 1, und die Plattform spart ihr Zeit" : "greift die Regel nicht, die Lernende beginnt also bei Einheit 1"}. Die Regel lässt sich der Lernenden leicht erklären. Ein Modell auf Stufe 3 könnte mehr, ließe sich aber nicht so einfach erklären und bräuchte Daten, die LearnLoop vielleicht nicht hat.`,
+          )}
+        </Insight>
+      </div>
+    </Diagram>
   );
 }
 
@@ -384,6 +595,62 @@ export function FeatureMatrix() {
           }}
           spot={spot}
         />
+      </div>
+    </Diagram>
+  );
+}
+
+/* ------------------------------------------------------------------ B3 · a pilot against a control group, and the gate (interactive) */
+
+const GROUP = 100;
+const BASE = 60;
+const GATE_POINTS = 5;
+
+export function PilotControl() {
+  const [diff, setDiff] = useState(0);
+  const story = useStory([
+    { title: tt("Two groups of learners", "Zwei Gruppen von Lernenden"), say: tt("Let us look at LearnLoop, which wants to test a rule-based step: a pre-test that lets learners skip what they know. It does not give it to everyone. It splits 200 new learners at random into two groups of 100. The pilot group gets the new step, and the control group gets the course as it is today. Both groups run for eight weeks, and each dot below is one learner.", "Sehen wir uns LearnLoop an, das einen regelbasierten Schritt testen will: einen Vortest, mit dem Lernende überspringen, was sie schon wissen. Es gibt ihn nicht allen. Es teilt 200 neue Lernende zufällig in zwei Gruppen zu je 100. Die Pilotgruppe bekommt den neuen Schritt, die Kontrollgruppe den Kurs, wie er heute ist. Beide Gruppen laufen acht Wochen, und jeder Punkt unten ist eine Lernende."), look: tt("the two groups of dots", "die zwei Gruppen von Punkten"), apply: () => setDiff(0) },
+    { title: tt("The gate is missed", "Das Gate wird verfehlt"), say: tt("The gate was written down before the pilot: completion must be at least five points above the control group. After eight weeks, 60 percent of the control group finished, and the pilot group is only two points higher. The gate is missed, so LearnLoop reverses the step or changes it, and it has spent a pilot, not a platform.", "Das Gate wurde vor dem Pilot aufgeschrieben: Die Completion muss mindestens fünf Punkte über der Kontrollgruppe liegen. Nach acht Wochen haben 60 Prozent der Kontrollgruppe abgeschlossen, und die Pilotgruppe liegt nur zwei Punkte höher. Das Gate ist verfehlt, LearnLoop nimmt den Schritt also zurück oder ändert ihn und hat einen Pilot ausgegeben, keine Plattform."), look: tt("the verdict line and the gate marker", "die Urteilszeile und die Gate-Markierung"), apply: () => setDiff(2) },
+    { title: tt("The gate is met", "Das Gate wird erreicht"), say: tt("Now suppose the pilot group finishes seven points above the control group. The gate is met, so LearnLoop keeps the step and plans the next stage. The control group is what makes this a result: without it, LearnLoop would not know whether the rise came from the new step or from something else. Move the slider yourself to see where the gate flips.", "Nun angenommen, die Pilotgruppe schließt sieben Punkte über der Kontrollgruppe ab. Das Gate ist erreicht, LearnLoop behält den Schritt also und plant die nächste Stufe. Die Kontrollgruppe macht daraus erst ein Ergebnis: Ohne sie wüsste LearnLoop nicht, ob der Anstieg vom neuen Schritt oder von etwas anderem kam. Bewegen Sie den Regler selbst, um zu sehen, wo das Gate kippt."), look: tt("the second group: more filled dots", "die zweite Gruppe: mehr gefüllte Punkte"), apply: () => setDiff(7) },
+  ] satisfies StoryPlan[]);
+  const control = Math.round((GROUP * BASE) / 100);
+  const pilot = Math.round((GROUP * (BASE + diff)) / 100);
+  const met = diff >= GATE_POINTS;
+  const dots = (filled: number, label: string) => (
+    <div className="space-y-1.5">
+      <p className="text-caption font-semibold text-ink">{label}</p>
+      <div className="grid grid-cols-10 gap-1 rounded-lg border-2 border-line bg-paper p-2" role="img" aria-label={`${label}: ${filled} / ${GROUP}`}>
+        {Array.from({ length: GROUP }, (_, i) => (
+          <span key={i} className={clsx("h-2.5 w-2.5 rounded-full border-2 transition-colors sm:h-3 sm:w-3", i < filled ? "border-ink bg-ink" : "border-ash bg-paper")} />
+        ))}
+      </div>
+    </div>
+  );
+  return (
+    <Diagram label={tt("A pilot against a control group, and a gate written in advance · Exploratory", "Ein Pilot gegen eine Kontrollgruppe und ein vorab geschriebenes Gate · Explorativ")}>
+      <div className="space-y-3">
+        <ThePoint>{tt("A pilot with a control group turns an unknown into evidence. Write the gate, a figure and a time, before the pilot starts, and the result tells you to keep, change or reverse.", "Ein Pilot mit Kontrollgruppe macht aus einer Unbekannten einen Beleg. Schreiben Sie das Gate, eine Zahl und eine Zeit, bevor der Pilot beginnt, und das Ergebnis sagt Ihnen, ob Sie behalten, ändern oder zurücknehmen.")}</ThePoint>
+        <Story steps={story.plan} step={story.step} onStep={story.go} />
+        <div className="grid gap-3 sm:grid-cols-2">
+          {dots(control, tt(`Control group: today's course · ${BASE}% finished`, `Kontrollgruppe: Kurs wie heute · ${BASE} % abgeschlossen`))}
+          <div className={clsx(story.step !== null && story.step > 0 && "anim-pulse rounded-lg")}>{dots(pilot, tt(`Pilot group: with the skip rule · ${BASE + diff}% finished`, `Pilotgruppe: mit der Überspringen-Regel · ${BASE + diff} % abgeschlossen`))}</div>
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="pilot-diff" className="block text-caption text-ink">
+            {tt("Pilot result: points above the control group", "Pilot-Ergebnis: Punkte über der Kontrollgruppe")} <span className="tnum font-bold">+{diff}</span>
+          </label>
+          <input id="pilot-diff" type="range" min={0} max={10} step={1} value={diff} onChange={(e) => { story.leave(); setDiff(Number(e.target.value)); }} className="h-10 w-full max-w-md" />
+          <p className="text-micro normal-case tracking-normal text-ash">{tt(`Gate written in advance: at least +${GATE_POINTS} points after 8 weeks. Figures are a Case assumption (LearnLoop).`, `Vorab geschriebenes Gate: mindestens +${GATE_POINTS} Punkte nach 8 Wochen. Die Zahlen sind eine Fallannahme (LearnLoop).`)}</p>
+        </div>
+        <p className={clsx("rounded-md border-2 px-3 py-2 text-caption font-semibold text-ink", met ? "border-signal/60 bg-signalSoft" : "border-dashed border-rust bg-rustSoft")} aria-live="polite">
+          {met ? tt(`Gate met (+${diff} ≥ +${GATE_POINTS}): keep the step and plan the next stage.`, `Gate erreicht (+${diff} ≥ +${GATE_POINTS}): den Schritt behalten und die nächste Stufe planen.`) : tt(`Gate missed (+${diff} < +${GATE_POINTS}): reverse the step or change it.`, `Gate verfehlt (+${diff} < +${GATE_POINTS}): den Schritt zurücknehmen oder ändern.`)}
+        </p>
+        <Insight>
+          {tt(
+            `In plain words: ${pilot} of ${GROUP} pilot learners finished against ${control} of ${GROUP} in the control group, a difference of ${diff} points. ${met ? "That clears the gate that was written before the pilot, so the decision is made on evidence, not on opinion." : "That falls short of the gate, and because the gate was written first, nobody can argue it away afterwards."}`,
+            `In einfachen Worten: ${pilot} von ${GROUP} Pilot-Lernenden haben abgeschlossen gegenüber ${control} von ${GROUP} in der Kontrollgruppe, ein Unterschied von ${diff} Punkten. ${met ? "Das übersteigt das Gate, das vor dem Pilot geschrieben wurde, die Entscheidung beruht also auf Belegen, nicht auf Meinung." : "Das bleibt unter dem Gate, und weil das Gate zuerst geschrieben wurde, kann es hinterher niemand wegdiskutieren."}`,
+          )}
+        </Insight>
       </div>
     </Diagram>
   );

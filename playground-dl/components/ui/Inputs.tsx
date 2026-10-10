@@ -67,7 +67,8 @@ export function TextBox({
 }
 
 /** `tag`: a small fact printed right after the label (e.g. the area a measure acts on), never a verdict. */
-export type Opt<T extends string> = { id: T; label: string; sub?: string; tag?: string };
+/** `visual`: a small picture of what the option is (a prototype at its fidelity, a chart kind), shown under the label so a learner chooses by looking (CLAUDE.md #52). */
+export type Opt<T extends string> = { id: T; label: string; sub?: string; tag?: string; visual?: ReactNode };
 
 /** A vertical list of options, each a real button with a pressed state. Single or multiple choice; 44 px tall at least. */
 export function OptionList<T extends string>({
@@ -115,6 +116,7 @@ export function OptionList<T extends string>({
               {o.label}
               {o.tag && <span className="ml-2 inline-block whitespace-nowrap rounded-full border border-signal/40 bg-signalSoft px-2 py-0.5 align-middle text-micro font-semibold normal-case tracking-normal text-signal">{o.tag}</span>}
             </span>
+            {o.visual && <span className="mt-1.5 block w-40 max-w-full overflow-hidden rounded-md border border-line bg-canvas">{o.visual}</span>}
             {o.sub && <span className="mt-0.5 whitespace-pre-line pl-5 text-ash">{o.sub}</span>}
           </button>
         );

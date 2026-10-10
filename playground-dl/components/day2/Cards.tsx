@@ -3,7 +3,7 @@
 import { Bul } from "@/components/materi/kit";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
-import { AdaptiveLoop, BuildMeasureLearn, DecisionFrame, FeatureMatrix, FidelityLadder, FiveUsers, QualVsQuant, StagedInvestment, SuccessVsFailing, WeighExample } from "@/components/day2/diagrams";
+import { AdaptiveLevels, AdaptiveLoop, BuildMeasureLearn, DecisionFrame, FeatureMatrix, FidelityLadder, FiveUsers, PilotControl, QualVsQuant, StagedInvestment, SuccessVsFailing, WeighExample } from "@/components/day2/diagrams";
 import { tt } from "@/lib/lang";
 
 /**
@@ -78,12 +78,9 @@ export function CardA2() {
       <BuildMeasureLearn />
       <FidelityLadder />
       <DataTable
-        caption={tt("Low-fidelity next to high-fidelity", "Low-Fidelity neben High-Fidelity")}
+        caption={tt("Low-fidelity next to high-fidelity: what the pictures above cannot show", "Low-Fidelity neben High-Fidelity: was die Bilder oben nicht zeigen können")}
         head={["", tt("Low-fidelity", "Low-Fidelity"), tt("High-fidelity", "High-Fidelity")]}
         rows={[
-          [tt("Looks like", "Sieht aus wie"), tt("Sketch, grey boxes", "Skizze, graue Kästen"), tt("The finished product", "Das fertige Produkt")],
-          [tt("Time and cost to make", "Zeit und Kosten der Herstellung"), tt("Minutes to hours; almost nothing", "Minuten bis Stunden; fast nichts"), tt("Days to weeks; real money", "Tage bis Wochen; echtes Geld")],
-          [tt("Time and cost to change", "Zeit und Kosten einer Änderung"), tt("Seconds to minutes", "Sekunden bis Minuten"), tt("Hours to days", "Stunden bis Tage")],
           [tt("What testers talk about", "Worüber Testpersonen sprechen"), tt("Structure, order, wording", "Struktur, Reihenfolge, Wortlaut"), tt("Colours, spacing, small details", "Farben, Abstände, kleine Details")],
           [tt("Good for", "Gut für"), tt("Early questions: is the flow right?", "Frühe Fragen: Stimmt der Ablauf?"), tt("Late questions: does the detail work?", "Späte Fragen: Funktioniert das Detail?")],
           [tt("Typical mistake", "Typischer Fehler"), tt("Dismissing it as “not a real test”", "Es als „keinen echten Test“ abtun"), tt("Polishing an idea nobody has tested", "Eine Idee polieren, die niemand getestet hat")],
@@ -154,14 +151,15 @@ export function CardA4() {
         tt("If the system evaluates learners or steers their learning, check the legal duties (DSGVO and the AI Act) before building.", "Wenn das System Lernende bewertet oder ihr Lernen steuert, prüfen Sie die rechtlichen Pflichten (DSGVO und AI Act), bevor Sie bauen."),
       ]}
     >
+      <AdaptiveLevels />
       <AdaptiveLoop />
       <DataTable
         caption={tt("Three levels of adaptive learning", "Drei Stufen adaptiven Lernens")}
-        head={[tt("Level", "Stufe"), tt("How it decides", "Wie es entscheidet"), tt("Needs", "Braucht"), tt("Typical risk", "Typisches Risiko")]}
+        head={[tt("Level", "Stufe"), tt("Needs", "Braucht"), tt("Typical risk", "Typisches Risiko")]}
         rows={[
-          [tt("1 · Learner choice", "1 · Wahl der Lernenden"), tt("The learner picks the path from a menu", "Die Lernende wählt den Pfad aus einem Menü"), tt("Content in clear options", "Inhalte in klaren Optionen"), tt("Learners choose badly, or do not choose at all", "Lernende wählen schlecht oder gar nicht")],
-          [tt("2 · Rules", "2 · Regeln"), tt("“If pre-test score is at least 80%, skip unit 1”", "„Wenn der Vortest mindestens 80 % ergibt, Einheit 1 überspringen“"), tt("A pre-test and a few rules", "Einen Vortest und einige Regeln"), tt("Rules that are too rough for some learners", "Regeln, die für manche Lernende zu grob sind")],
-          [tt("3 · Algorithms", "3 · Algorithmen"), tt("A model trained on data picks the next step", "Ein mit Daten trainiertes Modell wählt den nächsten Schritt"), tt("Many learners, good data, content variants", "Viele Lernende, gute Daten, Inhaltsvarianten"), tt("Cold start, black box, bias, legal obligations", "Cold Start, Black Box, Verzerrung, rechtliche Pflichten")],
+          [tt("1 · Learner choice", "1 · Wahl der Lernenden"), tt("Content in clear options", "Inhalte in klaren Optionen"), tt("Learners choose badly, or do not choose at all", "Lernende wählen schlecht oder gar nicht")],
+          [tt("2 · Rules", "2 · Regeln"), tt("A pre-test and a few rules", "Einen Vortest und einige Regeln"), tt("Rules that are too rough for some learners", "Regeln, die für manche Lernende zu grob sind")],
+          [tt("3 · Algorithms", "3 · Algorithmen"), tt("Many learners, good data, content variants", "Viele Lernende, gute Daten, Inhaltsvarianten"), tt("Cold start, black box, bias, legal obligations", "Cold Start, Black Box, Verzerrung, rechtliche Pflichten")],
         ]}
       />
       <Bul
@@ -288,6 +286,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example the recommendation engine.", "Nichts aufzugeben heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel die Empfehlungs-Engine."),
       ]}
     >
+      <PilotControl />
       <DecisionFrame />
       <Bul
         items={[

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { ApproachThumb } from "@/components/day2/mocks";
 import { PlatformScreens } from "@/components/day2/Screens";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
@@ -40,6 +41,7 @@ import type { Score } from "@/store/useStore";
 
 /** Day 2 · Route 1 · the UX Analysis File. Core: Block 1.1 (Level 1) and Block 2.2 (Level 2). Optional: 1.2, 1.3, 2.1 (CLAUDE.md #35, #40). */
 
+const THUMB: Record<ApproachId, "paper" | "click" | "hifi" | "engine" | "build"> = { p1: "paper", p2: "click", p3: "hifi", p4: "engine", p5: "build" };
 const LEVELS = () => ["", tt("Low", "Niedrig"), tt("Mid", "Mittel"), tt("High", "Hoch")];
 
 /* ------------------------------------------------------------------ the case */
@@ -402,7 +404,7 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
 
       <Field id={IDS.approachPick} label={tt("Step 1 · Choose one prototype approach", "Schritt 1 · Wählen Sie einen Prototyping-Ansatz")} help={tt("Each shows what it is, its cost and its weeks.", "Jeder zeigt, was er ist, seine Kosten und seine Wochen.")}>
         <OptionList<ApproachId>
-          options={APPROACHES.map((p) => ({ id: p.id, label: `${p.no} · ${euro(p.cost)} · ${p.weeks} ${tt("weeks", "Wochen")}`, sub: p.what }))}
+          options={APPROACHES.map((p) => ({ id: p.id, label: `${p.no} · ${euro(p.cost)} · ${p.weeks} ${tt("weeks", "Wochen")}`, sub: p.what, visual: <ApproachThumb kind={THUMB[p.id]} /> }))}
           value={r.approach}
           onChange={(id) => patch({ approach: id })}
           label={tt("Prototype approaches", "Prototyping-Ansätze")}

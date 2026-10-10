@@ -38,8 +38,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 vergleichen Sie eine Plattform, die Lernende abschließen, mit einer, die sie verlassen. Sie sagen, zu welcher Praxis jeder Unterschied gehört, und formulieren dann die Erfolgsprinzipien in eigenen Worten.",
     ),
     picture: t(
-      "The two columns show the same content built in two ways. Read each row across, from the left platform to the right one: path, units, feedback, and what typically follows. Nothing to click.",
-      "Die beiden Spalten zeigen denselben Inhalt in zwei Bauweisen. Lesen Sie jede Zeile quer, von der linken Plattform zur rechten: Pfad, Einheiten, Feedback und was typischerweise folgt. Nichts zum Klicken.",
+      "The two screens show the same course built in two ways. On the left you can see a path, short units, a progress bar and a quiz result; on the right there is one long page and nothing else. Compare them part by part. Nothing to click.",
+      "Die beiden Bildschirme zeigen denselben Kurs in zwei Bauweisen. Links sehen Sie einen Pfad, kurze Einheiten, eine Fortschrittsleiste und ein Quizergebnis; rechts gibt es eine lange Seite und sonst nichts. Vergleichen Sie sie Teil für Teil. Nichts zum Klicken.",
     ),
   },
   A2: {
@@ -52,8 +52,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 entscheiden Sie, wie Sie unter Zeitdruck und mit begrenztem Budget prototypen und testen, solange die Bedürfnisse der Nutzer noch unklar sind. Diese Karte gibt Ihnen die Gründe, zuerst einen Low-Fidelity-Test zu wählen.",
     ),
     picture: t(
-      "The loop shows iterative design: build a small version, measure what learners do, learn from it, and repeat. Below it is the fidelity ladder. Select a rung to read what it tests and what it costs to change. Press “Walk me through it” for a short story.",
-      "Die Schleife zeigt iteratives Design: eine kleine Version bauen, messen, was Lernende tun, daraus lernen und wiederholen. Darunter steht die Fidelity-Leiter. Wählen Sie eine Stufe, um zu lesen, was sie testet und was eine Änderung kostet. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The loop shows iterative design: build a small version, measure what learners do, learn from it, and repeat. Below it, the same course-start screen is drawn four times, from a paper sketch to a polished design. Press “Move the Next button” to see what the same change costs on each, and select a picture to read what it tests. Press “Walk me through it” for a short story.",
+      "Die Schleife zeigt iteratives Design: eine kleine Version bauen, messen, was Lernende tun, daraus lernen und wiederholen. Darunter ist derselbe Kursstart-Bildschirm viermal gezeichnet, von der Papierskizze bis zum ausgearbeiteten Design. Drücken Sie „Weiter-Button verschieben“, um zu sehen, was dieselbe Änderung auf jeder Stufe kostet, und wählen Sie ein Bild, um zu lesen, was es testet. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -66,8 +66,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 wählen Sie drei UX-Tests für eine Plattform, auf der Lernende abbrechen und niemand weiß, warum. Diese Karte sagt Ihnen, was jede Art von Test beantworten kann.",
     ),
     picture: t(
-      "Select a number of test users to see the share of problems found in Nielsen and Landauer's model. Below it, two columns set qualitative and quantitative data side by side. Press “Walk me through it” for a short story.",
-      "Wählen Sie eine Anzahl Testnutzer, um den Anteil gefundener Probleme im Modell von Nielsen und Landauer zu sehen. Darunter stellen zwei Spalten qualitative und quantitative Daten nebeneinander. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Select a number of test users to see the share of problems found in Nielsen and Landauer's model. Below it, one picture shows five learners watched (qualitative) next to a chart of many learners counted (quantitative). Press “Walk me through it” for a short story.",
+      "Wählen Sie eine Anzahl Testnutzer, um den Anteil gefundener Probleme im Modell von Nielsen und Landauer zu sehen. Darunter zeigt ein Bild fünf beobachtete Lernende (qualitativ) neben einem Diagramm vieler gezählter Lernender (quantitativ). Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -80,8 +80,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der Plan fragt, ob adaptives Lernen lohnt. Diese Karte gibt Ihnen die Chancen und die Risiken, damit Sie „ja, nein oder teilweise“ sagen und einen Grund nennen können.",
     ),
     picture: t(
-      "The loop shows how an adaptive system works: the learner acts, the system records it, a model chooses the next step, and the learner sees it. The last box, “and why it was suggested”, is where transparency comes in. The table sets three levels side by side. Nothing to click.",
-      "Die Schleife zeigt, wie ein adaptives System arbeitet: Die Lernende handelt, das System erfasst es, ein Modell wählt den nächsten Schritt, und die Lernende sieht ihn. Im letzten Kasten, „und warum er vorgeschlagen wurde“, kommt die Transparenz ins Spiel. Die Tabelle stellt drei Stufen nebeneinander. Nichts zum Klicken.",
+      "The three panels show the three levels working: pick a path yourself, move the pre-test slider across 80 percent to see a rule fire, and read what a model needs. Below them, the loop shows how an adaptive system works; its last box, “and why it was suggested”, is where transparency comes in. Press “Walk me through it” for a short story.",
+      "Die drei Felder zeigen die drei Stufen in Aktion: Wählen Sie selbst einen Pfad, schieben Sie den Vortest-Regler über 80 Prozent, um eine Regel greifen zu sehen, und lesen Sie, was ein Modell braucht. Darunter zeigt die Schleife, wie ein adaptives System arbeitet; ihr letzter Kasten, „und warum er vorgeschlagen wurde“, ist der Ort der Transparenz. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
     ),
   },
   A5: {
@@ -136,8 +136,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 3.2 verlangt genau das, für eine Plattform mit unvollständigen Daten: ein Risiko, eine Entscheidung unter Unsicherheit, eine Regel für künftige Entscheidungen und worauf Sie verzichten.",
     ),
     picture: t(
-      "The four boxes at the top are the parts of the decision, filled in for LearnLoop. The two boxes below are the rule for future decisions. Read from left to right. Nothing to click.",
-      "Die vier Kästen oben sind die Teile der Entscheidung, für LearnLoop ausgefüllt. Die zwei Kästen darunter sind die Regel für künftige Entscheidungen. Lesen Sie von links nach rechts. Nichts zum Klicken.",
+      "First the pilot: two groups of 100 learners, with the result moved by a slider against a gate written in advance. Below it, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes under them are the rule for future decisions. Press “Walk me through it” for a short story.",
+      "Zuerst der Pilot: zwei Gruppen zu je 100 Lernenden, das Ergebnis per Regler gegen ein vorab geschriebenes Gate bewegt. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen darunter die Regel für künftige Entscheidungen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
     ),
   },
 });

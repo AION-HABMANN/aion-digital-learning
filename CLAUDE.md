@@ -2158,3 +2158,33 @@ learner-facing explanation** in DL (stories, "In plain words", "What this shows"
 
 **Coverage check before a day ships (adds to #11, #22, #36, #46):** read every story step, every "In plain words" and every "What this shows" with the cover test above; list any sentence that is a bare
 fact and add its connection. Day 1's four stories and its "What this shows" lines were rewritten to this rule on 2026-10-09; its other card text is to be checked against it when the user points at a spot.
+
+## 52. On the website, what has a form is shown in a real picture, interactive where a change is the lesson; words only say what to look at
+
+The user's standing request (2026-10-10), made while looking at Day 2's "fidelity ladder": four text cards named *Sketch on paper*, *Low-fidelity wireframe*, *Clickable prototype*, *High-fidelity
+prototype*, and a learner "does not understand from the text alone"; the difference between a paper sketch and a low-fidelity wireframe has to be **seen**. This applies to every explanation on the
+website, in every day, and it is a rule about the **website only**: the Word documents (#31) are already good as they are and keep their own, separate detail (a static picture plus text).
+
+- **Draw what can be drawn.** Whenever a card, a story, a help or a task option names something that has a visible form (a screen at different fidelities, a layout, a menu, a button, a chart, a loop, two
+  groups of users, a flow, a before and after, a kind of test), the website shows it as a real picture: inline SVG or HTML built from the thing itself, not a box with its name in it. A list of cards
+  each carrying only a label and one line of text is **not** a picture of anything.
+- **Same example, every variant, side by side.** To teach a difference, draw the *same* screen or scene once per variant (the course-start screen as a paper sketch, a grey-box wireframe, a clickable
+  prototype and a polished design) so the eye reads the difference without reading a word. The variants differ in the way the real ones do (rough strokes and handwriting for paper, plain grey boxes for a
+  wireframe, tap points and linked screens for a clickable prototype, colour, type and shadow for high fidelity).
+- **Cover test (before a card ships).** Cover every word except the labels inside the pictures: can a newcomer still tell the variants apart and say what each is? If not, the picture is not doing the job.
+- **Interactive where a change is the lesson.** If the point is what happens when something changes (move a button and see what it costs on each rung, drag a score against a threshold, split users into a
+  pilot and a control group), build the control: the learner changes the thing and the picture changes. Every such picture follows #20 (always-visible "What this shows"), #36 (The point, the story,
+  a spotlight) and #51 (full connected sentences); the learner's own buttons leave the story.
+- **A task option that names a visual kind carries a thumbnail** (a prototype approach shows its fidelity, a test shows what it looks at) through the optional `visual` of `OptionList`, so the learner chooses
+  by looking, not only by reading a name.
+- **Honest drawings (#15, #49).** Mock screens and scenes use their own neutral greys, plus colour only where the *problem* needs it (a polished design needs colour); the site's blue, teal and rust never colour the
+  evidence. Every picture has a `viewBox`, a one-string `<title>` and `<desc>` (#10), reads at 380 px, and its words come from `tt()` in both languages (#32). Numbers in a picture are Case assumptions or come from the
+  same state that draws it (#36), and a picture of a worked example never draws the task's own answer (#11).
+- **Website and Word are separated.** The website carries the full visual and the interaction; the Word document keeps its starting-state picture and the states written out (#31). Adding a visual to the website
+  does not require changing the Word file, and nothing from the Word file is copied back as website text where a picture would do.
+- **Do not duplicate in text what the picture shows.** Once a picture shows a difference, the table or paragraph beside it keeps only what the picture cannot (when to use it, the typical mistake); a new
+  text-only table that repeats a picture is a defect.
+- **Coverage check before a day ships (adds to #11, #20, #36, #37):** walk every card and list each noun phrase that names a visible thing or a difference between visible things; each has a picture (static or
+  interactive) that passes the cover test, in both languages, at 390 px and 1280 px; each interactive one has "The point", a story and "What this shows"; every task option that names a visual kind has its thumbnail.
+  **Day 2** was reworked to this rule on 2026-10-10 (fidelity ladder, the two platforms, the loop, qualitative against quantitative data, adaptive levels, the pilot and its control group, the approach options);
+  **Day 1 and Day 3** are checked against it when the user points at a spot, or in one pass if asked.
