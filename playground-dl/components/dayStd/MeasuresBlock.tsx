@@ -51,7 +51,7 @@ export type MeasuresCfg = {
   orderWhyHelp: string;
   pain?: { label: string; help: string };
   ids: { pick: string; measure: (id: string) => string; reason: (id: string) => string; pain: (id: string) => string; order: string; orderWhy: string; missingInfo: string };
-  guides: { reason: (id: string) => Guide; order: () => Guide; missing: () => Guide };
+  guides: { reason: (id: string) => Guide; order: () => Guide; missing: () => Guide; pain?: (id: string) => Guide };
   key: () => AnswerKeyBlock;
 };
 
@@ -144,7 +144,11 @@ export function MeasuresBlock({ cfg, missing }: { cfg: MeasuresCfg; missing: Mea
             </div>
             {flagged && r.effortClue && <Reading label={tt("Clue", "Hinweis")}>{tt(`Which price band is ${euro(m.cost)} in? The rule is in Materi A5: ${cfg.effortRule}.`, `In welches Preisband fallen ${euro(m.cost)}? Die Regel steht in Materi A5: ${cfg.effortRule}.`)}</Reading>}
             {cfg.pain && (
-              <TextBox id={cfg.ids.pain(id)} label={cfg.pain.label} help={cfg.pain.help} value={r.pain[id] ?? ""} onChange={(v) => patch((s) => ({ pain: { ...s.pain, [id]: v } }))} min={MIN_REASON} rows={2} />
+              <>
+                <TextBox id={cfg.ids.pain(id)} label={cfg.pain.label} help={cfg.pain.help} value={r.pain[id] ?? ""} onChange={(v) => patch((s) => ({ pain: { ...s.pain, [id]: v } }))} min={MIN_REASON} rows={2} />
+                {cfg.guides.pain && <ExampleAnswer id={`pain-example-${id}`} guide={cfg.guides.pain(id)} />}
+                {cfg.guides.pain && mentor && <MentorGuide guide={cfg.guides.pain(id)} />}
+              </>
             )}
             <TextBox id={cfg.ids.reason(id)} label={tt("Why these ratings?", "Warum diese Bewertungen?")} help={cfg.reasonHelp} value={r.reasons[id] ?? ""} onChange={(v) => patch((s) => ({ reasons: { ...s.reasons, [id]: v } }))} min={MIN_REASON} rows={2} />
             <ExampleAnswer id={`reason-example-${id}`} guide={cfg.guides.reason(id)} />

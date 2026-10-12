@@ -4,6 +4,9 @@ import type { DecisionId as D4DecisionId, EvidenceId as D4EvidenceId, MetricId a
 import { FACT_IDS as D5_FACT_IDS } from "@/data/day5/case";
 import type { FactId as D5FactId, MeasureId as D5MeasureId, MistakeId, OptId as D5OptId, ProblemId } from "@/data/day5/case";
 import type { DecisionId as D5DecisionId, EvidenceId as D5EvidenceId, OwnerId as D5OwnerId, RiskId as D5RiskId } from "@/data/day5/route2";
+import { NOTE_IDS as D6_NOTE_IDS } from "@/data/day6/case";
+import type { MeasureId as D6MeasureId, NoteId as D6NoteId, PersonaFieldId, PhaseId1, PhaseIdL, PhaseIdT } from "@/data/day6/case";
+import type { DecisionId as D6DecisionId, PhaseIdR, SegmentId } from "@/data/day6/route2";
 import type { Score } from "@/store/useStore";
 
 /**
@@ -209,4 +212,88 @@ export const emptyD5R2 = (): D5R2 => ({
 
 export const emptyD5 = (): D5State => ({ r1: emptyD5R1(), r2: emptyD5R2() });
 
+/* ------------------------------------------------------------------ Day 6 */
+
+/** An emotion from 1 (very frustrated) to 5 (very motivated); 0 means not rated yet. */
+export type Emotion = 0 | 1 | 2 | 3 | 4 | 5;
+/** One cell column of a journey grid: what the person does and thinks, how they feel, where it breaks, and where a strategy acts. Unused fields stay empty. */
+export type JCell = { does: string; thinks: string; emotion: Emotion; pain: string; acts: string };
+export const emptyJCell = (): JCell => ({ does: "", thinks: "", emotion: 0, pain: "", acts: "" });
+const emptyJ = <K extends string>(keys: K[]) => Object.fromEntries(keys.map((k) => [k, emptyJCell()])) as Record<K, JCell>;
+
+/** The learner persona of Block 1.1: five fields. */
+export type Persona5 = { nameRole: string; goals: string; problems: string; situation: string; expectations: string };
+/** The teacher persona of Block 2.1: four fields. */
+export type Persona4 = { nameRole: string; goals: string; problems: string; situation: string };
+
+/**
+ * Day 6 · Route 1 · Levels 1 and 2. Core: Block 1.1 (eight research notes into three persona fields, the learner persona and its frustrations) and Block 2.2
+ * (four of nine measures, each with the pain point it answers). Optional: 1.2 (a journey that ends in drop-out), 1.3 (reflection), 2.1 (teacher persona and two journeys).
+ */
+export type D6R1 = SortPart<D6NoteId, PersonaFieldId> &
+  ReflectPart &
+  MeasuresPart<D6MeasureId> & {
+    persona: Persona5;
+    frustrations: string;
+    /** Block 1.2 (Optional). */
+    j: Record<PhaseId1, JCell>;
+    jProblems: string;
+    jCritical: PhaseId1 | null;
+    jCriticalWhy: string;
+    /** Block 2.1 (Optional). */
+    teacher: Persona4;
+    jl: Record<PhaseIdL, JCell>;
+    jt: Record<PhaseIdT, JCell>;
+    shared: string;
+  };
+
+/** Day 6 · Route 2 · Level 3. */
+export type D6R2 = DecisionsPart<D6DecisionId> & {
+  segs: SegmentId[];
+  segPersona: Record<string, string>;
+  target: SegmentId | null;
+  targetWhy: string;
+  problems: string;
+  jSeg: SegmentId | null;
+  jr: Record<PhaseIdR, JCell>;
+  decide: string;
+  dontKnow: string;
+  reverse: string;
+  giveUp: string;
+};
+
+export type D6State = { r1: D6R1; r2: D6R2 };
+
+export const emptyD6R1 = (): D6R1 => ({
+  ...emptySortPart<D6NoteId, PersonaFieldId>(D6_NOTE_IDS),
+  ...emptyReflectPart(),
+  ...emptyMeasuresPart<D6MeasureId>(),
+  persona: { nameRole: "", goals: "", problems: "", situation: "", expectations: "" },
+  frustrations: "",
+  j: emptyJ<PhaseId1>(["entry", "usage", "drop"]),
+  jProblems: "",
+  jCritical: null,
+  jCriticalWhy: "",
+  teacher: { nameRole: "", goals: "", problems: "", situation: "" },
+  jl: emptyJ<PhaseIdL>(["entry", "learning", "progress"]),
+  jt: emptyJ<PhaseIdT>(["setup", "run", "review"]),
+  shared: "",
+});
+
+export const emptyD6R2 = (): D6R2 => ({
+  ...emptyDecisionsPart<D6DecisionId>(),
+  segs: [],
+  segPersona: {},
+  target: null,
+  targetWhy: "",
+  problems: "",
+  jSeg: null,
+  jr: emptyJ<PhaseIdR>(["entry", "work", "progress"]),
+  decide: "",
+  dontKnow: "",
+  reverse: "",
+  giveUp: "",
+});
+
+export const emptyD6 = (): D6State => ({ r1: emptyD6R1(), r2: emptyD6R2() });
 export type { D4ReflectKey };

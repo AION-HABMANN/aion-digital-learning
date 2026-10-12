@@ -2,17 +2,19 @@
 
 **Educational UX/UI design for digital learning platforms (Habmann AufstiegsAkademie), 16 days.** One Next.js project holds every day; the build has
 **Day 1** (Module 1, Day 1 of 2: UX/UI for learning platforms and user-centred design), **Day 2** (Module 1, Day 2 of 2: successful platforms, prototyping,
-testing, adaptive learning) and **Day 3** (Module 2, Day 1 of 2: learning psychology and cognitive load). A self-study companion in **English and German**
+testing, adaptive learning), **Day 3** (Module 2, Day 1 of 2: learning psychology and cognitive load), **Day 4** (Module 2, Day 2 of 2: motivation and design principles),
+**Day 5** (Module 3, Day 1 of 3: user-centred UX design) and **Day 6** (Module 3, Day 2 of 3: personas and user journeys). A self-study companion in **English and German**
 (EN | DE in the top bar): study material with live instruments, two tasks and two working documents per day. It carries the shared standards
 `../CLAUDE.md` #1 to #50 and the two-route form of #30. Palette: the DL "Ocean" palette (#15).
 
 **Live site:** https://aion-dl.vercel.app (Day 1 at https://aion-dl.vercel.app/day/1/). Vercel project `aion-dl` of the account `attoyibi`; deployed from this folder with the CLI.
 It is not connected to GitHub yet, so a push does not deploy: run `vercel deploy --prod --yes` in this folder (Vercel detects Next.js and the static export; when the project is connected to the
-repository, set its Root Directory to `playground-dl`). **Days 2 and 3 are built locally and not deployed yet.**
+repository, set its Root Directory to `playground-dl`). **Days 2 and 3 are deployed; Days 4 to 6 are built, verified and pushed to GitHub, and not deployed yet.**
 
 The cases: **Day 1 · SkillUp GmbH** runs the learning platform LearnFast (40 of every 100 learners do not finish; €50,000, two months; Route 2 €120,000).
 **Day 2 · LearnPro**, a stagnating platform (€60,000, three months; Route 2 €200,000). **Day 3 · EduCore**, a platform with an overwhelm effect (€40,000, four weeks; Route 2 €150,000).
-Every figure beyond what the plan prints is a Case assumption, labelled on screen. The sources of Days 2 and 3 are the reviewed Markdown files in `../materi-task-docx/_source/` (`day2-*.md`, `day3-*.md`).
+**Day 4 · MotivaLearn**, a platform with low retention (€40,000, two months; Route 2 €180,000). **Day 5 · LearnBase**, a feature-heavy platform with low usage (€40,000, 13 weeks; Route 2 €200,000). **Day 6 · EduPath**, a platform on which different users fail in different ways (€45,000, 13 weeks; Route 2 €220,000).
+Every figure beyond what the plan prints is a Case assumption, labelled on screen. The sources of Days 2 to 6 are the reviewed Markdown files in `../materi-task-docx/_source/` (`dayN-*.md`).
 
 ## Layout (one project, all days)
 
@@ -22,8 +24,11 @@ app/day/[n]/page.tsx              a day's home      /day/1/
 app/day/[n]/route-1|2/page.tsx    its two routes    /day/1/route-1/   /day/1/route-2/
 components/day/DayView.tsx        picks the content of a day; wraps it in <DayProvider> (lib/dayContext.tsx)
 components/day/DayPages.tsx       the shared home and route frames of the days after Day 1 (a day hands over one DayConfig)
-components/day/dayConfigs.tsx     the DayConfig of Day 2 and Day 3
-components/day1|day2|day3/*       per day: Cards, diagrams, mock screens, Task1, Task2, Materi (Day 1 also Pages)
+components/day/dayConfigs.tsx     the DayConfig of Days 2 to 6
+components/day/mockKit.tsx        drawing primitives for the mock screens and pictures of Days 4 to 6 (greys only: the site colours never colour the evidence)
+components/dayStd/*               the blocks that repeat on a standard day (Days 4 onward): measures (Block 2.2), three options (1.2), reflection (1.3), decisions picker (Route 2)
+lib/dayStd/common.ts             the minimums, minutes, Core/Optional lists and Block 2.2 helpers shared by Days 4 to 6
+components/day1|day2|day3|day4|day5|day6/*       per day: Cards, diagrams, mock screens, Task1, Task2, Materi (Day 1 also Pages)
 components/materi/figures.tsx     figures shared by Days 2 and 3: chain, two columns, decision frame, cost bands, selectable matrix
 components/chrome, components/ui  shared by every day (top bar, mentor bar, rail, page map, answer blocks, export bar, order list …)
 data/course.ts                    the 16 days of the plan (topics in EN and DE), `built` flags, route helpers
@@ -33,14 +38,14 @@ data/materialRegistry.ts          the cards of every built day; shared component
 data/glossary.ts, glossaryMore.ts one glossary for the course (a day adds its terms; Day 2 and 3 terms are in glossaryMore.ts)
 lib/dayN/*                        checks, missing lists, progress, model answers, answer keys, worked answers, export documents
 lib/lists.ts                      pure helpers (capped history, "choose exactly N", priority order, placement with undo and redo)
-store/useStore.ts                 one persisted store, one slice per day (`d1`, `d2`, `d3`), each with two routes (`r1`, `r2`); key `dl-v1`, version 2
-store/dayTypes.ts                 the shapes and empty values of the Day 2 and Day 3 slices
-scripts/verify-day1|2|3.ts        data and logic checks in both languages
+store/useStore.ts                 one persisted store, one slice per day (`d1` to `d6`), each with two routes (`r1`, `r2`); key `dl-v1`, version 3 (a generic `patchStd` writes Days 4 to 6)
+store/dayTypes.ts, dayTypesStd.ts the shapes and empty values of the Day 2 and 3 slices, and of the Day 4 to 6 slices
+scripts/verify-day1|2|3|4|5|6.ts  data and logic checks in both languages
 ```
 
-To add the next day: copy `components/day3`, `data/day3`, `lib/day3` to `dayN`, replace the content, add a slice `dN` to `store/dayTypes.ts` and the store (bump `PERSIST_VERSION`,
+To add the next day: copy `components/day6`, `data/day6`, `lib/day6` to `dayN`, replace the content, add a slice `dN` to `store/dayTypesStd.ts` and the store (bump `PERSIST_VERSION`,
 extend `migratePersisted`, `mentorFill` and `resetRoute`), register the day's materials in `data/materialRegistry.ts`, add its `DayConfig` to `components/day/dayConfigs.tsx`,
-set `built: true` in `data/course.ts`, and add any new references to `data/references.ts` and terms to `data/glossaryMore.ts`.
+set `built: true` in `data/course.ts`, and add any new references to `data/references.ts` and terms to `data/glossaryDays456.ts` (or a new file).
 
 ## Routes of Day 1
 
@@ -100,6 +105,41 @@ Minutes are the user's standing weights: Materi 60 + Task 1 Core 30 (all 50), Ma
 
 `npm run verify:day2` and `npm run verify:day3` check that filling only the Core fields leaves nothing missing, that a different over-budget choice (Day 3: the plan's own four measures) with reasons still exports, that the exports hold no answer key, and that an old Day 1 blob migrates.
 
+## Days 4 to 6 (MotivaLearn, LearnBase, EduPath)
+
+Built to the standard of Days 2 and 3: two routes per day (`/day/N/route-1/` UX Analysis File, `/day/N/route-2/` UX Strategy Memo), two Core blocks per route, Optional blocks folded,
+EN and DE written by hand, a story and "What this shows" on every interactive diagram, real pictures for everything that has a form (#52), the mentor bar, answer keys and worked
+answers, and a `verify:dayN` script. The blocks that repeat from day to day are shared in `components/dayStd`; each day keeps its own content.
+
+| | Day 4 · Motivation and design principles | Day 5 · User-centred UX design | Day 6 · Personas and user journeys |
+|---|---|---|---|
+| **Materi A** (5 cards, 60 min, A4 Optional) | A1 Intrinsic and extrinsic motivation (Tom's quizzes, SDT) · A2 Five design principles (a lesson screen that gains one at a time) · A3 Feedback, progress, rewards · **A4 Metrics and iteration (Optional)** · A5 Weighing an engagement measure | A1 User-centred against feature-driven (one home screen decided two ways, Kano) · A2 Learners, goals, contexts of use · A3 Three typical mistakes (a home screen that gains and loses them) · **A4 Methods (Optional)** · A5 Weighing a user-centred measure | A1 Personas (a persona nobody can use, one a team can decide with) · A2 Good and weak personas · A3 User journeys (emotion curve) · **A4 Learners and teachers (Optional)** · A5 Weighing a measure along a journey |
+| **Task 1** | **1.1 Core** eight facts about two platforms into four principles, a preferred platform, three principles. **2.2 Core** four of nine measures. €40,000, 8 weeks. | **1.1 Core** goal as a learner, eight facts into three mistakes, the most frustrating fact, three expectations. **2.2 Core** four of nine measures. €40,000, 13 weeks. | **1.1 Core** eight research notes into Goal / Problem / Context, a learner persona (five fields), frustrations. **2.2 Core** four of nine measures, each with the pain point it answers. €45,000, 13 weeks. |
+| **Materi B** (3 cards, 60 min) | B1 Motivation, ability, prompt · B2 Motivation against pressure (matrix) · B3 Control group, a decision under uncertainty | B1 From a user need to a business figure · B2 Three goals and their conflicts · B3 The gate a feature must pass, a decision under uncertainty | B1 Segments by size and value (matrix) · B2 Design for everyone, primary first, shared base · B3 Evidence behind a persona, a reversible priority |
+| **Task 2** | **3.1 Core** strategy, three of seven decisions and their order, success measures. **3.2 Core** risk, a decision under uncertainty, who decides, give-up. €180,000. | **3.1 Core** central user needs, three of seven decisions and their order, a conflict row per decision. **3.2 Core** risk, who decides, evidence, the rule for new features, a decision without complete data, give-up. €200,000. | **3.1 Core** two or three strategic personas, target group and why, the three biggest problems. **3.2 Core** the critical journey (grid), three of seven decisions and their order, a decision under uncertainty, give-up with a date. €220,000. |
+
+### Notes on deviations, Days 4 to 6
+
+1. **No calculation anywhere** (#44), as on Days 2 and 3. The effort rule (Day 4 and 5: under €10,000 Low, up to €20,000 Mid, above High; Day 6: under €8,000 Low, up to €15,000 Mid, above High) is taught in card A5 and can be checked; every other rating is a judgement and is never marked.
+2. **The reference sets of Day 4 and Day 5 are over the case's printed budget, by plan fidelity.** Day 4: the plan's four measures cost €44,000 against €40,000; Day 5: €45,000 against €40,000. The key says so and names what would be phased; a set that stays inside the budget with a reason exports too, and so does the plan's set (tested in `verify:day4` and `verify:day5`, #38). Day 6's reference four measures cost exactly the €45,000.
+3. **Day 5 Block 1.2 has no effort check:** its second criterion is business value (a judgement), as the plan asks to weigh user-centredness against business goals; the three ratings are shown side by side, never combined.
+4. **Day 6 Block 2.2 asks for the pain point each measure answers** (the persona and the phase), and Route 2's decision picker also asks why the first decision goes first: a reason for every judgement (#44), shared with Days 4 and 5.
+5. **Day 6 Block 3.1 lets the target group lie outside the chosen personas** (the plan only says to select the most important group); the answer key marks it as a question worth asking, never as missing.
+6. **Journey grids** (Day 6 Blocks 1.2, 2.1 and 3.2) are cards per phase with a few words per field and an emotion from 1 to 5, with a live emotion curve; they replace drawing (no drawing library, #9).
+7. **Worked-example company:** LearnLoop on all three days, with Tom and Anna (Day 4), Mia and Noor (Day 5), Mia and Sven (Day 6); the task companies are MotivaLearn, LearnBase and EduPath, so no task is answered in a card.
+8. **Not built in this pass:** videos (#33), the facilitator debrief card, the Word documents for Days 4 to 6 (the website is the deliverable of this pass), the website links in the Word documents, and an automated accessibility run (axe).
+
+### Dependency checklist, Days 4 to 6 (#40)
+
+| Item | Status | Reads from | Core-safe |
+|---|---|---|---|
+| Blocks 1.1 and 2.2 of each day | **Core** | the brief, the printed notes and tables, the touchpoints (Day 6), and cards A1 to A3 and A5 (Day 4: A2, A3, A5; Day 5: A2, A3, A5, A1; Day 6: A1, A2, A3, A5) | ✓ |
+| Blocks 1.2, 1.3, 2.1 | Optional | the brief and their own items | self-contained |
+| Blocks 3.1 and 3.2 | **Core** | the brief and cards B1 to B3; Route 2 only quotes Route 1's Core answers (the preferred platform, the most frustrating fact, the chosen measures) as a soft pointer | ✓ |
+| Cards A1 to A3, A5, B1 to B3 | Core | each other and the case | ✓ |
+| Card A4 of each day | Optional | none | no Core block cites it |
+
+`npm run verify:day4`, `verify:day5` and `verify:day6` check, in EN and DE, that filling only the Core fields leaves nothing missing, that the reference answers complete every block, that a different choice with reasons (over budget on Days 4 to 5 and on Day 6) still exports, that the exports hold no answer key, tick or cross, and that older blobs migrate with an empty slice for the new day.
 ## Stack
 
 Next.js 14 · TypeScript · Tailwind (Ocean tokens, CS token names) · Zustand + `persist` (`skipHydration`, deep merge, pure `migratePersisted`) · static export.
@@ -108,7 +148,7 @@ Next.js 14 · TypeScript · Tailwind (Ocean tokens, CS token names) · Zustand +
 npm install
 npm run dev          # http://localhost:3000
 npm run typecheck
-npm run verify:day1  # data and logic checks, both languages (also verify:day2 and verify:day3)
+npm run verify:day1  # data and logic checks, both languages (also verify:day2 to verify:day6)
 npm run build        # stop `npm run dev` first; writes the static site to out/
 node scripts/serve-out.cjs 4100   # serve out/ to test the production build
 ```
@@ -174,3 +214,5 @@ the fill, German and English, 375 px with no horizontal scroll, no console error
 all five new interactive diagrams of Day 2 and four of Day 3 opened with every story stepped through, no console errors and no hydration error; mentor fill on both routes of both days
 with empty missing lists; German scan with no English sentence left on the six new route pages; 375 px with no horizontal scroll on the six new pages and both homes; a version-1 localStorage
 blob (Day 1 only) loads, migrates to version 2 and keeps its answers; Day 1 still fills and renders unchanged.
+
+**Days 4 to 6 (2026-10-12):** `tsc`, `verify:day1` to `verify:day6` (both languages), production build (52 static pages), the static export served locally: both routes of Days 5 and 6 and the Day 4 and Day 6 homes opened with no console error and no hydration error; the dev server with every new interactive diagram operated (stories, switches, emotion buttons, gate, conflict screens); mentor fill on both routes of Days 5 and 6 with empty missing lists; German view of Day 6 Route 2; 375 px with no horizontal page scroll on Day 5 and Day 6 routes. Not run: an automated accessibility pass (axe).
