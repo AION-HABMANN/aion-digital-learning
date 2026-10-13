@@ -8,7 +8,6 @@ daytitle: Day 2 · Module 1 (day 2 of 2): Practical analysis of successful e-lea
 doctype: Materi (study material). Materi A has five cards, Materi B has three.
 route: Materi A serves Route 1 (Levels 1 and 2, Task 1). Materi B serves Route 2 (Level 3, Task 2).
 minutes: Materi A about 60 min · Materi B about 60 min (facilitator-led)
-website: Not yet published (the link will be added once Day 2 is deployed)
 case: Worked examples use LearnLoop, an online-course provider. The task case is LearnPro, a stagnating learning platform (see the Task document).
 intro: This document holds everything you need to study Day 2 without the website. Each card says the idea in plain words, shows it in a picture, gives the details, and ends with the rules you will use in the Task document. Cards marked Optional are not needed for the Core blocks of the task. The worked examples use LearnLoop, a different company from the task case, so no task answer is printed here. Glossary and references are at the end.
 glossary: prototype,low-fi,iterative,bml,think-aloud,kpi,qualitative,adaptive,recommendation,learning-analytics,personalisation,cold-start,over-engineering,ab-test,stage-gate,gdpr,ai-act,mvp,completion,dropout,engagement,learning-path,progress-indicator,feedback,usability-test,roadmap,decision-architecture,conflicting-goals,symptom,user-impact,stakeholder,e-learning,ai

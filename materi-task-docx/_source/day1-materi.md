@@ -8,7 +8,6 @@ daytitle: Day 1 · Module 1 (day 1 of 2): Fundamentals of UX/UI design for digit
 doctype: Materi (study material). Materi A has five cards, Materi B has three.
 route: Materi A serves Route 1 (Levels 1 and 2, Task 1). Materi B serves Route 2 (Level 3, Task 2).
 minutes: Materi A about 60 min · Materi B about 60 min (facilitator-led)
-website: https://aion-dl.vercel.app/day/1/ (Route 1: /day/1/route-1/ · Route 2: /day/1/route-2/)
 case: Worked examples use LearnLoop, an online-course provider. The task case is SkillUp GmbH and its platform LearnFast (see the Task document).
 intro: This document holds everything you need to study Day 1 without the website. It is written to be read from top to bottom. Every card says what the idea is in plain words, shows it in a picture, gives the details, and ends with the rules you will use in the Task document. Cards marked Optional are not needed for the Core blocks of the task. The worked examples use a different company (LearnLoop) so that no task answer is printed here. Glossary and references are at the end.
 glossary: ux,ui,user-centred,system-logic,learning-path,cognitive-load,dropout,completion,retention,engagement,progress-indicator,feedback,orientation,usability,usability-test,gamification,self-directed,user-impact,roadmap,conflicting-goals,decision-architecture,edtech,ai,wireframe,heuristic,premortem,symptom,prioritisation-matrix,stakeholder,competitive-factor,lms,e-learning

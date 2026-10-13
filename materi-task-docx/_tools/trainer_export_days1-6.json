@@ -1,0 +1,2715 @@
+{
+ "day1": {
+  "guides": {
+   "causeGuide": {
+    "title": "2.1 (Optional) · Why these three causes",
+    "answer": "The case itself says there is no clear learning path, and findings 1 to 3 show that learners cannot tell where to start or what comes next.",
+    "example": "At LearnLoop the brief says new learners get no first-week guide, and two printed findings show long unexplained lists. Those are the causes I can point at; “the logo is old” has nothing printed behind it.",
+    "why": "A cause is defended by a printed fact. The plan's model solution names the main problem as a lack of structure and orientation.",
+    "lookFor": [
+     "Points at a printed finding or a case line.",
+     "Does not offer a cause the case never mentions."
+    ]
+   },
+   "decisionOrderGuide": {
+    "title": "3.1 · Why the first decision goes first (Core)",
+    "answer": "Paths come first because every learner meets orientation before anything else. Progress is cheap and builds on the path. Research runs alongside so later decisions rest on what learners actually do.",
+    "example": "The guided start comes first because it meets every new learner, and it gives the later decisions a baseline to be measured against.",
+    "why": "The roadmap is an order with a reason. The model order is paths, progress, research; a different order defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one.",
+     "Refers to reach, cost, dependency or evidence."
+    ]
+   },
+   "giveUpGuide": {
+    "title": "3.2 · What you give up or postpone (Core)",
+    "answer": "I give up the badge system and the AI recommendations for this year, and I postpone rewriting the ten longest lessons; learners will keep the long lessons for now.",
+    "example": "I give up the leaderboard this year, and I postpone the full catalogue rewrite; learners keep the old lesson texts for now.",
+    "why": "The skill of Level 3: a decision that gives up nothing has not decided. The answer names something real that a stakeholder would miss.",
+    "lookFor": [
+     "Names a concrete thing given up or postponed.",
+     "It is something someone would miss, not a throwaway."
+    ]
+   },
+   "missingGuide": {
+    "title": "2.2 · What information you are missing (Core)",
+    "answer": "I do not know why the 40 learners leave: the findings show what is hard, not what makes a learner decide to stop. I would interview ten who left before spending all of the €50,000.",
+    "example": "I do not know whether week-one leavers lack direction or lack time. I would run five short interviews before committing the whole €30,000.",
+    "why": "The plan asks it outright (“Welche Information fehlt Ihnen?”). The good answer names an unknown that would change the decision, and a way to find it out.",
+    "lookFor": [
+     "Names a specific unknown, not “more data”.",
+     "Says how it could be found out.",
+     "Connects to the decision (what would change)."
+    ]
+   },
+   "needGuide": {
+    "title": "1.2 (Optional) · What you would need to find out why learners leave",
+    "answer": "I would interview some of the 40 who left and look at the lesson where most of them stop, because the number only says that they left, not why.",
+    "example": "I would not guess from the 30% alone. I would ask ten learners who left in week one what they were trying to do when they stopped.",
+    "why": "The trap the app reveals: the number counts who left, not why. A good answer names a source that could show why (interviews, a usability test, data per lesson), not a measure.",
+    "lookFor": [
+     "Names at least one source of evidence about the learners themselves.",
+     "Does not turn the number into a cause."
+    ]
+   },
+   "orderGuide": {
+    "title": "2.2 · Why the first priority goes first (Core)",
+    "answer": "Learning paths come first because every learner meets the orientation problem before anything else, and the other three measures work better once a path exists.",
+    "example": "At LearnLoop the guided first week goes first: week one is where learners leave, and at €7,000 it is cheap enough to start before anything else.",
+    "why": "The plan's model solution puts learning paths first (“greatest impact”). A different first priority defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one, not for the whole set.",
+     "Refers to the learner's problem, the cost or what the others depend on."
+    ]
+   },
+   "reflectGuide": {
+    "title": "1.3 (Optional) · Coaching reflection",
+    "answer": "Showing learners where they are and what comes next improves learning more than any new feature, because without it they never reach the content. Critical: a clear path and visible progress. Nice to have: a new look or extra courses. Completion: a clear path lets learners finish, and finishing is what the platform earns from.",
+    "why": "Reflection is never scored. The plan's coaching points: UX is not a design problem but a decision problem; designing beautifully against designing effectively; thinking in user flows instead of single screens. Use the learners' notes as the start of the live discussion."
+   },
+   "riskPlanGuide": {
+    "title": "3.2 · What you do about the biggest risk (Core)",
+    "answer": "I fund the research programme next to the fixes, so that we find out why learners leave and can correct course after the first quarter.",
+    "example": "I reserve part of the budget for interviews in the first month, so that if the guided start misses the real cause, we find out before the second decision.",
+    "why": "A risk with no action is only a worry. The action should be concrete: what is done, and when it is checked.",
+    "lookFor": [
+     "Names an action.",
+     "Says when or how the risk would be noticed."
+    ]
+   },
+   "uncertainGuide": {
+    "title": "3.2 · The decision without complete data (Core)",
+    "answer": "I decide to build learning paths for the three most-taken courses now. I do not know whether learners leave from lack of direction or from lack of time. I will refocus if, after the first quarter, the drop-out in those courses has not fallen from 40% to below 35%.",
+    "example": "I decide to launch a guided first week now. I do not know whether leavers lack direction or time. I will reverse and test a shorter format if week-one drop-out has not fallen from 30% to below 25% after six weeks.",
+    "why": "The frame of Materi B3: what I decide, what I do not know, what would make me reverse and by when. A checkable reversal condition has a figure and a date.",
+    "lookFor": [
+     "States the decision.",
+     "States what is not known.",
+     "Gives a checkable reversal condition with a figure and a time."
+    ],
+    "pitfalls": [
+     "A decision with no stated unknown (“we will improve UX”).",
+     "A reversal condition no one could check (“if it does not work”)."
+    ]
+   },
+   "visionGuide": {
+    "title": "3.1 · The UX vision (Core)",
+    "answer": "Learning at SkillUp should feel guided and visible: every learner always knows where they are, what comes next and how far they have come.",
+    "example": "Learning at LearnLoop should feel like a clear first week and a visible next step, so a busy professional never wonders what to do now.",
+    "why": "The plan's question: “Wie soll Lernen erlebt werden?”. A good vision describes the learner's experience, not a feature list.",
+    "lookFor": [
+     "Describes how learning feels or what the learner can do.",
+     "One or two sentences.",
+     "Is not a list of features or a business target alone."
+    ]
+   },
+   "worstGuide": {
+    "title": "1.1 · The finding that would make a learner give up first (Core)",
+    "answer": "On my first visit I see 14 identical tiles and nothing that says what to do first. I would not know where to begin, and I would leave before I had even started a lesson.",
+    "example": "At LearnLoop a new learner sees a list of 20 courses and no suggestion. I would pick none and close the tab: I came to learn something specific, and nothing tells me which course is mine.",
+    "why": "Any of the eight findings defends. What the plan asks for is the user's perspective (“Versetzen Sie sich in einen Lernenden”): the reason must say what the learner cannot do or feel, not that something looks wrong.",
+    "lookFor": [
+     "Written from the learner's side (“I would not know…”), not about the design.",
+     "Names a concrete consequence (leaving, getting lost, giving up).",
+     "Refers to the finding chosen, not to the platform in general."
+    ]
+   }
+  },
+  "keys": {
+   "architectureKey": {
+    "title": "Block 3.2 · Who decides, on what evidence",
+    "expected": "Who: The UX lead together with the product owner. Evidence: Learner interviews; A usability test of the new screens; Drop-out data per lesson.",
+    "options": [
+     {
+      "label": "Who decides: The Chief UX Officer alone",
+      "expected": false,
+      "why": "Defendable, but one person's taste is exactly what a decision architecture should prevent."
+     },
+     {
+      "label": "Who decides: The UX lead together with the product owner",
+      "expected": true,
+      "why": "UX judgement and product ownership together: neither taste alone nor build convenience."
+     },
+     {
+      "label": "Who decides: A steering group with management",
+      "expected": false,
+      "why": "Defendable for large budget items; too slow for routine UX decisions."
+     },
+     {
+      "label": "Who decides: Whoever builds the feature",
+      "expected": false,
+      "why": "Rejected: the builder decides what is easy to build, not what learners need."
+     },
+     {
+      "label": "Evidence: Learner interviews",
+      "expected": true,
+      "why": "Evidence from learners themselves."
+     },
+     {
+      "label": "Evidence: A usability test of the new screens",
+      "expected": true,
+      "why": "Evidence from learners themselves."
+     },
+     {
+      "label": "Evidence: Drop-out data per lesson",
+      "expected": true,
+      "why": "Evidence from learners themselves."
+     },
+     {
+      "label": "Evidence: A comparison with competitors",
+      "expected": false,
+      "why": "Useful context, not evidence about SkillUp's own learners."
+     },
+     {
+      "label": "Evidence: The opinion of the most senior person in the room",
+      "expected": false,
+      "why": "Rejected: authority is not evidence."
+     }
+    ],
+    "teachingNote": "At least two kinds of evidence are required; the sort of evidence a learner chooses is judged on the reason in the memo, not on matching the model."
+   },
+   "causeKey": {
+    "title": "Block 2.1 (Optional) · Three main causes",
+    "expected": "Learners have no clear path through a course: what to do first, next and last.  |  Lessons are hard to follow: long, unstructured text with unexplained terms.  |  Learners cannot see their progress or whether they are succeeding.",
+    "options": [
+     {
+      "label": "Learners have no clear path through a course: what to do first, next and last.",
+      "expected": true,
+      "why": "The case names it (“no clear learning path”), and findings 1 to 3 show it."
+     },
+     {
+      "label": "Lessons are hard to follow: long, unstructured text with unexplained terms.",
+      "expected": true,
+      "why": "The case names it (“content hard to understand”), and findings 4 to 6 show it."
+     },
+     {
+      "label": "Learners cannot see their progress or whether they are succeeding.",
+      "expected": true,
+      "why": "Findings 7 and 8 show it (no progress bar, no message after a quiz)."
+     },
+     {
+      "label": "The visual style of the platform looks dated.",
+      "expected": false,
+      "why": "No printed finding says so; it is about the surface, not the experience."
+     },
+     {
+      "label": "The course catalogue is too small.",
+      "expected": false,
+      "why": "Nothing in the case says learners leave for lack of courses."
+     },
+     {
+      "label": "The subscription price is too high.",
+      "expected": false,
+      "why": "The case mentions no price complaint."
+     }
+    ],
+    "teachingNote": "The plan's model solution names the main problem as a lack of structure and orientation. A learner who swaps one cause for another and points at a printed fact (a finding or a case line) defends the choice; a cause with no printed evidence does not."
+   },
+   "claimKey": {
+    "title": "Block 1.2 (Optional) · What the 40% shows and does not show",
+    "expected": "40 of every 100 learners who start a course do not finish it. → the number shows this  |  Learners leave because the lessons are too hard. → the number does not show this  |  A progress bar would bring the number down. → the number does not show this  |  More than one in three learners who start do not finish. → the number shows this  |  The 40 who leave are the learners who find the content boring. → the number does not show this",
+    "options": [
+     {
+      "label": "40 of every 100 learners who start a course do not finish it.",
+      "expected": true,
+      "why": "It only restates the number."
+     },
+     {
+      "label": "Learners leave because the lessons are too hard.",
+      "expected": true,
+      "why": "A drop-out rate counts who left, not why."
+     },
+     {
+      "label": "A progress bar would bring the number down.",
+      "expected": true,
+      "why": "A number does not predict the effect of a measure."
+     },
+     {
+      "label": "More than one in three learners who start do not finish.",
+      "expected": true,
+      "why": "40 of 100 is more than a third (about 33)."
+     },
+     {
+      "label": "The 40 who leave are the learners who find the content boring.",
+      "expected": true,
+      "why": "It says nothing about feelings or reasons."
+     }
+    ],
+    "teachingNote": "The trap the app reveals: a rate counts who left, never why. Anyone who ticks “shows” for a reason or a remedy has read a cause into a symptom. This is the coaching point of the plan (“Daten zeigen Symptome, nicht Ursachen” appears on Day 16; on Day 1 the equivalent is “dealing with incomplete user information”)."
+   },
+   "decisionKey": {
+    "title": "Block 3.1 · Three strategic decisions",
+    "expected": "Guided learning paths for the three most-taken courses; Progress and feedback on every course page and quiz; A standing user-research programme",
+    "options": [
+     {
+      "label": "Guided learning paths for the three most-taken courses",
+      "expected": true,
+      "why": "Reference pick: €45,000, 16 weeks. It meets a printed finding that every learner meets."
+     },
+     {
+      "label": "Progress and feedback on every course page and quiz",
+      "expected": true,
+      "why": "Reference pick: €25,000, 12 weeks. It meets a printed finding that every learner meets."
+     },
+     {
+      "label": "Rewrite the ten longest lessons as short, structured units",
+      "expected": false,
+      "why": "Defendable: it meets the Understanding finding, but at €40,000 and 20 weeks it is the costliest fix; it would go next year."
+     },
+     {
+      "label": "A standing user-research programme",
+      "expected": true,
+      "why": "Reference pick: €30,000, 52 weeks. It is the decision that lets later decisions rest on evidence, which the decision-architecture item of the plan asks for."
+     },
+     {
+      "label": "Points, badges and a leaderboard",
+      "expected": false,
+      "why": "Rejected in the plan's own logic: extrinsic reward, answers no printed finding, and the effect fades; competitors using it is not a reason."
+     },
+     {
+      "label": "AI-driven personal recommendations",
+      "expected": false,
+      "why": "Rejected: €90,000 is most of the budget, it needs data SkillUp does not have, and learners cannot see why they are shown what they see."
+     },
+     {
+      "label": "Double the marketing budget",
+      "expected": false,
+      "why": "Rejected: it fixes acquisition, not experience; more learners arriving at the same platform leave at the same rate."
+     }
+    ],
+    "teachingNote": "A different set of three defends if the reason is written and the three together answer the vision. Budget is a live hint, not a lock (CLAUDE.md #38); a set over the €120,000 limit exports with the amount printed as a fact."
+   },
+   "measureKey": {
+    "title": "Block 2.2 · Choose four measures, rate them, order them",
+    "expected": "Define learning paths; Split lessons into short units; Add a progress indicator; Structure the text of each lesson. Total €47,000 of €50,000.",
+    "options": [
+     {
+      "label": "Define learning paths",
+      "expected": true,
+      "why": "Answers a printed finding (orientation). Effort High by the printed cost €18,000. Reference ratings: user impact High, risk Mid."
+     },
+     {
+      "label": "Split lessons into short units",
+      "expected": true,
+      "why": "Answers a printed finding (understanding). Effort Mid by the printed cost €14,000. Reference ratings: user impact Mid, risk Mid."
+     },
+     {
+      "label": "Add a progress indicator",
+      "expected": true,
+      "why": "Answers a printed finding (motivation). Effort Low by the printed cost €6,000. Reference ratings: user impact Mid, risk Low."
+     },
+     {
+      "label": "Structure the text of each lesson",
+      "expected": true,
+      "why": "Answers a printed finding (understanding). Effort Low by the printed cost €9,000. Reference ratings: user impact Mid, risk Low."
+     },
+     {
+      "label": "Points and badges",
+      "expected": false,
+      "why": "Rejected in the plan's own logic: points and badges are extrinsic and answer none of the three findings areas directly; the short-term effect fades and the cost is Mid. A learner who funds it must say what it does for the learner."
+     },
+     {
+      "label": "Discussion forum",
+      "expected": false,
+      "why": "Rejected: a new feature, tied to no printed finding, and the most expensive option (€22,000, effort High)."
+     },
+     {
+      "label": "New visual style",
+      "expected": false,
+      "why": "Rejected: it changes the look (UI), not the experience; no printed finding is about the look."
+     },
+     {
+      "label": "Ten new courses",
+      "expected": false,
+      "why": "Rejected: more content serves a business goal, not a learner's problem; €20,000 for effort High."
+     },
+     {
+      "label": "Interview learners who left, and test one course",
+      "expected": false,
+      "why": "Defendable, not in the model: it gathers evidence (cost €7,000, effort Low) and answers the “what information are you missing” item. A learner who funds it instead of m4 should say which measure they drop and why."
+     }
+    ],
+    "teachingNote": "Effort is rule-based (under €10,000 Low, up to €15,000 Mid, above High), so the check can flag it; user impact and risk are judgements and are never marked. A different, well-reasoned choice is acceptable and exports (CLAUDE.md #38): over budget, another set of four, a different order, all with a stated reason. The plan's model solution orders them: learning paths (greatest impact), modular content, progress indicator, less cognitive load; its rationale line “Impact > Effort > User impact” is read here as: impact first, then what it costs."
+   },
+   "riskKey": {
+    "title": "Block 3.2 · The biggest risk",
+    "expected": "We treat the symptom (drop-out) and miss its cause.",
+    "options": [
+     {
+      "label": "We treat the symptom (drop-out) and miss its cause.",
+      "expected": true,
+      "why": "The central risk of the whole plan: SkillUp knows what is hard on the screens, not why learners stop. The research programme is the answer to it."
+     },
+     {
+      "label": "Competitors improve faster than we do while we prepare.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the cause-versus-symptom risk because the plan's own coaching names it (“UX is not a design problem but a decision problem”)."
+     },
+     {
+      "label": "Learners do not use the new paths or progress views.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the cause-versus-symptom risk because the plan's own coaching names it (“UX is not a design problem but a decision problem”)."
+     },
+     {
+      "label": "The budget is used up before a first result is visible.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the cause-versus-symptom risk because the plan's own coaching names it (“UX is not a design problem but a decision problem”)."
+     },
+     {
+      "label": "Management expects the drop-out rate to fall within weeks.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the cause-versus-symptom risk because the plan's own coaching names it (“UX is not a design problem but a decision problem”)."
+     }
+    ],
+    "teachingNote": "Any of the five defends when the plan to meet it is concrete (what is done, by whom, when). The wrong answer is a risk with no action."
+   },
+   "sortKey": {
+    "title": "Block 1.1 · Eight findings into Orientation, Understanding, Motivation",
+    "expected": "Orientation: 14 equal tiles on the dashboard; Yesterday's course is four clicks away; No “Next lesson” button  |  Understanding: One 500-word block of text; Technical terms without explanation; Very long sentences  |  Motivation: No progress bar; No message after a quiz",
+    "options": [
+     {
+      "label": "14 equal tiles on the dashboard",
+      "expected": true,
+      "why": "Orientation. The learner cannot tell where to start: orientation."
+     },
+     {
+      "label": "Yesterday's course is four clicks away",
+      "expected": true,
+      "why": "Orientation. The learner cannot find where they stopped: orientation."
+     },
+     {
+      "label": "No “Next lesson” button",
+      "expected": true,
+      "why": "Orientation. The learner is not told what comes next: orientation."
+     },
+     {
+      "label": "One 500-word block of text",
+      "expected": true,
+      "why": "Understanding. The learner has to dig the structure out of the text themselves: understanding."
+     },
+     {
+      "label": "Technical terms without explanation",
+      "expected": true,
+      "why": "Understanding. The learner stops at words they do not know: understanding."
+     },
+     {
+      "label": "Very long sentences",
+      "expected": true,
+      "why": "Understanding. Long sentences cost attention that is then missing for learning: understanding."
+     },
+     {
+      "label": "No progress bar",
+      "expected": true,
+      "why": "Motivation. The learner cannot see they are getting somewhere: motivation, through progress."
+     },
+     {
+      "label": "No message after a quiz",
+      "expected": true,
+      "why": "Motivation. The learner gets no sign of success or failure: motivation, through feedback."
+     }
+    ],
+    "teachingNote": "The sort is objective: each finding breaks one of the three questions taught in Materi A3. Some findings touch two areas (a wall of text also hides where the main point is); the test is which question the printed phrase breaks first. The 40% drop-out figure is deliberately not a finding to sort: it is where the three areas end up. The second part of the block (the one finding that would make a learner give up first) is judged: any of the eight defends if the reason is written from the learner's side. Plan: Arbeitsauftrag 1, categories Orientation, Understanding, Motivation."
+   }
+  }
+ },
+ "day2": {
+  "guides": {
+   "adaptiveGuide": {
+    "title": "2.2 · The decision on adaptive learning (Core)",
+    "answer": "Partly: first fix path and feedback with low-fidelity tests, then try one rule-based step, a pre-test that lets learners skip what they know, in one course. The algorithmic part waits for data and the legal check.",
+    "example": "For a platform with little data and one clear problem, I would say “partly”: start with one rule, a pre-test that lets learners skip the basics, and wait with an algorithm until there are enough learners and the legal check is done.",
+    "why": "The plan's model solution introduces adaptive elements only step by step. The three questions of Materi A5: is there a learner problem that individual paths solve, is there enough data, are there content variants? “Partly” is a real answer.",
+    "lookFor": [
+     "Says yes, partly or no and gives a reason.",
+     "Names the first step.",
+     "If partly, says which part waits."
+    ]
+   },
+   "approachGuide": {
+    "title": "2.2 · Why this prototype approach (Core)",
+    "answer": "It answers the first question, whether learners can complete a whole course flow, with a clickable low-fidelity version, so a mistake in structure is cheap to fix. It leaves the final look and the speed of the real platform for later.",
+    "example": "For LearnLoop I would pick the clickable grey-box version of the course start: it answers “can learners find the next step?” first, and it leaves the colours and the final speed for a later round.",
+    "why": "The plan's model solution: low-fidelity tests first, focus on learning paths and interaction. A good answer names the question the approach answers first and what it leaves for later.",
+    "lookFor": [
+     "Names the first question the approach answers.",
+     "Says what it leaves for later.",
+     "Does not choose polish or a full build while needs are unclear."
+    ]
+   },
+   "giveUpGuide": {
+    "title": "3.2 · What you give up or postpone (Core)",
+    "answer": "I give up the AI recommendation engine this year, and I postpone the new visual design; learners keep the current look for now.",
+    "example": "I give up the personal-recommendation engine this year, and I postpone the new visual style; learners keep the current look for now.",
+    "why": "The skill of Level 3: a decision that gives up nothing has not decided. The answer names something real that a stakeholder would miss.",
+    "lookFor": [
+     "Names a concrete thing given up or postponed.",
+     "It is something someone would miss, not a throwaway."
+    ]
+   },
+   "invOrderGuide": {
+    "title": "3.1 · Why the first investment goes first (Core)",
+    "answer": "The guided path and feedback redesign goes first: it reaches every learner, costs little and is tested with prototypes before it is built. The dashboard follows, because the pilot needs data to be read, and the pilot comes last since it depends on both.",
+    "example": "The guided start comes first because it reaches every new learner and is tested on paper before it is built; the analytics come second because the pilot needs them.",
+    "why": "The roadmap is an order with a reason. The model order is path and feedback, then data, then the pilot; a different order defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one.",
+     "Refers to reach, cost, dependency or evidence."
+    ]
+   },
+   "missingGuide": {
+    "title": "2.2 · What information you are missing (Core)",
+    "answer": "I do not know why learners leave: the drop-out data would show where, not why. I would interview eight learners who left before choosing what to build.",
+    "example": "I do not know whether learners leave because the start is confusing or because the course is too long. I would interview six who left before choosing what to build.",
+    "why": "The plan's brief says user needs are unclear. A good answer names a specific unknown that would change the decision, and a way to find it out.",
+    "lookFor": [
+     "Names a specific unknown, not “more data”.",
+     "Says how it could be found out.",
+     "Connects to the decision (what would change)."
+    ]
+   },
+   "optRiskGuide": {
+    "title": "1.2 (Optional) · The risk that worries you most without testing",
+    "answer": "The one that worries me most is that we find out late: a change after the build costs far more than a change on paper.",
+    "example": "What worries me most is that learners leave before we know why: we would only see the number fall, never the reason.",
+    "why": "Not scored. The point is to name a risk of the case in the learner's own words.",
+    "lookFor": [
+     "Names a risk that applies to the case.",
+     "Says why it matters to this team."
+    ]
+   },
+   "optWhyGuide": {
+    "title": "1.2 (Optional) · Your decision under time pressure",
+    "answer": "Option B costs €6,500 and takes two weeks, and afterwards we know what works. A is polished but built on an untested idea, and C finds problems only when learners leave.",
+    "example": "I would test low-fidelity first: it costs a fraction of the budget, and after two weeks we know what learners do, which the other two options cannot tell us before the money is spent.",
+    "why": "The plan's rationale: minimise risk before maximising technology. A good answer refers to the cost, to what will be known afterwards, or to what could go wrong.",
+    "lookFor": [
+     "Gives a reason in terms of cost, evidence gained or risk.",
+     "Does not rest on “it looks finished”."
+    ]
+   },
+   "preferGuide": {
+    "title": "1.1 · Which platform you would prefer, and why (Core)",
+    "answer": "On Platform A I always see the next step and how far I have come, so I can fit a unit into ten minutes and know when I am done. On Platform B I would scroll for forty minutes with no sign of progress, and I would stop.",
+    "example": "On the platform I would prefer, a unit is marked “8 min” and the next one waits at the bottom, so I can use a coffee break. On the other I could not tell how long anything would take, and I would put it off.",
+    "why": "Either platform defends, but the plan asks for the preference with a reason (“welche Plattform würden Sie bevorzugen und warum?”). The reason must say what the learner can do or feel, not that one looks nicer.",
+    "lookFor": [
+     "Written from the learner's side (“I can…”, “I would…”).",
+     "Names something the learner can do or see on one platform and not on the other.",
+     "Is not only “it looks nicer”."
+    ]
+   },
+   "principleGuide": {
+    "title": "1.1 · Three principles of success, “Do X, because Y” (Core)",
+    "answer": "Show the learner the next step, because a learner who has to search for it may stop before they find it. Cut the content into units of a few minutes with one goal each, because a learner with ten free minutes can only start what they can finish. Show progress and give a result after every task, because without a sign of success the effort feels wasted.",
+    "example": "Name the goal of every unit at the top, because a learner who knows what a unit is for can tell whether it is worth ten minutes.",
+    "why": "The plan asks to derive three principles of success from the differences. A good principle is a sentence with a reason, tied to one of the three practices (path, short units, feedback), not a feature name.",
+    "lookFor": [
+     "Each principle has “Do X” and “because Y”.",
+     "The three are different (not the same idea three times).",
+     "Each can be traced to a difference between the two platforms."
+    ],
+    "pitfalls": [
+     "A feature name with no reason (“a progress bar”).",
+     "A result listed as a principle (“completion rises”)."
+    ]
+   },
+   "prototypingGuide": {
+    "title": "3.1 · Prototyping strategy (Core)",
+    "answer": "We start with low-fidelity: paper and clickable prototypes with five learners per round. The first question is whether learners can find the next step and finish a unit, before anything is built.",
+    "example": "We test every new feature on paper first with five learners, and move to a clickable version only when the first question, whether learners find the next step, is answered.",
+    "why": "Materi A2: choose the fidelity by the question; test low-fidelity first when needs are unclear.",
+    "lookFor": [
+     "Names the fidelity to start with.",
+     "Names the first question it answers.",
+     "Says how many users or rounds (about five per group)."
+    ]
+   },
+   "r2AdaptiveGuide": {
+    "title": "3.1 · Do we invest in adaptive learning? (Core)",
+    "answer": "Partly: I fund one small, tested step now, a guided path with feedback and a rule-based pilot in one course, and the recommendation engine waits until the pilot shows a result and our data and legal checks are in place.",
+    "example": "I would say “partly”: fund a rule-based pilot in one course now, with a control group, and let the AI engine wait for the gate that checks the pilot's result.",
+    "why": "The plan asks yes, no or partly. Materi B1: treat the investment as a staged bet; “partly” means the part the evidence supports now, and the rest waits for its gate.",
+    "lookFor": [
+     "States yes, partly or no.",
+     "If partly, says what is funded now and what waits.",
+     "Does not follow competitors as the only reason."
+    ]
+   },
+   "reflectGuide": {
+    "title": "1.3 (Optional) · Coaching reflection",
+    "answer": "We build the wrong thing and find out when learners leave, when change is expensive. The decision to build before testing: everything after it is rework. Technology makes sense when a learner problem needs it and simpler measures fall short; otherwise it is over-engineering.",
+    "why": "Reflection is never scored. The plan's coaching points: successful platforms are not “good by chance”; prototyping reduces risk; testing is the basis for decisions. Use the learners' notes as the start of the live discussion."
+   },
+   "riskPlanGuide": {
+    "title": "3.2 · What you do about the biggest risk (Core)",
+    "answer": "I put the dashboard and the consent basis before the pilot, so that nothing is built that the data cannot support. I would notice the risk if the pilot cannot be measured in the first month.",
+    "example": "I reserve the first month for a consent and data check, so that if the data cannot support the pilot, we know before we spend on it.",
+    "why": "A risk with no action is only a worry. The action should be concrete: what is done, and when it is noticed.",
+    "lookFor": [
+     "Names an action.",
+     "Says when or how the risk would be noticed."
+    ]
+   },
+   "testQGuide": {
+    "title": "2.2 · The question each chosen test answers (Core)",
+    "answer": "Do learners complete the whole flow of the clickable prototype, and where do they hesitate? At which lesson do learners leave today? It shows where, so we know where to look. Why did learners who left stop? It is the only test here that can show the reason.",
+    "example": "A drop-out count per lesson shows where learners leave. It does not show why, so it is paired with a test where I can watch five learners try the first lesson.",
+    "why": "A test is chosen for the question it answers. A set that only counts (all quantitative) or only watches (all qualitative) leaves half of the question open: where, and why.",
+    "lookFor": [
+     "States a question, not the name of the test again.",
+     "Matches the kind of data the test gives (why or how many).",
+     "Does not claim a test shows what it cannot (a count does not show a cause)."
+    ],
+    "pitfalls": [
+     "Three tests of the same kind.",
+     "Choosing the usability test of the full high-fidelity redesign before the design exists."
+    ]
+   },
+   "uncertainGuide": {
+    "title": "3.2 · The decision under uncertainty (Core)",
+    "answer": "I decide to run a rule-based personalisation pilot in one course. I do not know whether learners want recommended steps or whether our data is good enough. I will reverse it if pilot completion is not at least five points above the control group after eight weeks.",
+    "example": "I decide to run a pre-test pilot in one course. I do not know whether our learners will skip basics they think they know. I will reverse it if fewer than 60% of those who skip pass the later quiz after six weeks.",
+    "why": "The frame of Materi B3: what I decide, what I do not know, what would make me reverse and by when. A checkable reversal condition has a figure and a time.",
+    "lookFor": [
+     "States the decision.",
+     "States what is not known.",
+     "Gives a checkable reversal condition with a figure and a time."
+    ],
+    "pitfalls": [
+     "A reversal condition no one could check (“if it does not work”).",
+     "A decision that gives up an irreversible commitment instead of a pilot."
+    ]
+   },
+   "weakGuide": {
+    "title": "2.1 (Optional) · Which printed fact supports your first weakness",
+    "answer": "Facts 7 and 8 show the feedback weakness: no sign of progress and no message after the last page. The case itself says there is no personalisation and that the content is rated boring.",
+    "example": "At LearnLoop the brief says new learners get no first-week guide, and two printed facts show long unexplained lists. Those are the weaknesses I can point at; “the logo is old” has nothing printed behind it.",
+    "why": "A weakness is defended by a printed fact. The plan's model solution names the main problem as a lack of feedback and individualisation.",
+    "lookFor": [
+     "Points at a printed fact (by its number) or quotes a case line.",
+     "Does not offer a weakness the case never mentions."
+    ]
+   }
+  },
+  "keys": {
+   "adaptiveKey": {
+    "title": "Block 2.2 and 3.1 · Is adaptive learning worthwhile? Yes, partly or no",
+    "expected": "Partly",
+    "options": [
+     {
+      "label": "Yes",
+      "expected": false,
+      "why": "Defendable only with a reason that names the learner problem, the data and the legal check; a plain “yes” because competitors have it is the hype the plan warns against."
+     },
+     {
+      "label": "Partly",
+      "expected": true,
+      "why": "Reference answer, the plan's “only step by step”: one simple, tested step (a rule, in one course) now, and the algorithmic part waits for data, content variants and the legal check."
+     },
+     {
+      "label": "No",
+      "expected": false,
+      "why": "Defendable if the reason is that the data and the content variants are not there; but “no” without a first step ignores the plan's complaint of no personalisation."
+     }
+    ],
+    "teachingNote": "The three questions of Materi A5: is there a learner problem that individual paths solve, is there enough data of good quality, are there content variants to adapt to? Without them it is over-engineering. “Partly” is a real answer when it says which part is funded and which waits."
+   },
+   "approachKey": {
+    "title": "Block 2.2 · The prototype approach",
+    "expected": "P2 · A clickable low-fidelity prototype of the whole course flow (start, unit, quiz, end); test; refine (€14,000, 5 weeks)",
+    "options": [
+     {
+      "label": "P1 · Paper sketches of the course start and the learning path; test with five learners; then a clickable low-fidelity version (€5,000, 2 weeks)",
+      "expected": false,
+      "why": "Defendable and the cheapest start: it answers “can learners find the next step?” first. It tests only the start of the course, so the quiz and the end are left for a second round; the answer should say so."
+     },
+     {
+      "label": "P2 · A clickable low-fidelity prototype of the whole course flow (start, unit, quiz, end); test; refine (€14,000, 5 weeks)",
+      "expected": true,
+      "why": "Reference pick: a clickable low-fidelity version of the whole flow tests structure, order and wording end to end, cheaply, and leaves the look for later."
+     },
+     {
+      "label": "P3 · A high-fidelity prototype of the whole platform with the final look (€36,000, 8 weeks)",
+      "expected": false,
+      "why": "Rejected: polish before the idea is tested; €36,000 and 8 weeks for what a rough version would show, and a team that defends a good-looking prototype."
+     },
+     {
+      "label": "P4 · Build the adaptive engine first and test it on the real platform (€72,000, 14 weeks)",
+      "expected": false,
+      "why": "Rejected: €72,000 is over the €60,000 budget and 14 weeks is over the 12-week limit; it builds technology before knowing the problem, and it needs data the platform does not have."
+     },
+     {
+      "label": "P5 · Build the redesign directly and test after launch (€54,000, 12 weeks)",
+      "expected": false,
+      "why": "Rejected: no test before launch; problems are found by learners who leave, and the budget goes into rework."
+     }
+    ],
+    "teachingNote": "The plan's model solution: low-fidelity tests first, focus on learning paths and interaction. P1 and P2 both fit; the answer to “why” must name the question it answers first and what it leaves for later. A choice over the budget or the time exports with the amount printed as a fact (CLAUDE.md #38)."
+   },
+   "architectureKey": {
+    "title": "Block 3.2 · Who decides, on what evidence",
+    "expected": "Who: The product lead together with the head of data. Evidence: A pilot with a control group; A usability test of the new screens; Drop-out data per lesson.",
+    "options": [
+     {
+      "label": "Who decides: The Chief Product Officer alone",
+      "expected": false,
+      "why": "Defendable, but one person's taste is exactly what a decision rule should prevent."
+     },
+     {
+      "label": "Who decides: The product lead together with the head of data",
+      "expected": true,
+      "why": "Product judgement and data together: neither taste alone nor a sales story."
+     },
+     {
+      "label": "Who decides: A steering group with management",
+      "expected": false,
+      "why": "Defendable for large budget items; too slow for routine decisions."
+     },
+     {
+      "label": "Who decides: The vendor of the technology",
+      "expected": false,
+      "why": "Rejected: the vendor decides what it can sell, not what LearnPro's learners need."
+     },
+     {
+      "label": "Evidence: A pilot with a control group",
+      "expected": true,
+      "why": "Evidence from LearnPro's own learners."
+     },
+     {
+      "label": "Evidence: A usability test of the new screens",
+      "expected": true,
+      "why": "Evidence from LearnPro's own learners."
+     },
+     {
+      "label": "Evidence: Drop-out data per lesson",
+      "expected": true,
+      "why": "Evidence from LearnPro's own learners."
+     },
+     {
+      "label": "Evidence: A vendor demonstration or competitor comparison",
+      "expected": false,
+      "why": "Useful context, not evidence about LearnPro's own learners."
+     },
+     {
+      "label": "Evidence: The opinion of the most senior person in the room",
+      "expected": false,
+      "why": "Rejected: authority is not evidence."
+     }
+    ],
+    "teachingNote": "At least two kinds of evidence are required; the sort of evidence a learner chooses is judged on the reason in the memo, not on matching the model."
+   },
+   "dataKey": {
+    "title": "Block 3.1 · Which data the testing strategy needs",
+    "expected": "Drop-out per lesson from existing logs (shows where learners leave)  |  Interviews with learners who left (shows why)  |  Completion per course in a pilot with a control group  |  Consent and legal basis for tracking learners",
+    "options": [
+     {
+      "label": "Drop-out per lesson from existing logs (shows where learners leave)",
+      "expected": true,
+      "why": "Evidence about LearnPro's own learners that answers where, why, or whether a change worked; the consent line is the legal basis for tracking."
+     },
+     {
+      "label": "Interviews with learners who left (shows why)",
+      "expected": true,
+      "why": "Evidence about LearnPro's own learners that answers where, why, or whether a change worked; the consent line is the legal basis for tracking."
+     },
+     {
+      "label": "Task success and time in usability tests",
+      "expected": false,
+      "why": "Defendable when the learner can say which question it answers (task success and time answer “can they do it”; time on task in the live platform needs consent and a purpose)."
+     },
+     {
+      "label": "Completion per course in a pilot with a control group",
+      "expected": true,
+      "why": "Evidence about LearnPro's own learners that answers where, why, or whether a change worked; the consent line is the legal basis for tracking."
+     },
+     {
+      "label": "Time on task in the live platform",
+      "expected": false,
+      "why": "Defendable when the learner can say which question it answers (task success and time answer “can they do it”; time on task in the live platform needs consent and a purpose)."
+     },
+     {
+      "label": "Competitors' feature lists",
+      "expected": false,
+      "why": "Rejected: a competitor's feature list is context, not evidence about LearnPro's learners."
+     },
+     {
+      "label": "Consent and legal basis for tracking learners",
+      "expected": true,
+      "why": "Evidence about LearnPro's own learners that answers where, why, or whether a change worked; the consent line is the legal basis for tracking."
+     }
+    ],
+    "teachingNote": "At least three are required; which ones is judged on the question each answers, not on matching the model."
+   },
+   "invKey": {
+    "title": "Block 3.1 · Three investments for the roadmap",
+    "expected": "Guided path and feedback redesign, tested with low-fidelity prototypes; Learning-analytics dashboard for the product team; Rule-based personalisation pilot",
+    "options": [
+     {
+      "label": "I1 · Guided path and feedback redesign, tested with low-fidelity prototypes (€30,000, 10 weeks)",
+      "expected": true,
+      "why": "Reference pick: it meets the feedback and path weaknesses, is tested with prototypes before building, and reaches every learner."
+     },
+     {
+      "label": "I2 · Rule-based personalisation pilot (€40,000, 16 weeks)",
+      "expected": true,
+      "why": "Reference pick: one small adaptive step with a control group; this is what “partly” means in money."
+     },
+     {
+      "label": "I3 · Learning-analytics dashboard for the product team (€25,000, 12 weeks)",
+      "expected": true,
+      "why": "Reference pick: the data foundation, with consent and a purpose, that the pilot and every later decision need (Materi B1: check the data foundation before the technology)."
+     },
+     {
+      "label": "I4 · A standing prototype-and-test routine (€20,000, 52 weeks)",
+      "expected": false,
+      "why": "Defendable: a standing routine that makes every later feature cheaper to test; it runs 52 weeks, so the result is slow."
+     },
+     {
+      "label": "I5 · AI recommendation engine for all courses (€120,000, 40 weeks)",
+      "expected": false,
+      "why": "Rejected: €120,000 is most of the budget, it needs data the platform does not record, and learners could not see why they are shown what they see."
+     },
+     {
+      "label": "I6 · New visual design of the whole platform (€60,000, 20 weeks)",
+      "expected": false,
+      "why": "Rejected: it changes the look, not the experience; no printed finding is about the look."
+     },
+     {
+      "label": "I7 · Interactive exercises for the three most boring courses (€45,000, 20 weeks)",
+      "expected": false,
+      "why": "Defendable: it meets the “boring” complaint, but without feedback and a path the new exercises sit inside the same confusing structure."
+     }
+    ],
+    "teachingNote": "A different set of three defends if the reason is written and the three together answer the plan. The budget is a live hint, not a lock (CLAUDE.md #38); a set over the €200,000 limit exports with the amount printed as a fact."
+   },
+   "optKey": {
+    "title": "Block 1.2 (Optional) · Prototyping and testing under time pressure",
+    "expected": "Decision: Test low-fidelity first. Effort by the printed cost: A Mid, B Low, C High.",
+    "options": [
+     {
+      "label": "A · Develop a high-fidelity prototype of the core flows immediately (€22,000, 6 weeks)",
+      "expected": false,
+      "why": "Defendable if the reason is concrete, not in the model: effort Mid by the rule, benefit Mid (it teaches something, but from a polished version of an untested idea), risk Mid (most of the budget goes into an idea nobody has tested)."
+     },
+     {
+      "label": "B · Test low-fidelity first (€6,500, 2 weeks)",
+      "expected": true,
+      "why": "Reference choice: cheap, fast, and it gives evidence on structure and flow before the money is spent. Benefit High, effort Low, risk Low. The plan's rationale: minimise risk before maximising technology."
+     },
+     {
+      "label": "C · Develop directly without testing (€48,000, 11 weeks)",
+      "expected": false,
+      "why": "Rejected: nothing is learned before launch, effort High, benefit Low, risk High; learners find the problems by leaving, and rework would use up the rest of the budget."
+     }
+    ],
+    "teachingNote": "Effort is rule-based (under €10,000 Low, up to €25,000 Mid, above High), so the check can flag it; benefit and risk are judgements and are never marked. The risks without testing are not scored; ticking more is fine."
+   },
+   "riskKey": {
+    "title": "Block 3.2 · The biggest risk",
+    "expected": "We buy technology that the data cannot support.",
+    "options": [
+     {
+      "label": "We buy technology that the data cannot support.",
+      "expected": true,
+      "why": "The central risk of the whole plan: technology against user value. LearnPro's data is incomplete (it knows where learners leave, not why), so technology that the data cannot support is the likeliest failure."
+     },
+     {
+      "label": "Competitors' AI gets ahead while we run pilots.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the data risk because the case states incomplete data."
+     },
+     {
+      "label": "Learners do not understand or trust the recommendations.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the data risk because the case states incomplete data."
+     },
+     {
+      "label": "The pilot is too small to show a result.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the data risk because the case states incomplete data."
+     },
+     {
+      "label": "The legal check for adaptive features comes too late.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the data risk because the case states incomplete data."
+     }
+    ],
+    "teachingNote": "Any of the five defends when the plan to meet it is concrete (what is done, by whom, when). The wrong answer is a risk with no action."
+   },
+   "sortKey": {
+    "title": "Block 1.1 · Eight facts into Learning path, Short units, Feedback",
+    "expected": "Learning path: fact 1, fact 6  |  Short units: fact 3, fact 5  |  Feedback: fact 2, fact 4, fact 7, fact 8",
+    "options": [
+     {
+      "label": "Fact 1 · A: a path of six steps, current step marked",
+      "expected": true,
+      "why": "Learning path. It shows the steps in order and which one is next: a learning path."
+     },
+     {
+      "label": "Fact 2 · A: progress bar and “Step 2 of 6”",
+      "expected": true,
+      "why": "Feedback. It shows how far along the learner is: feedback on progress."
+     },
+     {
+      "label": "Fact 3 · A: each unit “6 min” with one goal",
+      "expected": true,
+      "why": "Short units. It lets the learner finish one unit in a few minutes: short units."
+     },
+     {
+      "label": "Fact 4 · A: “4 of 5 correct”, question to review",
+      "expected": true,
+      "why": "Feedback. It gives a result after a task: feedback."
+     },
+     {
+      "label": "Fact 5 · B: one long page, about 40 minutes",
+      "expected": true,
+      "why": "Short units. There is no unit a learner can finish in a few minutes: short units are missing."
+     },
+     {
+      "label": "Fact 6 · B: no menu, the only way on is to scroll",
+      "expected": true,
+      "why": "Learning path. The steps and their order are not shown: the learning path is missing."
+     },
+     {
+      "label": "Fact 7 · B: no sign of how far along",
+      "expected": true,
+      "why": "Feedback. The learner cannot see how far they have come: feedback on progress is missing."
+     },
+     {
+      "label": "Fact 8 · B: no message after the last page",
+      "expected": true,
+      "why": "Feedback. No sign of success after the effort: feedback is missing."
+     }
+    ],
+    "teachingNote": "The sort is objective: each fact answers or fails one of the three questions of card A1 (what next, can I do this in my time, am I getting somewhere). Two edges: fact 2 (progress bar and “Step 2 of 6”) also says where you are on a path, but it shows how far along the learner is, which is feedback; the test question is whether it tells you what to do next (path) or how far you have come (feedback). Fact 6 (no menu) is a missing path, not a missing unit. The preference and the principles are judged: either platform defends if the reason is written from the learner's side. Plan: Arbeitsauftrag 1, compare two platforms, derive three principles."
+   },
+   "testKey": {
+    "title": "Block 2.2 · Three UX tests",
+    "expected": "Clickable low-fidelity test with 5 learners, think-aloud  |  Drop-out analysis per lesson from existing logs  |  Interviews with 8 learners who left",
+    "options": [
+     {
+      "label": "T1 · Paper-prototype test with 5 learners, task-based (Qualitative: says why; €3,000, 1 weeks)",
+      "expected": false,
+      "why": "Defendable: a cheap first test of the course start, in one week. It overlaps with the prototype approach if P1 is chosen."
+     },
+     {
+      "label": "T2 · Clickable low-fidelity test with 5 learners, think-aloud (Qualitative: says why; €6,000, 2 weeks)",
+      "expected": true,
+      "why": "Reference pick: it shows whether learners complete a whole flow on the chosen prototype and where they hesitate, in two weeks."
+     },
+     {
+      "label": "T3 · Unmoderated remote test with 30 learners (Quantitative: says how many; €9,000, 3 weeks)",
+      "expected": false,
+      "why": "Defendable: a larger count of task success and time, but it does not show why."
+     },
+     {
+      "label": "T4 · A/B test of two course-start screens on live traffic (Quantitative: says how many; €12,000, 6 weeks)",
+      "expected": false,
+      "why": "Defendable later, not now: an A/B test needs enough learners and takes six weeks; the platform's size and the 12-week limit make it a poor first choice."
+     },
+     {
+      "label": "T5 · Drop-out analysis per lesson from existing logs (Quantitative: says how many; €4,000, 2 weeks)",
+      "expected": true,
+      "why": "Reference pick: it shows where learners leave, from data that already exists, cheaply. It shows where, not why, so it is paired with an interview test."
+     },
+     {
+      "label": "T6 · Interviews with 8 learners who left (Qualitative: says why; €5,000, 2 weeks)",
+      "expected": true,
+      "why": "Reference pick: the only test here that can show why learners left, which the case says nobody knows."
+     },
+     {
+      "label": "T7 · Usability test of the full high-fidelity redesign (Qualitative and quantitative; €30,000, 8 weeks)",
+      "expected": false,
+      "why": "Rejected: it tests a finished high-fidelity redesign that does not exist yet, at €30,000 and 8 weeks, before the cheap questions are answered."
+     }
+    ],
+    "teachingNote": "A good set mixes kinds: something that shows why (qualitative: T1, T2, T6) with something that shows where or how many (quantitative: T3, T4, T5). Three of the same kind leave half the question open. Cost and weeks are a live hint, not a lock; over the budget or the time still exports with the amount printed."
+   },
+   "weakKey": {
+    "title": "Block 2.1 (Optional) · Three main weaknesses",
+    "expected": "Learners get no feedback on what they do or how far they have come.  |  Every learner gets the same path and the same content, whatever they already know.  |  The content is long and passive, with little to do.",
+    "options": [
+     {
+      "label": "Learners get no feedback on what they do or how far they have come.",
+      "expected": true,
+      "why": "Facts 7 and 8 show it: no sign of progress, no message after the last page."
+     },
+     {
+      "label": "Every learner gets the same path and the same content, whatever they already know.",
+      "expected": true,
+      "why": "The case names it: “no personalisation”."
+     },
+     {
+      "label": "The content is long and passive, with little to do.",
+      "expected": true,
+      "why": "The case says the content is rated “boring”, and fact 5 shows one long page of about 40 minutes of reading."
+     },
+     {
+      "label": "The visual style of the platform looks dated.",
+      "expected": false,
+      "why": "No printed fact says so; it is about the surface, not the experience."
+     },
+     {
+      "label": "The course catalogue is too small.",
+      "expected": false,
+      "why": "Nothing in the case says learners leave for lack of courses."
+     },
+     {
+      "label": "The subscription price is too high.",
+      "expected": false,
+      "why": "The case mentions no price complaint."
+     }
+    ],
+    "teachingNote": "The plan's model solution names the main problem as a lack of feedback and individualisation. A learner who swaps one weakness for another and points at a printed fact defends the choice; a weakness with no printed evidence does not."
+   }
+  }
+ },
+ "day3": {
+  "guides": {
+   "causeGuide": {
+    "title": "2.1 (Optional) · Which printed fact supports your first cause",
+    "answer": "The case itself names too much information at once, no visual structure and no recognisable learning logic, and facts 1 to 8 show each one; fact 5 shows the unexplained technical terms.",
+    "example": "At LearnLoop the brief says the lesson shows several boxes next to the text, and one printed fact shows a 700-word page. Those are the causes I can point at; “the logo is old” has nothing printed behind it.",
+    "why": "A cause is defended by a printed fact. The plan's model solution names the main problem as extraneous cognitive load.",
+    "lookFor": [
+     "Points at a printed fact (by its number) or quotes a case line.",
+     "Does not offer a cause the case never mentions."
+    ]
+   },
+   "decisionOrderGuide": {
+    "title": "3.1 · Why the first measure goes first (Core)",
+    "answer": "Rebuilding the ten most-used lessons goes first: it removes extraneous load for the most learners, keeps the content and shows a visible result, so effectiveness and efficiency both rise there.",
+    "example": "Rebuilding the most-opened lessons goes first because it meets the most learners and shows a visible result; the content standard follows so that new lessons do not repeat the problem.",
+    "why": "The roadmap is an order with a reason. The model order is rebuild, standard, testing routine; a different order defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one.",
+     "Says what it does for learning effectiveness and cognitive efficiency."
+    ]
+   },
+   "definitionGuide": {
+    "title": "3.1 · Your definition of learning-effective UX (Core)",
+    "answer": "A learning-effective UX is one in which a beginner can reach the stated learning goal of a lesson with as little unnecessary effort as possible, shown by being able to explain the key point in their own words afterwards.",
+    "example": "For LearnLoop: a design is learning-effective when an intermediate learner can reach the unit's goal in the planned time, shown by solving one new task afterwards without help.",
+    "why": "Materi B1: the definition names the learner, the goal, the cost to be kept low and the proof. A definition without a proof cannot be tested.",
+    "lookFor": [
+     "Names the learner (intended level).",
+     "Names the goal.",
+     "Names the cost kept low (effort that does not help learning).",
+     "Names the proof (explain or do)."
+    ],
+    "pitfalls": [
+     "“Easy to use” with no proof of learning.",
+     "A satisfaction rating as the only proof."
+    ]
+   },
+   "giveUpGuide": {
+    "title": "3.2 · What you give up or postpone (Core)",
+    "answer": "I give up the full diagram redesign and the AI summary button this year; learners keep the plain text versions of the less-used lessons for now.",
+    "example": "I give up the new visual brand this year, and I postpone the AI summary tool; learners keep the current look and the plain summaries.",
+    "why": "The skill of Level 3: a decision that gives up nothing has not decided. The answer names something real that a stakeholder would miss.",
+    "lookFor": [
+     "Names a concrete thing given up or postponed.",
+     "It is something someone would miss, not a throwaway."
+    ]
+   },
+   "improveGuide": {
+    "title": "1.1 · What you would improve intuitively (Core)",
+    "answer": "I would split the lesson into short parts with headings (facts 1 and 4), take the banner, chat and extra menu off the lesson page (fact 2), and state the goal of each lesson and group the 28 lessons in order (facts 7 and 8).",
+    "example": "At LearnLoop I would put the lesson in three parts with headings, because the page is one block, and I would hide the news banner while someone is reading, because it competes with the text.",
+    "why": "The plan asks what the learner would improve intuitively. A good answer names a change and the fact it answers, so the change is traceable to the evidence.",
+    "lookFor": [
+     "Names at least two changes, each tied to a fact by its number.",
+     "The changes act on the load (amount, form, order), not on the look."
+    ]
+   },
+   "missingGuide": {
+    "title": "2.2 · What information you are missing (Core)",
+    "answer": "I do not know whether learners are overloaded by the amount of content or by the wording of the technical terms. I would watch five beginners read Lesson 7 and ask each to explain the key point.",
+    "example": "I do not know whether learners are overloaded by how much there is or by how it is worded. I would ask six beginners to explain the key point of one lesson before choosing.",
+    "why": "The plan asks it outright (“Welche Information fehlt Ihnen?”). A good answer names a specific unknown that would change the decision, and a way to find it out.",
+    "lookFor": [
+     "Names a specific unknown, not “more data”.",
+     "Says how it could be found out.",
+     "Connects to the decision."
+    ]
+   },
+   "optWhyGuide": {
+    "title": "1.2 (Optional) · Which option has the greatest effect on learning",
+    "answer": "Splitting the content into small modules has the greatest effect: the learner has less to hold at once and nothing they need is removed. Shortening removes content that beginners came for.",
+    "example": "For a hard beginner course I would say splitting into small modules: the learner holds less at once and nothing is removed. Shortening would take away what the learner came for.",
+    "why": "The plan's rationale: learning capacity before the amount of information. A good answer refers to what the learner has to hold, find or understand.",
+    "lookFor": [
+     "Refers to what the learner holds, finds or understands.",
+     "Notes whether needed content is kept."
+    ]
+   },
+   "orderGuide": {
+    "title": "2.2 · Why the first priority goes first (Core)",
+    "answer": "Chunking goes first because it removes the biggest load, the 500-word block, for every learner without deleting content. Learning capacity matters more than the amount of information.",
+    "example": "At LearnLoop the module split goes first: it removes the biggest load for every learner and costs €12,000, and the other measures work better on short units.",
+    "why": "The plan's rationale: learning capacity > amount of information. A different first priority defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one, not for the whole set.",
+     "Refers to the learner's problem, the cost or what the others depend on."
+    ]
+   },
+   "reflectGuide": {
+    "title": "1.3 (Optional) · Coaching reflection",
+    "answer": "On the lesson page, where a banner, a chat and a nine-entry menu compete with the text. The key sentence of each lesson and the goal of the lesson: they tell the learner what to hold on to. Splitting lessons into short units, because a learner can then explain what a unit said, which is measurable.",
+    "why": "Reflection is never scored. The plan's coaching points: UX steers attention and thinking; good UX does not reduce thinking but guides it; “simple” is not the same as “effective for learning”. Use the learners' notes as the start of the live discussion."
+   },
+   "riskPlanGuide": {
+    "title": "3.2 · What you do about the biggest risk (Core)",
+    "answer": "I add a short check at the end of each rebuilt lesson, so that we measure what learners can do next to completion. I would notice the risk if completion rises but the check scores do not.",
+    "example": "I add a three-question check to every rebuilt lesson, so that we see whether learners can explain the point, not only whether they finish.",
+    "why": "A risk with no action is only a worry. The action should be concrete: what is done, and when it is noticed. To tell too simple from too complex apart you need a completion measure and a measure of what learners can do.",
+    "lookFor": [
+     "Names an action.",
+     "Says when or how the risk would be noticed."
+    ]
+   },
+   "strategyGuide": {
+    "title": "3.1 · Your strategy to reduce cognitive load (Core)",
+    "answer": "I will first reduce what does not help learning, clutter and unstructured text, in the lessons most learners open, and I will protect the professional depth of the content.",
+    "example": "At LearnLoop I would first cut the clutter and the wall of text in the most-opened lessons, and protect the worked examples that the learners need to practise.",
+    "why": "Materi A2 and B1: cut extraneous load first, keep the intrinsic difficulty the course exists to teach. A strategy that only reduces has not weighed the conflict.",
+    "lookFor": [
+     "Names what is reduced first.",
+     "Names what is protected.",
+     "One to three sentences."
+    ]
+   },
+   "uncertainGuide": {
+    "title": "3.2 · The decision without user data (Core)",
+    "answer": "I decide to rebuild one course in small modules and test it with five beginners. I do not know whether learners are overloaded by the amount or by the wording. I will reverse it if fewer than four of five beginners can explain the key point after a lesson.",
+    "example": "I decide to rebuild one course in short units and test it with six beginners. I do not know whether the load comes from length or from wording. I will reverse it if fewer than five of six can explain the key point after a lesson.",
+    "why": "The frame of Materi B3: what I decide, what I do not know, what would make me reverse and by when. A checkable reversal condition has a figure and a time.",
+    "lookFor": [
+     "States the decision.",
+     "States what is not known.",
+     "Gives a checkable reversal condition with a figure and a time."
+    ],
+    "pitfalls": [
+     "A reversal condition no one could check (“if it does not work”).",
+     "A decision that waits for data instead of choosing a step that can be undone."
+    ]
+   },
+   "worstGuide": {
+    "title": "1.1 · The fact that would make a learner stop first, and how the process feels (Core)",
+    "answer": "I open Lesson 7 and see one block of about 500 words. I would not know where to start, and by the fifth sentence I would have lost track of the first, so I would close the page.",
+    "example": "At LearnLoop a new learner opens a lesson with a menu, a banner and three boxes next to the text. I would not know what to look at first, and after a minute I would stop reading and scroll to the end.",
+    "why": "Any of the eight facts defends. What the plan asks for is the user's side (“Beschreiben Sie, wie sich der Lernprozess anfühlt”): the answer must say what the learner cannot do or hold in mind (intake, processing, storage), not that something looks wrong.",
+    "lookFor": [
+     "Written from the learner's side (“I would not know…”, “I would lose track…”).",
+     "Names a consequence: a step of learning that fails (what to look at, what to hold, what to keep).",
+     "Refers to the fact chosen."
+    ]
+   }
+  },
+  "keys": {
+   "causeKey": {
+    "title": "Block 2.1 (Optional) · Four causes of cognitive overload",
+    "expected": "Too much information is shown at once.  |  The content has no visual structure.  |  The learner cannot see a learning logic: groups, order, goals.  |  Technical terms are used without explanation.",
+    "options": [
+     {
+      "label": "Too much information is shown at once.",
+      "expected": true,
+      "why": "The case names it, and facts 1 to 3 show it."
+     },
+     {
+      "label": "The content has no visual structure.",
+      "expected": true,
+      "why": "The case names it, and facts 4 to 6 show it."
+     },
+     {
+      "label": "The learner cannot see a learning logic: groups, order, goals.",
+      "expected": true,
+      "why": "The case names it (“no recognisable learning logic”), and facts 7 and 8 show it."
+     },
+     {
+      "label": "Technical terms are used without explanation.",
+      "expected": true,
+      "why": "The case says the text has unexplained technical terms, and fact 5 shows it."
+     },
+     {
+      "label": "The subject itself is complex.",
+      "expected": false,
+      "why": "True, and it is the intrinsic load, but it is not a cause of overload that design can remove; design can only order it."
+     },
+     {
+      "label": "The visual style of the platform looks dated.",
+      "expected": false,
+      "why": "No printed fact says so; it is about the surface, not the load."
+     },
+     {
+      "label": "The course catalogue is too small.",
+      "expected": false,
+      "why": "Nothing in the case says learners are overloaded for lack of courses."
+     }
+    ],
+    "teachingNote": "The plan's model solution names the main problem as extraneous cognitive load. “The subject itself is complex” is true and is the intrinsic load, but it is not a cause that design can remove; a learner who ticks it and says so defends the choice, and the key marks it as not expected only because the task asks for causes the design can act on."
+   },
+   "decisionKey": {
+    "title": "Block 3.1 · Three measures for the strategy",
+    "expected": "Rebuild the ten most-used lessons; A content standard with editorial review; A learner-testing routine for new content",
+    "options": [
+     {
+      "label": "D1 · Rebuild the ten most-used lessons (€60,000, 20 weeks)",
+      "expected": true,
+      "why": "Reference pick: it removes extraneous load for the most learners (Materi B1: structure and chunking first) and keeps the content."
+     },
+     {
+      "label": "D2 · A content standard with editorial review (€25,000, 12 weeks)",
+      "expected": true,
+      "why": "Reference pick: a content standard is the decision logic made concrete; every new lesson passes the same checks, so the problem does not return."
+     },
+     {
+      "label": "D3 · A learner-testing routine for new content (€30,000, 52 weeks)",
+      "expected": true,
+      "why": "Reference pick: it is the evidence the case lacks (the plan asks to decide without user data), and it shows both effectiveness and efficiency."
+     },
+     {
+      "label": "D4 · Cut the specialist content by a third (€15,000, 8 weeks)",
+      "expected": false,
+      "why": "Rejected in the plan's own logic: the content is professionally necessary, so cutting a third is the over-simplification risk (Materi B2)."
+     },
+     {
+      "label": "D5 · Result and next step after every lesson (€30,000, 12 weeks)",
+      "expected": false,
+      "why": "Defendable: feedback after every lesson helps storage and gives a measure of what learners can do; it is a candidate for next year."
+     },
+     {
+      "label": "D6 · An AI summary button (€70,000, 24 weeks)",
+      "expected": false,
+      "why": "Rejected: €70,000 and 24 weeks for a tool that shortens lessons on demand, without checking whether the shortened version still teaches."
+     },
+     {
+      "label": "D7 · A new visual brand (€45,000, 20 weeks)",
+      "expected": false,
+      "why": "Rejected: it changes the look, not the load; no printed fact is about the look."
+     }
+    ],
+    "teachingNote": "A different set of three defends if the reason is written and the three together answer the definition of learning-effective UX. The budget is a live hint, not a lock (CLAUDE.md #38); a set over the €150,000 limit exports with the amount printed as a fact."
+   },
+   "logicKey": {
+    "title": "Block 3.2 · Who decides, and which checks a new lesson passes",
+    "expected": "Who: The head of learning with the content lead. Checks: One stated learning goal; A size that fits the learner's time; The key sentence is marked; Technical terms are explained in place; A short check or task at the end.",
+    "options": [
+     {
+      "label": "Who decides: The Chief Learning Experience Officer alone",
+      "expected": false,
+      "why": "Defendable, but one person's taste is exactly what a decision logic should prevent."
+     },
+     {
+      "label": "Who decides: The head of learning with the content lead",
+      "expected": true,
+      "why": "Learning judgement and content ownership together: neither one person's taste nor the author's own view."
+     },
+     {
+      "label": "Who decides: The author of the lesson",
+      "expected": false,
+      "why": "Rejected: an author checking their own lesson has no outside view."
+     },
+     {
+      "label": "Who decides: A steering group with management",
+      "expected": false,
+      "why": "Defendable for large budget items; too slow for every lesson."
+     },
+     {
+      "label": "Check: One stated learning goal",
+      "expected": true,
+      "why": "A check that can be done on every lesson and that follows from the three loads."
+     },
+     {
+      "label": "Check: A size that fits the learner's time",
+      "expected": true,
+      "why": "A check that can be done on every lesson and that follows from the three loads."
+     },
+     {
+      "label": "Check: The key sentence is marked",
+      "expected": true,
+      "why": "A check that can be done on every lesson and that follows from the three loads."
+     },
+     {
+      "label": "Check: Technical terms are explained in place",
+      "expected": true,
+      "why": "A check that can be done on every lesson and that follows from the three loads."
+     },
+     {
+      "label": "Check: A short check or task at the end",
+      "expected": true,
+      "why": "A check that can be done on every lesson and that follows from the three loads."
+     },
+     {
+      "label": "Check: A test with beginners before release",
+      "expected": false,
+      "why": "Defendable and strong, but not on every lesson: five beginners per module before release is the testing routine (D3), not a per-lesson check."
+     },
+     {
+      "label": "Check: Approval by the most senior person in the room",
+      "expected": false,
+      "why": "Rejected: authority is not a check on whether a lesson teaches."
+     }
+    ],
+    "teachingNote": "At least three checks are required; which ones is judged on the reason in the memo, not on matching the model. A style guide that nobody checks is not a decision logic (Materi B3)."
+   },
+   "measureKey": {
+    "title": "Block 2.2 · Choose four measures, rate them, order them",
+    "expected": "Chunking; Clear structure; Remove extras from the lesson page; Goal and outline. Total €30,000 of €40,000, longest 3 weeks of 4.",
+    "options": [
+     {
+      "label": "M1 · Chunking",
+      "expected": true,
+      "why": "Answers a printed fact (amount). Effort Mid by the printed cost €10,000. Reference ratings: impact High, risk Low."
+     },
+     {
+      "label": "M2 · Visualisation",
+      "expected": false,
+      "why": "In the plan's own list, and defendable: visualisation helps where a flow or structure is described. At €20,000 and 5 weeks it is High effort and one week over the four-week limit, so the reference set uses “Goal and outline” instead. A learner who funds it exports with the longer time printed as a fact and a reason."
+     },
+     {
+      "label": "M3 · Clear structure",
+      "expected": true,
+      "why": "Answers a printed fact (form). Effort Low by the printed cost €7,000. Reference ratings: impact Mid, risk Low."
+     },
+     {
+      "label": "M4 · Remove extras from the lesson page",
+      "expected": true,
+      "why": "Answers a printed fact (amount). Effort Low by the printed cost €4,000. Reference ratings: impact Mid, risk Mid."
+     },
+     {
+      "label": "M5 · Goal and outline",
+      "expected": true,
+      "why": "Answers a printed fact (order). Effort Mid by the printed cost €9,000. Reference ratings: impact Mid, risk Low."
+     },
+     {
+      "label": "M6 · Points for lesson views",
+      "expected": false,
+      "why": "Rejected: points for lesson views reward opening a lesson, not understanding it, and add one more thing to the screen."
+     },
+     {
+      "label": "M7 · New brand look",
+      "expected": false,
+      "why": "Rejected: it changes the look, not the load; no printed fact is about the look."
+     },
+     {
+      "label": "M8 · An AI chatbot",
+      "expected": false,
+      "why": "Rejected: €48,000 and 10 weeks is over both limits, and a chatbot adds one more thing to the screen."
+     },
+     {
+      "label": "M9 · Extra reading library",
+      "expected": false,
+      "why": "Rejected: more reading material adds load; learners are already overloaded by the amount."
+     }
+    ],
+    "teachingNote": "Visualisation (M2) takes 5 weeks against the 4-week limit; the reference set uses M5 instead. Effort is rule-based (under €8,000 Low, up to €15,000 Mid, above High), so the check can flag it; impact and risk are judgements and are never marked. A different, well-reasoned choice is acceptable and exports (CLAUDE.md #38): over budget, over time, another set of four, a different order, all with a stated reason. The plan's rationale: learning capacity > amount of information."
+   },
+   "optKey": {
+    "title": "Block 1.2 (Optional) · Reduce the load of a module: three options",
+    "expected": "Greatest effect: Split the content into small modules. Order: C, B, A. Effort by the printed cost: A Low, B High, C Mid.",
+    "options": [
+     {
+      "label": "A · Shorten the content significantly (€7,500, 2 weeks)",
+      "expected": false,
+      "why": "Last: the content is professionally necessary and the learners are beginners, so shortening a lot removes what they need. Effort Low, impact Low, risk High."
+     },
+     {
+      "label": "B · Visualise the content (diagrams, graphics) (€22,000, 4 weeks)",
+      "expected": false,
+      "why": "Second: a diagram helps where a structure or flow is described, not everywhere; effort High by the rule, and it takes the whole four weeks. Impact Mid, risk Mid."
+     },
+     {
+      "label": "C · Split the content into small modules (€10,000, 3 weeks)",
+      "expected": true,
+      "why": "Reference: chunking reduces what the learner holds at once without deleting content. Impact High, effort Mid by the rule, risk Low."
+     }
+    ],
+    "teachingNote": "Effort is rule-based (under €8,000 Low, up to €15,000 Mid, above High), so the check can flag it; impact and risk are judgements and are never marked. The plan's rationale for the day: learning capacity > amount of information."
+   },
+   "riskKey": {
+    "title": "Block 3.2 · The biggest risk",
+    "expected": "We measure completion but not what learners can do.",
+    "options": [
+     {
+      "label": "The content is now so light that learners finish but cannot apply it.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the measurement risk because the plan's question is where the risk of too much simplification lies."
+     },
+     {
+      "label": "The content is still too complex, and learners still leave.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the measurement risk because the plan's question is where the risk of too much simplification lies."
+     },
+     {
+      "label": "We measure completion but not what learners can do.",
+      "expected": true,
+      "why": "The one that hides both other risks: without a measure of what learners can do, “too simple” and “too complex” cannot be told apart (Materi B2). The remedy is a check at the end of each lesson."
+     },
+     {
+      "label": "The budget is used up before a first result is visible.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the measurement risk because the plan's question is where the risk of too much simplification lies."
+     },
+     {
+      "label": "Authors ignore the new content standard.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it; the model picks the measurement risk because the plan's question is where the risk of too much simplification lies."
+     }
+    ],
+    "teachingNote": "Any of the five defends when the plan to meet it is concrete (what is done, by whom, when). The wrong answer is a risk with no action."
+   },
+   "sortKey": {
+    "title": "Block 1.1 · Eight facts into Amount, Form, Order and purpose",
+    "expected": "Amount: fact 1, fact 2, fact 3  |  Form: fact 4, fact 5, fact 6  |  Order and purpose: fact 7, fact 8",
+    "options": [
+     {
+      "label": "Fact 1 · One continuous text of about 500 words",
+      "expected": true,
+      "why": "Amount. The learner has to take in 500 words at once: amount."
+     },
+     {
+      "label": "Fact 2 · Banner, chat, recommendations and a nine-entry menu next to the text",
+      "expected": true,
+      "why": "Amount. Several things compete for attention at once: amount."
+     },
+     {
+      "label": "Fact 3 · All 12 quiz questions on one page",
+      "expected": true,
+      "why": "Amount. Twelve questions at once is a question of how much is shown together: amount."
+     },
+     {
+      "label": "Fact 4 · No paragraphs, headings or lists",
+      "expected": true,
+      "why": "Form. The content is not shaped into parts the eye can use: form."
+     },
+     {
+      "label": "Fact 5 · No picture, and terms not explained",
+      "expected": true,
+      "why": "Form. The presentation offers neither a picture nor an explanation: form."
+     },
+     {
+      "label": "Fact 6 · The key sentence looks like every other sentence",
+      "expected": true,
+      "why": "Form. Nothing marks what matters most, so attention has nothing to follow: form (visual hierarchy)."
+     },
+     {
+      "label": "Fact 7 · 28 lessons in one flat list",
+      "expected": true,
+      "why": "Order and purpose. The learner cannot see groups or an order: order and purpose."
+     },
+     {
+      "label": "Fact 8 · No lesson states its goal or its link to the one before",
+      "expected": true,
+      "why": "Order and purpose. The learner cannot tell what a lesson is for or how it fits: order and purpose."
+     }
+    ],
+    "teachingNote": "The sort is objective: each fact belongs to one of the three observations of the case. Two edges: fact 5 (no picture, terms not explained) can read as amount of knowledge needed, but what the page offers to explain is a matter of how the content is shaped, so it is Form; fact 3 (12 quiz questions on one page) is Amount even though it is a quiz layout. The one fact that makes a learner stop first and how the process feels are judged: any of the eight defends if the reason is written from the learner's side (intake, processing, storage). Plan: Arbeitsauftrag 1, describe 5 problems from the user's side."
+   }
+  }
+ },
+ "day4": {
+  "guides": {
+   "causeGuide": {
+    "title": "2.1 (Optional) · Which printed fact supports your first cause",
+    "answer": "The case says the content is perceived as boring and that progress is not visible; facts 1 and 8 show a progress bar on one platform and none on the other, and facts 3 and 5 show a task on one and only reading on the other.",
+    "example": "At LearnLoop the brief says learners start a course and then stop, and one printed fact shows a course page with no end point. Those are the causes I can point at; “the logo is old” has nothing printed behind it.",
+    "why": "A cause is defended by a printed fact. The plan's model solution names the main problem as the lack of perceived progress and activation.",
+    "lookFor": [
+     "Points at a printed fact (by its number) or quotes a case line.",
+     "Does not offer a cause the case never mentions."
+    ]
+   },
+   "decisionOrderGuide": {
+    "title": "3.1 · Why the first decision goes first (Core)",
+    "answer": "Visible progress and a next step go first: they work on ability and prompt for every learner on every page, cost €40,000, and give the first figures (return rate) within fourteen weeks.",
+    "example": "A progress display and a next step go first because they work on ability and prompt for every learner, cost less than a rebuild, and show a first figure within three months.",
+    "why": "The order is a roadmap with a reason. The model order is visible progress, goals and feedback standard, research routine; a different order defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one.",
+     "Says which condition it works on and what it does for retention."
+    ]
+   },
+   "giveUpGuide": {
+    "title": "3.2 · What you give up or postpone (Core)",
+    "answer": "I give up points, badges and the leaderboard this year, and I postpone rebuilding the five most-used courses; learners keep the current content with a progress display on top.",
+    "example": "I give up the points programme this year and postpone the loss messages; learners keep the plain course pages with a progress display.",
+    "why": "The skill of Level 3: a decision that gives up nothing has not decided. The answer names something real that a stakeholder would miss.",
+    "lookFor": [
+     "Names a concrete thing given up or postponed.",
+     "It is something someone would miss, not a throwaway."
+    ]
+   },
+   "missingGuide": {
+    "title": "2.2 · What information you are missing (Core)",
+    "answer": "I do not know whether learners leave for lack of progress or for lack of time. I would interview six learners who dropped out and ask what made them stop.",
+    "example": "I do not know whether learners leave because they see no progress or because they have no time. I would interview six who stopped before choosing.",
+    "why": "The plan asks it outright. A good answer names a specific unknown that would change the decision, and a way to find it out.",
+    "lookFor": [
+     "Names a specific unknown, not “more data”.",
+     "Says how it could be found out.",
+     "Connects to the decision."
+    ]
+   },
+   "optWhyGuide": {
+    "title": "1.2 (Optional) · Which measure has a lasting effect",
+    "answer": "Visualising progress has a lasting effect: after a reward would stop, the learner still knows how far they have come and what is left, which is information about their own skill and not a payment. Badges and points depend on a continuing reward.",
+    "example": "For LearnLoop I would say a progress and next-step display: after a reward would stop, the learner still sees how far they have come. A weekly leaderboard ends the moment people stop caring about it.",
+    "why": "The plan asks which measure has a lasting effect. A good answer says what remains when a reward would stop.",
+    "lookFor": [
+     "Says what remains after a reward would stop.",
+     "Refers to competence, progress or activation rather than to “it is exciting”."
+    ]
+   },
+   "orderGuide": {
+    "title": "2.2 · Why the first priority goes first (Core)",
+    "answer": "Progress tracking goes first: it is the cheapest of the four that works for every learner, it answers the strongest motivator, and the other measures show up in it as steps done.",
+    "example": "At LearnLoop the progress display goes first: it helps every learner, costs €8,000, and the other measures show up in it as steps done.",
+    "why": "The plan's rationale: perceived progress is the strongest motivator. A different first priority defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one, not for the whole set.",
+     "Refers to the learner's problem, the cost or what the others depend on."
+    ]
+   },
+   "preferGuide": {
+    "title": "1.1 · Which platform is more motivating, and why (Core)",
+    "answer": "On Platform A I can see that I am 40% through, I do a short task instead of only reading, I am told what I can do after the unit, and I get a result and a next step. On Platform B I would not know how far I am or what any of it is for, so I would stop.",
+    "example": "At LearnLoop I would prefer the version where I see “3 of 8 done” and finish each unit with a short task and a message. I can tell how far I have come and what to do next; on the other version I only scroll.",
+    "why": "The plan asks which platform is more motivating and why. A good answer is written from the learner's side (“I can see…”, “I do…”) and names something the learner can see, do or feel on one platform and not on the other.",
+    "lookFor": [
+     "Written from the learner's side.",
+     "Names at least one thing that is on one platform and missing on the other.",
+     "Not “it looks better”."
+    ]
+   },
+   "principlesGuide": {
+    "title": "1.1 · Three principles of motivation (Core)",
+    "answer": "Show the learner their progress, because people continue when they can see they are getting somewhere. | Let the learner do something in every unit, because doing keeps attention and builds the skill the unit is about. | State what the learner will be able to do and give a result after each task, because a goal and a result tell them what the effort is for.",
+    "example": "Show how far the learner has come, because people speed up when they can see the end. | Give a result after every task, because a learner who gets no answer cannot tell whether the effort counted. | Start a unit with what the learner will be able to do, because a goal makes a task worth doing.",
+    "why": "Materi A2: a principle of motivation is a sentence with a reason, “Do X, because Y”. Three principles from the differences between the platforms: progress, activation, goals or feedback.",
+    "lookFor": [
+     "Each is one sentence “Do X, because Y”.",
+     "Each reason says what the learner experiences.",
+     "They are drawn from the differences, not from general advice."
+    ],
+    "pitfalls": [
+     "A slogan with no reason (“Make it fun”).",
+     "A principle about rewards where the facts are about progress and activation."
+    ]
+   },
+   "reflectGuide": {
+    "title": "1.3 (Optional) · Coaching reflection",
+    "answer": "Progress that is real and feedback after each task: they change what the learner does next, not only how the screen looks. Motivation that stays when the reward stops: a goal I care about, a sign that I am getting better, a choice in how I learn. Loss messages and rankings of the weakest learners: they raise activity today and cost trust tomorrow.",
+    "why": "Reflection is never scored. The plan's coaching points: motivation is not gamification; engagement arises from structure, not only from rewards; UX can also demotivate. Use the learners' notes as the start of the live discussion."
+   },
+   "riskPlanGuide": {
+    "title": "3.2 · What you do about the biggest risk (Core)",
+    "answer": "I run the research and experiment routine from month one, so we learn why learners leave before we spend the large part of the budget. I would notice the risk if the interviews name a reason the measures do not touch.",
+    "example": "I give each reward a check on the cheapest way to earn it, and I look at whether learners finish units, not only open them. I would notice the risk if opened lessons rise while finished ones do not.",
+    "why": "A risk with no action is only a worry. The action is concrete: what is done, and when it is noticed.",
+    "lookFor": [
+     "Names an action.",
+     "Says when or how the risk would be noticed."
+    ]
+   },
+   "strategyWhyGuide": {
+    "title": "3.1 · Why this motivation strategy (Core)",
+    "answer": "I build on intrinsic motivation (goals, progress, feedback) and keep extrinsic elements out, because the leaving learners lack a sign of progress and a next step, which are ability and prompt problems; a reward would not fix those.",
+    "example": "For LearnLoop I would lean on a mix with intrinsic as the base: learners who stop do not see a next step, which is an ability problem, so I would fix that first and add a small, honest reward later.",
+    "why": "Materi B1: behaviour needs motivation, ability and a prompt together. A strategy that works only on motivation is incomplete, and a reward where the barrier is ability is the place where motivation is overestimated.",
+    "lookFor": [
+     "Names which condition (motivation, ability, prompt) the strategy works on.",
+     "Names for which learners.",
+     "Does not claim that a reward fixes an ability problem."
+    ]
+   },
+   "successGuide": {
+    "title": "3.1 · Your success sentence (Core)",
+    "answer": "I will measure the seven-day return rate against today's baseline, with a control group that does not get the progress display, and I will read it after six weeks together with six learner interviews.",
+    "example": "At LearnLoop I would compare the share of new learners who return within seven days against last quarter's figure, with half of them seeing the old page, and read it after eight weeks together with five interviews.",
+    "why": "Materi B3: success has a baseline, a target, a method and a date, written before the change. A behaviour metric and a reason-giving method together.",
+    "lookFor": [
+     "Names the metric and a baseline.",
+     "Names a method (control group, interviews).",
+     "Names a time."
+    ],
+    "pitfalls": [
+     "“We will see whether it improves.”",
+     "Time spent or badges earned as the only evidence."
+    ]
+   },
+   "uncertainGuide": {
+    "title": "3.2 · The decision under uncertainty (Core)",
+    "answer": "I decide to add a progress display and a next step to the three most-opened courses first. I do not know whether learners leave for lack of progress or lack of time. I will reverse it if the seven-day return rate is not at least five points above the control group after six weeks.",
+    "example": "I decide to show a next-step button in two courses first. I do not know whether learners leave for lack of direction or lack of time. I will reverse it if the seven-day return rate is not four points above the control group after eight weeks.",
+    "why": "The frame of Materi B3: what I decide, what I do not know, what would make me reverse and by when. A checkable reversal condition has a figure and a time.",
+    "lookFor": [
+     "States the decision.",
+     "States what is not known.",
+     "Gives a checkable reversal condition with a figure and a time."
+    ],
+    "pitfalls": [
+     "A reversal condition no one could check (“if it does not work”).",
+     "A decision that waits for data instead of choosing a step that can be undone."
+    ]
+   }
+  },
+  "keys": {
+   "causeKey": {
+    "title": "Block 2.1 (Optional) · Three main causes of the motivation problem",
+    "expected": "Learners cannot see their progress.  |  The content is passive: reading without doing.  |  Goals and results are unclear: no stated goal, no feedback.",
+    "options": [
+     {
+      "label": "Learners cannot see their progress.",
+      "expected": true,
+      "why": "The case names it (“no visible progress”), and facts 1 and 8 show the difference between the platforms."
+     },
+     {
+      "label": "The content is passive: reading without doing.",
+      "expected": true,
+      "why": "The case says the content is perceived as “boring”, and facts 3 and 5 show that one platform has tasks and the other only reading."
+     },
+     {
+      "label": "Goals and results are unclear: no stated goal, no feedback.",
+      "expected": true,
+      "why": "Platform B has long content, no feedback and unclear goals (the plan), and facts 2, 4, 6 and 7 show it."
+     },
+     {
+      "label": "The platform gives too few rewards, such as badges.",
+      "expected": false,
+      "why": "No printed fact says so. Platform A motivates without any reward (Materi A1: motivation is not the same as gamification)."
+     },
+     {
+      "label": "The subscription price is too high.",
+      "expected": false,
+      "why": "Nothing in the case mentions the price."
+     },
+     {
+      "label": "The course catalogue is too small.",
+      "expected": false,
+      "why": "Learners start courses; the problem is that they drop out, not that there is too little to start."
+     }
+    ],
+    "teachingNote": "The plan's main problem is the lack of perceived progress and of activation. “Too few rewards” is the popular wrong answer: Platform A motivates without any reward, so the missing reward is not what the facts show. A learner who ticks it and points at a printed fact defends the choice."
+   },
+   "decisionKey": {
+    "title": "Block 3.1 · Three prioritised measures",
+    "expected": "Visible progress and a next step across the platform; A goals and feedback standard; A research and experiment routine",
+    "options": [
+     {
+      "label": "D1 · Visible progress and a next step across the platform (€40,000, 14 weeks)",
+      "expected": true,
+      "why": "Reference pick: it works on ability and prompt for every learner on every page (Materi B1) and is the strongest motivator in the plan's logic."
+     },
+     {
+      "label": "D2 · Rebuild the five most-used courses with short interactive tasks (€70,000, 24 weeks)",
+      "expected": false,
+      "why": "Defendable and strong on activation, but €70,000 and 24 weeks: the biggest share of the budget before any evidence."
+     },
+     {
+      "label": "D3 · A goals and feedback standard (€25,000, 12 weeks)",
+      "expected": true,
+      "why": "Reference pick: a goals and feedback standard keeps every new unit and task on the principles, so the problem does not return."
+     },
+     {
+      "label": "D4 · Points, badges and a leaderboard (€45,000, 16 weeks)",
+      "expected": false,
+      "why": "Rejected in the plan's own logic: an extrinsic layer on a platform whose problem is missing progress and activation (perverse-incentive risk)."
+     },
+     {
+      "label": "D5 · A research and experiment routine (€30,000, 52 weeks)",
+      "expected": true,
+      "why": "Reference pick: the data is incomplete (the plan), so the research and experiment routine is the evidence the case lacks (Materi B3)."
+     },
+     {
+      "label": "D6 · Streaks, reminders and loss messages (€20,000, 8 weeks)",
+      "expected": false,
+      "why": "Rejected: loss messages are pressure; they risk trust (Materi B2)."
+     },
+     {
+      "label": "D7 · Discounts for completion (€35,000, 10 weeks)",
+      "expected": false,
+      "why": "Rejected: a discount after completion only reaches learners who already finish."
+     }
+    ],
+    "teachingNote": "A different set of three defends if the reason is written and the three together deal with the three conditions of behaviour. The budget is a live hint, not a lock (CLAUDE.md #38); a set over the €180,000 limit exports with the amount printed as a fact."
+   },
+   "logicKey": {
+    "title": "Block 3.2 · Who decides, and on what evidence",
+    "expected": "Who: The head of product together with the learning lead. Evidence: An A/B test with a control group; Learner interviews; Return rate and completion data.",
+    "options": [
+     {
+      "label": "Who decides: The Chief Experience Officer alone",
+      "expected": false,
+      "why": "Defendable, but one person's taste is exactly what a decision architecture should prevent."
+     },
+     {
+      "label": "Who decides: The head of product together with the learning lead",
+      "expected": true,
+      "why": "Product and learning judgement together: neither one person's taste nor whoever shouts loudest."
+     },
+     {
+      "label": "Who decides: A steering group with management",
+      "expected": false,
+      "why": "Defendable for large budget items; too slow for every optimisation."
+     },
+     {
+      "label": "Who decides: Whoever runs the campaign",
+      "expected": false,
+      "why": "Rejected: the campaign owner judges their own work."
+     },
+     {
+      "label": "Evidence: An A/B test with a control group",
+      "expected": true,
+      "why": "Evidence about learners' behaviour and reasons (Materi B3)."
+     },
+     {
+      "label": "Evidence: Learner interviews",
+      "expected": true,
+      "why": "Evidence about learners' behaviour and reasons (Materi B3)."
+     },
+     {
+      "label": "Evidence: Return rate and completion data",
+      "expected": true,
+      "why": "Evidence about learners' behaviour and reasons (Materi B3)."
+     },
+     {
+      "label": "Evidence: A comparison with a competitor",
+      "expected": false,
+      "why": "Defendable as context, but a competitor's feature is not proof that it causes their retention (Materi B1)."
+     },
+     {
+      "label": "Evidence: The opinion of the most senior person in the room",
+      "expected": false,
+      "why": "Rejected: a senior opinion alone is not evidence (Materi B3)."
+     }
+    ],
+    "teachingNote": "At least two kinds of evidence are required; which ones is judged on the reason in the memo, not on matching the model."
+   },
+   "measureKey": {
+    "title": "Block 2.2 · Choose four measures, rate them, order them",
+    "expected": "Progress tracking; Interactive elements; Clear learning objectives; Feedback after every task. Total €44,000 of €40,000, longest 6 weeks of 8.",
+    "options": [
+     {
+      "label": "M1 · Progress tracking",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (progress). Effort Low by the printed cost €8,000. Reference ratings: impact High, risk Low."
+     },
+     {
+      "label": "M2 · Interactive elements",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (activation). Effort Mid by the printed cost €18,000. Reference ratings: impact High, risk Mid."
+     },
+     {
+      "label": "M3 · Clear learning objectives",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (goals). Effort Low by the printed cost €6,000. Reference ratings: impact Mid, risk Low."
+     },
+     {
+      "label": "M4 · Feedback after every task",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (feedback). Effort Mid by the printed cost €12,000. Reference ratings: impact High, risk Low."
+     },
+     {
+      "label": "M5 · Points and badges",
+      "expected": false,
+      "why": "Rejected: points and badges reward opening a lesson, not learning (a perverse incentive, Materi B2), and the facts show missing progress and activation, not a missing reward."
+     },
+     {
+      "label": "M6 · A public leaderboard",
+      "expected": false,
+      "why": "Rejected: a public ranking rewards the already active and can push the weakest learners out, who are the ones the platform is losing (pressure and comparison, Materi B2)."
+     },
+     {
+      "label": "M7 · Streaks with loss messages",
+      "expected": false,
+      "why": "Rejected: loss messages are pressure and a manipulation risk; they raise activity today and cost trust tomorrow."
+     },
+     {
+      "label": "M8 · Discount coupons for finishing",
+      "expected": false,
+      "why": "Rejected: €22,000 for a discount after completion, which only reaches learners who already finish."
+     },
+     {
+      "label": "M9 · New course images and look",
+      "expected": false,
+      "why": "Rejected: it changes the look, not the motivation; no printed fact is about the look."
+     }
+    ],
+    "teachingNote": "The plan's four measures cost €44,000 against the case's €40,000 (a Case assumption): the reference set is €4,000 over and says where the money goes. Effort is rule-based (under €10,000 Low, up to €20,000 Mid, above High), so the check can flag it; impact and risk are judgements and are never marked. A different, well-reasoned choice is acceptable and exports (CLAUDE.md #38): within the budget, over it, another set of four, a different order, all with a stated reason. The plan's rationale: perceived progress is the strongest motivator."
+   },
+   "metricKey": {
+    "title": "Block 3.1 · How to measure success",
+    "expected": "Completion rate; Return rate within seven days; Tasks done per week; Learner interviews",
+    "options": [
+     {
+      "label": "Completion rate",
+      "expected": true,
+      "why": "A behaviour metric: it counts what learners do and has a baseline (Materi A4, B3)."
+     },
+     {
+      "label": "Return rate within seven days",
+      "expected": true,
+      "why": "A behaviour metric: it counts what learners do and has a baseline (Materi A4, B3)."
+     },
+     {
+      "label": "Tasks done per week",
+      "expected": true,
+      "why": "A behaviour metric: it counts what learners do and has a baseline (Materi A4, B3)."
+     },
+     {
+      "label": "Time spent on the platform",
+      "expected": false,
+      "why": "Ambiguous: a long time can mean interest or confusion; do not use it alone (Materi A4)."
+     },
+     {
+      "label": "Badges earned",
+      "expected": false,
+      "why": "Rejected: badges earned measure the reward system, not learning."
+     },
+     {
+      "label": "Learner interviews",
+      "expected": true,
+      "why": "A method about reasons, to pair with the behaviour metrics (Materi A4)."
+     },
+     {
+      "label": "Satisfaction rating",
+      "expected": false,
+      "why": "Defendable as an addition, but a rating is an opinion and not behaviour; pair it with a behaviour metric."
+     }
+    ],
+    "teachingNote": "At least three are required; which ones is judged on the success sentence: a baseline, a target, a method and a date. A metric without a baseline cannot show improvement."
+   },
+   "optKey": {
+    "title": "Block 1.2 (Optional) · Choose an engagement strategy: three options",
+    "expected": "Lasting effect: Visualise learning progress. Order: B, C, A. Effort by the printed cost: A Mid, B Low, C High.",
+    "options": [
+     {
+      "label": "A · Gamification: badges and points (€18,000, 5 weeks)",
+      "expected": false,
+      "why": "Last: badges and points are extrinsic rewards. Effort Mid, impact Low for the learners who are leaving, risk High (overjustification: the reward can become the reason, Materi A1). A different order defends if the reason says what remains when the reward stops."
+     },
+     {
+      "label": "B · Visualise learning progress (€7,000, 3 weeks)",
+      "expected": true,
+      "why": "Reference: progress is information about the learner's own skill, so it remains when a reward would stop. Effort Low by the rule, impact High, risk Low. The plan's rationale: perceived progress is the strongest motivator."
+     },
+     {
+      "label": "C · Make content more interactive (€24,000, 7 weeks)",
+      "expected": false,
+      "why": "Second: making content interactive builds activation and competence and also lasts, but at €24,000 and 7 of the 8 weeks it is High effort and Mid risk (weak tasks feel like homework). Impact High."
+     }
+    ],
+    "teachingNote": "Effort is rule-based (under €10,000 Low, up to €20,000 Mid, above High), so the check can flag it; impact and risk are judgements and are never marked. “Which measure has a lasting effect” has one reference answer (B) but C also defends when the learner says what the learner can do afterwards."
+   },
+   "riskKey": {
+    "title": "Block 3.2 · The biggest risk",
+    "expected": "We change the wrong thing because our data does not show why learners leave.",
+    "options": [
+     {
+      "label": "Learners collect rewards without learning (a perverse incentive).",
+      "expected": false,
+      "why": "The classic perverse incentive (Materi B2): defendable as the biggest risk if the plan has any reward in it; the model plan has none."
+     },
+     {
+      "label": "Learners feel pressured and trust the platform less.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it."
+     },
+     {
+      "label": "We raise short-term activity that fades once the novelty is gone.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it."
+     },
+     {
+      "label": "We change the wrong thing because our data does not show why learners leave.",
+      "expected": true,
+      "why": "The risk the case itself names: the data is incomplete, so the team may fix the wrong thing. The remedy is the research routine before the big spend."
+     },
+     {
+      "label": "Management expects retention to rise within weeks.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it."
+     }
+    ],
+    "teachingNote": "Any of the five defends when the plan to meet it is concrete (what is done, by whom, when). The wrong answer is a risk with no action."
+   },
+   "sortKey": {
+    "title": "Block 1.1 · Eight facts into four principles",
+    "expected": "Visible progress: fact 1, fact 8  |  Activation: fact 3, fact 5  |  Clear goals: fact 4, fact 7  |  Feedback: fact 2, fact 6",
+    "options": [
+     {
+      "label": "Fact 1 · A: progress bar “40% done”",
+      "expected": true,
+      "why": "Visible progress. The learner can see how far they have come: visible progress."
+     },
+     {
+      "label": "Fact 2 · A: “Correct.” and “Next: task 4”",
+      "expected": true,
+      "why": "Feedback. A result and a next step after an action: feedback."
+     },
+     {
+      "label": "Fact 3 · A: a three-minute task the learner does",
+      "expected": true,
+      "why": "Activation. The learner does something related to the goal: activation."
+     },
+     {
+      "label": "Fact 4 · A: “After this unit you can…”",
+      "expected": true,
+      "why": "Clear goals. The unit says what the learner will be able to do: a clear goal."
+     },
+     {
+      "label": "Fact 5 · B: one long page of reading, no task",
+      "expected": true,
+      "why": "Activation. The learner only reads and never does anything: activation is missing."
+     },
+     {
+      "label": "Fact 6 · B: no tick, no message after the last page",
+      "expected": true,
+      "why": "Feedback. Nothing answers the learner's action with a result or a next step: feedback is missing."
+     },
+     {
+      "label": "Fact 7 · B: no statement of what you will be able to do",
+      "expected": true,
+      "why": "Clear goals. The learner cannot tell what the course is for: a clear goal is missing."
+     },
+     {
+      "label": "Fact 8 · B: no progress, no end point",
+      "expected": true,
+      "why": "Visible progress. The learner cannot see how far they have come or how far it is to the end: visible progress is missing."
+     }
+    ],
+    "teachingNote": "The sort is objective: each fact belongs to one principle, and each principle has one fact on Platform A and one on Platform B. Two edges: fact 2 (“Correct.” and “Next: task 4”) is Feedback, not Activation, although it follows a task; fact 6 (nothing after the last page) is the missing Feedback, not missing Progress. Which platform is more motivating is judged, but Platform A has all four principles on screen and Platform B none, so any defence of B has to name something the facts do not show. The three principles are “Do X, because Y” sentences: look for a reason, not a slogan. Plan: Arbeitsauftrag 1, describe 5 differences and derive 3 principles."
+   },
+   "strategyKey": {
+    "title": "Block 3.1 · Motivation strategy",
+    "expected": "A mix: intrinsic as the base, a few extrinsic elements",
+    "options": [
+     {
+      "label": "Mainly intrinsic: goals, competence, progress",
+      "expected": false,
+      "why": "Defendable: it is the cleanest against overjustification, but it ignores that many Habmann learners are required to learn and already have an extrinsic reason."
+     },
+     {
+      "label": "A mix: intrinsic as the base, a few extrinsic elements",
+      "expected": true,
+      "why": "Reference: intrinsic as the base, because lasting motivation needs goals, competence and progress (Materi A1), with at most a few extrinsic elements that give real information."
+     },
+     {
+      "label": "Mainly extrinsic: points, badges, rewards",
+      "expected": false,
+      "why": "Rejected unless defended: rewards alone raise short-term activity and carry the overjustification and perverse-incentive risks (Materi A1, B2)."
+     }
+    ],
+    "teachingNote": "The plan's question is intrinsic against extrinsic. The answer is judged on the field under it: which of the three conditions (motivation, ability, prompt) the strategy works on, and for which learners."
+   }
+  }
+ },
+ "day5": {
+  "guides": {
+   "conflictGuide": {
+    "title": "3.1 · The conflict analysis (Core)",
+    "answer": "D1: A home screen with one main action and a continue entry. / More completion and fewer support requests. / Fewer places for promotions on the home screen. | D4: Changes that rest on what learners say and do. / Fewer wrong bets and a figure for every decision. / Money and time that could have gone into visible features this year. | D5: Fewer features nobody asked for. / A roadmap that managers can defend with a metric. / Sales loses the right to add a feature without a named user problem.",
+    "example": "At LearnLoop, a simpler menu: the user gets the course in one click; the business gets fewer support requests; what is lost is a promotion slot on the home screen, which moves to the course page.",
+    "why": "Materi B2: name what the user, the business and the other side get or lose. A decision that serves only one goal is a trade-off: say what the others lose and how you limit the loss.",
+    "lookFor": [
+     "Three short entries per decision.",
+     "What is lost or postponed is something someone would miss.",
+     "Counts the business gain in completion or support, not in banners."
+    ]
+   },
+   "decisionOrderGuide": {
+    "title": "3.1 · Why the first decision goes first (Core)",
+    "answer": "Rebuilding the navigation and home screen goes first: it fixes what every learner meets, costs €60,000, and gives the first figures (completion) within eighteen weeks, while the research programme and the approval rule start at once beside it.",
+    "example": "A task-based home screen goes first because it helps every learner and the business sees completion rise within a few months; the approval rule follows so that new features do not undo it.",
+    "why": "The roadmap is an order with a reason. The model order is rebuild, research programme, approval rule; a different order defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one.",
+     "Says what it does for the user and for the business."
+    ]
+   },
+   "errorGuide": {
+    "title": "2.1 (Optional) · The design error behind each problem",
+    "answer": "Facts 4 and 5: 14 filters and three lists mean no single clear place to look. | Facts 1 and 2: labels name the software, not the learner's task. | Facts 3 and 4: 22 entries, 9 widgets, 4 banners and 14 filters at once. | Facts 6 and 8: no “Continue where you stopped”, and title and path both read “Home”.",
+    "example": "At LearnLoop: “Learners cannot find their course” rests on one printed fact, a home screen with nine menu entries and no continue entry. The design error is that the menu follows the company's departments, not the learner's task.",
+    "why": "A user problem is something a learner cannot do or feel, and you can point at it. The design error names what in the design causes it and the fact number that shows it.",
+    "lookFor": [
+     "Names a design error (system logic, many choices, missing orientation).",
+     "Points at a fact number."
+    ]
+   },
+   "expectationsGuide": {
+    "title": "1.1 · Three expectations of a good platform (Core)",
+    "answer": "I expect to see my course first when I open the platform, because I come with one goal. I expect labels in words I use, because I do not know what a module instance is. I expect to see how far I have come, because I study next to my job and need to know what is left.",
+    "example": "I expect my current course to be the first thing I see, because I arrive with one goal. I expect buttons in words I use, because I do not want to learn the platform's vocabulary. I expect to know where I am, because I jump between devices.",
+    "why": "The plan asks for three expectations. Each starts “I expect…” and ties to a goal or a situation (Materi A2): the expectation behind a frustration.",
+    "lookFor": [
+     "Three, each starting “I expect…”.",
+     "Each tied to a goal or situation, with a “because”.",
+     "Not a feature list."
+    ]
+   },
+   "giveUpGuide": {
+    "title": "3.2 · What you give up or postpone (Core)",
+    "answer": "I give up the social feed, groups and badges that sales asked for this year, and I postpone the growth marketing push; sales gets a date to come back with a named user problem.",
+    "example": "I give up the new chat feature this year and postpone the extra courses; sales gets a date to return with a named learner problem.",
+    "why": "The skill of Level 3: a decision that gives up nothing has not decided. The answer names something real that a stakeholder would miss.",
+    "lookFor": [
+     "Names a concrete thing given up or postponed.",
+     "It is something someone would miss, not a throwaway."
+    ]
+   },
+   "goalGuide": {
+    "title": "1.1 · Your goal as a learner (Core)",
+    "answer": "I want to carry on with the course I started, on my phone, between two meetings, with about ten minutes. It is voluntary, but my manager expects me to finish it this quarter.",
+    "example": "At LearnLoop I want to finish the data-protection course before Friday, on my laptop at my desk, in the half hour after lunch. It is mandatory, so I just want to get it done.",
+    "why": "The plan asks what the learner's goals are. A good answer is a task in everyday words (“carry on where I stopped”) and names the situation: device, time, mandatory or voluntary (Materi A2).",
+    "lookFor": [
+     "A task, not a feature wish.",
+     "Names a situation: device, time, mandatory or voluntary.",
+     "Written from the learner's side."
+    ]
+   },
+   "missingGuide": {
+    "title": "2.2 · What information you are missing (Core)",
+    "answer": "I do not know whether learners fail to find content because of the menu or because of the search. I would run a usability test with five learners on the home screen before the rebuild.",
+    "example": "I do not know whether learners leave because they cannot find the course or because the course is too long. I would watch five learners try to find their course on a Monday morning.",
+    "why": "The plan asks it outright. A good answer names a specific unknown that would change the decision, and a way to find it out.",
+    "lookFor": [
+     "Names a specific unknown, not “more data”.",
+     "Says how it could be found out.",
+     "Connects to the decision."
+    ]
+   },
+   "needsGuide": {
+    "title": "3.1 · The central user needs (Core)",
+    "answer": "A learner on the move wants to carry on where they stopped, so the business gets completion. A learner who is new wants to find the right course at once, so the business gets usage of paid content. A training manager wants to see that staff finish, so the business gets renewals.",
+    "example": "At LearnLoop: a team lead wants to assign a course in two clicks, so the business gets more courses finished. A new hire wants to see what to do on day one, so the business gets faster onboarding.",
+    "why": "Materi B1: state each need as a sentence with three parts: who, what they want to do, and what the business gets if they can. A need without a business link will not get funded.",
+    "lookFor": [
+     "Two or three needs.",
+     "Each names who and a task.",
+     "Each names a business figure that depends on it."
+    ]
+   },
+   "optWhyGuide": {
+    "title": "1.2 (Optional) · Justify your decision",
+    "answer": "Simplifying the navigation goes first: learners find their course and see what to do next, and the business gets more completion and fewer complaints, which are the figures management watches. More content and new features depend on learners finding them first.",
+    "example": "For LearnLoop I would simplify the menu first: learners find their course, so completion rises and support requests fall, which management watches. New features would not be found by the learners who are lost.",
+    "why": "The plan asks to justify the decision. A good answer says what the business gets from the first priority, so that it could be argued to management (Materi A5, B1).",
+    "lookFor": [
+     "Says what the business gets (completion, retention, complaints).",
+     "Says what the user gets.",
+     "Names why the others come later."
+    ]
+   },
+   "orderGuide": {
+    "title": "2.2 · Why the first priority goes first (Core)",
+    "answer": "Clear navigation goes first: it fixes what every learner meets on the first screen, answers three facts, and the other three measures work on top of a menu that makes sense. Understanding users matters more than the number of features.",
+    "example": "At LearnLoop the task-based menu goes first: it fixes what every learner meets on the first screen, and the other measures work better on top of a menu that makes sense.",
+    "why": "The plan's rationale: understanding users beats the number of features. A different first priority defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one, not for the whole set.",
+     "Refers to the learner's problem, the cost or what the others depend on."
+    ]
+   },
+   "reflectGuide": {
+    "title": "1.3 (Optional) · Coaching reflection",
+    "answer": "Adding the social feed because sales asked: nobody asked a learner, and 2% open it. When growth is counted in sign-ups, not in finished courses: the platform then favours banners and promotions over a clear path. By using their numbers: completion, support requests and renewals depend on learners finding and finishing a course, so the user-centred measure is the business measure.",
+    "why": "Reflection is never scored. The plan's coaching points: user-centredness is not a nice-to-have; organisations often do not act in a user-centred way; UX is a translation effort between user and business. Use the learners' notes as the start of the live discussion."
+   },
+   "riskPlanGuide": {
+    "title": "3.2 · What you do about the biggest risk (Core)",
+    "answer": "I start the research programme in month one, so the first usability test and the interviews with leavers run before the rebuild is signed off. I would notice the risk if the interviews name a problem the plan does not address.",
+    "example": "I run three learner interviews and a usability test before we sign off the new menu, so that we fix what learners meet, not what we assume. I would notice the risk if the interviews name a problem we did not plan for.",
+    "why": "A risk with no action is only a worry. The action is concrete: what is done, and when it is noticed.",
+    "lookFor": [
+     "Names an action.",
+     "Says when or how the risk would be noticed."
+    ]
+   },
+   "ruleGuide": {
+    "title": "3.2 · The rule every new feature must pass (Core)",
+    "answer": "Every new feature needs a named user problem, a metric and an owner before it enters the roadmap.",
+    "example": "Before a feature enters the roadmap, the requester names the learner problem it solves, the figure that will show it worked, and who owns it; otherwise it waits.",
+    "why": "Materi B3: a feature approval rule is the most direct decision architecture against feature creep: a named user problem, a metric and an owner.",
+    "lookFor": [
+     "Names a user problem.",
+     "Names a metric.",
+     "Names an owner.",
+     "One or two sentences."
+    ]
+   },
+   "uncertainGuide": {
+    "title": "3.2 · The decision without complete user data (Core)",
+    "answer": "I decide to rebuild the home screen around one main action and to pause new features for six months. I do not know whether learners leave because of the menu or the search. I will reverse it if completion has not risen by three points after four months.",
+    "example": "I decide to put a “Continue” button on the home screen of two courses first. I do not know whether learners leave because of the menu or the search. I will reverse it if completion in those courses has not risen by two points after three months.",
+    "why": "The frame of Materi B3: what I decide, what I do not know, what would make me reverse and by when. A checkable reversal condition has a figure and a time.",
+    "lookFor": [
+     "States the decision.",
+     "States what is not known.",
+     "Gives a checkable reversal condition with a figure and a time."
+    ],
+    "pitfalls": [
+     "A reversal condition no one could check (“if it does not work”).",
+     "A decision that waits for data instead of choosing a step that can be undone."
+    ]
+   },
+   "worstGuide": {
+    "title": "1.1 · Why this fact frustrates you most (Core)",
+    "answer": "I come back after three days and expect to see my course and a button that says carry on. Instead the home screen shows menus and banners, and I have to open the course list again and find my place myself.",
+    "example": "At LearnLoop I open the app expecting my course on top and see five banners. I have to scroll to find it, and by then I have forgotten what I came for.",
+    "why": "Any of the eight facts defends. What the plan asks for is the user's perspective: say what you expected to see and what you saw instead, as a learner, not as a design opinion.",
+    "lookFor": [
+     "“I expected… I saw…”.",
+     "Written as a feeling and a consequence, not “it looks bad”.",
+     "Refers to the fact chosen."
+    ]
+   }
+  },
+  "keys": {
+   "causeKey": {
+    "title": "Block 2.1 (Optional) · Four central user problems and their causes",
+    "expected": "Learners cannot find the content they need.  |  Learners do not understand what the buttons and menu entries mean.  |  Learners are overwhelmed by the number of options at once.  |  Learners do not know what to do next.",
+    "options": [
+     {
+      "label": "Learners cannot find the content they need.",
+      "expected": true,
+      "why": "The case names it, and facts 4, 5 and 6 show why."
+     },
+     {
+      "label": "Learners do not understand what the buttons and menu entries mean.",
+      "expected": true,
+      "why": "Facts 1 and 2 show labels in the software's words."
+     },
+     {
+      "label": "Learners are overwhelmed by the number of options at once.",
+      "expected": true,
+      "why": "Fact 3 and fact 4 show many choices before any action."
+     },
+     {
+      "label": "Learners do not know what to do next.",
+      "expected": true,
+      "why": "Facts 6 and 8 show no “continue” and no sign of where they are."
+     },
+     {
+      "label": "Learners want more social features.",
+      "expected": false,
+      "why": "Fact 7 says the opposite: a social feature exists and 2% open it."
+     },
+     {
+      "label": "Learners find the price too high.",
+      "expected": false,
+      "why": "Nothing in the case mentions the price."
+     },
+     {
+      "label": "The visual style looks dated.",
+      "expected": false,
+      "why": "No printed fact is about the look; it is about the surface, not the learner's task."
+     }
+    ],
+    "teachingNote": "The plan's main problem is the lack of user-centredness: system logic instead of user logic. “More social features” is the popular wrong answer and fact 7 contradicts it. A learner who ticks it and points at a printed fact defends the choice; the design error written beside each chosen problem is judged on whether it names a fact number."
+   },
+   "decisionKey": {
+    "title": "Block 3.1 · Three strategic UX decisions",
+    "expected": "Rebuild navigation and home screen around learner tasks; A user-research programme; A feature approval rule",
+    "options": [
+     {
+      "label": "D1 · Rebuild navigation and home screen around learner tasks (€60,000, 18 weeks)",
+      "expected": true,
+      "why": "Reference pick: it fixes what every learner meets and carries the plan's rationale, understanding users over the number of features (Materi B1)."
+     },
+     {
+      "label": "D2 · A feature audit (€30,000, 12 weeks)",
+      "expected": false,
+      "why": "Defendable: a feature audit calms the platform cheaply; strong if the learner pairs it with the approval rule."
+     },
+     {
+      "label": "D3 · One content structure (€45,000, 16 weeks)",
+      "expected": false,
+      "why": "Defendable and strong on orientation, but €45,000 and 16 weeks; D1 already carries a continue entry."
+     },
+     {
+      "label": "D4 · A user-research programme (€35,000, 52 weeks)",
+      "expected": true,
+      "why": "Reference pick: the user data is incomplete (the plan), so the research programme is the evidence the case lacks and feeds every later decision (Materi B3)."
+     },
+     {
+      "label": "D5 · A feature approval rule (€15,000, 8 weeks)",
+      "expected": true,
+      "why": "Reference pick: a feature approval rule is the concrete decision architecture against feature creep (Materi B3)."
+     },
+     {
+      "label": "D6 · The feature set sales asked for (€90,000, 28 weeks)",
+      "expected": false,
+      "why": "Rejected: €90,000 for the features sales asked for, with no named user problem (Materi B2)."
+     },
+     {
+      "label": "D7 · A growth marketing push (€60,000, 12 weeks)",
+      "expected": false,
+      "why": "Rejected: it counts growth in sign-ups on a platform where learners cannot find or finish a course (Materi B1)."
+     }
+    ],
+    "teachingNote": "A different set of three defends if the reason is written and the conflict analysis names what the user, the business and the other side get or lose. The budget is a live hint, not a lock (CLAUDE.md #38); a set over the €200,000 limit exports with the amount printed as a fact."
+   },
+   "logicKey": {
+    "title": "Block 3.2 · Who decides, and on what evidence",
+    "expected": "Who: The head of product with the UX lead. Evidence: A usability test; Interviews with learners who left; Usage data per feature.",
+    "options": [
+     {
+      "label": "Who decides: The Chief UX Strategist alone",
+      "expected": false,
+      "why": "Defendable, but one person's taste is what a decision architecture should prevent."
+     },
+     {
+      "label": "Who decides: The head of product with the UX lead",
+      "expected": true,
+      "why": "Product and UX judgement together: the person who owns the roadmap and the person who knows the users."
+     },
+     {
+      "label": "Who decides: A steering group with all stakeholders",
+      "expected": false,
+      "why": "Defendable for large budget items; too slow, and all stakeholders pull in different directions (the plan)."
+     },
+     {
+      "label": "Who decides: Whichever department pays",
+      "expected": false,
+      "why": "Rejected: whoever pays decides by budget, not by user problem."
+     },
+     {
+      "label": "Evidence: A usability test",
+      "expected": true,
+      "why": "Evidence about what learners do and why (Materi A4, B3)."
+     },
+     {
+      "label": "Evidence: Interviews with learners who left",
+      "expected": true,
+      "why": "Evidence about what learners do and why (Materi A4, B3)."
+     },
+     {
+      "label": "Evidence: Usage data per feature",
+      "expected": true,
+      "why": "Evidence about what learners do and why (Materi A4, B3)."
+     },
+     {
+      "label": "Evidence: A request from sales",
+      "expected": false,
+      "why": "Defendable as input, but a request from sales says what one department wants, not what users need (Materi B3)."
+     },
+     {
+      "label": "Evidence: The opinion of the most senior person in the room",
+      "expected": false,
+      "why": "Rejected: a senior opinion alone is not evidence."
+     }
+    ],
+    "teachingNote": "At least two kinds of evidence are required; which ones is judged on the rule in the memo, not on matching the model. A feature approval rule needs a named user problem, a metric and an owner (Materi B3)."
+   },
+   "measureKey": {
+    "title": "Block 2.2 · Choose four measures, rate them, order them",
+    "expected": "Clear navigation; Reduce complexity; Focus on core tasks; Better structuring of content. Total €45,000 of €40,000, longest 5 weeks of 13.",
+    "options": [
+     {
+      "label": "M1 · Clear navigation",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (orientation). Effort Mid by the printed cost €14,000. Reference ratings: user value High, risk Mid."
+     },
+     {
+      "label": "M2 · Reduce complexity",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (complexity). Effort Low by the printed cost €6,000. Reference ratings: user value Mid, risk Low."
+     },
+     {
+      "label": "M3 · Focus on core tasks",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (focus). Effort Low by the printed cost €9,000. Reference ratings: user value High, risk Low."
+     },
+     {
+      "label": "M4 · Better structuring of content",
+      "expected": true,
+      "why": "The plan's own measure; answers a printed fact (orientation). Effort Mid by the printed cost €16,000. Reference ratings: user value High, risk Mid."
+     },
+     {
+      "label": "M5 · Learner language",
+      "expected": false,
+      "why": "Defendable and cheap (€5,000): it answers facts 1 and 2 directly. A learner who takes it in place of better structuring stays inside the budget and leaves fact 5 open; the reason should say so."
+     },
+     {
+      "label": "M6 · Six new features",
+      "expected": false,
+      "why": "Rejected: €45,000 and 12 weeks for features sales asked for, on a platform whose problem is too many features nobody uses (fact 7)."
+     },
+     {
+      "label": "M7 · Twenty new courses",
+      "expected": false,
+      "why": "Rejected: a longer catalogue is harder to search, and learners already cannot find content."
+     },
+     {
+      "label": "M8 · A campaign for existing features",
+      "expected": false,
+      "why": "Rejected: advertising features that 2% use does not fix finding or understanding."
+     },
+     {
+      "label": "M9 · User research",
+      "expected": false,
+      "why": "Defendable: it closes an evidence gap cheaply, but nothing changes on screen yet; as a fourth measure it leaves the printed problems unanswered."
+     }
+    ],
+    "teachingNote": "The plan's four measures cost €45,000 against the case's €40,000 (a Case assumption): the reference set is €5,000 over and says where the money goes. Effort is rule-based (under €10,000 Low, up to €20,000 Mid, above High), so the check can flag it; user value and risk are judgements and are never marked. A different, well-reasoned choice is acceptable and exports (CLAUDE.md #38): within the budget, over it, another set of four, a different order, all with a stated reason. The plan's rationale: understanding users beats the number of features."
+   },
+   "optKey": {
+    "title": "Block 1.2 (Optional) · User-centredness against business goals",
+    "expected": "First priority: Simplify the navigation (a UX goal). Order: B, A, C.",
+    "options": [
+     {
+      "label": "A · Add more content (a business goal) (€30,000, 8 weeks)",
+      "expected": false,
+      "why": "Second: more content serves a business goal, but learners who cannot find what exists will not find more; user value Low, business value Mid, risk Mid. It defends only if the learner says what the business gets and how learners will find it."
+     },
+     {
+      "label": "B · Simplify the navigation (a UX goal) (€11,000, 4 weeks)",
+      "expected": true,
+      "why": "Reference: simplifying the navigation gives users what they miss (user value High) and the business completion and fewer complaints (business value High). Effort Mid by the printed cost, risk Low: structure changes, content stays."
+     },
+     {
+      "label": "C · Develop new features (a marketing goal) (€28,000, 10 weeks)",
+      "expected": false,
+      "why": "Last: new features serve a marketing goal on a platform whose problem is the opposite of too few features; user value Low, risk High (a large share of the budget on an unrequested extra)."
+     }
+    ],
+    "teachingNote": "All three ratings are judgements here and are never marked; the plan's rationale for the day is that understanding users beats the number of features. A different order defends if the justification names what the business gets from the first priority."
+   },
+   "riskKey": {
+    "title": "Block 3.2 · The biggest risk",
+    "expected": "We fixed the wrong user problem because our data was incomplete.",
+    "options": [
+     {
+      "label": "We fixed the wrong user problem because our data was incomplete.",
+      "expected": true,
+      "why": "The risk the case itself names: the user data is incomplete, so the team may fix the wrong problem. The remedy is the research programme before the big spend."
+     },
+     {
+      "label": "Sales and management overrode the plan with their own features.",
+      "expected": false,
+      "why": "Defendable: the stakeholders pursue different goals (the plan); the approval rule is the remedy."
+     },
+     {
+      "label": "We measured sign-ups, not finished courses, and growth did not come.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it."
+     },
+     {
+      "label": "The changes confused learners who had learned the old platform.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it."
+     },
+     {
+      "label": "We spent the budget before a first result was visible.",
+      "expected": false,
+      "why": "Defendable as the biggest risk if the learner says what they do about it."
+     }
+    ],
+    "teachingNote": "The plan names wrong prioritisation as the greatest risk. Any of the five defends when the plan to meet it is concrete (what is done, by whom, when). The wrong answer is a risk with no action."
+   },
+   "sortKey": {
+    "title": "Block 1.1 · Eight facts into three mistakes",
+    "expected": "Functions instead of benefits: fact 1, fact 2, fact 7  |  Overly complex: fact 3, fact 4  |  Missing orientation: fact 5, fact 6, fact 8",
+    "options": [
+     {
+      "label": "Fact 1 · Menu entries named after software modules",
+      "expected": true,
+      "why": "Functions instead of benefits. The menu speaks in the software's terms, not in what the learner wants to do: functions instead of benefits."
+     },
+     {
+      "label": "Fact 2 · Button “Enrol in module instance”",
+      "expected": true,
+      "why": "Functions instead of benefits. The label names a system object, not the learner's action: functions instead of benefits."
+     },
+     {
+      "label": "Fact 3 · 22 entries, 9 widgets and 4 banners at once",
+      "expected": true,
+      "why": "Overly complex. Many choices at once before any action: overly complex."
+     },
+     {
+      "label": "Fact 4 · 14 filters before any result",
+      "expected": true,
+      "why": "Overly complex. Fourteen decisions before a result: overly complex."
+     },
+     {
+      "label": "Fact 5 · The same lesson in three lists, three orders",
+      "expected": true,
+      "why": "Missing orientation. The learner cannot tell where the lesson is or which list counts: missing orientation."
+     },
+     {
+      "label": "Fact 6 · No “Continue where you stopped”",
+      "expected": true,
+      "why": "Missing orientation. Nothing tells the learner what to do next: missing orientation."
+     },
+     {
+      "label": "Fact 7 · A feature added last year, opened by 2%",
+      "expected": true,
+      "why": "Functions instead of benefits. A feature added because the software could do it, not for a learner task: functions instead of benefits."
+     },
+     {
+      "label": "Fact 8 · Title and path both read “Home”",
+      "expected": true,
+      "why": "Missing orientation. The learner cannot tell where they are: missing orientation."
+     }
+    ],
+    "teachingNote": "The sort is objective: one fact belongs to the mistake it breaks first. Two edges: fact 7 (a social feed opened by 2%) is Functions instead of benefits, not Overly complex, although it adds to the clutter: it was added because the software could, not for a learner task. Fact 5 (the same lesson in three lists) is Missing orientation, not complexity: the learner cannot tell which list counts. The goal field, the most frustrating fact and the three expectations are judged: any fact defends if the reason is written from the learner's side (what I expected, what I saw). Plan: Arbeitsauftrag 1, put yourself in the learner's position, describe 5 problems, formulate 3 expectations."
+   }
+  }
+ },
+ "day6": {
+  "guides": {
+   "criticalGuide": {
+    "title": "1.2 (Optional) · Why that phase is critical",
+    "answer": "Usage is critical: her emotion drops from 4 to 2 there, because the lesson does not fit her twenty minutes, and the next thing she does is to close the app and not return.",
+    "example": "At LearnLoop the learning phase is critical: Mia's emotion drops there because the unit is long, and after it she stops.",
+    "why": "Materi A3: mark a phase as critical where the emotion is lowest or where the person stops, and say what happens to the emotion and what the person does next. Another phase defends if the sentence says so.",
+    "lookFor": [
+     "Names the phase.",
+     "Says what happens to the emotion.",
+     "Says what the person does next."
+    ]
+   },
+   "decisionOrderGuide": {
+    "title": "3.2 · Why the first decision goes first (Core)",
+    "answer": "Flexible five-minute formats go first: they fix the learner's critical phase and carry the largest segment, so the first figure (the return rate) moves within twenty weeks. Client reporting follows because it keeps the training managers informed, and the research programme runs beside both.",
+    "example": "A resume-anywhere format goes first because it fixes the critical phase of the largest group and moves the first figure within twenty weeks; the research programme runs beside it.",
+    "why": "The strategy is an order with a reason. A different order defends if the reason is concrete.",
+    "lookFor": [
+     "Gives a reason for position one.",
+     "Says what it does for the target group."
+    ]
+   },
+   "frustrationsGuide": {
+    "title": "1.1 · Frustrations and the decision the persona supports (Core)",
+    "answer": "She could be frustrated at 21:00, tired, when she must first find where she stopped and then meets a 40-minute lesson, so she closes the app. Because of this persona a team could decide to put a resume button on every screen and to cut lessons into pieces of five minutes.",
+    "example": "At LearnLoop Mia could be frustrated when she opens a lesson on her phone at night and finds a long page with no way to save her place. A team could decide, because of her, to add a save-my-place button.",
+    "why": "The plan asks for possible frustrations, and the coaching point says a persona is a decision tool. A good answer names a situation and one decision that would change because of the persona (Materi A1, A2).",
+    "lookFor": [
+     "Names a situation, not a verdict.",
+     "Names one decision a team could take because of the persona.",
+     "Fits the persona's goals and context."
+    ]
+   },
+   "giveUpGuide": {
+    "title": "3.2 · What you give up and when that segment gets its turn (Core)",
+    "answer": "I give up the simpler teacher workspace (D2) and the exam-preparation mode (D5) for the first two quarters; the teachers get their turn in the third quarter, and I will tell them the date.",
+    "example": "I give up the exam-preparation mode this year; its users get their turn in the third quarter, and I will tell them the date.",
+    "why": "The skill of Level 3: a decision that gives up nothing has not decided. The answer names a segment that waits and when it is revisited (Materi B2, B3).",
+    "lookFor": [
+     "Names a real segment or decision that waits.",
+     "Names when it gets its turn."
+    ]
+   },
+   "journeyProblemsGuide": {
+    "title": "1.2 (Optional) · Four possible problems that lead to the drop-out",
+    "answer": "1. A lesson needs 40 minutes in one sitting. 2. It cannot be paused and resumed. 3. The reminder arrives when she is at work. 4. She cannot find where she stopped.",
+    "example": "At LearnLoop: 1. The first lesson is long. 2. Nothing says what comes next. 3. The reminder comes at a bad time. 4. There is no sign of progress.",
+    "why": "The plan asks for four possible problems, not the right four. A good list names situations along the path, one per line.",
+    "lookFor": [
+     "Four lines.",
+     "Situations, not verdicts.",
+     "Spread over the phases."
+    ]
+   },
+   "journeyR2Guide": {
+    "title": "3.2 · The critical journey of the target group",
+    "answer": "entry: Signs up and picks her course. / A start page that does not say how long a lesson takes. / An onboarding step that shows the length of each unit. | work: Starts a lesson at 21:00 on her phone. / 40 minutes in one sitting; no pause. / D1: five-minute formats that can be paused anywhere. | progress: Returns after three days and wants to finish. / She cannot see where she stopped or how far she is. / D1 resumes at the exact place; D4 shows her manager the progress.",
+    "example": "At LearnLoop, for a teacher: set up: builds a course on Sunday, emotion 2, pain: nine tabs, the strategy acts with a shorter editor. Run: waits for messages, emotion 2, pain: cannot see who is stuck, a list of stuck learners.",
+    "why": "Materi A3 and B2: map the persona through the three phases; where the emotion is lowest the strategy must act, and the last row names where.",
+    "lookFor": [
+     "A persona named.",
+     "Emotion rated for each phase.",
+     "A pain point and a point of action in each phase."
+    ]
+   },
+   "missingGuide": {
+    "title": "2.2 · What information you are missing (Core)",
+    "answer": "I do not know whether learners leave because the lesson is too long or because they cannot find their place. I would interview five learners who stopped and look at where in the lesson they left.",
+    "example": "I do not know whether learners leave because the lesson is too long or because they cannot find the course. I would interview five who stopped.",
+    "why": "The plan asks it outright. A good answer names a specific unknown that would change the decision, and a way to find it out.",
+    "lookFor": [
+     "Names a specific unknown, not “more data”.",
+     "Says how it could be found out."
+    ]
+   },
+   "orderGuide": {
+    "title": "2.2 · Why the first priority goes first (Core)",
+    "answer": "“Where I stopped” goes first: it answers the learner's lowest point, costs the least (€6,000, two weeks) and is done before the larger measures start. Flexible formats follow because they need the longest.",
+    "example": "At LearnLoop the resume button goes first: it answers the persona's lowest point, costs the least and is done before the larger measures start.",
+    "why": "A reason for position one: the persona and the pain point it answers, the cost, or what the others depend on. Segmentation helps: name the group you give most weight.",
+    "lookFor": [
+     "Gives a reason for position one, not for the whole set.",
+     "Names the group it weighs most."
+    ]
+   },
+   "personaGuide": {
+    "title": "1.1 · The learner persona (Core)",
+    "answer": "Anja Weber, 36, a project manager with two children. She wants the certificate to apply for a team-lead role next year (note 2) and to use what she learns in her project next week (note 5). After three days away she does not know where she stopped (note 3), a lesson needs 40 minutes in one sitting and cannot be paused (note 6), and the reminder arrives at 08:00 while she is at work (note 7). She studies after 21:00 for about 20 minutes on her phone (notes 1 and 4). Her employer pays and her manager wants to see progress (note 8). She expects to land on the exact place where she stopped, a lesson she can finish in 20 minutes, and a sign of progress she can show her manager.",
+    "example": "Mia, 29, a sales assistant. Goal: qualify for a team-lead role (a reason in her life). Problem: after a few days away she loses the thread. Situation: twenty minutes on her phone in the evening, paid by her employer. She expects to land where she stopped. Sources: two interviews and one log analysis.",
+    "why": "Materi A1: a persona has goals, problems and the context of use, each stated as a situation, not a verdict, and each with a source. A statement without a source is a hypothesis.",
+    "lookFor": [
+     "Goals as reasons in a life, not feature wishes.",
+     "Problems as situations, not “the platform is bad”.",
+     "A context with time, device and motivation.",
+     "Cites note numbers.",
+     "A persona, not a list of notes."
+    ],
+    "pitfalls": [
+     "A cliché (“tech-savvy, loves apps”).",
+     "Mixing the teacher into the learner persona."
+    ]
+   },
+   "problemsGuide": {
+    "title": "3.1 · The three biggest problems of the target group",
+    "answer": "1. In the learning phase she meets a 40-minute lesson that cannot be paused. 2. After a break she cannot find where she stopped. 3. The reminder arrives at 08:00, when she is at work, so she ignores it.",
+    "example": "At LearnLoop, for the teachers: 1. In the set-up phase the upload takes three hours. 2. In the run phase they cannot see who is stuck. 3. In the review phase they must copy a unit by hand.",
+    "why": "The plan asks for the three biggest problems of the target group. Each names the situation and the phase of the journey.",
+    "lookFor": [
+     "Three lines.",
+     "Each names a phase.",
+     "Situations, not verdicts."
+    ]
+   },
+   "reflectGuide": {
+    "title": "1.3 (Optional) · Coaching reflection",
+    "answer": "For the working professional who studies in twenty minutes at night, not for “the learner” in general. The time-poor learner, because she is the largest group, and the organisation that pays decides on renewals through her usage. At the moment she returns after a break: nothing shows where she stopped.",
+    "why": "Reflection is never scored. The plan's coaching points: a persona is a decision tool, not a profile; many personas stay ineffective; a journey reveals systemic problems, not single errors. Use the learners' notes as the start of the live discussion."
+   },
+   "segPersonaGuide": {
+    "title": "3.1 · A strategic persona, in one or two sentences",
+    "answer": "Anja, a project manager, wants to finish the course in twenty-minute evening slots on her phone, but loses her place after a break (S1: 45% of learners, return rate falling). | Markus, a trainer, wants to build courses with little effort, but the editor has nine tabs and uploading takes hours (S3: 120 teachers who supply all content, 4 of 6 say it is too complicated). | Petra, a training manager, wants to show management that staff finish, but only 31% logged in and she formats the report by hand (S4: 60 accounts that decide renewals).",
+    "example": "At LearnLoop: Sven, a trainer, wants to build a course in an evening but finds the editor too long (the 90 teachers who supply the content, 3 of 5 interviewed agree).",
+    "why": "Materi B1: a persona is strategic if a decision would change because of it. One or two sentences with the goal, the problem and situation, and the evidence in the segment's facts.",
+    "lookFor": [
+     "A goal and a problem.",
+     "Cites the segment's printed facts.",
+     "A decision would change because of it."
+    ]
+   },
+   "sharedGuide": {
+    "title": "2.1 (Optional) · A pain point that appears for two groups",
+    "answer": "Both the learner and the teacher cannot see where someone is: she does not know where she stopped, he does not know who is stuck. That suggests the cause is the missing view of the course path, not two separate screens.",
+    "example": "At LearnLoop both the learner and the teacher cannot see where a course stands, one where she stopped and the other which learners are stuck. That suggests a missing course overview as the cause.",
+    "why": "Materi A3: look for a pain point that recurs across personas; it points to a systemic cause that one fix can remove.",
+    "lookFor": [
+     "Names a pain point for two groups.",
+     "Names a cause in the process, not a single screen."
+    ]
+   },
+   "targetWhyGuide": {
+    "title": "3.1 · Why this group first (Core)",
+    "answer": "Time-poor learners go first: they are the largest segment (45%), their return rate is falling, and their usage is what the training managers measure when they decide on renewals, so one fix helps two segments. Teachers and training managers get a smaller fix later.",
+    "example": "At LearnLoop the teachers go first: they supply all the content, so if they leave the learners have nothing to learn; the learners wait one quarter and get a smaller fix.",
+    "why": "Materi B1: say which test decided (size, business value, where the journey breaks) and what the other groups get. The largest group is not always the most important.",
+    "lookFor": [
+     "Names the test.",
+     "Says what the other groups get.",
+     "Uses the printed figures."
+    ]
+   },
+   "teacherGuide": {
+    "title": "2.1 (Optional) · The teacher persona",
+    "answer": "Markus Feld, 44, a freelance trainer who builds courses. He wants to build and run courses with little effort and to reuse a unit in a second course (notes T1, T6). Uploading one unit takes three hours (T1), the editor has nine tabs and he uses two (T2), and he cannot see which learners are stuck (T3). He builds courses on Sunday evening at his desk (T1), unpaid time next to his own work.",
+    "example": "At LearnLoop: Sven, 41, a trainer. Goal: build a course quickly. Problem: the editor hides the upload behind four menus. Situation: builds on Sunday at his desk, unpaid time.",
+    "why": "Materi A4: the teacher wants to build and run a course with little effort and to see how learners are doing; a different persona from the learner.",
+    "lookFor": [
+     "A teacher's goal, not a learner's.",
+     "Cites T-notes.",
+     "A context of use."
+    ]
+   },
+   "uncertainGuide": {
+    "title": "3.2 · The decision under uncertainty: which persona is prioritised (Core)",
+    "answer": "I decide that time-poor learners (S1) are the prioritised persona for the next two quarters. I do not know whether their falling return rate is caused by the lesson length or by the missing place marker, and the personas rest on only 12 interviews. I reverse if the seven-day return rate of S1 is not up eight points after ten weeks, or if the training managers' renewals of S4 show a drop.",
+    "example": "I decide that teachers are prioritised for two quarters. I do not know whether their complaints come from the editor or from slow uploads. I reverse if learner sign-ups fall by 5% by month four.",
+    "why": "The frame of Materi B3: what I decide, what I do not know, what would make me reverse and by when. A checkable reversal condition has a figure and a time.",
+    "lookFor": [
+     "States the decision.",
+     "States what is not known.",
+     "A reversal condition with a figure and a time."
+    ],
+    "pitfalls": [
+     "A reversal condition no one could check (“if it does not work”)."
+    ]
+   }
+  },
+  "keys": {
+   "decisionKey": {
+    "title": "Block 3.2 · Three decisions for the strategy",
+    "expected": "Flexible five-minute learning formats; Client reporting; A persona research programme",
+    "options": [
+     {
+      "label": "D1 · Flexible five-minute learning formats (€70,000, 20 weeks)",
+      "expected": true,
+      "why": "Reference pick: it fixes the critical phase of the largest segment (Materi B1)."
+     },
+     {
+      "label": "D2 · A simpler teacher workspace (€60,000, 22 weeks)",
+      "expected": false,
+      "why": "Defendable: it serves the teachers who supply all content, but at €60,000 and 22 weeks it is a large project for the second segment."
+     },
+     {
+      "label": "D3 · An onboarding path by role (€35,000, 12 weeks)",
+      "expected": false,
+      "why": "Defendable and cheap for what it covers, but it changes the first steps only; the learners' critical phase is in the learning phase."
+     },
+     {
+      "label": "D4 · Client reporting (€30,000, 12 weeks)",
+      "expected": true,
+      "why": "Reference pick: it serves the small but critical training managers cheaply (Materi B1, B2)."
+     },
+     {
+      "label": "D5 · An exam-preparation mode (€55,000, 18 weeks)",
+      "expected": false,
+      "why": "Defendable for exam preparers, but nothing in the evidence says they are the problem (high satisfaction)."
+     },
+     {
+      "label": "D6 · A persona research programme (€25,000, 52 weeks)",
+      "expected": true,
+      "why": "Reference pick: the data is thin (12 and 6 interviews), so the research programme tests the personas as hypotheses (Materi B3)."
+     },
+     {
+      "label": "D7 · A redesign of the public marketing site (€40,000, 10 weeks)",
+      "expected": false,
+      "why": "Rejected: €40,000 for a look that serves none of the pain points."
+     }
+    ],
+    "teachingNote": "A different set of three defends if the reason is written and it follows from the target group. The budget is a live hint, not a lock (CLAUDE.md #38); a set over the €220,000 limit exports with the amount printed as a fact."
+   },
+   "measureKey": {
+    "title": "Block 2.2 · Choose four measures, rate them, name the pain point, order them",
+    "expected": "“Where I stopped”; Flexible learning formats; One clear course structure; A view of stuck learners. Total €45,000 of €45,000, longest 6 weeks of 13.",
+    "options": [
+     {
+      "label": "M1 · Flexible learning formats",
+      "expected": true,
+      "why": "Reference measure (learners). Effort High by the printed cost €16,000. Reference ratings: user impact High, risk Mid."
+     },
+     {
+      "label": "M2 · “Where I stopped”",
+      "expected": true,
+      "why": "Reference measure (learners). Effort Low by the printed cost €6,000. Reference ratings: user impact High, risk Low."
+     },
+     {
+      "label": "M3 · A simpler course editor",
+      "expected": false,
+      "why": "Defendable: it answers T2 for the teachers. A learner who takes it instead of the stuck-learners view stays on the teacher side and should say which teacher pain point it answers."
+     },
+     {
+      "label": "M4 · A view of stuck learners",
+      "expected": true,
+      "why": "Reference measure (teachers). Effort Mid by the printed cost €12,000. Reference ratings: user impact Mid, risk Low."
+     },
+     {
+      "label": "M5 · Reusable units",
+      "expected": false,
+      "why": "Defendable and cheap (€9,000): it answers T6. Strong if the learner says how many teachers it reaches."
+     },
+     {
+      "label": "M6 · One clear course structure",
+      "expected": true,
+      "why": "Reference measure (both). Effort Mid by the printed cost €11,000. Reference ratings: user impact Mid, risk Low."
+     },
+     {
+      "label": "M7 · An automatic monthly report",
+      "expected": false,
+      "why": "Defendable: €7,000 for the training managers, who decide renewals (T5). It is the cheapest way to reach the third group; as one of four it leaves a learner measure out."
+     },
+     {
+      "label": "M8 · Badges for all users",
+      "expected": false,
+      "why": "Rejected: €18,000 for badges that answer no pain point in the notes; it is the typical decoration (Materi A5)."
+     },
+     {
+      "label": "M9 · A new brand look",
+      "expected": false,
+      "why": "Rejected: €25,000 for a new look that touches no pain point of any persona; impact on every persona is Low."
+     }
+    ],
+    "teachingNote": "The reference four measures cover learners (M1, M2), both groups (M6) and teachers (M4) and cost exactly the case's €45,000 (a Case assumption). The organisations' complaint is answered through learners who finish. Effort is rule-based (under €8,000 Low, up to €15,000 Mid, above High), so the check can flag it; user impact and risk are judgements and are never marked. The pain point each measure answers must name a persona and a phase. A different, well-reasoned choice is acceptable and exports (CLAUDE.md #38): within the budget, over it, another set of four, a different order, all with a stated reason."
+   },
+   "segmentKey": {
+    "title": "Block 3.1 · Strategic personas and the target group",
+    "expected": "Personas: Time-poor learners; Teachers who build courses; Training managers at client companies. Target group: Time-poor learners.",
+    "options": [
+     {
+      "label": "S1 · Time-poor learners",
+      "expected": true,
+      "why": "Reference persona and target group: the largest segment (45%), its return rate is falling, and its usage is what S4 measures, so one fix serves two segments (Materi B1)."
+     },
+     {
+      "label": "S2 · Exam preparers",
+      "expected": false,
+      "why": "Defendable as a persona (15%, high satisfaction), but nothing in the notes says its journey breaks; a weak candidate for first."
+     },
+     {
+      "label": "S3 · Teachers who build courses",
+      "expected": true,
+      "why": "Reference persona: 120 teachers supply all content, and 4 of 6 say the editor is too complicated; small but critical (Materi B1)."
+     },
+     {
+      "label": "S4 · Training managers at client companies",
+      "expected": true,
+      "why": "Reference persona: 60 accounts decide renewals; small and business-critical (Materi B1). A defendable target group: it decides the money."
+     },
+     {
+      "label": "S5 · Casual browsers",
+      "expected": false,
+      "why": "Rejected as a strategic persona: rarely finish, no payment link; no decision changes because of this group (Materi A2)."
+     }
+    ],
+    "teachingNote": "S4 is a good alternative target group: the training managers decide renewals, and an answer that picks S4 and says which test decided (business value) and what the learners get instead defends. A target group that is not among the chosen personas is a gap worth a question. Any of the five defends as target group if the reason names the test (size, value, where the journey breaks) and what the others get."
+   },
+   "sortKey": {
+    "title": "Block 1.1 · Eight research notes into three persona fields",
+    "expected": "Goal: note 2, note 5  |  Problem or frustration: note 3, note 6, note 7  |  Context of use: note 1, note 4, note 8",
+    "options": [
+     {
+      "label": "Note 1 · Studies around 21:00 for 20 minutes on a phone",
+      "expected": true,
+      "why": "Context of use. It says when, for how long and on which device: the context of use."
+     },
+     {
+      "label": "Note 2 · Needs the certificate for a team-lead role",
+      "expected": true,
+      "why": "Goal. It is a reason in her life, a role she wants to reach: a goal."
+     },
+     {
+      "label": "Note 3 · After three days she does not know where she stopped",
+      "expected": true,
+      "why": "Problem or frustration. A situation where something goes wrong: she loses her place. A problem."
+     },
+     {
+      "label": "Note 4 · Median session 14 minutes, 71% on a phone",
+      "expected": true,
+      "why": "Context of use. It describes how long and on which device people use the platform: the context of use."
+     },
+     {
+      "label": "Note 5 · Wants to use it in her project next week",
+      "expected": true,
+      "why": "Goal. It is what she wants to be able to do: a goal tied to her work."
+     },
+     {
+      "label": "Note 6 · A lesson needs 40 minutes in one sitting",
+      "expected": true,
+      "why": "Problem or frustration. A 40-minute lesson against 20 minutes of time: something gets in her way. A problem."
+     },
+     {
+      "label": "Note 7 · The reminder arrives at 08:00, at work",
+      "expected": true,
+      "why": "Problem or frustration. The reminder comes when she cannot use it, so she ignores it: something goes wrong. A problem, even though it names a time."
+     },
+     {
+      "label": "Note 8 · The employer pays and the manager wants to see progress",
+      "expected": true,
+      "why": "Context of use. It says why she is on the platform (the employer pays and checks): the motivation part of the context of use."
+     }
+    ],
+    "teachingNote": "The sort is objective: a note goes where its sentence points. Two edges: note 7 (the reminder arrives at 08:00) names a time, but the time is the trouble, so it is a Problem and not Context of use; note 8 (the employer pays, the manager wants progress) could be read as a goal, but it says why she is on the platform and who is watching, so it is Context of use (motivation). The persona and the frustrations are judged: any persona defends if it names a goal as a reason in a life, problems as situations, a context with time and device, and cites the note numbers. Plan: Arbeitsauftrag 1, describe a persona (goals, problems, usage situation), the expectations and possible frustrations."
+   }
+  }
+ }
+}

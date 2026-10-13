@@ -8,7 +8,6 @@ daytitle: Day 7 · Module 3 (day 3 of 3): Accessibility and inclusive design of 
 doctype: Task (worksheet with answer spaces). Task 1 (UX Analysis File) and Task 2 (UX Strategy Memo).
 route: Task 1 = Route 1, Levels 1 and 2 (draws on Materi A). Task 2 = Route 2, Level 3 (draws on Materi B).
 minutes: Task 1 Core about 30 min (all blocks about 50 min) · Task 2 Core about 20 min
-website: Not yet published (the link will be added once Day 7 is deployed)
 case: InclusiveLearn, a platform with access problems
 intro: This is the worksheet for Day 7. Read the case once, study the evidence printed in this document, and write your answers in the boxes and tables. You can work through it on paper or type into the document. Blocks marked Core are enough for a complete answer; blocks marked Optional deepen a skill and no Core block needs them. Every block names the cards of the Materi document it draws on. There are no answer keys here: in the judged parts a different choice with a clear reason is a good answer.
 glossary: accessibility,inclusive-design,persona-spectrum,wcag,pour,conformance,contrast,screen-reader,keyboard,aria,plain-language,udl,bfsg,overlay,audit,sus,cognitive-load,usability,persona,iterative,kpi,qualitative,usability-test,dropout,completion,engagement,user-impact,roadmap,decision-architecture,conflicting-goals,stakeholder,symptom
@@ -17,14 +16,14 @@ glossary: accessibility,inclusive-design,persona-spectrum,wcag,pour,conformance,
 [[CONTENTS]]
 
 :::note Which plan item each block answers
-| Plan item (Strukturplan, Day 7) | Block in this document |
-|---|---|
-| Level 1 · Task 1: identify 5 possible barriers (small font, complicated language, many steps), say which user groups run into problems, formulate 3 improvements | Block 1.1 (Core): the eight facts are sorted, the groups are named, three improvements are written |
-| Level 1 · Task 2: new features, improve the existing UX or increase accessibility under limited budget, rising complaints and time pressure; assess user impact, risk, effort; prioritise; justify | Block 1.2 (Optional) |
-| Coaching: inclusion as a strategic UX quality; reflection questions | Block 1.3 (Optional) |
-| Level 2 case study InclusiveLearn: identify 4 central barriers, develop 4 inclusive UX measures, define 3 evaluation methods, prioritise | Block 2.1 (Optional, four barriers) and Block 2.2 (Core, four measures, three evaluation methods, priority) |
-| Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| Level 3 transfer project: inclusive UX strategy, integration into existing processes, 3 prioritised measures, evaluation system (KPIs and methods), risk analysis (costs against benefits), one decision under uncertainty | Blocks 3.1 and 3.2 (both Core) |
+| UE | Plan item (Strukturplan, Day 7) | Block in this document |
+|---|---|---|
+| UE2 | Level 1 · Task 1: identify 5 possible barriers (small font, complicated language, many steps), say which user groups run into problems, formulate 3 improvements | Block 1.1 (Core): the eight facts are sorted, the groups are named, three improvements are written |
+| UE3 | Level 1 · Task 2: new features, improve the existing UX or increase accessibility under limited budget, rising complaints and time pressure; assess user impact, risk, effort; prioritise; justify | Block 1.2 (Optional) |
+| UE4 | Coaching: inclusion as a strategic UX quality; reflection questions | Block 1.3 (Optional) |
+| UE5–6 | Level 2 case study InclusiveLearn: identify 4 central barriers, develop 4 inclusive UX measures, define 3 evaluation methods, prioritise | Block 2.1 (Optional, four barriers) and Block 2.2 (Core, four measures, three evaluation methods, priority) |
+| UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
+| UE8–10 | Level 3 transfer project: inclusive UX strategy, integration into existing processes, 3 prioritised measures, evaluation system (KPIs and methods), risk analysis (costs against benefits), one decision under uncertainty | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name
@@ -126,7 +125,12 @@ The coaching point of the plan: accessibility is not an add-on but a core qualit
 
 [[ANSWER lines=3 label=How do we measure UX quality meaningfully?]]
 
-# Part 2 · Choose inclusive measures · Level 2 · Application
+# Part 2 · Choose inclusive measures · Level 2 · Application · Case study (2 UE)
+
+:::note Case study: 2 teaching units (UE5–6)
+This part is the day's Level 2 case study. It takes 2 UE (about 90 minutes): UE5 for the briefing and your own work, UE6 for comparing your order with your group and for the trainer's closing. The blocks below need about 24 minutes of writing; the rest of the time is the group comparison.
+:::
+
 
 ## Block 2.1 · Four central barriers · OBJECTIVE + JUDGED · Optional · about 7 min
 
@@ -213,7 +217,12 @@ The completed **UX Analysis File**: your sort of the eight facts, the groups aff
 
 ---pagebreak---
 
-# Task 2 · Route 2 · UX Strategy Memo (Level 3)
+# Task 2 · Route 2 · UX Strategy Memo (Level 3) · Transfer project (3 UE)
+
+:::note Transfer project: 3 teaching units (UE8–10)
+This task is the day's Level 3 transfer project. It takes 3 UE (about 135 minutes): UE8 for Materi B and the brief, UE9 for Block 3.1, UE10 for Block 3.2, the presentation of your decision and the debrief with the trainer. The two blocks need about 20 minutes of writing; the rest of the time is the discussion of your decisions.
+:::
+
 
 ## The situation: InclusiveLearn's Chief UX and Accessibility Officer
 

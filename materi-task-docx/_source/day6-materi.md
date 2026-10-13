@@ -8,7 +8,6 @@ daytitle: Day 6 · Module 3 (day 2 of 3): Developing personas for learners and t
 doctype: Materi (study material). Materi A has five cards, Materi B has three.
 route: Materi A serves Route 1 (Levels 1 and 2, Task 1). Materi B serves Route 2 (Level 3, Task 2).
 minutes: Materi A about 60 min · Materi B about 60 min (facilitator-led)
-website: Not yet published (the link will be added once Day 6 is deployed)
 case: Worked examples use LearnLoop, an online-course provider. The task case is EduPath, a platform on which different users fail in different ways (see the Task document).
 intro: This document holds everything you need to study Day 6 without the website. Each card says the idea in plain words, shows it in a picture, gives the details, and ends with the rules you will use in the Task document. Cards marked Optional are not needed for the Core blocks of the task. The worked examples use LearnLoop, a different company from the task case, so no task answer is printed here. Glossary and references are at the end.
 glossary: persona,proto-persona,primary-persona,journey,pain-point,touchpoint,segment,emotion-curve,peak-end,business-critical,user-centred,context-of-use,self-directed,stakeholder,conflicting-goals,user-impact,roadmap,decision-architecture,dropout,completion,retention,engagement,kpi,qualitative,symptom,say-do,hypothesis,onboarding

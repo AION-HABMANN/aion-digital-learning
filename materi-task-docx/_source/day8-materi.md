@@ -8,7 +8,6 @@ daytitle: Day 8 · Module 4 (day 1 of 3): Fundamentals of UX/UI design for digit
 doctype: Materi (study material). Materi A has five cards, Materi B has three.
 route: Materi A serves Route 1 (Levels 1 and 2, Task 1). Materi B serves Route 2 (Level 3, Task 2).
 minutes: Materi A about 60 min · Materi B about 60 min (facilitator-led)
-website: Not yet published (the link will be added once Day 8 is deployed)
 case: Worked examples use LearnLoop, an online-course provider. The task case is StructLearn, a cluttered learning platform (see the Task document).
 intro: This document holds everything you need to study Day 8 without the website. Each card says the idea in plain words, shows it in a picture, gives the details, and ends with the rules you will use in the Task document. Cards marked Optional are not needed for the Core blocks of the task. The worked examples use LearnLoop, a different company from the task case, so no task answer is printed here. Glossary and references are at the end.
 glossary: ia,navigation,card-sort,hierarchy,gestalt,cta,affordance,hick,fitts,consistency,progressive-disclosure,style-guide,orientation,cognitive-load,chunking,visual-hierarchy,feedback,usability,user-centred,learning-path,progress-indicator,dropout,completion,engagement,user-impact,roadmap,decision-architecture,conflicting-goals,usability-test,qualitative,symptom,stakeholder

@@ -8,7 +8,6 @@ daytitle: Day 7 · Module 3 (day 3 of 3): Accessibility and inclusive design of 
 doctype: Materi (study material). Materi A has five cards, Materi B has three.
 route: Materi A serves Route 1 (Levels 1 and 2, Task 1). Materi B serves Route 2 (Level 3, Task 2).
 minutes: Materi A about 60 min · Materi B about 60 min (facilitator-led)
-website: Not yet published (the link will be added once Day 7 is deployed)
 case: Worked examples use LearnLoop, an online-course provider. The task case is InclusiveLearn, a platform with access problems (see the Task document).
 intro: This document holds everything you need to study Day 7 without the website. Each card says the idea in plain words, shows it in a picture, gives the details, and ends with the rules you will use in the Task document. Cards marked Optional are not needed for the Core blocks of the task. The worked examples use LearnLoop, a different company from the task case, so no task answer is printed here. The legal references (BFSG, EN 301 549, BITV 2.0) are in flux; check them before you teach from them. Glossary and references are at the end.
 glossary: accessibility,inclusive-design,persona-spectrum,wcag,pour,conformance,contrast,screen-reader,keyboard,aria,plain-language,udl,bfsg,overlay,audit,sus,cognitive-load,usability,persona,journey,iterative,kpi,qualitative,usability-test,dropout,completion,engagement,user-impact,roadmap,decision-architecture,conflicting-goals,stakeholder,symptom

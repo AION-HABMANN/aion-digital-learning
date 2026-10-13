@@ -8,7 +8,6 @@ daytitle: Day 3 · Module 2 (day 1 of 2): Fundamentals of learning psychology fo
 doctype: Materi (study material). Materi A has five cards, Materi B has three.
 route: Materi A serves Route 1 (Levels 1 and 2, Task 1). Materi B serves Route 2 (Level 3, Task 2).
 minutes: Materi A about 60 min · Materi B about 60 min (facilitator-led)
-website: Not yet published (the link will be added once Day 3 is deployed)
 case: Worked examples use LearnLoop, an online-course provider. The task case is EduCore, a learning platform with an overwhelm effect (see the Task document).
 intro: This document holds everything you need to study Day 3 without the website. Each card says the idea in plain words, shows it in a picture, gives the details, and ends with the rules you will use in the Task document. Cards marked Optional are not needed for the Core blocks of the task. The worked examples use LearnLoop, a different company from the task case, so no task answer is printed here. Glossary and references are at the end.
 glossary: working-memory,long-term-memory,chunking,intrinsic,extraneous,germane,visual-hierarchy,multimedia,seductive,expertise-reversal,retrieval,microlearning,learning-effective,cognitive-load,orientation,feedback,progress-indicator,dropout,completion,engagement,user-impact,roadmap,decision-architecture,conflicting-goals,symptom,kpi,usability-test,qualitative,stakeholder,learning-path

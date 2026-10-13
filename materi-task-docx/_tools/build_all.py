@@ -50,6 +50,20 @@ MANIFEST = {
 }
 
 
+TRAINER = {
+    1: "SkillUp-and-LearnFast",
+    2: "LearnPro",
+    3: "EduCore",
+    4: "MotivaLearn",
+    5: "LearnBase",
+    6: "EduPath",
+    7: "InclusiveLearn",
+    8: "StructLearn",
+}
+for _d, _name in TRAINER.items():
+    MANIFEST[_d].append((f"day{_d}-trainer.md", f"Day{_d}-Trainer-{P}-{_name}-Coaching-Feedback-and-Model-Solutions.docx"))
+
+
 def main(days):
     for d in days:
         try:

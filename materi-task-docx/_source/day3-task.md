@@ -8,7 +8,6 @@ daytitle: Day 3 · Module 2 (day 1 of 2): Fundamentals of learning psychology fo
 doctype: Task (worksheet with answer spaces). Task 1 (UX Analysis File) and Task 2 (UX Strategy Memo).
 route: Task 1 = Route 1, Levels 1 and 2 (draws on Materi A). Task 2 = Route 2, Level 3 (draws on Materi B).
 minutes: Task 1 Core about 30 min (all blocks about 50 min) · Task 2 Core about 20 min
-website: Not yet published (the link will be added once Day 3 is deployed)
 case: EduCore, a learning platform with an overwhelm effect
 intro: This is the worksheet for Day 3. Read the case once, study the evidence printed in this document, and write your answers in the boxes and tables. You can work through it on paper or type into the document. Blocks marked Core are enough for a complete answer; blocks marked Optional deepen a skill and no Core block needs them. Every block names the cards of the Materi document it draws on. There are no answer keys here: in the judged parts a different choice with a clear reason is a good answer.
 glossary: working-memory,chunking,intrinsic,extraneous,germane,visual-hierarchy,multimedia,seductive,expertise-reversal,microlearning,learning-effective,cognitive-load,orientation,feedback,dropout,completion,user-impact,roadmap,decision-architecture,conflicting-goals,symptom,kpi,usability-test,learning-path
@@ -17,14 +16,14 @@ glossary: working-memory,chunking,intrinsic,extraneous,germane,visual-hierarchy,
 [[CONTENTS]]
 
 :::note Which plan item each block answers
-| Plan item (Strukturplan, Day 3) | Block in this document |
-|---|---|
-| Level 1 · Task 1: describe 5 problems from the user's side, how the learning process feels, what you would improve intuitively | Block 1.1 (Core): the eight facts are sorted, then the feeling and the improvement |
-| Level 1 · Task 2: three options (shorten, visualise, split) under 4 weeks, complex content, beginners; assess learning impact, effort, risk; prioritise; which has the greatest effect | Block 1.2 (Optional) |
-| Coaching: UX steers attention and thinking; reflection questions | Block 1.3 (Optional) |
-| Level 2 case study EduCore: identify 4 causes of cognitive overload, develop 4 UX improvements, prioritise, justify | Block 2.1 (Optional, four causes) and Block 2.2 (Core, four improvements, priority, justification) |
-| Feedback round with a learning-impact perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| Level 3 transfer project: strategy to reduce cognitive load, 3 prioritised measures, definition of learning-effective UX, risk analysis (too simple against too complex), decision logic for future content, one decision under uncertainty | Blocks 3.1 and 3.2 (both Core) |
+| UE | Plan item (Strukturplan, Day 3) | Block in this document |
+|---|---|---|
+| UE2 | Level 1 · Task 1: describe 5 problems from the user's side, how the learning process feels, what you would improve intuitively | Block 1.1 (Core): the eight facts are sorted, then the feeling and the improvement |
+| UE3 | Level 1 · Task 2: three options (shorten, visualise, split) under 4 weeks, complex content, beginners; assess learning impact, effort, risk; prioritise; which has the greatest effect | Block 1.2 (Optional) |
+| UE4 | Coaching: UX steers attention and thinking; reflection questions | Block 1.3 (Optional) |
+| UE5–6 | Level 2 case study EduCore: identify 4 causes of cognitive overload, develop 4 UX improvements, prioritise, justify | Block 2.1 (Optional, four causes) and Block 2.2 (Core, four improvements, priority, justification) |
+| UE7 | Feedback round with a learning-impact perspective | A classroom discussion led by the facilitator; not a worksheet block |
+| UE8–10 | Level 3 transfer project: strategy to reduce cognitive load, 3 prioritised measures, definition of learning-effective UX, risk analysis (too simple against too complex), decision logic for future content, one decision under uncertainty | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name
@@ -126,7 +125,12 @@ The coaching point of the plan: UX decides whether learning takes place at all; 
 
 [[ANSWER lines=3 label=Which UX decision measurably improves learning?]]
 
-# Part 2 · Choose measures within the limits · Level 2 · Application
+# Part 2 · Choose measures within the limits · Level 2 · Application · Case study (2 UE)
+
+:::note Case study: 2 teaching units (UE5–6)
+This part is the day's Level 2 case study. It takes 2 UE (about 90 minutes): UE5 for the briefing and your own work, UE6 for comparing your order with your group and for the trainer's closing. The blocks below need about 24 minutes of writing; the rest of the time is the group comparison.
+:::
+
 
 ## Block 2.1 · Four causes of cognitive overload · OBJECTIVE + JUDGED · Optional · about 7 min
 
@@ -202,7 +206,12 @@ The completed **UX Analysis File**: your sort of the eight facts, how the learni
 
 ---pagebreak---
 
-# Task 2 · Route 2 · UX Strategy Memo (Level 3)
+# Task 2 · Route 2 · UX Strategy Memo (Level 3) · Transfer project (3 UE)
+
+:::note Transfer project: 3 teaching units (UE8–10)
+This task is the day's Level 3 transfer project. It takes 3 UE (about 135 minutes): UE8 for Materi B and the brief, UE9 for Block 3.1, UE10 for Block 3.2, the presentation of your decision and the debrief with the trainer. The two blocks need about 20 minutes of writing; the rest of the time is the discussion of your decisions.
+:::
+
 
 ## The situation: EduCore's Chief Learning Experience Officer
 

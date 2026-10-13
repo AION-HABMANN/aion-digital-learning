@@ -27,6 +27,8 @@ from docx.shared import Cm, Emu, Pt, RGBColor
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
+import ablauf  # noqa: E402
+import release  # noqa: E402
 from glossary import GLOSSARY  # noqa: E402
 from refs import REFS  # noqa: E402
 
@@ -81,6 +83,52 @@ def el(tag, **attrs):
 def shade(cell_or_par_pr, fill):
     s = el("shd", val="clear", color="auto", fill=fill)
     cell_or_par_pr.append(s)
+
+
+# ------------------------------------------------------------------ figure label
+
+_STAMPED = {}
+
+
+def stamp_figure(path):
+    """Copy of a figure with the AI label printed on the image itself (Habmann: AI images are marked directly at the image)."""
+    if path in _STAMPED:
+        return _STAMPED[path]
+    import hashlib
+    import tempfile
+
+    from PIL import Image, ImageDraw, ImageFont
+
+    out_dir = os.path.join(tempfile.gettempdir(), "dl_stamped_figures")
+    os.makedirs(out_dir, exist_ok=True)
+    key = hashlib.md5((path + release.FIG_LABEL).encode("utf-8")).hexdigest()[:12]
+    out = os.path.join(out_dir, f"{os.path.splitext(os.path.basename(path))[0]}-{key}.png")
+    with Image.open(path) as im:
+        im = im.convert("RGB")
+        w, h = im.size
+        strip = max(30, int(w * 0.032))
+        canvas = Image.new("RGB", (w, h + strip), "#FFFFFF")
+        canvas.paste(im, (0, 0))
+        d = ImageDraw.Draw(canvas)
+        font = None
+        size = int(strip * 0.52)
+        for f in ("C:/Windows/Fonts/calibri.ttf", "C:/Windows/Fonts/arial.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"):
+            if os.path.exists(f):
+                font = ImageFont.truetype(f, size)
+                break
+        font = font or ImageFont.load_default()
+        d.line([(0, h), (w, h)], fill="#D5DEE9", width=1)
+        chip = "AI"
+        cw = d.textlength(chip, font=font)
+        pad = int(strip * 0.22)
+        x0, y0 = pad, h + int(strip * 0.16)
+        d.rounded_rectangle([x0, y0, x0 + cw + 2 * pad, h + strip - int(strip * 0.16)], radius=int(strip * 0.16), fill="#1750A8")
+        ty = h + (strip - size) // 2 - 3
+        d.text((x0 + pad, ty), chip, fill="#FFFFFF", font=font)
+        d.text((x0 + cw + 3 * pad + 6, ty), release.FIG_LABEL, fill="#556274", font=font)
+        canvas.save(out)
+    _STAMPED[path] = out
+    return out
 
 
 # ------------------------------------------------------------------ inline
@@ -261,6 +309,8 @@ class Builder:
         self.doc = Document()
         self.fig_n = 0
         self.headings = []
+        self.sections = []  # (h2 text, [figure numbers]) of the body, for the table "Use in class"
+        self.generated = set()  # h2 titles that come from ablauf.py
         self._setup()
 
     # ---- setup
@@ -315,7 +365,7 @@ class Builder:
         f = sec.footer
         p = f.paragraphs[0]
         p.text = ""
-        txt = self.meta.get("footer") or f"Habmann AufstiegsAkademie · Digital Learning · Day {self.meta.get('day', '')} · {self.meta.get('doc', '').title()}"
+        txt = self.meta.get("footer") or f"Habmann AufstiegsAkademie · Day {self.meta.get('day', '')} · {self.meta.get('doc', '').title()} · v{release.VERSION} · {release.RELEASE_DATE}"
         r = p.add_run(txt + "   ·   Page ")
         r.font.size = Pt(8.5)
         r.font.color.rgb = RGBColor.from_string(ASH)
@@ -427,6 +477,8 @@ class Builder:
             pPr.append(bd)
         if lvl <= 2 and not hasattr(c, "_tc"):
             self.headings.append((lvl, re.sub(r"\*", "", text)))
+            if lvl == 2 and text not in self.generated:
+                self.sections.append((re.sub(r"\*", "", text), []))
 
     def b_p(self, b, c, w):
         p = self._add_par(c, True)
@@ -482,7 +534,11 @@ class Builder:
         if not os.path.exists(full):
             raise FileNotFoundError(full)
         self.fig_n += 1
+        if self.sections:
+            self.sections[-1][1].append(self.fig_n)
         from PIL import Image
+
+        full = stamp_figure(full)
 
         with Image.open(full) as im:
             wpx, hpx = im.size
@@ -609,6 +665,8 @@ class Builder:
     def cover(self):
         m = self.meta
         d = self.doc
+        day = m.get("day", "")
+        trainer = m.get("doc") == "trainer"
         p = d.add_paragraph()
         add_inline(p, "HABMANN AUFSTIEGSAKADEMIE · DIGITAL LEARNING · EDUCATIONAL UX/UI DESIGN", size=8.5, color=ASH, bold=True)
         par_fmt(p, after=14)
@@ -622,13 +680,18 @@ class Builder:
             p = d.add_paragraph()
             add_inline(p, m["subtitle"], size=13, color=ASH)
             par_fmt(p, after=10)
+        # the AI notice sits at the very start, before the fact table
+        self.render([("box", "note", "AI notice · KI-Hinweis", [("p", release.AI_NOTICE_EN), ("p", "*" + release.AI_NOTICE_DE + "*")])], d)
         rows = [
-            ("Day", m.get("daytitle") or f"Day {m.get('day')}"),
+            ("Day", m.get("daytitle") or f"Day {day}"),
             ("Document", m.get("doctype", "")),
+            ("Audience", "Trainer / mentor only. Do not hand out to participants." if trainer else ""),
             ("Route and level", m.get("route", "")),
             ("Time", m.get("minutes", "")),
-            ("Website (playground)", m.get("website", "")),
+            ("Playground (website)", release.day_url(day) if day else ""),
             ("Case", m.get("case", "")),
+            ("Version", f"{release.VERSION} · release date {release.RELEASE_DATE}"),
+            ("Review and approval", release.APPROVAL_LINE),
         ]
         rows = [r for r in rows if r[1]]
         t = self._tbl(d, len(rows), 2, [2300, TEXT_W - 2300])
@@ -642,8 +705,14 @@ class Builder:
             par_fmt(a.paragraphs[0], after=0)
             par_fmt(bcell.paragraphs[0], after=0)
         d.add_paragraph().paragraph_format.space_after = Pt(4)
+        about = []
+        if trainer:
+            about.append(("p", "**For the trainer.** In class we also use the playground (the course website) as the place to practise and learn; its address is at the end of this document."))
+        else:
+            about.append(("p", "**In class we also use the playground, the course website, as the place to practise and learn.** Its address is at the end of this document."))
         if m.get("intro"):
-            self.render([("box", "box", "About this document", [("p", m["intro"])])], d)
+            about.append(("p", m["intro"]))
+        self.render([("box", "box", "About this document", about)], d)
 
     def contents(self):
         if not getattr(self, "contents_marker", None):
@@ -657,6 +726,7 @@ class Builder:
         t = self._tbl(self.doc, 1, 1, [TEXT_W - 40])
         self._borders(t._tbl.tblPr, LINE, 4, False)
         self._cellmar(t._tbl.tblPr, 90, 90, 160, 160)
+        self._cant_split(t.rows[0])
         cell = t.cell(0, 0)
         self._cell_shade(cell, CANVAS)
         self._cell_borders(cell, left=(ASH, 28))
@@ -706,6 +776,70 @@ class Builder:
             add_inline(p, REFS[k], size=9.5)
             par_fmt(p, after=4, left=0.5, hanging=0.5)
 
+    def use_in_class(self):
+        """The table at the end that marks what is used as presentation and what as handout (Habmann asked for it)."""
+        doc = self.meta.get("doc", "")
+        rows = []
+
+        def figs(fl):
+            if not fl:
+                return ""
+            return f"Figure {fl[0]}" if len(fl) == 1 else f"Figures {fl[0]}–{fl[-1]}"
+
+        if doc == "materi":
+            rows.append(["Card", "Presentation (shown on the playground)", "Handout"])
+            for title, fl in self.sections:
+                m = re.match(r"^([AB]\d+) · (.+?) · (\d+) min · (Core|Optional)$", title)
+                if not m:
+                    continue
+                if m.group(4) == "Core":
+                    pres = "Scan line" + (f" and {figs(fl)}" if fl else "") + "; the \"In plain words\" and \"How to decide\" boxes"
+                else:
+                    pres = "Not shown (self-study)"
+                rows.append([f"**{m.group(1)}** · {m.group(2)} ({m.group(4)})", pres, "The whole card"])
+            lead = "Mark of use for the study material. **Presentation** is what the trainer shows on screen; **Handout** is what participants read and keep."
+        elif doc == "task":
+            rows.append(["Part of the worksheet", "Presentation (shown on the playground)", "Handout"])
+            for title, fl in self.sections:
+                if title.startswith("The case") or title.startswith("The situation"):
+                    rows.append([title, "The case read aloud or on screen", "The case text"])
+                elif title.startswith("The evidence"):
+                    rows.append([title, (figs(fl) + " (the screens)") if fl else "The evidence", "Evidence and numbered facts"])
+                elif title.startswith("Block"):
+                    kind = "Core" if "· Core ·" in title else "Optional"
+                    parts = title.split(" · ")
+                    rows.append([f"{parts[0]} · {parts[1][:70]}", "The task wording at the start of the block (no answers are shown)", f"Worksheet block with answer boxes ({kind})"])
+            lead = "Mark of use for the worksheet. **Presentation** is what the trainer shows on screen; **Handout** is what participants fill in and hand in."
+        else:
+            rows.append(["Section", "Shown to participants?"])
+            for title, fl in self.sections:
+                shown = "Only after the work, in the debrief" if re.search(r"model solution|Case study|Transfer project", title, re.I) else "No"
+                rows.append([title, shown])
+            lead = "Mark of use for the trainer document. Nothing in it is handed out. The model solutions may be shown, after the participants have worked, in the debrief of the case study (UE6) and the transfer project (UE10)."
+        if len(rows) < 2:
+            return
+        d = self.doc
+        d.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+        self.render([("h", 1, "Use in class: presentation and handout"), ("p", lead), ("table", rows)], d)
+
+    def playground_end(self):
+        day = self.meta.get("day", "")
+        trainer = self.meta.get("doc") == "trainer"
+        rows = [
+            ["What", "Address"],
+            ["Course website (playground)", release.SITE],
+            [f"Day {day}", release.day_url(day) if day else release.SITE],
+        ]
+        d = self.doc
+        d.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+        note = " The mentor tools of the playground are for the trainer only." if trainer else ""
+        self.render([
+            ("h", 1, "The playground: where we practise online"),
+            ("p", "In class we use the course website as the place to practise and to learn. Every day has its own address, in the same pattern: the day number is the last part."),
+            ("table", rows),
+            ("p", f"On the day page, Route 1 (Levels 1 and 2) and Route 2 (Level 3) can be opened; the cards and the tasks of this document are there too. The pattern is the same up to Day 8, for example {release.day_url(6)}." + note),
+        ], d)
+
     def save(self, path):
         fix_order(self.doc.element)
         for sec in self.doc.sections:
@@ -728,9 +862,20 @@ def build(md_path, out_path):
     b = Builder(meta, ROOT)
     b.cover()
     blocks = parse_blocks(body.split("\n"))
+    day = int(meta.get("day", 0) or 0)
+    doc = meta.get("doc", "")
+    if day and doc in ("materi", "task", "trainer"):
+        gen = ablauf.lesson_plan_blocks(day, doc)
+        if day == 1 and doc == "materi":
+            gen += ablauf.block_orientation_blocks()
+        b.generated = {x[2] for x in gen if x[0] == "h" and x[1] == 2}
+        at = next((i for i, x in enumerate(blocks) if x[0] == "contents"), -1) + 1
+        blocks = blocks[:at - 1] + [("pagebreak",)] + blocks[at - 1:at] + gen + [("pagebreak",)] + blocks[at:]
     b.render(blocks, b.doc)
+    b.use_in_class()
     b.references_appendix()
     b.glossary_appendix()
+    b.playground_end()
     b.contents()
     b.save(out_path)
     return out_path

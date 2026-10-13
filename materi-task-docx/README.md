@@ -6,7 +6,7 @@ Written to the standards of `../CLAUDE.md` (#11, #19, #22, #30, #31, #35, #40, #
 
 ## The documents
 
-One Materi and one Task file per day. Each file holds both routes of the day: Materi A and Materi B in the Materi file, Task 1 and Task 2 in the Task file.
+One Materi, one Task and one Trainer file per day (24 files). Each Materi/Task file holds both routes of the day: Materi A and Materi B in the Materi file, Task 1 and Task 2 in the Task file. The Trainer file (`Day{N}-Trainer-…-Coaching-Feedback-and-Model-Solutions.docx`) is **for the trainer only** and is kept in `_upload-to-drive/Trainer-only/`.
 
 | Day | Topic (plan) | Case | Materi | Task |
 |---|---|---|---|---|
@@ -20,7 +20,7 @@ One Materi and one Task file per day. Each file holds both routes of the day: Ma
 | 8 | UX/UI basics: structure, hierarchy, interaction | StructLearn | `Day8-Materi-…-UX-UI-Structure-Visual-Hierarchy-and-Interaction.docx` | `Day8-Task-…-StructLearn-Structure-Analysis-and-Basic-UX-UI-Structure.docx` |
 
 The full file names always read `Day{N}-{Materi|Task}-Habmann-Digital-Learning-{topic}.docx` (the `…` above stands for `Habmann-Digital-Learning`).
-Website link: Day 1 is at <https://aion-dl.vercel.app/day/1/>; Days 2 to 8 say "not yet published" on their cover and need the link once they are deployed.
+Playground (website): <https://aion-dl.vercel.app/>, one address per day in the pattern `https://aion-dl.vercel.app/day/N/`. Every cover names the day's address and the last page of every document repeats it. Days 7 and 8 are placeholders on the site until their pages are built.
 
 ## What is in a Materi file
 
@@ -37,6 +37,22 @@ Blocks are marked Core or Optional and carry minutes and the cards they draw on.
 The cases and their facts come from `One Stop Digital Learning - Strukturplan 11_F_128 (04-26).xlsx` (sheet English). Only what the plan prints is stated as fact; every other figure is labelled **Case assumption**. The plan contains no calculation, so no task asks the learner to derive a number: costs and budgets are printed and compared, and the effort rating follows a printed cost rule taught in the Materi.
 Level 1 and 2 are merged into Route 1 and Level 3 is Route 2 (`../CLAUDE.md` #30). The feedback round of each day is a classroom discussion and is not a worksheet block.
 
+## Revision 1.1 (14.10.2026): Habmann feedback
+
+Version 1.1, release date 14.10.2026, reviewer and approver Muhammad Muchson (mentor). The values live in `_tools/release.py`; change them there and rebuild.
+The revision answers the four points of the feedback of Habmann (Farreldiora Arsi Putri). The rules for the Word documents (not for the website) are in `../CLAUDE.md` #53.
+
+| Feedback point | What was done |
+|---|---|
+| Coaching and feedback, model solutions or criteria, transition from Level 2 to 3 | New **Trainer** document per day: coaching of UE4, case-study model solution (plan core logic and reference answers), feedback round of UE7, assessment criteria (Bewertungskriterien), the transition from Level 2 to Level 3, transfer-project model solution, debrief scripts. Not for participants. |
+| Case studies 2 UE and transfer projects 3 UE, lesson plan | "Day at a glance" in every document: lesson plan UE1 to UE10 (`_tools/ablauf.py`), the case study marked **2 UE (UE5–6)** and the transfer project **3 UE (UE8–10)** in the plan, in the Task headings and in a note box. The plan's merged cells give the same: case study UE5–6, transfer project UE8–10. The coverage table of every Task has a UE column. |
+| AI notice, named review, version, date, labels on images | AI notice (EN and DE) before the fact table of every document; rows Version and Review and approval; footer with version and date; every figure carries an "AI" label **on the image** (`stamp_figure` in `md2docx.py`, text in `release.FIG_LABEL`). |
+| Block orientation for Day 1, presentation or handout, sources, layout | "Block orientation" in the Day 1 Materi (16 days, the day, the documents, how we work). A closing table "Use in class: presentation and handout" in every document (built from the cards, figures and blocks). Sources and glossary unchanged. Layout: the existing Ocean layout. |
+
+Also new: the sentence that the playground is used in class (top of each document), the playground address at the end, and the sheet **Document use Day 1-8** in `../One Stop Digital Learning - Strukturplan 11_F_128 (04-26).xlsx` (`_tools/add_doc_use_sheet.py`).
+
+How the Trainer documents are made: `python _tools/make_trainer.py` writes `_source/dayN-trainer.md` from the plan, the playground's reference answers for Days 1 to 6 (`_tools/trainer_export_days1-6.json`, produced by `_tools/export-mentor-keys.ts`) and `_tools/trainer_data78.py` for Days 7 and 8. Edit the Markdown or the data, then `python _tools/build_all.py`.
+
 ## Things to check before teaching
 
 - **Standards and laws in flux:** BFSG (scope, exemptions, the ordinance), EN 301 549 (the revision that refers to WCAG 2.2), the EU AI Act (staged dates), and tracking rules (DSGVO, § 25 TDDDG). The documents say so where they use them; check the current text.
@@ -47,7 +63,8 @@ Level 1 and 2 are merged into Route 1 and Level 3 is Route 2 (`../CLAUDE.md` #30
 
 ```
 materi-task-docx/
-  Day1-Materi-….docx … Day8-Task-….docx   the 16 documents
+  Day1-Materi-….docx … Day8-Task-….docx   the 16 documents for participants
+  Day1-Trainer-….docx … Day8-Trainer-….docx  the 8 trainer documents (not for participants)
   README.md                                this file
   _source/                                 the reviewed Markdown of every document (the source of truth)
   _figures/                                every diagram as PNG (drawn from SVG)
