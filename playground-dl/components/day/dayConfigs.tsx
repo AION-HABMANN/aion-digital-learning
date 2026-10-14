@@ -14,6 +14,9 @@ import { Task2 as D5Task2 } from "@/components/day5/Task2";
 import { MateriA as D6MateriA, MateriB as D6MateriB } from "@/components/day6/Materi";
 import { Task1 as D6Task1 } from "@/components/day6/Task1";
 import { Task2 as D6Task2 } from "@/components/day6/Task2";
+import { MateriA as D7MateriA, MateriB as D7MateriB } from "@/components/day7/Materi";
+import { Task1 as D7Task1 } from "@/components/day7/Task1";
+import { Task2 as D7Task2 } from "@/components/day7/Task2";
 import { DAY_INTRO as D2_INTRO, ROUTE_CARDS as D2_CARDS, pageNav as d2PageNav, railSections as d2Rail } from "@/data/day2/day";
 import { DAY_INTRO as D3_INTRO, ROUTE_CARDS as D3_CARDS, pageNav as d3PageNav, railSections as d3Rail } from "@/data/day3/day";
 import { DAY_INTRO as D4_INTRO, ROUTE_CARDS as D4_CARDS, pageNav as d4PageNav, railSections as d4Rail } from "@/data/day4/day";
@@ -22,6 +25,8 @@ import { dossierProgress as d4Progress, taskBlocks as d4Blocks } from "@/lib/day
 import { dossierProgress as d5Progress, taskBlocks as d5Blocks } from "@/lib/day5/progress";
 import { DAY_INTRO as D6_INTRO, ROUTE_CARDS as D6_CARDS, pageNav as d6PageNav, railSections as d6Rail } from "@/data/day6/day";
 import { dossierProgress as d6Progress, taskBlocks as d6Blocks } from "@/lib/day6/progress";
+import { DAY_INTRO as D7_INTRO, ROUTE_CARDS as D7_CARDS, pageNav as d7PageNav, railSections as d7Rail } from "@/data/day7/day";
+import { dossierProgress as d7Progress, taskBlocks as d7Blocks } from "@/lib/day7/progress";
 import { dossierProgress as d2Progress, taskBlocks as d2Blocks } from "@/lib/day2/progress";
 import { dossierProgress as d3Progress, taskBlocks as d3Blocks } from "@/lib/day3/progress";
 import { tt } from "@/lib/lang";
@@ -163,4 +168,30 @@ export const DAY6: DayConfig = {
           order: tt("Materi B (three cards) → the UX Strategy task, one frame with two core blocks and a memo that builds below. Route 1 is a good start but not needed; every section stays open.", "Materi B (drei Karten) → die Aufgabe UX Strategy, ein Rahmen mit zwei Kernblöcken und einem Memo, das darunter entsteht. Route 1 ist ein guter Einstieg, aber nicht nötig; jeder Abschnitt bleibt offen."),
         },
 };
-export const DAY_CONFIGS: Record<number, DayConfig> = { 2: DAY2, 3: DAY3, 4: DAY4, 5: DAY5, 6: DAY6 };
+export const DAY7: DayConfig = {
+  n: 7,
+  heading: () => tt("Day 7 · Accessibility and inclusive design", "Tag 7 · Barrierefreiheit und inklusive Gestaltung"),
+  intro: D7_INTRO,
+  routeCard: D7_CARDS,
+  railSections: d7Rail,
+  pageNav: d7PageNav,
+  MateriA: D7MateriA,
+  MateriB: D7MateriB,
+  Task1: D7Task1,
+  Task2: D7Task2,
+  progress: d7Progress,
+  taskBlocks: d7Blocks,
+  routeHeading: (route) =>
+    route === 1
+      ? {
+          kicker: tt("Day 7 · Route 1 · Levels 1 and 2 · Knowledge and application", "Tag 7 · Route 1 · Level 1 und 2 · Wissen und Anwendung"),
+          h1: tt("Accessibility and inclusive design: find the barriers, then choose the measures", "Barrierefreiheit und inklusives Design: die Barrieren finden, dann die Maßnahmen wählen"),
+          order: tt("Materi A (all five cards, four are core) → the UX Analysis task, one case in two parts (find the barriers, choose measures), with two core blocks. Every section stays open, so you can start anywhere.", "Materi A (alle fünf Karten, vier sind Kern) → die Aufgabe UX Analysis, ein Fall in zwei Teilen (die Barrieren finden, Maßnahmen wählen), mit zwei Kernblöcken. Jeder Abschnitt bleibt offen, Sie können überall beginnen."),
+        }
+      : {
+          kicker: tt("Day 7 · Route 2 · Level 3 · Management decision", "Tag 7 · Route 2 · Level 3 · Managemententscheidung"),
+          h1: tt("Inclusion as a strategy: where accessibility is checked, three measures, an evaluation system, the risk, and what you give up", "Inklusion als Strategie: wo Barrierefreiheit geprüft wird, drei Maßnahmen, ein Evaluationssystem, das Risiko und worauf Sie verzichten"),
+          order: tt("Materi B (three cards) → the UX Strategy task, one frame with two core blocks and a memo that builds below. Route 1 is a good start but not needed; every section stays open.", "Materi B (drei Karten) → die Aufgabe UX Strategy, ein Rahmen mit zwei Kernblöcken und einem Memo, das darunter entsteht. Route 1 ist ein guter Einstieg, aber nicht nötig; jeder Abschnitt bleibt offen."),
+        },
+};
+export const DAY_CONFIGS: Record<number, DayConfig> = { 2: DAY2, 3: DAY3, 4: DAY4, 5: DAY5, 6: DAY6, 7: DAY7 };

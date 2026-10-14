@@ -13,9 +13,10 @@ import { KEY_D3_R1, KEY_D3_R2 } from "@/lib/day3/mentorKey";
 import { KEY_D4_R1, KEY_D4_R2 } from "@/lib/day4/mentorKey";
 import { KEY_D5_R1, KEY_D5_R2 } from "@/lib/day5/mentorKey";
 import { KEY_D6_R1, KEY_D6_R2 } from "@/lib/day6/mentorKey";
+import { KEY_D7_R1, KEY_D7_R2 } from "@/lib/day7/mentorKey";
 import { emptyD2, emptyD2R1, emptyD2R2, emptyD3, emptyD3R1, emptyD3R2 } from "@/store/dayTypes";
-import { emptyD4, emptyD4R1, emptyD4R2, emptyD5, emptyD5R1, emptyD5R2, emptyD6, emptyD6R1, emptyD6R2 } from "@/store/dayTypesStd";
-import type { D4State, D5State, D6State } from "@/store/dayTypesStd";
+import { emptyD4, emptyD4R1, emptyD4R2, emptyD5, emptyD5R1, emptyD5R2, emptyD6, emptyD6R1, emptyD6R2, emptyD7, emptyD7R1, emptyD7R2 } from "@/store/dayTypesStd";
+import type { D4State, D5State, D6State, D7State } from "@/store/dayTypesStd";
 import type { D2R1, D2R2, D2State, D3R1, D3R2, D3State } from "@/store/dayTypes";
 import type { RouteNo } from "@/data/course";
 
@@ -25,7 +26,7 @@ import type { RouteNo } from "@/data/course";
  * and is covered by the deep `merge` (CLAUDE.md #9).
  */
 export const STORAGE_KEY = "dl-v1";
-export const PERSIST_VERSION = 3;
+export const PERSIST_VERSION = 4;
 const HISTORY_CAP = 100;
 
 /** 0 means not chosen yet; 1 Low, 2 Mid, 3 High. */
@@ -102,6 +103,7 @@ export type Persisted = {
   d4: D4State;
   d5: D5State;
   d6: D6State;
+  d7: D7State;
 };
 
 type Session = { mentorUnlocked: boolean; resetCount: number };
@@ -199,6 +201,7 @@ const emptyPersisted = (): Persisted => ({
   d4: emptyD4(),
   d5: emptyD5(),
   d6: emptyD6(),
+  d7: emptyD7(),
 });
 
 const pushCapped = <T,>(list: T[], item: T) => [...list, item].slice(-HISTORY_CAP);
@@ -243,11 +246,11 @@ export function mergeDefaults<T>(base: T, saved: unknown): T {
 
 /**
  * The migration of a saved blob to the current shape. Pure, so it can be tested without a browser. Version 1 held Day 1 only; version 2
- * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6). A blob that lacks them gets empty ones here, and the deep merge fills any single field.
+ * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6); version 4 adds Day 7 (d7). A blob that lacks them gets empty ones here, and the deep merge fills any single field.
  */
 export function migratePersisted(persisted: unknown, from: number): Persisted {
   const p = (persisted ?? {}) as Partial<Persisted>;
-  return { ...p, d2: p.d2 ?? emptyD2(), d3: p.d3 ?? emptyD3(), d4: p.d4 ?? emptyD4(), d5: p.d5 ?? emptyD5(), d6: p.d6 ?? emptyD6() } as Persisted;
+  return { ...p, d2: p.d2 ?? emptyD2(), d3: p.d3 ?? emptyD3(), d4: p.d4 ?? emptyD4(), d5: p.d5 ?? emptyD5(), d6: p.d6 ?? emptyD6(), d7: p.d7 ?? emptyD7() } as Persisted;
 }
 
 export const useStore = create<Persisted & Session & Actions>()(
@@ -377,6 +380,10 @@ export const useStore = create<Persisted & Session & Actions>()(
             const d6: D6State = { r1: { ...emptyD6R1(), ...KEY_D6_R1() }, r2: { ...emptyD6R2(), ...KEY_D6_R2() } };
             return { participant, d6, resetCount: s.resetCount + 1 };
           }
+          if (day === 7) {
+            const d7: D7State = { r1: { ...emptyD7R1(), ...KEY_D7_R1() }, r2: { ...emptyD7R2(), ...KEY_D7_R2() } };
+            return { participant, d7, resetCount: s.resetCount + 1 };
+          }
           return {};
         }),
 
@@ -395,7 +402,8 @@ export const useStore = create<Persisted & Session & Actions>()(
           const d4 = day === 4 ? { r1: route === null || route === 1 ? emptyD4R1() : s.d4.r1, r2: route === null || route === 2 ? emptyD4R2() : s.d4.r2 } : s.d4;
           const d5 = day === 5 ? { r1: route === null || route === 1 ? emptyD5R1() : s.d5.r1, r2: route === null || route === 2 ? emptyD5R2() : s.d5.r2 } : s.d5;
           const d6 = day === 6 ? { r1: route === null || route === 1 ? emptyD6R1() : s.d6.r1, r2: route === null || route === 2 ? emptyD6R2() : s.d6.r2 } : s.d6;
-          return { d1, d2, d3, d4, d5, d6, ui: { bannerDismissed, sectionsRead, lang: s.ui.lang }, resetCount: s.resetCount + 1 };
+          const d7 = day === 7 ? { r1: route === null || route === 1 ? emptyD7R1() : s.d7.r1, r2: route === null || route === 2 ? emptyD7R2() : s.d7.r2 } : s.d7;
+          return { d1, d2, d3, d4, d5, d6, d7, ui: { bannerDismissed, sectionsRead, lang: s.ui.lang }, resetCount: s.resetCount + 1 };
         }),
     }),
     {
@@ -403,7 +411,7 @@ export const useStore = create<Persisted & Session & Actions>()(
       version: PERSIST_VERSION,
       skipHydration: true,
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ participant: s.participant, ui: s.ui, d1: s.d1, d2: s.d2, d3: s.d3, d4: s.d4, d5: s.d5, d6: s.d6 }),
+      partialize: (s) => ({ participant: s.participant, ui: s.ui, d1: s.d1, d2: s.d2, d3: s.d3, d4: s.d4, d5: s.d5, d6: s.d6, d7: s.d7 }),
       migrate: migratePersisted,
       merge: (persisted, current) => {
         const merged = mergeDefaults(emptyPersisted(), (persisted ?? {}) as Partial<Persisted>);

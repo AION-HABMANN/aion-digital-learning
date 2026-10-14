@@ -118,7 +118,7 @@ export function MentorBar() {
               className="btn-primary btn-sm"
               onClick={() => {
                 if (!day || !built) {
-                  setMsg("Open a built day (Days 1 to 3) first: model answers are filled for the day you are on.");
+                  setMsg("Open a built day first: model answers are filled for the day you are on.");
                   return;
                 }
                 mentorFill(day);
@@ -144,7 +144,7 @@ export function MentorBar() {
               className="btn-ghost btn-sm"
               onClick={() => {
                 if (!day || !built) {
-                  setMsg("Open a built day (Days 1 to 3) first.");
+                  setMsg("Open a built day first.");
                   return;
                 }
                 resetRoute(day, route);

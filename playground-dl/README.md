@@ -3,7 +3,7 @@
 **Educational UX/UI design for digital learning platforms (Habmann AufstiegsAkademie), 16 days.** One Next.js project holds every day; the build has
 **Day 1** (Module 1, Day 1 of 2: UX/UI for learning platforms and user-centred design), **Day 2** (Module 1, Day 2 of 2: successful platforms, prototyping,
 testing, adaptive learning), **Day 3** (Module 2, Day 1 of 2: learning psychology and cognitive load), **Day 4** (Module 2, Day 2 of 2: motivation and design principles),
-**Day 5** (Module 3, Day 1 of 3: user-centred UX design) and **Day 6** (Module 3, Day 2 of 3: personas and user journeys). A self-study companion in **English and German**
+**Day 5** (Module 3, Day 1 of 3: user-centred UX design), **Day 6** (Module 3, Day 2 of 3: personas and user journeys) and **Day 7** (Module 3, Day 3 of 3: accessibility and inclusive design). A self-study companion in **English and German**
 (EN | DE in the top bar): study material with live instruments, two tasks and two working documents per day. It carries the shared standards
 `../CLAUDE.md` #1 to #50 and the two-route form of #30. Palette: the DL "Ocean" palette (#15).
 
@@ -13,7 +13,7 @@ repository, set its Root Directory to `playground-dl`). **Days 2 and 3 are deplo
 
 The cases: **Day 1 · SkillUp GmbH** runs the learning platform LearnFast (40 of every 100 learners do not finish; €50,000, two months; Route 2 €120,000).
 **Day 2 · LearnPro**, a stagnating platform (€60,000, three months; Route 2 €200,000). **Day 3 · EduCore**, a platform with an overwhelm effect (€40,000, four weeks; Route 2 €150,000).
-**Day 4 · MotivaLearn**, a platform with low retention (€40,000, two months; Route 2 €180,000). **Day 5 · LearnBase**, a feature-heavy platform with low usage (€40,000, 13 weeks; Route 2 €200,000). **Day 6 · EduPath**, a platform on which different users fail in different ways (€45,000, 13 weeks; Route 2 €220,000).
+**Day 4 · MotivaLearn**, a platform with low retention (€40,000, two months; Route 2 €180,000). **Day 5 · LearnBase**, a feature-heavy platform with low usage (€40,000, 13 weeks; Route 2 €200,000). **Day 6 · EduPath**, a platform on which different users fail in different ways (€45,000, 13 weeks; Route 2 €220,000). **Day 7 · InclusiveLearn**, a platform with access problems (€50,000, 10 weeks; Route 2 €240,000).
 Every figure beyond what the plan prints is a Case assumption, labelled on screen. The sources of Days 2 to 6 are the reviewed Markdown files in `../materi-task-docx/_source/` (`dayN-*.md`).
 
 ## Layout (one project, all days)
@@ -28,7 +28,7 @@ components/day/dayConfigs.tsx     the DayConfig of Days 2 to 6
 components/day/mockKit.tsx        drawing primitives for the mock screens and pictures of Days 4 to 6 (greys only: the site colours never colour the evidence)
 components/dayStd/*               the blocks that repeat on a standard day (Days 4 onward): measures (Block 2.2), three options (1.2), reflection (1.3), decisions picker (Route 2)
 lib/dayStd/common.ts             the minimums, minutes, Core/Optional lists and Block 2.2 helpers shared by Days 4 to 6
-components/day1|day2|day3|day4|day5|day6/*       per day: Cards, diagrams, mock screens, Task1, Task2, Materi (Day 1 also Pages)
+components/day1|day2|day3|day4|day5|day6|day7/*       per day: Cards, diagrams, mock screens, Task1, Task2, Materi (Day 1 also Pages)
 components/materi/figures.tsx     figures shared by Days 2 and 3: chain, two columns, decision frame, cost bands, selectable matrix
 components/chrome, components/ui  shared by every day (top bar, mentor bar, rail, page map, answer blocks, export bar, order list …)
 data/course.ts                    the 16 days of the plan (topics in EN and DE), `built` flags, route helpers
@@ -38,7 +38,7 @@ data/materialRegistry.ts          the cards of every built day; shared component
 data/glossary.ts, glossaryMore.ts one glossary for the course (a day adds its terms; Day 2 and 3 terms are in glossaryMore.ts)
 lib/dayN/*                        checks, missing lists, progress, model answers, answer keys, worked answers, export documents
 lib/lists.ts                      pure helpers (capped history, "choose exactly N", priority order, placement with undo and redo)
-store/useStore.ts                 one persisted store, one slice per day (`d1` to `d6`), each with two routes (`r1`, `r2`); key `dl-v1`, version 3 (a generic `patchStd` writes Days 4 to 6)
+store/useStore.ts                 one persisted store, one slice per day (`d1` to `d7`), each with two routes (`r1`, `r2`); key `dl-v1`, version 4 (a generic `patchStd` writes Days 4 to 7)
 store/dayTypes.ts, dayTypesStd.ts the shapes and empty values of the Day 2 and 3 slices, and of the Day 4 to 6 slices
 scripts/verify-day1|2|3|4|5|6.ts  data and logic checks in both languages
 ```
@@ -148,7 +148,7 @@ Next.js 14 · TypeScript · Tailwind (Ocean tokens, CS token names) · Zustand +
 npm install
 npm run dev          # http://localhost:3000
 npm run typecheck
-npm run verify:day1  # data and logic checks, both languages (also verify:day2 to verify:day6)
+npm run verify:day1  # data and logic checks, both languages (also verify:day2 to verify:day7)
 npm run build        # stop `npm run dev` first; writes the static site to out/
 node scripts/serve-out.cjs 4100   # serve out/ to test the production build
 ```
@@ -216,3 +216,29 @@ with empty missing lists; German scan with no English sentence left on the six n
 blob (Day 1 only) loads, migrates to version 2 and keeps its answers; Day 1 still fills and renders unchanged.
 
 **Days 4 to 6 (2026-10-12):** `tsc`, `verify:day1` to `verify:day6` (both languages), production build (52 static pages), the static export served locally: both routes of Days 5 and 6 and the Day 4 and Day 6 homes opened with no console error and no hydration error; the dev server with every new interactive diagram operated (stories, switches, emotion buttons, gate, conflict screens); mentor fill on both routes of Days 5 and 6 with empty missing lists; German view of Day 6 Route 2; 375 px with no horizontal page scroll on Day 5 and Day 6 routes. Not run: an automated accessibility pass (axe).
+
+
+## Day 7 (InclusiveLearn): accessibility and inclusive design
+
+Built to the standard of Days 4 to 6 from the content of `../materi-task-docx/_source/day7-*.md`. Route 1: Materi A (A1 persona spectrum, A2 the four principles, a drag-only quiz, A3 plain language, **A4 integrating and evaluating (Optional)**, A5 weighing a measure); **Core 1.1** (eight facts into Perceivable / Operable / Understandable, the groups that struggle, three improvements) and **Core 2.2** (four of nine measures rated and ordered, three of six evaluation methods, what is missing; €50,000, 10 weeks). Route 2: Materi B (B1 strategic chain, B2 reach against cost, B3 an average that hides a group, a decision frame); **Core 3.1** (strategy, at least three places where accessibility is checked, three of seven measures in order; €240,000) and **Core 3.2** (KPIs, methods, who reads the results, risk, decision under uncertainty, what you give up). Exports `1-{name}-day7-l1l2-ux-analysis` and `2-{name}-day7-l3-ux-strategy`. `npm run verify:day7` (87 checks, both languages).
+
+### Notes on deviations, Day 7
+
+1. **No calculation** (#44). Effort rule: under €10,000 Low, up to €25,000 Mid, above High (as in Materi A5 of the Word documents).
+2. **No set of three Route 2 measures can exceed the €240,000 budget** (the three dearest cost €205,000, figures taken from the Word documents), so the "over budget" hint of the shared picker never fires on Day 7; the bar still shows what is left. Route 1's €50,000 can be exceeded and is printed as a fact.
+3. **Block 2.2 step 5 asks for a reason** ("Why these three methods?", `methodsWhy`), which the Word task does not: a choice carries a reason (#44). `MeasuresBlock` got an optional `afterOrder` slot for it.
+4. **Block 1.1 part b** (the user groups) is a multi-select with at least two groups plus a reason field; all eight groups are real, so it is judged, not checked.
+5. Persisted store is version 4 (slice `d7`); a version-3 blob migrates with an empty Day 7 slice (tested). Glossary: `data/glossaryDay7.ts` (15 terms, EN and DE); nine new references. Laws (BFSG, EN 301 549, BITV) are marked "in flux".
+6. Worked-example company LearnLoop with Ben, Lena, Noor and others; the task company is InclusiveLearn.
+7. **Not built:** videos (#33), the facilitator debrief card, the Word links for Day 7, an automated accessibility run (axe).
+
+### Dependency checklist, Day 7 (#40)
+
+| Item | Status | Reads from | Core-safe |
+|---|---|---|---|
+| Blocks 1.1 and 2.2 | **Core** | brief, printed facts and tables, cards A1, A2, A3, A5 (the evaluation-method rule is repeated in A5) | ✓ |
+| Blocks 1.2, 1.3, 2.1 | Optional | brief and their own items | self-contained |
+| Blocks 3.1 and 3.2 | **Core** | brief and cards B1 to B3; Route 2 quotes only Route 1's first priority (Core 2.2) as a soft pointer | ✓ |
+| Card A4 | Optional | none | no Core block cites it |
+
+Verified: `tsc`, `verify:day1` to `verify:day7`, production build, dev server in Chromium (clean localStorage, mentor fill empties both missing lists, memo builds, no console error except the shared favicon 404).

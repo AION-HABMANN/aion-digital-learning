@@ -12,7 +12,8 @@
     "verify:day3": "tsx scripts/verify-day3.ts",
     "verify:day4": "tsx scripts/verify-day4.ts",
     "verify:day5": "tsx scripts/verify-day5.ts",
-    "verify:day6": "tsx scripts/verify-day6.ts"
+    "verify:day6": "tsx scripts/verify-day6.ts",
+    "verify:day7": "tsx scripts/verify-day7.ts"
   },
   "dependencies": {
     "clsx": "2.1.1",

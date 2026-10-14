@@ -7,10 +7,13 @@ import type { DecisionId as D5DecisionId, EvidenceId as D5EvidenceId, OwnerId as
 import { NOTE_IDS as D6_NOTE_IDS } from "@/data/day6/case";
 import type { MeasureId as D6MeasureId, NoteId as D6NoteId, PersonaFieldId, PhaseId1, PhaseIdL, PhaseIdT } from "@/data/day6/case";
 import type { DecisionId as D6DecisionId, PhaseIdR, SegmentId } from "@/data/day6/route2";
+import { FACT_IDS as D7_FACT_IDS } from "@/data/day7/case";
+import type { BarrierId, FactId as D7FactId, GroupId, MeasureId as D7MeasureId, MethodId, OptId as D7OptId, PrincipleId as D7PrincipleId } from "@/data/day7/case";
+import type { DecisionId as D7DecisionId, EvalId, KpiId, PlaceId, RiskId as D7RiskId } from "@/data/day7/route2";
 import type { Score } from "@/store/useStore";
 
 /**
- * The persisted answer state of the days built to the shared "standard day" form (Day 4 onward): one slice per day (`d4`, `d5`, `d6`), each with its two
+ * The persisted answer state of the days built to the shared "standard day" form (Day 4 onward): one slice per day (`d4`, `d5`, `d6`, `d7`), each with its two
  * routes. Route 1 is the UX Analysis File (Levels 1 and 2), Route 2 the UX Strategy Memo (Level 3). The parts that repeat from day to day (a sort with undo
  * and redo, three rated options, the coaching reflection, a chosen set of causes, the four measures of Block 2.2) are declared once here, so the shared
  * blocks in components/dayStd read every day the same way. A change to a shape bumps the persist version in store/useStore.ts and is covered by its deep
@@ -296,4 +299,70 @@ export const emptyD6R2 = (): D6R2 => ({
 });
 
 export const emptyD6 = (): D6State => ({ r1: emptyD6R1(), r2: emptyD6R2() });
+
+/* ------------------------------------------------------------------ Day 7 */
+
+/**
+ * Day 7 · Route 1 · Levels 1 and 2. Core: Block 1.1 (eight facts into three principles, the groups that struggle, three improvements) and Block 2.2 (four of nine
+ * measures, rated and ordered, and three evaluation methods). Optional: 1.2 (three options), 1.3 (reflection), 2.1 (four central barriers).
+ */
+export type D7R1 = SortPart<D7FactId, D7PrincipleId> &
+  OptionsPart<D7OptId> &
+  ReflectPart &
+  CausePart<BarrierId> &
+  MeasuresPart<D7MeasureId> & {
+    groups: GroupId[];
+    groupsWhy: string;
+    improve: string;
+    /** Block 2.2, step 5: exactly three evaluation methods, with what each tells the learner. */
+    methods: MethodId[];
+    methodsWhy: string;
+  };
+
+/** Day 7 · Route 2 · Level 3. */
+export type D7R2 = DecisionsPart<D7DecisionId> & {
+  strategy: string;
+  places: PlaceId[];
+  kpis: KpiId[];
+  evals: EvalId[];
+  readers: string;
+  risk: D7RiskId | null;
+  riskPlan: string;
+  decide: string;
+  dontKnow: string;
+  reverse: string;
+  giveUp: string;
+};
+
+export type D7State = { r1: D7R1; r2: D7R2 };
+
+export const emptyD7R1 = (): D7R1 => ({
+  ...emptySortPart<D7FactId, D7PrincipleId>(D7_FACT_IDS),
+  ...emptyOptionsPart<D7OptId>(),
+  ...emptyReflectPart(),
+  ...emptyCausePart<BarrierId>(),
+  ...emptyMeasuresPart<D7MeasureId>(),
+  groups: [],
+  groupsWhy: "",
+  improve: "",
+  methods: [],
+  methodsWhy: "",
+});
+
+export const emptyD7R2 = (): D7R2 => ({
+  ...emptyDecisionsPart<D7DecisionId>(),
+  strategy: "",
+  places: [],
+  kpis: [],
+  evals: [],
+  readers: "",
+  risk: null,
+  riskPlan: "",
+  decide: "",
+  dontKnow: "",
+  reverse: "",
+  giveUp: "",
+});
+
+export const emptyD7 = (): D7State => ({ r1: emptyD7R1(), r2: emptyD7R2() });
 export type { D4ReflectKey };

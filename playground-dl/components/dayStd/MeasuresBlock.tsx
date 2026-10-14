@@ -53,6 +53,8 @@ export type MeasuresCfg = {
   ids: { pick: string; measure: (id: string) => string; reason: (id: string) => string; pain: (id: string) => string; order: string; orderWhy: string; missingInfo: string };
   guides: { reason: (id: string) => Guide; order: () => Guide; missing: () => Guide; pain?: (id: string) => Guide };
   key: () => AnswerKeyBlock;
+  /** Extra fields placed after the priority order and before “What information are you missing?” (Day 7: the three evaluation methods). */
+  afterOrder?: ReactNode;
 };
 
 const LEVELS = () => ["", tt("Low", "Niedrig"), tt("Mid", "Mittel"), tt("High", "Hoch")];
@@ -178,6 +180,7 @@ export function MeasuresBlock({ cfg, missing }: { cfg: MeasuresCfg; missing: Mea
       <TextBox id={cfg.ids.orderWhy} label={tt("Why does your first priority go first?", "Warum kommt Ihre erste Priorität zuerst?")} help={cfg.orderWhyHelp} value={r.orderWhy} onChange={(v) => patch({ orderWhy: v })} min={MIN_LINE} rows={3} />
       <ExampleAnswer id="order-example" guide={cfg.guides.order()} />
       {mentor && <MentorGuide guide={cfg.guides.order()} />}
+      {cfg.afterOrder}
       <TextBox
         id={cfg.ids.missingInfo}
         label={tt("What information are you missing?", "Welche Information fehlt Ihnen?")}

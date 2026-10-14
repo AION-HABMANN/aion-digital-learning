@@ -1,6 +1,7 @@
 import { getLang } from "@/lib/lang";
 import { GLOSSARY_MORE } from "@/data/glossaryMore";
 import { GLOSSARY_DAYS456 } from "@/data/glossaryDays456";
+import { GLOSSARY_DAY7 } from "@/data/glossaryDay7";
 
 /**
  * Plain-language glossary (CLAUDE.md #19), in English and German (#32). Every technical term, abbreviation or foreign word that the material
@@ -203,7 +204,7 @@ const GLOSSARY_BASE: GlossEntry[] = [
 ];
 
 /** Day 1 entries, then the entries added for Day 2 and Day 3 (data/glossaryMore.ts). */
-export const GLOSSARY: GlossEntry[] = [...GLOSSARY_BASE, ...GLOSSARY_MORE, ...GLOSSARY_DAYS456];
+export const GLOSSARY: GlossEntry[] = [...GLOSSARY_BASE, ...GLOSSARY_MORE, ...GLOSSARY_DAYS456, ...GLOSSARY_DAY7];
 
 // --- lookup ---------------------------------------------------------------------
 
