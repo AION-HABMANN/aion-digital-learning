@@ -7,6 +7,10 @@ import { t } from "@/lib/lang";
 const r = <K extends string>(key: K, chip: string, en: string, de: string) => ({ key, chip, full: t(en, de) });
 
 export const GEN_REFS = {
+  // ---- Day 12 · adaptive learning and personalisation
+  brusilovsky2001: r("brusilovsky2001", "Brusilovsky 2001", "Brusilovsky, P. (2001). Adaptive hypermedia. User Modeling and User-Adapted Interaction, 11(1–2), 87–110. (Adapting content and links to a model of the individual user.)", "Brusilovsky, P. (2001). Adaptive hypermedia. User Modeling and User-Adapted Interaction, 11(1–2), 87–110. (Inhalt und Links an ein Modell der einzelnen Nutzerin anpassen.)"),
+  ribeiro2016: r("ribeiro2016", "Ribeiro et al. 2016", "Ribeiro, M. T., Singh, S., & Guestrin, C. (2016). “Why should I trust you?”: Explaining the predictions of any classifier. Proceedings of KDD '16. ACM. (Why a model's choices need explaining before people can trust them.)", "Ribeiro, M. T., Singh, S., & Guestrin, C. (2016). „Why should I trust you?“: Explaining the predictions of any classifier. Proceedings of KDD '16. ACM. (Warum die Entscheidungen eines Modells erklärt werden müssen, bevor Menschen ihm vertrauen können.)"),
+  amershi2019: r("amershi2019", "Amershi et al. 2019", "Amershi, S., et al. (2019). Guidelines for human-AI interaction. Proceedings of CHI '19. ACM. (Make clear what the system can do, show why it did what it did, and let the user correct it.)", "Amershi, S., et al. (2019). Guidelines for human-AI interaction. Proceedings of CHI '19. ACM. (Klarmachen, was das System kann, zeigen, warum es tat, was es tat, und den Nutzer es korrigieren lassen.)"),
   // ---- Day 10 · feedback, progress tracking, responsive design
   wroblewski2011: r("wroblewski2011", "Wroblewski 2011", "Wroblewski, L. (2011). Mobile First. A Book Apart. (Design for the small screen first, which forces the team to decide what matters most.)", "Wroblewski, L. (2011). Mobile First. A Book Apart. (Zuerst für den kleinen Bildschirm gestalten, was das Team zwingt zu entscheiden, was am wichtigsten ist.)"),
   // ---- Day 9 · information architecture, navigation, interaction
