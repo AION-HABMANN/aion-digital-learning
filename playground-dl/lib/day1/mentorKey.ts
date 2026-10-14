@@ -1,4 +1,4 @@
-import { CAUSE_MODEL, CLAIM_TRUTH, MODEL_IMPACT, MODEL_MEASURES, MODEL_RISK, MEASURE_BY_ID, TRUTH_SORT, effortBand } from "@/data/day1/case";
+import { CAUSE_MODEL, CLAIM_TRUTH, MODEL_IMPACT, MODEL_MEASURES, MODEL_RISK, TRUTH_SORT } from "@/data/day1/case";
 import { MODEL_DECISIONS, MODEL_EVIDENCE, MODEL_OWNER, MODEL_RISK_PICK } from "@/data/day1/route2";
 import { tt } from "@/lib/lang";
 import type { D1R1, D1R2, Score } from "@/store/useStore";
@@ -14,7 +14,6 @@ export const MENTOR_PASSCODE = "muchson123";
 export function KEY_D1_R1(): Partial<D1R1> {
   const impact: Record<string, Score> = { ...MODEL_IMPACT } as Record<string, Score>;
   const risk: Record<string, Score> = { ...MODEL_RISK } as Record<string, Score>;
-  const effort: Record<string, Score> = Object.fromEntries(MODEL_MEASURES.map((id) => [id, effortBand(MEASURE_BY_ID[id].cost)])) as Record<string, Score>;
   return {
     sort: { ...TRUTH_SORT },
     worst: "f1",
@@ -39,7 +38,6 @@ export function KEY_D1_R1(): Partial<D1R1> {
     ),
     chosen: [...MODEL_MEASURES],
     impact,
-    effort,
     risk,
     reasons: {
       m1: tt("It answers the main finding: learners cannot tell where to start or what comes next. High impact for every learner; Mid risk because the paths must be designed with care.", "Sie beantwortet den Hauptbefund: Lernende erkennen nicht, wo sie anfangen oder was als Nächstes kommt. Hohe Wirkung für jede Lernende; mittleres Risiko, weil die Pfade sorgfältig gestaltet werden müssen."),
@@ -47,7 +45,6 @@ export function KEY_D1_R1(): Partial<D1R1> {
       m3: tt("A cheap, fast fix for the missing progress bar; a safe change that shows learners they are getting somewhere.", "Eine billige, schnelle Lösung für die fehlende Fortschrittsleiste; eine sichere Änderung, die zeigt, dass Lernende vorankommen."),
       m4: tt("Headings and explained terms are cheap and low risk, and they cut the effort of reading each lesson.", "Überschriften und erklärte Begriffe sind billig und risikoarm, und sie senken die Mühe beim Lesen jeder Lektion."),
     },
-    effortFlags: [],
     order: [...MODEL_MEASURES],
     orderWhy: tt(
       "Learning paths come first because every learner meets the orientation problem before anything else, and the other three measures work better once a path exists.",

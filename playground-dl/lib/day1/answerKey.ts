@@ -1,4 +1,4 @@
-import { AREAS, AREA_IDS, CAUSES, CAUSE_MODEL, CLAIMS, CLAIM_TRUTH, FINDINGS, FINDING_AREA, MEASURES, MODEL_MEASURES, MODEL_RISK, MODEL_IMPACT, effortBand, BUDGET, totalCost } from "@/data/day1/case";
+import { AREAS, AREA_IDS, CAUSES, CAUSE_MODEL, CLAIMS, CLAIM_TRUTH, FINDINGS, FINDING_AREA, MEASURES, MODEL_MEASURES, MODEL_RISK, MODEL_IMPACT, BUDGET, WEEKS_LIMIT, budgetShare, impactText, riskText, totalCost } from "@/data/day1/case";
 import { DECISIONS, MODEL_DECISIONS, MODEL_EVIDENCE, MODEL_OWNER, EVIDENCE, OWNERS, RISKS, MODEL_RISK_PICK } from "@/data/day1/route2";
 import type { AnswerKeyBlock } from "@/lib/answerKey";
 import { euro } from "@/lib/lang";
@@ -40,27 +40,27 @@ export function causeKey(): AnswerKeyBlock {
 }
 
 export function measureKey(): AnswerKeyBlock {
-  const band = (cost: number) => LEVEL[effortBand(cost)];
+  const use = (cost: number, weeks: number) => `${budgetShare(cost)}% of the budget, ${weeks} of ${WEEKS_LIMIT} weeks`;
   return {
     title: "Block 2.2 · Choose four measures, rate them, order them",
     expected: `${MODEL_MEASURES.map((id) => MEASURES.find((m) => m.id === id)?.name).join("; ")}. Total ${euro(totalCost(MODEL_MEASURES))} of ${euro(BUDGET)}.`,
     options: MEASURES.map((m) => {
       const model = MODEL_MEASURES.includes(m.id);
       const why = model
-        ? `Answers a printed finding (${m.area}). Effort ${band(m.cost)} by the printed cost ${euro(m.cost)}. Reference ratings: user impact ${LEVEL[MODEL_IMPACT[m.id]]}, risk ${LEVEL[MODEL_RISK[m.id]]}.`
+        ? `Answers a printed finding (${m.area}). It uses ${use(m.cost, m.weeks)} (${euro(m.cost)}). Reference sentences: impact “${impactText(MODEL_IMPACT[m.id])}”, risk “${riskText(MODEL_RISK[m.id])}”.`
         : m.id === "m5"
           ? `Rejected in the plan's own logic: points and badges are extrinsic and answer none of the three findings areas directly; the short-term effect fades and the cost is Mid. A learner who funds it must say what it does for the learner.`
           : m.id === "m9"
-            ? `Defendable, not in the model: it gathers evidence (cost ${euro(m.cost)}, effort ${band(m.cost)}) and answers the “what information are you missing” item. A learner who funds it instead of m4 should say which measure they drop and why.`
+            ? `Defendable, not in the model: it gathers evidence (${use(m.cost, m.weeks)}) and answers the “what information are you missing” item. A learner who funds it instead of m4 should say which measure they drop and why.`
             : m.area === "feature"
-              ? `Rejected: a new feature, tied to no printed finding, and the most expensive option (${euro(m.cost)}, effort ${band(m.cost)}).`
+              ? `Rejected: a new feature, tied to no printed finding, and the most expensive option (${use(m.cost, m.weeks)}).`
               : m.area === "surface"
                 ? `Rejected: it changes the look (UI), not the experience; no printed finding is about the look.`
-                : `Rejected: more content serves a business goal, not a learner's problem; ${euro(m.cost)} for effort ${band(m.cost)}.`;
+                : `Rejected: more content serves a business goal, not a learner's problem; ${use(m.cost, m.weeks)}.`;
       return { label: m.name, expected: model, why };
     }),
     teachingNote:
-      "Effort is rule-based (under €10,000 Low, up to €15,000 Mid, above High), so the check can flag it; user impact and risk are judgements and are never marked. A different, well-reasoned choice is acceptable and exports (CLAUDE.md #38): over budget, another set of four, a different order, all with a stated reason. The plan's model solution orders them: learning paths (greatest impact), modular content, progress indicator, less cognitive load; its rationale line “Impact > Effort > User impact” is read here as: impact first, then what it costs.",
+      "Effort is read from the printed cost and weeks (two bars and one sentence); there is nothing to pick and nothing to check. For impact and risk the learner picks one of three sentences; neither is ever marked. A different, well-reasoned choice is acceptable and exports (CLAUDE.md #38): over budget, another set of four, a different order, all with a stated reason. The plan's model solution orders them: learning paths (greatest impact), modular content, progress indicator, less cognitive load; its rationale line “Impact > Effort > User impact” is read here as: impact first, then what it costs.",
   };
 }
 

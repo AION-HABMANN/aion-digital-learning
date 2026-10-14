@@ -1,4 +1,4 @@
-import { AREAS, BUDGET, CAUSES, CLAIMS, CLAIM_BINS, DROPOUT, FINDINGS, FINDING_BY_ID, MEASURE_AREA, MEASURE_BY_ID, MONTHS, REFLECT, WEEKS_LIMIT, longestWeeks, totalCost } from "@/data/day1/case";
+import { AREAS, BUDGET, CAUSES, CLAIMS, CLAIM_BINS, DROPOUT, FINDINGS, FINDING_BY_ID, MEASURE_AREA, MEASURE_BY_ID, MONTHS, REFLECT, WEEKS_LIMIT, effortSentence, impactText, longestWeeks, riskText, totalCost } from "@/data/day1/case";
 import { DECISION_AREA, DECISION_BY_ID, EVIDENCE, OWNERS, R2_BUDGET, RISKS, decisionsCost } from "@/data/day1/route2";
 import { cell, docHeader, dateLabel, para } from "@/lib/exportDoc";
 import { euro, tt } from "@/lib/lang";
@@ -36,7 +36,7 @@ export function analysisBody(p: Persisted): string {
   const measureRows = chosen
     .map((id) => {
       const m = MEASURE_BY_ID[id];
-      return `<tr><td class="id">${esc(m.name)}<br><span class="muted">${esc(MEASURE_AREA[m.area])}</span></td><td>${esc(L[r1.impact[id] || 0])}</td><td>${esc(L[r1.effort[id] || 0])}</td><td>${esc(L[r1.risk[id] || 0])}</td><td class="num">${esc(euro(m.cost))}</td><td class="num">${m.weeks}</td></tr>`;
+      return `<tr><td class="id">${esc(m.name)}<br><span class="muted">${esc(MEASURE_AREA[m.area])}</span></td><td>${esc(impactText(r1.impact[id] || 0))}</td><td>${esc(effortSentence(m.cost, m.weeks))}</td><td>${esc(riskText(r1.risk[id] || 0))}</td><td class="num">${esc(euro(m.cost))}</td><td class="num">${m.weeks}</td></tr>`;
     })
     .join("");
   const cost = totalCost(chosen);
@@ -68,7 +68,7 @@ ${has13 ? reflectBlocks : optNote()}
 <h3>${esc(tt("2.1 · Three main causes", "2.1 · Drei Hauptursachen"))}${esc(optTag())}</h3>
 ${has21 ? `${causeList}${para(r1.causeWhy)}` : optNote()}
 <h3>${esc(tt("2.2 · Four measures, rated and ordered", "2.2 · Vier Maßnahmen, bewertet und geordnet"))}</h3>
-<table><thead><tr><th>${esc(tt("Measure", "Maßnahme"))}</th><th>${esc(tt("User impact", "Nutzerwirkung"))}</th><th>${esc(tt("Effort", "Aufwand"))}</th><th>${esc(tt("Risk", "Risiko"))}</th><th class="num">${esc(tt("Cost", "Kosten"))}</th><th class="num">${esc(tt("Weeks", "Wochen"))}</th></tr></thead><tbody>${measureRows || `<tr><td colspan="6">—</td></tr>`}</tbody></table>
+<table><thead><tr><th>${esc(tt("Measure", "Maßnahme"))}</th><th>${esc(tt("User impact", "Nutzerwirkung"))}</th><th>${esc(tt("Effort (read from cost and weeks)", "Aufwand (aus Kosten und Wochen gelesen)"))}</th><th>${esc(tt("Risk", "Risiko"))}</th><th class="num">${esc(tt("Cost", "Kosten"))}</th><th class="num">${esc(tt("Weeks", "Wochen"))}</th></tr></thead><tbody>${measureRows || `<tr><td colspan="6">—</td></tr>`}</tbody></table>
 ${chosen.length ? `<h3>${esc(tt("Why these ratings", "Warum diese Bewertungen"))}</h3><ul>${chosen.map((id) => `<li><strong>${esc(MEASURE_BY_ID[id].name)}</strong>: ${cell(r1.reasons[id] ?? "")}</li>`).join("")}</ul>` : ""}
 <p class="legend">${esc(facts)}</p>
 <h3>${esc(tt("Priority order", "Reihenfolge der Priorität"))}</h3>

@@ -65,10 +65,10 @@ export function reasonGuide(id: MeasureId): MentorGuide {
     title: `2.2 · Why this measure gets its ratings (${id})`,
     answer: r.reasons?.[id] ?? "",
     example: tt(
-      "A weekly study planner at LearnLoop costs €6,000, so its effort is Low. It answers the finding that learners do not know when to study, and it is low risk because it can be switched off.",
-      "Ein wöchentlicher Lernplaner bei LearnLoop kostet 6.000 €, sein Aufwand ist also Niedrig. Er beantwortet den Befund, dass Lernende nicht wissen, wann sie lernen sollen, und er ist risikoarm, weil man ihn abschalten kann.",
+      "A weekly study planner at LearnLoop costs €6,000, a small part of the budget. It answers the finding that learners do not know when to study, and the risk is small because it can be switched off.",
+      "Ein wöchentlicher Lernplaner bei LearnLoop kostet 6.000 €, ein kleiner Teil des Budgets. Er beantwortet den Befund, dass Lernende nicht wissen, wann sie lernen sollen, und das Risiko ist klein, weil man ihn abschalten kann.",
     ),
-    why: "Effort follows the printed cost (a rule). User impact and risk are judgements: they must point at a printed finding and at what could go wrong.",
+    why: "Effort is read from the printed cost and weeks. The reason says why you picked those sentences for impact and risk: it points at a printed finding and at what could go wrong.",
     lookFor: ["Names the finding or problem the measure answers.", "Says what could go wrong or why risk is low.", "Does not contradict the printed cost."],
   };
 }

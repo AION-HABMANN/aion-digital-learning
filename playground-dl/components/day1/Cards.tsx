@@ -129,12 +129,12 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("To choose under a budget, rate each measure on user impact, effort and risk, put them in order, and say what you do not know.", "Um unter einem Budget zu wählen, bewerten Sie jede Maßnahme nach Nutzerwirkung, Aufwand und Risiko, ordnen Sie sie und sagen Sie, was Sie nicht wissen.")}
+      scan={tt("To choose under a budget, read what each measure uses, say what it does for the learners and what could go wrong, put them in order, and say what you do not know.", "Um unter einem Budget zu wählen, lesen Sie, was jede Maßnahme braucht, sagen Sie, was sie für die Lernenden tut und was schiefgehen könnte, ordnen Sie sie und sagen Sie, was Sie nicht wissen.")}
       sources={["gibbons2018"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €10,000 is Low; €10,000 to €15,000 is Mid; above €15,000 is High. Do not judge it by how hard it feels.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 10.000 € ist Niedrig; 10.000 € bis 15.000 € ist Mittel; über 15.000 € ist Hoch. Beurteilen Sie ihn nicht danach, wie schwer er sich anfühlt."),
-        tt("Rate user impact by the learner's problem the measure meets: a measure that answers a printed finding scores higher than one that answers none.", "Bewerten Sie die Nutzerwirkung danach, welches Problem der Lernenden die Maßnahme trifft: Eine, die einen gedruckten Befund beantwortet, bekommt mehr als eine, die keinen beantwortet."),
-        tt("Rate risk by what could go wrong: it backfires (a ranking that discourages), rests on one person, or uses most of the budget for a late result.", "Bewerten Sie das Risiko danach, was schiefgehen kann: Es geht nach hinten los (eine Rangliste, die entmutigt), hängt an einer Person oder verbraucht das meiste Budget für ein spätes Ergebnis."),
+        tt("Read effort from the printed cost and weeks: what share of the budget and of the time does the measure use? Do not judge it by how hard it feels.", "Lesen Sie den Aufwand aus den gedruckten Kosten und Wochen: Welchen Anteil von Budget und Zeit braucht die Maßnahme? Beurteilen Sie ihn nicht danach, wie schwer er sich anfühlt."),
+        tt("Say what the measure does for the learners by the problem it meets: a measure that answers a printed finding removes a cause; one that answers none touches a symptom at most.", "Sagen Sie, was die Maßnahme für die Lernenden bewirkt, nach dem Problem, das sie trifft: Eine, die einen gedruckten Befund beantwortet, beseitigt eine Ursache; eine, die keinen beantwortet, berührt höchstens ein Symptom."),
+        tt("Say what could go wrong: it backfires (a ranking that discourages), rests on one person, or uses most of the budget for a late result.", "Sagen Sie, was schiefgehen kann: Es geht nach hinten los (eine Rangliste, die entmutigt), hängt an einer Person oder verbraucht das meiste Budget für ein spätes Ergebnis."),
         tt("A measure that answers none of the printed findings (a new feature, a new look, more courses) is a weak choice however attractive it sounds.", "Eine Maßnahme, die keinen der gedruckten Befunde beantwortet (eine neue Funktion, ein neues Aussehen, mehr Kurse), ist eine schwache Wahl, so verlockend sie klingt."),
         tt("Put the chosen measures in order and say why the first goes first. Going over budget is allowed with a stated reason; saying nothing about what you do not know is not.", "Bringen Sie die gewählten Maßnahmen in eine Reihenfolge und sagen Sie, warum die erste zuerst kommt. Das Budget zu überschreiten ist mit genanntem Grund erlaubt; nichts darüber zu sagen, was Sie nicht wissen, ist es nicht."),
       ]}
@@ -142,7 +142,7 @@ export function CardA5() {
       <WeighExample />
       <Bul
         items={[
-          tt("Effort is the one rating a rule decides, from the printed cost. User impact and risk are your judgement; give a reason for each.", "Der Aufwand ist die eine Bewertung, die eine Regel aus den gedruckten Kosten entscheidet. Nutzerwirkung und Risiko sind Ihr Urteil; begründen Sie beides."),
+          tt("Effort is read from the printed cost and weeks, so there is nothing to pick. What it does for the learners and what could go wrong are your judgement: pick the sentence that fits and give a reason.", "Der Aufwand wird aus den gedruckten Kosten und Wochen gelesen, es gibt also nichts zu wählen. Was sie für die Lernenden tut und was schiefgehen könnte, ist Ihr Urteil: Wählen Sie den Satz, der passt, und begründen Sie es."),
           tt("A prioritisation matrix plots options on two criteria, for example value to the user against effort (Gibbons 2018). Here you rate three, and show them side by side.", "Eine Priorisierungsmatrix ordnet Optionen nach zwei Kriterien, zum Beispiel Nutzerwert gegen Aufwand (Gibbons 2018). Hier bewerten Sie drei und zeigen sie nebeneinander."),
         ]}
       />

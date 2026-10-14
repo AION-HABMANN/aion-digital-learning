@@ -1,4 +1,4 @@
-import { CAUSE_MODEL, CLAIM_IDS, CLAIM_TRUTH, FINDING_IDS, TRUTH_SORT, MEASURE_BY_ID, effortBand } from "@/data/day1/case";
+import { CAUSE_MODEL, CLAIM_IDS, CLAIM_TRUTH, FINDING_IDS, TRUTH_SORT } from "@/data/day1/case";
 import type { CauseId, MeasureId } from "@/data/day1/case";
 import type { ClaimMap, D1R1, SortMap } from "@/store/useStore";
 
@@ -16,9 +16,4 @@ export function claimHolds(claims: ClaimMap): { holds: number; placed: number } 
 
 export function causeHolds(causes: CauseId[]): { holds: number; chosen: number } {
   return { holds: causes.filter((c) => CAUSE_MODEL.includes(c)).length, chosen: causes.length };
-}
-
-/** The measures whose effort rating differs from the band their printed cost falls in. Effort follows a rule taught in Materi A5, so it can be checked; impact and risk are judgements and never are. */
-export function effortWrong(r1: D1R1): MeasureId[] {
-  return r1.chosen.filter((id) => !!r1.effort[id] && r1.effort[id] !== effortBand(MEASURE_BY_ID[id].cost));
 }

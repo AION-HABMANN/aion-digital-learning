@@ -10,7 +10,7 @@ import { BudgetBar } from "@/components/ui/BudgetBar";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { Field } from "@/components/ui/Field";
-import { CheckBar, OptionList, Reading, ScorePick, TextBox } from "@/components/ui/Inputs";
+import { CheckBar, OptionList, Reading, TextBox } from "@/components/ui/Inputs";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
@@ -18,10 +18,10 @@ import { OptionalSection } from "@/components/ui/OptionalSection";
 import { PlacementBoard } from "@/components/ui/PlacementBoard";
 import { RevealHint } from "@/components/ui/RevealHint";
 import { WritingHelp } from "@/components/ui/WritingHelp";
-import { AREAS, AREA_IDS, BUDGET, CAUSES, CAUSE_PICK, CLAIMS, CLAIM_BINS, DROPOUT, FINDINGS, FINDING_BY_ID, MEASURES, MEASURE_AREA, MEASURE_BY_ID, MONTHS, PICK_MEASURES, REFLECT, WEEKS_LIMIT, longestWeeks, totalCost } from "@/data/day1/case";
+import { AREAS, AREA_IDS, BUDGET, CAUSES, CAUSE_PICK, CLAIMS, CLAIM_BINS, DROPOUT, FINDINGS, FINDING_BY_ID, MEASURES, MEASURE_AREA, MEASURE_BY_ID, MONTHS, PICK_MEASURES, REFLECT, WEEKS_LIMIT, IMPACT_SCORES, RISK_SCORES, budgetShare, effortSentence, impactText, longestWeeks, riskText, timeShare, totalCost } from "@/data/day1/case";
 import type { AreaId, CauseId, ClaimBin, ClaimId, FindingId, MeasureId } from "@/data/day1/case";
 import { analysisBody } from "@/lib/day1/exportDoc";
-import { causeHolds, claimHolds, effortWrong, sortHolds } from "@/lib/day1/checks";
+import { causeHolds, claimHolds, sortHolds } from "@/lib/day1/checks";
 import { causeGuide, missingGuide, needGuide, orderGuide, reasonGuide, reflectGuide, worstGuide } from "@/lib/day1/guides";
 import { causeKey, claimKey, measureKey, sortKey } from "@/lib/day1/answerKey";
 import { IDS, r1Missing } from "@/lib/day1/missing";
@@ -38,7 +38,7 @@ import type { Score } from "@/store/useStore";
 
 /** Day 1 · Route 1 · the UX Analysis File. Core: Block 1.1 (Level 1) and Block 2.2 (Level 2). Optional: 1.2, 1.3, 2.1 (CLAUDE.md #35, #40). */
 
-const LEVELS = () => ["", tt("Low", "Niedrig"), tt("Mid", "Mittel"), tt("High", "Hoch")];
+
 
 /* ------------------------------------------------------------------ the case */
 
@@ -370,19 +370,11 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
   const patch = useStore((s) => s.patchD1R1);
   const mentor = useStore((s) => s.mentorUnlocked);
   const [note, setNote] = useState("");
-  const L = LEVELS();
   const chosen = r.chosen;
   const full = chosen.length >= PICK_MEASURES;
   const cost = totalCost(chosen);
   const weeks = longestWeeks(chosen);
-  const set = (key: "impact" | "effort" | "risk", id: MeasureId, v: Score) =>
-    patch((s) => ({ [key]: { ...s[key], [id]: v }, ...(key === "effort" ? { effortFlags: s.effortFlags.filter((x) => x !== id), effortResult: null } : {}) }));
-  const check = () =>
-    patch((s) => {
-      const wrong = effortWrong(s);
-      const rated = s.chosen.filter((id) => !!s.effort[id]).length;
-      return { checks: s.checks + 1, effortFlags: wrong, effortClue: false, effortResult: { holds: rated - wrong.length, rated } };
-    });
+  const set = (key: "impact" | "risk", id: MeasureId, v: Score) => patch((s) => ({ [key]: { ...s[key], [id]: v } }));
   return (
     <AnswerBlock
       id="block-2-2"
@@ -395,7 +387,7 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
       <MaterialRefs refs={["A5", "A2", "A3"]} />
       <div className="rounded-lg border border-line bg-canvas p-3 text-caption text-ink">
         <p>
-          <strong>{tt("The limits:", "Die Grenzen:")}</strong> {euro(BUDGET)}, {tt(`${MONTHS} months (${WEEKS_LIMIT} weeks)`, `${MONTHS} Monate (${WEEKS_LIMIT} Wochen)`)}. {tt("The findings of Block 1.1 and the case brief are your evidence. Effort follows the printed cost, by the rule in Materi A5.", "Die Befunde aus Block 1.1 und der Fall sind Ihre Belege. Der Aufwand folgt den gedruckten Kosten, nach der Regel in Materi A5.")}
+          <strong>{tt("The limits:", "Die Grenzen:")}</strong> {euro(BUDGET)}, {tt(`${MONTHS} months (${WEEKS_LIMIT} weeks)`, `${MONTHS} Monate (${WEEKS_LIMIT} Wochen)`)}. {tt("The findings of Block 1.1 and the case brief are your evidence. Effort is read from the printed cost and weeks; for impact and risk you pick the sentence that fits.", "Die Befunde aus Block 1.1 und der Fall sind Ihre Belege. Der Aufwand wird aus den gedruckten Kosten und Wochen gelesen; bei Nutzerwirkung und Risiko wählen Sie den Satz, der passt.")}
         </p>
       </div>
 
@@ -428,31 +420,57 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
 
       {chosen.map((id) => {
         const m = MEASURE_BY_ID[id];
-        const flagged = r.effortFlags.includes(id);
         return (
-          <div key={id} id={IDS.measure(id)} className="space-y-3 rounded-lg border border-line bg-paper p-3">
+          <div key={id} id={IDS.measure(id)} className="space-y-4 rounded-lg border border-line bg-paper p-3">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <p className="font-semibold text-ink">{m.name}</p>
               <p className="text-caption text-ash">{euro(m.cost)} · {m.weeks} {tt("weeks", "Wochen")} · {MEASURE_AREA[m.area]}</p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {(
-                [
-                  ["impact", tt("User impact", "Nutzerwirkung"), tt("How much it helps learners with a printed finding.", "Wie sehr sie Lernenden bei einem gedruckten Befund hilft.")],
-                  ["effort", tt("Effort", "Aufwand"), tt("By the printed cost, with the rule in Materi A5.", "Nach den gedruckten Kosten, mit der Regel in Materi A5.")],
-                  ["risk", tt("Risk", "Risiko"), tt("What could go wrong or backfire.", "Was schiefgehen oder nach hinten losgehen kann.")],
-                ] as const
-              ).map(([key, label, help]) => (
-                <div key={key} className="space-y-1">
-                  <p className="text-caption font-semibold text-ink">{label}</p>
-                  <p className="text-micro normal-case tracking-normal text-ash">{help}</p>
-                  <ScorePick value={r[key][id] ?? 0} onChange={(v) => set(key, id, v)} label={`${m.name}: ${label}`} flagged={key === "effort" && flagged} />
-                  {r[key][id] ? <p className="text-micro text-ash">{L[r[key][id]]}</p> : null}
+            <div className="space-y-1.5">
+              <p className="text-body font-semibold text-ink">{tt("How much of our budget and time does it use?", "Wie viel von unserem Budget und unserer Zeit braucht sie?")}</p>
+              <p className="text-micro normal-case tracking-normal text-ash">{tt("Read from the printed cost and weeks. Nothing to pick.", "Aus den gedruckten Kosten und Wochen gelesen. Nichts zu wählen.")}</p>
+              <div className="grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-2 gap-y-1.5 text-caption text-ink">
+                <span>{tt("Money", "Geld")}</span>
+                <div className="h-4 overflow-hidden rounded border border-line bg-canvas" role="img" aria-label={tt(`${budgetShare(m.cost)} percent of the budget`, `${budgetShare(m.cost)} Prozent des Budgets`)}>
+                  <div className="h-full bg-ash" style={{ width: `${Math.min(100, budgetShare(m.cost))}%` }} />
                 </div>
-              ))}
+                <span>{tt("Time", "Zeit")}</span>
+                <div className="h-4 overflow-hidden rounded border border-line bg-canvas" role="img" aria-label={tt(`${timeShare(m.weeks)} percent of the time`, `${timeShare(m.weeks)} Prozent der Zeit`)}>
+                  <div className="h-full bg-ash" style={{ width: `${Math.min(100, timeShare(m.weeks))}%` }} />
+                </div>
+              </div>
+              <p className="text-caption text-ink" aria-live="polite">{effortSentence(m.cost, m.weeks)}</p>
             </div>
-            {flagged && r.effortClue && <Reading label={tt("Clue", "Hinweis")}>{tt(`Which price band is ${euro(m.cost)} in? The rule is in Materi A5: under €10,000, up to €15,000, above.`, `In welches Preisband fallen ${euro(m.cost)}? Die Regel steht in Materi A5: unter 10.000 €, bis 15.000 €, darüber.`)}</Reading>}
-            <TextBox
+            {(
+              [
+                ["impact", tt("What does it do for the learners?", "Was bewirkt sie für die Lernenden?"), tt("Pick the sentence that fits. A different pick with a reason is fine.", "Wählen Sie den Satz, der passt. Eine andere Wahl mit Begründung ist in Ordnung."), IMPACT_SCORES, impactText],
+                ["risk", tt("What could go wrong?", "Was könnte schiefgehen?"), tt("Pick the sentence that fits.", "Wählen Sie den Satz, der passt."), RISK_SCORES, riskText],
+              ] as const
+            ).map(([key, label, help, scores, text]) => (
+              <div key={key} className="space-y-1.5">
+                <p className="text-body font-semibold text-ink">{label}</p>
+                <p className="text-micro normal-case tracking-normal text-ash">{help}</p>
+                <div role="radiogroup" aria-label={`${m.name}: ${label}`} className="grid gap-2 sm:grid-cols-3">
+                  {scores.map((sc) => (
+                    <button
+                      key={sc}
+                      type="button"
+                      aria-pressed={r[key][id] === sc}
+                      onClick={() => set(key, id, sc)}
+                      className={r[key][id] === sc ? "min-h-[44px] rounded-lg border-2 border-accent bg-accentSoft px-3 py-2 text-left text-caption text-ink ring-2 ring-gold" : "min-h-[44px] rounded-lg border border-line bg-paper px-3 py-2 text-left text-caption text-ink hover:border-ash"}
+                    >
+                      {text(sc)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {r.impact[id] && r.risk[id] ? (
+              <p className="rounded-md bg-accentSoft px-3 py-2 text-caption text-ink" aria-live="polite">
+                <span className="smallcaps mr-1.5">{tt("Your reading", "Ihre Lesart")}</span>
+                {tt(`${impactText(r.impact[id]).toLowerCase()}; it uses ${budgetShare(m.cost)} percent of the budget; ${riskText(r.risk[id]).toLowerCase()}.`, `${impactText(r.impact[id]).toLowerCase()}; sie braucht ${budgetShare(m.cost)} Prozent des Budgets; ${riskText(r.risk[id]).toLowerCase()}.`)}
+              </p>
+            ) : null}            <TextBox
               id={IDS.reason(id)}
               label={tt("Why these ratings?", "Warum diese Bewertungen?")}
               help={tt(`One or two sentences: which printed finding it answers, and what could go wrong. At least ${MIN_REASON} characters.`, `Ein bis zwei Sätze: welchen gedruckten Befund sie beantwortet und was schiefgehen kann. Mindestens ${MIN_REASON} Zeichen.`)}
@@ -466,19 +484,6 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
           </div>
         );
       })}
-
-      {chosen.length > 0 && (
-        <div className="space-y-2">
-          <CheckBar onCheck={check} checkLabel={tt("Check my effort ratings", "Meine Aufwandsbewertungen prüfen")} clueShown={r.effortClue} onClue={r.effortFlags.length ? () => patch({ effortClue: true }) : undefined} checks={r.checks} />
-          {r.effortResult && (
-            <Reading>
-              {r.effortResult.rated === 0
-                ? tt("No effort rating yet.", "Noch keine Aufwandsbewertung.")
-                : tt(`${r.effortResult.holds} of ${r.effortResult.rated} effort ratings follow the printed cost. A flagged one is outlined. Impact and risk are your judgement and are never marked.`, `${r.effortResult.holds} von ${r.effortResult.rated} Aufwandsbewertungen folgen den gedruckten Kosten. Eine markierte ist umrandet. Nutzerwirkung und Risiko sind Ihr Urteil und werden nie markiert.`)}
-            </Reading>
-          )}
-        </div>
-      )}
 
       {chosen.length === PICK_MEASURES && (
         <Field id={IDS.order} label={tt("Put your four measures in priority order", "Bringen Sie Ihre vier Maßnahmen in eine Prioritätsreihenfolge")} help={tt("The first is the most important. Move one up or down with the arrows.", "Die erste ist die wichtigste. Verschieben Sie eine mit den Pfeilen nach oben oder unten.")}>

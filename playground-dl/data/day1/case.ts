@@ -1,4 +1,4 @@
-import { bi, t } from "@/lib/lang";
+import { bi, t, tt, euro } from "@/lib/lang";
 import type { Tx } from "@/lib/lang";
 
 /**
@@ -191,6 +191,38 @@ export const MEASURE_AREA = bi({
 export const EFFORT_LOW_MAX = 9999;
 export const EFFORT_MID_MAX = 15000;
 export const effortBand = (cost: number): 1 | 2 | 3 => (cost <= EFFORT_LOW_MAX ? 1 : cost <= EFFORT_MID_MAX ? 2 : 3);
+
+/**
+ * Block 2.2 reads effort from the printed cost and weeks (two bars and one sentence, nothing to pick) and offers three sentences for impact and for risk
+ * instead of a Low/Mid/High scale (user decision 2026-10-13, Day 1 first). The stored values stay 1 to 3: impact 3 = removes a main cause, 1 = touches a symptom;
+ * risk 1 = can be switched off, 3 = cannot be undone. The sentences name what happens to the learners and to the money, so a level can no longer be read the wrong way round.
+ */
+export const IMPACT_SCORES: (1 | 2 | 3)[] = [3, 2, 1];
+export const RISK_SCORES: (1 | 2 | 3)[] = [1, 2, 3];
+export const impactText = (s: number) =>
+  s === 3
+    ? tt(`It removes a main cause of the ${DROPOUT} who leave`, `Sie beseitigt eine Hauptursache für die ${DROPOUT}, die gehen`)
+    : s === 2
+      ? tt("It helps part of the learners who leave; the cause stays in part", "Sie hilft einem Teil der Lernenden, die gehen; die Ursache bleibt zum Teil")
+      : s === 1
+        ? tt("It touches a symptom only; the cause stays", "Sie berührt nur ein Symptom; die Ursache bleibt")
+        : "—";
+export const riskText = (s: number) =>
+  s === 1
+    ? tt("We can switch it off again and lose little", "Wir können sie wieder abschalten und verlieren wenig")
+    : s === 2
+      ? tt("We lose the money if it does not work", "Wir verlieren das Geld, wenn sie nicht wirkt")
+      : s === 3
+        ? tt("We cannot undo it and much is at stake", "Wir können sie nicht rückgängig machen und es steht viel auf dem Spiel")
+        : "—";
+export const budgetShare = (cost: number) => Math.round((cost / BUDGET) * 100);
+export const timeShare = (weeks: number) => Math.round((weeks / WEEKS_LIMIT) * 100);
+const shareWord = (p: number) => (p < 25 ? tt("a small part", "ein kleiner Teil") : p <= 50 ? tt("a large part", "ein großer Teil") : tt("most", "das meiste"));
+export const effortSentence = (cost: number, weeks: number) =>
+  tt(
+    `${euro(cost)} of ${euro(BUDGET)} is ${budgetShare(cost)} percent of the budget: ${shareWord(budgetShare(cost))}. ${weeks} of ${WEEKS_LIMIT} weeks is ${timeShare(weeks)} percent of the time.`,
+    `${euro(cost)} von ${euro(BUDGET)} sind ${budgetShare(cost)} Prozent des Budgets: ${shareWord(budgetShare(cost))}. ${weeks} von ${WEEKS_LIMIT} Wochen sind ${timeShare(weeks)} Prozent der Zeit.`,
+  );
 
 export const totalCost = (ids: MeasureId[]) => ids.reduce((s, id) => s + MEASURE_BY_ID[id].cost, 0);
 export const longestWeeks = (ids: MeasureId[]) => ids.reduce((m, id) => Math.max(m, MEASURE_BY_ID[id].weeks), 0);

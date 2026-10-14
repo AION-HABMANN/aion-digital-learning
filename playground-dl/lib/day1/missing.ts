@@ -56,7 +56,7 @@ export function r1Missing(p: Persisted): MissingEntry[] {
   if (r1.chosen.length !== PICK_MEASURES) e(IDS.measurePick, tt(`Block 2.2: choose exactly ${PICK_MEASURES} measures (you have ${r1.chosen.length}).`, `Block 2.2: Wählen Sie genau ${PICK_MEASURES} Maßnahmen (Sie haben ${r1.chosen.length}).`));
   for (const id of r1.chosen) {
     const name = MEASURE_BY_ID[id].name;
-    if (!r1.impact[id] || !r1.effort[id] || !r1.risk[id]) e(IDS.measure(id), tt(`Block 2.2: “${short(name, 36)}” is not rated on user impact, effort and risk.`, `Block 2.2: „${short(name, 36)}“ ist nicht nach Nutzerwirkung, Aufwand und Risiko bewertet.`));
+    if (!r1.impact[id] || !r1.risk[id]) e(IDS.measure(id), tt(`Block 2.2: pick a sentence for “${short(name, 36)}” on what it does for the learners and on what could go wrong.`, `Block 2.2: Wählen Sie für „${short(name, 36)}“ je einen Satz dazu, was sie für die Lernenden tut und was schiefgehen könnte.`));
     if ((r1.reasons[id] ?? "").trim().length < MIN_REASON) e(IDS.reason(id), tt(`Block 2.2: say why “${short(name, 36)}” gets those ratings (at least ${MIN_REASON} characters).`, `Block 2.2: Begründen Sie, warum „${short(name, 36)}“ diese Bewertungen bekommt (mindestens ${MIN_REASON} Zeichen).`));
   }
   if (r1.chosen.length === PICK_MEASURES && r1.orderWhy.trim().length < MIN_LINE) e(IDS.orderWhy, tt(`Block 2.2: say why your first priority goes first (at least ${MIN_LINE} characters).`, `Block 2.2: Begründen Sie, warum Ihre erste Priorität zuerst kommt (mindestens ${MIN_LINE} Zeichen).`));

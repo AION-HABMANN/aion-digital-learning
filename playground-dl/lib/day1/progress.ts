@@ -35,7 +35,7 @@ export function taskBlocks(p: Persisted): Record<TaskBlockId, boolean> {
   const { r1, r2 } = p.d1;
   const b22 =
     r1.chosen.length === PICK_MEASURES &&
-    r1.chosen.every((id) => !!r1.impact[id] && !!r1.effort[id] && !!r1.risk[id] && len(r1.reasons[id] ?? "") >= MIN_REASON) &&
+    r1.chosen.every((id) => !!r1.impact[id] && !!r1.risk[id] && len(r1.reasons[id] ?? "") >= MIN_REASON) &&
     r1.order.length === PICK_MEASURES &&
     len(r1.orderWhy) >= MIN_LINE &&
     len(r1.missingInfo) >= MIN_LINE;

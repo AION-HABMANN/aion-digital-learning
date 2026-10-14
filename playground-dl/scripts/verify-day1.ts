@@ -4,11 +4,11 @@
  * empty every missing list and complete every block, the model plan fits the printed limits, the card minutes add up, and the plan's own
  * printed figures are the ones on screen. It needs no browser (the store is never imported).
  */
-import { AREAS, AREA_IDS, BUDGET, CAUSES, CAUSE_MODEL, CLAIMS, CLAIM_TRUTH, DROPOUT, FINDINGS, MEASURES, MODEL_MEASURES, MONTHS, WEEKS_LIMIT, effortBand, longestWeeks, totalCost, FINDING_IDS, TRUTH_SORT, MEASURE_BY_ID } from "../data/day1/case";
+import { AREAS, AREA_IDS, BUDGET, CAUSES, CAUSE_MODEL, CLAIMS, CLAIM_TRUTH, DROPOUT, FINDINGS, MEASURES, MODEL_MEASURES, MONTHS, WEEKS_LIMIT, effortBand, effortSentence, impactText, riskText, longestWeeks, totalCost, FINDING_IDS, TRUTH_SORT, MEASURE_BY_ID } from "../data/day1/case";
 import { DECISIONS, MODEL_DECISIONS, R2_BUDGET, decisionsCost } from "../data/day1/route2";
 import { MATERIALS, MATERIAL_PLAIN } from "../data/day1/materials";
 import { GLOSSARY, GLOSS_LOOKUP, GLOSS_LOOKUP_DE } from "../data/glossary";
-import { causeHolds, claimHolds, effortWrong, sortHolds } from "../lib/day1/checks";
+import { causeHolds, claimHolds, sortHolds } from "../lib/day1/checks";
 import { r1Missing, r2Missing } from "../lib/day1/missing";
 import { KEY_D1_R1, KEY_D1_R2, MENTOR_PASSCODE } from "../lib/day1/mentorKey";
 import { dossierProgress, taskBlocks, CORE_UNITS } from "../lib/day1/progress";
@@ -73,7 +73,7 @@ for (const lang of ["en", "de"] as const) {
   const p1: Persisted = { ...p0, participant: { name: "Test Person" }, d1: { r1: { ...p0.d1.r1, ...KEY_D1_R1() }, r2: { ...p0.d1.r2, ...KEY_D1_R2() } } };
   ok(r1Missing(p1).length === 0, "Route 1: the model answers leave nothing missing");
   ok(r2Missing(p1).length === 0, "Route 2: the model answers leave nothing missing");
-  ok(effortWrong(p1.d1.r1).length === 0, "the model effort ratings follow the printed cost");
+  ok(MODEL_MEASURES.every((id) => !!p1.d1.r1.impact[id] && !!p1.d1.r1.risk[id]) && impactText(3).length > 10 && riskText(1).length > 10 && effortSentence(18000, 6).includes("36"), "the model measures have an impact and a risk sentence, and the effort sentence reads the printed cost and weeks");
   const tb = taskBlocks(p1);
   ok(Object.values(tb).every(Boolean), "every task block is complete after the model fill");
   const prog1 = dossierProgress(p1, 1);
