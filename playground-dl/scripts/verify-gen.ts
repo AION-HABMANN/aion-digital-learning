@@ -56,7 +56,8 @@ for (const day of days) {
     console.log(`\n=== Day ${day} · ${lang.toUpperCase()} ===`);
 
     // 1 · the facts: every key phrase is a piece of its own text; every category is used; clues are questions
-    ok(spec.facts.length === 8 && spec.facts.every((f) => f.text.includes(f.key)), "each fact's key phrase is inside its text");
+    const badKeys = spec.facts.filter((f) => !f.text.includes(f.key)).map((f) => f.no);
+    ok(spec.facts.length === 8 && badKeys.length === 0, `each fact's key phrase is inside its text${badKeys.length ? ": facts " + badKeys.join(",") : ""}`);
     ok(spec.cats.length === 3 && spec.cats.every((c) => spec.facts.some((f) => f.area === c.id) && c.test.length > 10 && c.hint.length > 5), "three categories, each used and each with a hint and a test question");
     ok(spec.facts.every((f) => f.clue.endsWith("?") && spec.cats.some((c) => c.id === f.area)), "every clue is a question and every fact has a valid category");
     ok(sortHolds(spec, Object.fromEntries(spec.facts.map((f) => [f.id, f.area]))).holds === 8, "the model sort holds 8 of 8");

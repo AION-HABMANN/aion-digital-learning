@@ -7,6 +7,8 @@ import { t } from "@/lib/lang";
 const r = <K extends string>(key: K, chip: string, en: string, de: string) => ({ key, chip, full: t(en, de) });
 
 export const GEN_REFS = {
+  // ---- Day 9 · information architecture, navigation, interaction
+  chiWylie2014: r("chiWylie2014", "Chi and Wylie 2014", "Chi, M. T. H., & Wylie, R. (2014). The ICAP framework: Linking cognitive engagement to active learning outcomes. Educational Psychologist, 49(4), 219–243. (Passive, active, constructive and interactive learning activity.)", "Chi, M. T. H., & Wylie, R. (2014). The ICAP framework: Linking cognitive engagement to active learning outcomes. Educational Psychologist, 49(4), 219–243. (Passive, aktive, konstruktive und interaktive Lernaktivität.)"),
   // ---- Day 8 · structure, visual hierarchy, interaction
   rosenfeld2015: r("rosenfeld2015", "Rosenfeld et al. 2015", "Rosenfeld, L., Morville, P., & Arango, J. (2015). Information Architecture: For the Web and Beyond (4th ed.). O'Reilly. (Organisation, labelling, navigation and search systems.)", "Rosenfeld, L., Morville, P., & Arango, J. (2015). Information Architecture: For the Web and Beyond (4. Aufl.). O'Reilly. (Organisations-, Beschriftungs-, Navigations- und Suchsysteme.)"),
   spencer2009: r("spencer2009", "Spencer 2009", "Spencer, D. (2009). Card Sorting: Designing Usable Categories. Rosenfeld Media. (Asking people to group labelled cards, and testing a structure before it is built.)", "Spencer, D. (2009). Card Sorting: Designing Usable Categories. Rosenfeld Media. (Menschen beschriftete Karten gruppieren lassen und eine Struktur testen, bevor sie gebaut wird.)"),
