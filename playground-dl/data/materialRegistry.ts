@@ -5,6 +5,7 @@ import * as d4 from "@/data/day4/materials";
 import * as d5 from "@/data/day5/materials";
 import * as d6 from "@/data/day6/materials";
 import * as d7 from "@/data/day7/materials";
+import { GEN_MATS } from "@/data/gen/mats";
 import type { MaterialId, MaterialMeta, PlainExplain } from "@/data/day1/materials";
 
 /**
@@ -19,7 +20,7 @@ export type DayMaterials = {
   readKey: (id: MaterialId) => string;
 };
 
-const BY_DAY: Record<number, DayMaterials> = { 1: d1, 2: d2, 3: d3, 4: d4, 5: d5, 6: d6, 7: d7 };
+const BY_DAY: Record<number, DayMaterials> = { 1: d1, 2: d2, 3: d3, 4: d4, 5: d5, 6: d6, 7: d7, ...GEN_MATS };
 
 export const materialsOf = (day: number): DayMaterials => BY_DAY[day] ?? d1;
 

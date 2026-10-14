@@ -29,6 +29,7 @@ import { DAY_INTRO as D7_INTRO, ROUTE_CARDS as D7_CARDS, pageNav as d7PageNav, r
 import { dossierProgress as d7Progress, taskBlocks as d7Blocks } from "@/lib/day7/progress";
 import { dossierProgress as d2Progress, taskBlocks as d2Blocks } from "@/lib/day2/progress";
 import { dossierProgress as d3Progress, taskBlocks as d3Blocks } from "@/lib/day3/progress";
+import { GEN_CONFIGS } from "@/components/dayGen/genConfigs";
 import { tt } from "@/lib/lang";
 
 /**
@@ -194,4 +195,4 @@ export const DAY7: DayConfig = {
           order: tt("Materi B (three cards) → the UX Strategy task, one frame with two core blocks and a memo that builds below. Route 1 is a good start but not needed; every section stays open.", "Materi B (drei Karten) → die Aufgabe UX Strategy, ein Rahmen mit zwei Kernblöcken und einem Memo, das darunter entsteht. Route 1 ist ein guter Einstieg, aber nicht nötig; jeder Abschnitt bleibt offen."),
         },
 };
-export const DAY_CONFIGS: Record<number, DayConfig> = { 2: DAY2, 3: DAY3, 4: DAY4, 5: DAY5, 6: DAY6, 7: DAY7 };
+export const DAY_CONFIGS: Record<number, DayConfig> = { 2: DAY2, 3: DAY3, 4: DAY4, 5: DAY5, 6: DAY6, 7: DAY7, ...GEN_CONFIGS };

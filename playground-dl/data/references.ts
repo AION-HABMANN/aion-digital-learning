@@ -1,4 +1,6 @@
 import { bi, t } from "@/lib/lang";
+import { GEN_REFS } from "@/data/referencesGen";
+import type { GenRefKey } from "@/data/referencesGen";
 
 /**
  * The reference list of the whole course (CURRICULUM-GUIDE §4). Every source a card cites by name is an entry here, in English and German;
@@ -12,12 +14,15 @@ export type RefKey =
   // Days 4 to 6
   | "ryanDeci2000" | "deci1999" | "lepper1973" | "keller1987" | "fogg2009" | "csik1990" | "locke2002" | "hattie2007" | "kivetz2006" | "nunes2006" | "amabile2011" | "hamari2014" | "deterding2011" | "gray2018" | "rodden2010" | "gothelf2013" | "norman2013" | "christensen2016" | "beyer2017" | "rohrer2014" | "nielsen2001" | "kano1984" | "reichheld2003" | "cooper1999" | "pruittGrudin2003" | "kahneman1993" | "kalbach2020" | "gibbons2018b"
   // Day 7
-  | "wcag22" | "wcagUnderstanding" | "en301549" | "bfsg" | "bitv" | "w3cAria" | "castUdl" | "who2022" | "msInclusive";
+  | "wcag22" | "wcagUnderstanding" | "en301549" | "bfsg" | "bitv" | "w3cAria" | "castUdl" | "who2022" | "msInclusive"
+  // Days 8 to 16 (data/referencesGen.ts)
+  | GenRefKey;
 
 export type Reference = { key: RefKey; chip: string; full: string };
 const r = (key: RefKey, chip: string, en: string, de: string) => ({ key, chip, full: t(en, de) });
 
 export const REFERENCES: Record<RefKey, Reference> = bi({
+  ...GEN_REFS,
   normanNielsen: r("normanNielsen", "Norman & Nielsen", "Norman, D., & Nielsen, J. The Definition of User Experience (UX). Nielsen Norman Group. https://www.nngroup.com/articles/definition-user-experience/ (User experience covers all aspects of the end user's interaction with the company, its services and its products.)", "Norman, D., & Nielsen, J. The Definition of User Experience (UX). Nielsen Norman Group. https://www.nngroup.com/articles/definition-user-experience/ (User Experience umfasst alle Aspekte der Interaktion der Endnutzer mit dem Unternehmen, seinen Dienstleistungen und Produkten.)"),
   nielsen1994: r("nielsen1994", "Nielsen 1994", "Nielsen, J. (1994, reviewed 2024). 10 Usability Heuristics for User Interface Design. Nielsen Norman Group. https://www.nngroup.com/articles/ten-usability-heuristics/ (Visibility of system status: keep users informed with prompt feedback. Match between the system and the real world: use language users know.)", "Nielsen, J. (1994, überprüft 2024). 10 Usability Heuristics for User Interface Design. Nielsen Norman Group. https://www.nngroup.com/articles/ten-usability-heuristics/ (Sichtbarkeit des Systemstatus: Nutzer mit prompter Rückmeldung informieren. Übereinstimmung von System und realer Welt: eine Sprache nutzen, die Nutzer kennen.)"),
   iso924111: r("iso924111", "ISO 9241-11", "ISO 9241-11:2018. Ergonomics of human-system interaction, Part 11: Usability: Definitions and concepts. (Usability: how far a system can be used to reach goals with effectiveness, efficiency and satisfaction in a given context of use.) Check the current edition before you teach from it.", "ISO 9241-11:2018. Ergonomics of human-system interaction, Part 11: Usability: Definitions and concepts. (Usability: wie weit ein System genutzt werden kann, um Ziele mit Effektivität, Effizienz und Zufriedenheit in einem gegebenen Nutzungskontext zu erreichen.) Prüfen Sie die aktuelle Ausgabe, bevor Sie damit unterrichten."),
