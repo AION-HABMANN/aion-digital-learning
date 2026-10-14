@@ -13,7 +13,8 @@
     "verify:day4": "tsx scripts/verify-day4.ts",
     "verify:day5": "tsx scripts/verify-day5.ts",
     "verify:day6": "tsx scripts/verify-day6.ts",
-    "verify:day7": "tsx scripts/verify-day7.ts"
+    "verify:day7": "tsx scripts/verify-day7.ts",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "clsx": "2.1.1",
