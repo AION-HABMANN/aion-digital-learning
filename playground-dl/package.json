@@ -20,6 +20,7 @@
     "verify:day10": "tsx scripts/verify-gen.ts 10",
     "verify:day11": "tsx scripts/verify-gen.ts 11",
     "verify:day12": "tsx scripts/verify-gen.ts 12",
+    "verify:day13": "tsx scripts/verify-gen.ts 13",
     "vercel-build": "next build"
   },
   "dependencies": {
