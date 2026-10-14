@@ -242,3 +242,5 @@ Built to the standard of Days 4 to 6 from the content of `../materi-task-docx/_s
 | Card A4 | Optional | none | no Core block cites it |
 
 Verified: `tsc`, `verify:day1` to `verify:day7`, production build, dev server in Chromium (clean localStorage, mentor fill empties both missing lists, memo builds, no console error except the shared favicon 404).
+
+**Day 7 verification (2026-10-14):** `tsc`; `verify:day1` to `verify:day7` (Day 7: 87 checks, EN and DE); production build; static export served locally. In Chromium at 1280 px and 390 px, EN and DE: all six stories on the two routes stepped through, no horizontal overflow, no console or hydration error; a version-3 blob loads, keeps the participant name and migrates to version 4; the mentor fill empties both missing lists and the memo downloads as `2-{name}-day7-l3-ux-strategy.html`; Days 1 and 6 still open. The only English left in DE is the role title "Chief UX and Accessibility Officer". Not run: axe.
