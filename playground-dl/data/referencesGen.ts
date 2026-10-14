@@ -7,6 +7,9 @@ import { t } from "@/lib/lang";
 const r = <K extends string>(key: K, chip: string, en: string, de: string) => ({ key, chip, full: t(en, de) });
 
 export const GEN_REFS = {
+  // ---- Day 16 · UX testing, analytics, KPIs
+  croll2013: r("croll2013", "Croll and Yoskovitz 2013", "Croll, A., & Yoskovitz, B. (2013). Lean Analytics. O'Reilly. (Choose one metric that matters, and beware of vanity metrics.)", "Croll, A., & Yoskovitz, B. (2013). Lean Analytics. O'Reilly. (Eine Kennzahl wählen, die zählt, und sich vor Eitelkeitskennzahlen hüten.)"),
+  few2013: r("few2013", "Few 2013", "Few, S. (2013). Information Dashboard Design (2nd ed.). Analytics Press. (A dashboard should show what matters at a glance, not everything.)", "Few, S. (2013). Information Dashboard Design (2. Aufl.). Analytics Press. (Ein Dashboard soll auf einen Blick zeigen, was zählt, nicht alles.)"),
   // ---- Day 15 · mobile learning, microlearning, cross-device
   budiu2015: r("budiu2015", "Budiu 2015", "Budiu, R. (2015). Mobile User Experience: Limitations and Strengths. Nielsen Norman Group. https://www.nngroup.com/articles/mobile-ux/ (What differs on a small screen and in a mobile setting.)", "Budiu, R. (2015). Mobile User Experience: Limitations and Strengths. Nielsen Norman Group. https://www.nngroup.com/articles/mobile-ux/ (Was auf einem kleinen Bildschirm und in einer mobilen Umgebung anders ist.)"),
   sharples2007: r("sharples2007", "Sharples et al. 2007", "Sharples, M., Taylor, J., & Vavoula, G. (2007). A theory of learning for the mobile age. In R. Andrews & C. Haythornthwaite (Eds.), The Sage Handbook of E-learning Research. Sage. (Learning that moves across contexts and devices.)", "Sharples, M., Taylor, J., & Vavoula, G. (2007). A theory of learning for the mobile age. In R. Andrews & C. Haythornthwaite (Hrsg.), The Sage Handbook of E-learning Research. Sage. (Lernen, das sich über Kontexte und Geräte hinweg bewegt.)"),

@@ -148,7 +148,7 @@ Next.js 14 · TypeScript · Tailwind (Ocean tokens, CS token names) · Zustand +
 npm install
 npm run dev          # http://localhost:3000
 npm run typecheck
-npm run verify:day1  # data and logic checks, both languages (also verify:day2 to verify:day7)
+npm run verify:day1  # data and logic checks, both languages (also verify:day2 to verify:day16)
 npm run build        # stop `npm run dev` first; writes the static site to out/
 node scripts/serve-out.cjs 4100   # serve out/ to test the production build
 ```
@@ -244,3 +244,47 @@ Built to the standard of Days 4 to 6 from the content of `../materi-task-docx/_s
 Verified: `tsc`, `verify:day1` to `verify:day7`, production build, dev server in Chromium (clean localStorage, mentor fill empties both missing lists, memo builds, no console error except the shared favicon 404).
 
 **Day 7 verification (2026-10-14):** `tsc`; `verify:day1` to `verify:day7` (Day 7: 87 checks, EN and DE); production build; static export served locally. In Chromium at 1280 px and 390 px, EN and DE: all six stories on the two routes stepped through, no horizontal overflow, no console or hydration error; a version-3 blob loads, keeps the participant name and migrates to version 4; the mentor fill empties both missing lists and the memo downloads as `2-{name}-day7-l3-ux-strategy.html`; Days 1 and 6 still open. The only English left in DE is the role title "Chief UX and Accessibility Officer". Not run: axe.
+
+## Days 8 to 16 (Modules 4 to 8): the generic-day engine
+
+Days 8 to 16 are built from **one engine** instead of nine bespoke implementations. Each day is a content package that drives the same Route 1 (UX Analysis File) and Route 2 (UX Strategy Memo):
+
+- `lib/dayGen/spec.ts` defines `GenSpec`; `data/dayN/gen.ts` is the whole day as one bilingual spec (case, facts, categories, options, causes, nine measures, Route 2 fields, seven decisions, memo, mentor note).
+- `lib/dayGen/*` derives the model sort, the effort bands, the missing lists, the progress ring, the export, the mentor fill, the answer keys and the worked answers from the spec; `components/dayGen/*` renders it.
+- A day also ships `components/dayN/{mocks,diagrams,Cards,kit}.tsx` (the evidence screens, the pictures and the eight study cards), `data/dayN/materials.ts`, `data/glossaryDayN.ts`, and new sources in `data/referencesGen.ts`.
+- To add a day: write those files, then register it in `data/gen/registry.ts`, `data/gen/mats.ts`, `components/dayGen/genConfigs.tsx`, `data/glossaryGen.ts`, `data/course.ts` (`built: true`) and `package.json` (`verify:dayN`). `npm run verify:dayN` runs `scripts/verify-gen.ts N`.
+
+### Routes and plan mapping
+
+| Day | Case (budget, time · Route 2 budget) | Route 1 Core blocks | Route 2 Core blocks | Plan rationale |
+|---|---|---|---|---|
+| 8 StructLearn | €40,000, 10 weeks · €210,000 | 1.1 sort, 2.2 four measures | 3.1, 3.2 | structure and hierarchy before decoration |
+| 9 NavLearn | €45,000, 10 weeks · €190,000 | 1.1, 2.2 | 3.1, 3.2 | clear navigation and interaction |
+| 10 TrackLearn | €45,000, 10 weeks · €200,000 | 1.1, 2.2 | 3.1, 3.2 | transparency, motivation, usage |
+| 11 GameLearn | €45,000, 10 weeks · €150,000 | 1.1, 2.2 | 3.1, 3.2 | learning > reward system |
+| 12 AdaptLearn | €60,000, 12 weeks · €200,000 | 1.1, 2.2 | 3.1, 3.2 | comprehensibility > complexity |
+| 13 AccessLearn | €50,000, 10 weeks · €180,000 | 1.1, 2.2 | 3.1, 3.2 | accessibility = usability = success |
+| 14 ClearLearn | €45,000, 10 weeks · €170,000 | 1.1, 2.2 (+ two test methods) | 3.1, 3.2 | comprehensibility → usage → success |
+| 15 MobileLearn | €50,000, 10 weeks · €190,000 | 1.1, 2.2 | 3.1, 3.2 | context → design → usage |
+| 16 DataLearn | €40,000, 10 weeks · €160,000 | 1.1, 2.2 (+ three KPIs) | 3.1, 3.2 | data → insight → decision |
+
+Each plan item (Arbeitsauftrag 1 and 2, the Fallstudie's numbered tasks, the Transferprojekt's numbered items and the "decision under uncertainty") maps to a block: Arbeitsauftrag 1 → Block 1.1, Arbeitsauftrag 2 → optional Block 1.2, the coaching → optional Block 1.3, the Fallstudie → optional Block 2.1 and Core Block 2.2, the Transferprojekt → Core Blocks 3.1 and 3.2. Each block names its plan item on screen.
+
+### Notes on deviations, Days 8 to 16
+
+1. **No calculation (CLAUDE.md #44).** The plan names no calculation. Costs and weeks of the measures are printed; effort is a rule on the printed cost (Low / Mid / High, bands per day), the learner never calculates. The engine checks that the reference set fits the budget and that an over-budget set still exports with its reason.
+2. **Figures that are Case assumptions.** Every budget, time limit, cost, weeks and figure on a mock screen is invented and labelled as such; the plan's own figures are quoted where it has them (Day 16: 70% drop-out).
+3. **Day 8 reference set** costs €41,000 against a budget of €40,000 (the plan's measures cost more than the invented budget); the over-budget amount is printed as a fact, never as a missing item.
+4. **Level 1 platform comparison (Day 12, "Platform A or B").** The two scenarios of Arbeitsauftrag 1 are folded into the sort and the "advantages and risks" field of Block 1.1; the strategic choice is Block 1.2.
+5. **Test methods and KPIs (Days 14 and 16).** The plan's "define 2 test methods" and "define 3 relevant KPIs" are a choose-exactly-N list inside Block 2.2.
+6. **Facilitator debrief cards** (the Feedbackrunde) are not built; the "Input Level 3" questions are covered by the Route 2 material and the coaching reflection.
+7. **Persisted store** is version 5 (slices `d8` to `d16`); a version-4 blob migrates with empty slices for the generic days (tested in `verify:gen`).
+8. **Not built:** videos (#33), the Word documents for Days 9 to 16, an automated accessibility run (axe).
+
+### Dependency checklist, Days 8 to 16 (#40)
+
+In every generic day: Core blocks 1.1 and 2.2 read only the case brief, the printed facts, the printed measures and Core cards (A1 to A3 and A5 depending on the day); the optional blocks 1.2, 1.3 and 2.1 are self-contained and nothing reads them; card A4 is Optional and its rules are repeated in a Core card. Route 2 Core blocks 3.1 and 3.2 read only the brief, the printed decisions and Core cards B1 to B3. `verify:gen` checks that the Core-only fill leaves nothing missing and that the Optional blocks are not required.
+
+### Verification (2026-10-15)
+
+`tsc`; `verify:day1` to `verify:day7`; `verify:day8` to `verify:day16` (each checks the facts and keys, the model sort, the effort bands, the missing lists, the exports, the German coverage, the glossary, the references, the materials and the migration); production build and static export; every `/day/N/` page and route returns 200 on the deployed site.
