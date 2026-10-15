@@ -369,7 +369,10 @@ def field_md(day, spec, f, blockno, letter):
         L += [f"[[ANSWER lines={f.get('rows', 3)} label={cell(f['label'])} {cell(strip_min(f['help']))}]]", ""]
     elif kind == "multi":
         need = f"Choose exactly {f['exact']}." if f.get("exact") else f"Choose at least {f.get('min', 1)}."
-        L += [f"**{cell(f['label'])}** {cell(strip_min(f['help']))} {need}", "", "[[TICKALL]] " + " ‖ ".join(cell(x) for x in opt_labels(day, f["id"], f["options"])), ""]
+        help_ = cell(strip_min(f["help"]))
+        if re.search(r"\bChoose (exactly|at least)\b", help_):
+            need = ""
+        L += [f"**{cell(f['label'])}** {help_} {need}".rstrip(), "", "[[TICKALL]] " + " ‖ ".join(cell(x) for x in opt_labels(day, f["id"], f["options"])), ""]
     elif kind == "assign":
         letters = "ABCDEFGH"
         L += [f"**{cell(f['label'])}** {cell(f['help'])} Write the letter of your choice in the last column. Use each section at least once.", "", "| Letter | Section |", "|---|---|"]
@@ -438,7 +441,7 @@ def task_md(day):
     ]
 
     def plan(t):
-        return re.sub(r"^Plan:\s*", "", t)
+        return re.sub(r"^transfer project, ", "", re.sub(r"^Plan:\s*", "", t))
 
     caseplan = f"Level 2 case study {case}: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs)"
     L += [
@@ -450,7 +453,7 @@ def task_md(day):
         f"| UE4 | Coaching: {cell(drop_instr(spec['reflect']['point']))} | Block 1.3 (Optional) |",
         f"| UE5–6 | {cell(caseplan)} | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |",
         "| UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |",
-        f"| UE8–10 | Level 3 transfer project: {cell(plan(spec['b31']['plan']))} {cell(plan(spec['b32']['plan']))} | Blocks 3.1 and 3.2 (both Core) |",
+        f"| UE8–10 | Level 3 transfer project: {cell(plan(spec['b31']['plan']))} Also: {cell(plan(spec['b32']['plan']))} | Blocks 3.1 and 3.2 (both Core) |",
         ":::",
         "",
         ":::note Your name",

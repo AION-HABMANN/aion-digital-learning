@@ -23,7 +23,7 @@ glossary: direct-feedback,responsive,touch-target,reflow,feedback,tracking,acces
 | UE4 | Coaching: The coaching point of the plan: users need orientation and feedback; making progress visible raises motivation; responsive design is not an option but a prerequisite; accessibility means scalability and reach. | Block 1.3 (Optional) |
 | UE5–6 | Level 2 case study TrackLearn: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs) | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |
 | UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| UE8–10 | Level 3 transfer project: transfer project, items 1 to 4 · a concept for feedback systems, a strategy for progress tracking, a responsive design concept, accessibility integration. transfer project, item 5 and the additional requirement · prioritised measures and a risk analysis, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
+| UE8–10 | Level 3 transfer project: items 1 to 4 · a concept for feedback systems, a strategy for progress tracking, a responsive design concept, accessibility integration. Also: item 5 and the additional requirement · prioritised measures and a risk analysis, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name

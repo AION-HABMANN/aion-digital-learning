@@ -23,7 +23,7 @@ glossary: tracking,heatmap,cohort,vanity-metric,consent,hypothesis,dropout,kpi,s
 | UE4 | Coaching: The coaching point of the plan: data shows symptoms, not causes; data and UX understanding are needed together; there is a danger of misinterpretation; data is a basis for decisions, not a substitute for thinking. | Block 1.3 (Optional) |
 | UE5–6 | Level 2 case study DataLearn: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs) | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |
 | UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| UE8–10 | Level 3 transfer project: transfer project, items 1 to 3 and 5 · central KPIs, an analysis and tracking strategy, hypotheses for improvement, a decision architecture for data-driven UX. transfer project, item 4 and the additional requirement · prioritised measures, a decision under uncertainty with unclear causes. | Blocks 3.1 and 3.2 (both Core) |
+| UE8–10 | Level 3 transfer project: items 1 to 3 and 5 · central KPIs, an analysis and tracking strategy, hypotheses for improvement, a decision architecture for data-driven UX. Also: item 4 and the additional requirement · prioritised measures, a decision under uncertainty with unclear causes. | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name
@@ -201,7 +201,7 @@ A problem is something in how the team handles data that keeps the drop-out from
 
 The plan also asks for three relevant KPIs. Choose exactly three, the ones that would show you whether learners now finish and stay.
 
-**Define three relevant KPIs** A good KPI is defined, ties to learner behaviour, and shows an outcome. Choose exactly 3. Choose exactly 3.
+**Define three relevant KPIs** A good KPI is defined, ties to learner behaviour, and shows an outcome. Choose exactly 3.
 
 [[TICKALL]] The number of dashboards built ‖ First-week drop-out rate: the share who leave within seven days of signing up ‖ Seven-day return rate: the share who come back within a week ‖ Total registered users ‖ Total page views ‖ Completion rate: the share of learners who finish a course ‖ Time per session, split into finished and abandoned sessions
 

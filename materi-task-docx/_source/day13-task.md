@@ -23,7 +23,7 @@ glossary: barrier,alt-text,assistive-technology,captions,focus-indicator,complia
 | UE4 | Coaching: The coaching point of the plan: accessibility is not an add-on but a standard; WCAG is a minimum requirement, not a goal; inclusion improves UX for all users; its strategic importance lies in law, market and reputation. | Block 1.3 (Optional) |
 | UE5–6 | Level 2 case study AccessLearn: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs) | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |
 | UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| UE8–10 | Level 3 transfer project: transfer project, items 1, 3 and 4 · a strategy for implementing WCAG, integration into UX processes, an evaluation approach (measurability). transfer project, items 2 and 5 and the additional requirement · prioritised measures, a risk analysis of costs against benefits, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
+| UE8–10 | Level 3 transfer project: items 1, 3 and 4 · a strategy for implementing WCAG, integration into UX processes, an evaluation approach (measurability). Also: items 2 and 5 and the additional requirement · prioritised measures, a risk analysis of costs against benefits, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name

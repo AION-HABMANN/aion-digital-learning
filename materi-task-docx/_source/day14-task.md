@@ -23,7 +23,7 @@ glossary: jargon,comprehension,error-prevention,complexity,five-second-test,usab
 | UE4 | Coaching: The coaching point of the plan: complexity is UX's greatest enemy; simple systems are more successful; usability determines usage; testing is a continuous process. | Block 1.3 (Optional) |
 | UE5–6 | Level 2 case study ClearLearn: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs) | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |
 | UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| UE8–10 | Level 3 transfer project: transfer project, items 1 to 3 · a strategy for simplifying content, the optimisation of the information architecture, a testing and optimisation concept. transfer project, items 4 and 5 and the additional requirement · prioritised measures, a risk analysis of too much against too little simplification, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
+| UE8–10 | Level 3 transfer project: items 1 to 3 · a strategy for simplifying content, the optimisation of the information architecture, a testing and optimisation concept. Also: items 4 and 5 and the additional requirement · prioritised measures, a risk analysis of too much against too little simplification, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name
@@ -201,7 +201,7 @@ A problem is something that makes users not understand the platform or leave it,
 
 The plan also asks for two test methods. Choose exactly two, the ones that would show you whether learners now understand.
 
-**Define two test methods** A good test method shows whether people understand, not whether they like it. Choose exactly 2. Choose exactly 2.
+**Define two test methods** A good test method shows whether people understand, not whether they like it. Choose exactly 2.
 
 [[TICKALL]] A comprehension check: ask readers to explain a text back in their own words ‖ A survey: “Do you like the new design?” ‖ Ask the managers whether the platform looks clear ‖ A usability test: five to eight learners do set tasks while someone watches ‖ A five-second test: show a screen for five seconds, then ask what it was about ‖ Count page views each month
 

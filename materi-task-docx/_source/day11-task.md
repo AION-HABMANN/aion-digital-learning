@@ -23,7 +23,7 @@ glossary: leaderboard,extrinsic-motivation,game-mechanic,learning-objective,loss
 | UE4 | Coaching: The coaching point of the plan: gamification only works in the right context; there is a difference between real motivation and a short-term reward; there is a danger of overstimulation; ask when gamification makes sense, and when it does not. | Block 1.3 (Optional) |
 | UE5–6 | Level 2 case study GameLearn: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs) | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |
 | UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| UE8–10 | Level 3 transfer project: transfer project, items 1 to 3 · the decision whether to use gamification, a definition of meaningful mechanics, the link to learning objectives. transfer project, items 4 and 5 and the additional requirement · a risk analysis (perverse incentives, over-motivation), prioritised measures, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
+| UE8–10 | Level 3 transfer project: items 1 to 3 · the decision whether to use gamification, a definition of meaningful mechanics, the link to learning objectives. Also: items 4 and 5 and the additional requirement · a risk analysis (perverse incentives, over-motivation), prioritised measures, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name

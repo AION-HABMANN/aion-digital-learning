@@ -23,7 +23,7 @@ glossary: interaction,icap,breadcrumb,mega-menu,skip-rate,orientation,navigation
 | UE4 | Coaching: The coaching point of the plan: without structure, interaction has no effect; navigation is decision guidance; interaction must be goal-oriented, not an end in itself; engagement arises from meaningful activation. | Block 1.3 (Optional) |
 | UE5–6 | Level 2 case study NavLearn: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs) | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |
 | UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| UE8–10 | Level 3 transfer project: transfer project, items 1 to 3 · a new information architecture, a navigation concept, an interaction strategy (where and how). transfer project, items 4 and 5 and the additional requirement · prioritised measures, a risk analysis (over-structuring against over-interaction), a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
+| UE8–10 | Level 3 transfer project: items 1 to 3 · a new information architecture, a navigation concept, an interaction strategy (where and how). Also: items 4 and 5 and the additional requirement · prioritised measures, a risk analysis (over-structuring against over-interaction), a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name
@@ -233,7 +233,7 @@ The brief says: a platform that grows without a structure, users who lose orient
 
 **Draws on:** B1 · Structure guides, interaction activates: orientation, activation, engagement · B2 · Conflicting goals: structure against flexibility, and interaction against overload.
 
-**The new information architecture: choose the four main sections** Sections are named after what the learner does and are few. Choose exactly four. Choose exactly 4.
+**The new information architecture: choose the four main sections** Sections are named after what the learner does and are few. Choose exactly four.
 
 [[TICKALL]] Help and account ‖ Find: catalogue, search and filters ‖ Progress: what I have done and earned ‖ Community: forum and groups ‖ Partners and press ‖ Learn: my current course and the next step ‖ News and offers ‖ Archive of old course versions
 

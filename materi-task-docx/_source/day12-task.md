@@ -23,7 +23,7 @@ glossary: rule-based,machine-learning,black-box,over-adaptation,transparency,dat
 | UE4 | Coaching: The coaching point of the plan: more technology is not better UX; ask when adaptive UX really pays off; mind the risk of over-engineering and the importance of data quality. | Block 1.3 (Optional) |
 | UE5–6 | Level 2 case study AdaptLearn: identify the central problems, develop four UX measures, prioritise, justify (and any extra item the plan names, such as test methods or KPIs) | Block 2.1 (Optional, four problems) and Block 2.2 (Core, four improvements, priority, justification) |
 | UE7 | Feedback round with a strategic perspective | A classroom discussion led by the facilitator; not a worksheet block |
-| UE8–10 | Level 3 transfer project: transfer project, items 1 to 4 · a concept for adaptive learning paths, the integration of gamification, UX design patterns, a low-fidelity concept sketch. transfer project, item 5 and the additional requirement · prioritised features and a risk analysis, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
+| UE8–10 | Level 3 transfer project: items 1 to 4 · a concept for adaptive learning paths, the integration of gamification, UX design patterns, a low-fidelity concept sketch. Also: item 5 and the additional requirement · prioritised features and a risk analysis, a decision under uncertainty. | Blocks 3.1 and 3.2 (both Core) |
 :::
 
 :::note Your name
