@@ -11,10 +11,18 @@ import release
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
-CASES = {1: "SkillUp", 2: "LearnPro", 3: "EduCore", 4: "MotivaLearn", 5: "LearnBase", 6: "EduPath", 7: "InclusiveLearn", 8: "StructLearn"}
+CASES = {1: "SkillUp", 2: "LearnPro", 3: "EduCore", 4: "MotivaLearn", 5: "LearnBase", 6: "EduPath", 7: "InclusiveLearn", 8: "StructLearn", 9: "NavLearn", 10: "TrackLearn", 11: "GameLearn", 12: "AdaptLearn", 13: "AccessLearn", 14: "ClearLearn", 15: "MobileLearn", 16: "DataLearn"}
 ROLES = {
     1: "Chief UX Officer", 2: "Chief Product Officer", 3: "Chief Learning Experience Officer", 4: "Chief Experience Officer",
     5: "Chief UX Strategist", 6: "Head of UX Strategy", 7: "Chief UX & Accessibility Officer", 8: "Chief UX Architect",
+    9: "Head of UX Architecture",
+    10: "Chief UX Systems Officer",
+    11: "Chief Engagement Officer",
+    12: "Chief Product & UX Officer",
+    13: "Chief Accessibility Officer",
+    14: "Chief Usability & Experience Officer",
+    15: "Chief Mobile Experience Officer",
+    16: "Chief Data & UX Officer",
 }
 
 CARD = re.compile(r"^## ([AB]\d+) · (.+?) · (\d+) min · (Core|Optional)\s*$", re.M)

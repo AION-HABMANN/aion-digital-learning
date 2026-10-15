@@ -19,6 +19,7 @@ sys.path.insert(0, HERE)
 import ablauf  # noqa: E402
 import release  # noqa: E402
 from trainer_data78 import DATA78  # noqa: E402
+import make_gen_docs  # noqa: E402
 
 PLAN_XLSX = os.path.join(os.path.dirname(ROOT), "One Stop Digital Learning - Strukturplan 11_F_128 (04-26).xlsx")
 EXPORT = os.path.join(HERE, "trainer_export_days1-6.json")
@@ -34,6 +35,7 @@ COVERAGE = {
     7: ["Block 3.1 (strategy)", "Block 3.1 (integration into processes)", "Block 3.1 (three measures, in order)", "Block 3.2 (evaluation system: KPIs and methods)", "Block 3.2 (risk: costs against benefits)"],
     8: ["Block 3.1 (the card sort)", "Block 3.1 (principles for visual design)", "Block 3.1 (concept for user guidance)", "Block 3.2 (three measures, in order)", "Block 3.2 (risk: too complex against too reduced)"],
 }
+COVERAGE.update(make_gen_docs.COVERAGE)
 BLOCK_UE = {"1.1": "UE2", "1.2": "UE3", "1.3": "UE4", "2.1": "UE5–6", "2.2": "UE5–6", "3.1": "UE9", "3.2": "UE10"}
 BANNED = re.compile(r"CLAUDE|\bexport|\bthe app\b|\bapp\b|the check|flag|\bsite\b|website|mentor bar|passcode|#\d+|rule #|the playground|playground", re.I)
 
@@ -98,6 +100,8 @@ def blocks_for(day):
     """{'1.1': [('key', dict), ('guide', dict)], ...} in reading order."""
     if day in DATA78:
         return DATA78[day]
+    if day >= 9:
+        return make_gen_docs.trainer_data(day)
     data = json.load(open(EXPORT, encoding="utf-8"))[f"day{day}"]
     out = {}
     for kind, store, order in (("key", data["keys"], decl_order(day, "answerKey.ts")), ("guide", data["guides"], decl_order(day, "guides.ts"))):
@@ -411,6 +415,6 @@ def build(day):
 
 
 if __name__ == "__main__":
-    days = [int(x) for x in sys.argv[1:]] or list(range(1, 9))
+    days = [int(x) for x in sys.argv[1:]] or list(range(1, 17))
     for d in days:
         print("wrote", build(d))

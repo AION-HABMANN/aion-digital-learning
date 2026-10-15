@@ -137,3 +137,15 @@ G("fitts", "Fitts's law", "The time to reach a target depends on how far away it
 G("consistency", "Consistency", "The same thing looks and works the same way everywhere, so that what a user learns on one screen holds on the next. It is one of Nielsen's usability heuristics.", "Every primary button is blue and in the same place.", "Nielsen 1994")
 G("progressive-disclosure", "Progressive disclosure", "Showing only what is needed now and revealing advanced options on request, so that the first view stays simple.", "An advanced settings area behind a More link.", "Nielsen 2006")
 G("style-guide", "Design system and style guide", "A shared set of components, colours, fonts and rules (a design system) with a written guide, so that every screen is built the same way.", "One button style used on every page.")
+
+
+# ---- Days 9 to 16: the entries the playground defines (dump of data/glossary*.ts, see make_gen_docs.py)
+def _load_gen():
+    p = os.path.join(_HERE, "_gen_dump.json")
+    if os.path.exists(p):
+        for g in json.load(open(p, encoding="utf-8"))["gloss"]:
+            if g["id"] not in GLOSSARY:
+                G(g["id"], g["title"], g["plain"], g.get("example") or "—", g.get("from") or "—")
+
+
+_load_gen()

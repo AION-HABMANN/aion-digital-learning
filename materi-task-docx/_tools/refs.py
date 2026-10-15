@@ -95,3 +95,16 @@ REFS = {
     "gdpr": "Regulation (EU) 2016/679 (General Data Protection Regulation, DSGVO), in particular Articles 5 (principles), 6 and 7 (lawfulness and consent) and 22 (automated individual decisions). In flux for tracking: also check § 25 TDDDG (access to information on a user's device) and current guidance of the data-protection authorities.",
     "aiAct": "Regulation (EU) 2024/1689 (Artificial Intelligence Act). Annex III lists AI systems in education and vocational training that evaluate learning outcomes or steer the learning process as high-risk. In flux: obligations apply in stages and the timetable is under discussion; check the dates before you state them.",
 }
+
+
+# ---- Days 9 to 16: the references the playground cites (dump of data/references*.ts, see make_gen_docs.py)
+def _load_gen():
+    import json
+    import os
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_gen_dump.json")
+    if os.path.exists(p):
+        for k, v in json.load(open(p, encoding="utf-8"))["refs"].items():
+            REFS.setdefault(k, v["full"])
+
+
+_load_gen()

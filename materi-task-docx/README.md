@@ -1,4 +1,4 @@
-# Habmann Digital Learning · Materi and Task documents, Day 1 to Day 8
+# Habmann Digital Learning · Materi and Task documents, Day 1 to Day 16
 
 Word documents of the study material (Materi) and the worksheets (Task) of the course *Educational UX/UI Design* (Habmann AufstiegsAkademie).
 They can be read, taught and worked **without the website**, and they are the reference from which the website days are built.
@@ -6,7 +6,7 @@ Written to the standards of `../CLAUDE.md` (#11, #19, #22, #30, #31, #35, #40, #
 
 ## The documents
 
-One Materi, one Task and one Trainer file per day (24 files). Each Materi/Task file holds both routes of the day: Materi A and Materi B in the Materi file, Task 1 and Task 2 in the Task file. The Trainer file (`Day{N}-Trainer-…-Coaching-Feedback-and-Model-Solutions.docx`) is **for the trainer only** and is kept in `_upload-to-drive/Trainer-only/`.
+One Materi, one Task and one Trainer file per day (48 files). Each Materi/Task file holds both routes of the day: Materi A and Materi B in the Materi file, Task 1 and Task 2 in the Task file. The Trainer file (`Day{N}-Trainer-…-Coaching-Feedback-and-Model-Solutions.docx`) is **for the trainer only** and is kept in `_upload-to-drive/Trainer-only/`.
 
 | Day | Topic (plan) | Case | Materi | Task |
 |---|---|---|---|---|
@@ -18,6 +18,14 @@ One Materi, one Task and one Trainer file per day (24 files). Each Materi/Task f
 | 6 | Personas and user journeys | EduPath | `Day6-Materi-…-Personas-and-User-Journeys.docx` | `Day6-Task-…-EduPath-Personas-Journeys-and-Segmentation-Strategy.docx` |
 | 7 | Accessibility and inclusive design, evaluation | InclusiveLearn | `Day7-Materi-…-Accessibility-and-Inclusive-Design.docx` | `Day7-Task-…-InclusiveLearn-Barrier-Analysis-and-Inclusive-UX-Strategy.docx` |
 | 8 | UX/UI basics: structure, hierarchy, interaction | StructLearn | `Day8-Materi-…-UX-UI-Structure-Visual-Hierarchy-and-Interaction.docx` | `Day8-Task-…-StructLearn-Structure-Analysis-and-Basic-UX-UI-Structure.docx` |
+| 9 | Information architecture and interaction | NavLearn | `Day9-Materi-…-Information-architecture-and-interaction.docx` | `Day9-Task-…-NavLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
+| 10 | Feedback, progress, responsive design | TrackLearn | `Day10-Materi-…-Feedback-progress-responsive-design.docx` | `Day10-Task-…-TrackLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
+| 11 | Gamification and motivation theories | GameLearn | `Day11-Materi-…-Gamification-and-motivation-theories.docx` | `Day11-Task-…-GameLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
+| 12 | Adaptive learning, a gamified prototype | AdaptLearn | `Day12-Materi-…-Adaptive-learning-a-gamified-prototype.docx` | `Day12-Task-…-AdaptLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
+| 13 | Inclusive UX/UI and WCAG | AccessLearn | `Day13-Materi-…-Inclusive-UX-UI-and-WCAG.docx` | `Day13-Task-…-AccessLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
+| 14 | Plain language, usability, testing | ClearLearn | `Day14-Materi-…-Plain-language-usability-testing.docx` | `Day14-Task-…-ClearLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
+| 15 | Mobile learning UX | MobileLearn | `Day15-Materi-…-Mobile-learning-UX.docx` | `Day15-Task-…-MobileLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
+| 16 | UX testing, analytics and KPIs | DataLearn | `Day16-Materi-…-UX-testing-analytics-and-KPIs.docx` | `Day16-Task-…-DataLearn-UX-Analysis-and-UX-Strategy-Memo.docx` |
 
 The full file names always read `Day{N}-{Materi|Task}-Habmann-Digital-Learning-{topic}.docx` (the `…` above stands for `Habmann-Digital-Learning`).
 Playground (website): <https://aion-dl.vercel.app/>, one address per day in the pattern `https://aion-dl.vercel.app/day/N/`. Every cover names the day's address and the last page of every document repeats it. Days 7 and 8 are placeholders on the site until their pages are built.
@@ -63,8 +71,8 @@ How the Trainer documents are made: `python _tools/make_trainer.py` writes `_sou
 
 ```
 materi-task-docx/
-  Day1-Materi-….docx … Day8-Task-….docx   the 16 documents for participants
-  Day1-Trainer-….docx … Day8-Trainer-….docx  the 8 trainer documents (not for participants)
+  Day1-Materi-….docx … Day16-Task-….docx   the 32 documents for participants
+  Day1-Trainer-….docx … Day16-Trainer-….docx  the 16 trainer documents (not for participants)
   README.md                                this file
   _source/                                 the reviewed Markdown of every document (the source of truth)
   _figures/                                every diagram as PNG (drawn from SVG)
@@ -73,3 +81,6 @@ materi-task-docx/
 
 Rebuild: `python _tools/build_all.py` (all days) or `python _tools/build_all.py 3` (one day). Needs Python with `python-docx`, `cairosvg` and `Pillow`.
 Edit the Markdown in `_source/`, a figure in `_tools/figs_dayN.py`, a glossary entry in `_tools/glossary.py`, a reference in `_tools/refs.py`, then rebuild. The Markdown dialect is described at the top of `_tools/md2docx.py`.
+
+
+**Days 9 to 16** were generated from the playground's own content by `_tools/make_gen_docs.py` (then `make_trainer.py`, `build_all.py`), so documents and website cannot drift apart. The Markdown in `_source/` can be edited by hand; rerunning the generator overwrites it. Not yet hand-reviewed page by page.

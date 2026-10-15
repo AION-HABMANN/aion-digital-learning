@@ -47,6 +47,38 @@ MANIFEST = {
         ("day8-materi.md", f"Day8-Materi-{P}-UX-UI-Structure-Visual-Hierarchy-and-Interaction.docx"),
         ("day8-task.md", f"Day8-Task-{P}-StructLearn-Structure-Analysis-and-Basic-UX-UI-Structure.docx"),
     ],
+    9: [
+        ("day9-materi.md", f"Day9-Materi-{P}-Information-architecture-and-interaction.docx"),
+        ("day9-task.md", f"Day9-Task-{P}-NavLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
+    10: [
+        ("day10-materi.md", f"Day10-Materi-{P}-Feedback-progress-responsive-design.docx"),
+        ("day10-task.md", f"Day10-Task-{P}-TrackLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
+    11: [
+        ("day11-materi.md", f"Day11-Materi-{P}-Gamification-and-motivation-theories.docx"),
+        ("day11-task.md", f"Day11-Task-{P}-GameLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
+    12: [
+        ("day12-materi.md", f"Day12-Materi-{P}-Adaptive-learning-a-gamified-prototype.docx"),
+        ("day12-task.md", f"Day12-Task-{P}-AdaptLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
+    13: [
+        ("day13-materi.md", f"Day13-Materi-{P}-Inclusive-UX-UI-and-WCAG.docx"),
+        ("day13-task.md", f"Day13-Task-{P}-AccessLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
+    14: [
+        ("day14-materi.md", f"Day14-Materi-{P}-Plain-language-usability-testing.docx"),
+        ("day14-task.md", f"Day14-Task-{P}-ClearLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
+    15: [
+        ("day15-materi.md", f"Day15-Materi-{P}-Mobile-learning-UX.docx"),
+        ("day15-task.md", f"Day15-Task-{P}-MobileLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
+    16: [
+        ("day16-materi.md", f"Day16-Materi-{P}-UX-testing-analytics-and-KPIs.docx"),
+        ("day16-task.md", f"Day16-Task-{P}-DataLearn-UX-Analysis-and-UX-Strategy-Memo.docx"),
+    ],
 }
 
 
@@ -59,6 +91,14 @@ TRAINER = {
     6: "EduPath",
     7: "InclusiveLearn",
     8: "StructLearn",
+    9: "NavLearn",
+    10: "TrackLearn",
+    11: "GameLearn",
+    12: "AdaptLearn",
+    13: "AccessLearn",
+    14: "ClearLearn",
+    15: "MobileLearn",
+    16: "DataLearn",
 }
 for _d, _name in TRAINER.items():
     MANIFEST[_d].append((f"day{_d}-trainer.md", f"Day{_d}-Trainer-{P}-{_name}-Coaching-Feedback-and-Model-Solutions.docx"))
