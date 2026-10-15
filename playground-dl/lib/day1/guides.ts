@@ -115,14 +115,14 @@ export function visionGuide(): MentorGuide {
 
 export function decisionOrderGuide(): MentorGuide {
   return {
-    title: "3.1 · Why the first decision goes first (Core)",
+    title: "3.1 · Why this plan, in this order, and why not the others (Core)",
     answer: R2().orderWhy ?? "",
     example: tt(
-      "The guided start comes first because it meets every new learner, and it gives the later decisions a baseline to be measured against.",
-      "Der geführte Start kommt zuerst, weil er jede neue Lernende erreicht und den späteren Entscheidungen eine Basis zum Messen gibt.",
+      "At LearnLoop the guided start comes first because it meets every new learner, and the study planner builds on it. The weekly newsletter rests on the planner, so it comes last. I left out the new mascot: nothing in the brief says learners leave for lack of one.",
+      "Bei LearnLoop kommt der geführte Start zuerst, weil er jede neue Lernende erreicht, und der Lernplaner baut darauf auf. Der Wochen-Newsletter ruht auf dem Planer, also kommt er zuletzt. Das neue Maskottchen habe ich weggelassen: Nichts im Auftrag sagt, dass Lernende gehen, weil es fehlt.",
     ),
-    why: "The roadmap is an order with a reason. The model order is paths, progress, research; a different order defends if the reason is concrete.",
-    lookFor: ["Gives a reason for position one.", "Refers to reach, cost, dependency or evidence."],
+    why: "The roadmap is an order with a reason, and the reason covers the whole plan: what comes first and what it unlocks, and why one other decision was left out. The model plan is paths, progress and research; a different plan defends if each step and each omission has a concrete reason.",
+    lookFor: ["Says what comes first and what the others rest on.", "Gives a reason for the order, step by step.", "Names at least one decision left out and why (cost, a missing prerequisite, or no printed problem)."],
   };
 }
 

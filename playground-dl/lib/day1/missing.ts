@@ -1,6 +1,6 @@
 import { FINDING_BY_ID, FINDING_IDS, MEASURE_BY_ID, PICK_MEASURES } from "@/data/day1/case";
 import { DECISION_BY_ID, EVIDENCE_MIN, R2_PICK } from "@/data/day1/route2";
-import { OPTIONAL_BLOCKS, MIN_LINE, MIN_REASON, MIN_SENTENCE } from "@/lib/day1/progress";
+import { OPTIONAL_BLOCKS, MIN_LINE, MIN_PLAN, MIN_REASON, MIN_SENTENCE } from "@/lib/day1/progress";
 import { MIN_SLOT, SENTENCE_PER_MEASURE, fixList } from "@/lib/day1/reason";
 import { participantMissing, short } from "@/lib/missing";
 import type { MissingEntry } from "@/lib/missing";
@@ -74,9 +74,9 @@ export function r2Missing(p: Persisted): MissingEntry[] {
 
   // Block 3.1 (Core)
   if (r2.vision.trim().length < MIN_SENTENCE) e(IDS.vision, tt(`Block 3.1: write your UX vision in one or two sentences (at least ${MIN_SENTENCE} characters).`, `Block 3.1: Schreiben Sie Ihre UX-Vision in ein oder zwei Sätzen (mindestens ${MIN_SENTENCE} Zeichen).`));
-  if (r2.picks.length !== R2_PICK) e(IDS.decisionPick, tt(`Block 3.1: choose exactly ${R2_PICK} strategic decisions (you have ${r2.picks.length}).`, `Block 3.1: Wählen Sie genau ${R2_PICK} strategische Entscheidungen (Sie haben ${r2.picks.length}).`));
-  if (r2.picks.length === R2_PICK && r2.orderWhy.trim().length < MIN_LINE)
-    e(IDS.decisionOrderWhy, tt(`Block 3.1: say why “${short(DECISION_BY_ID[r2.order[0] ?? r2.picks[0]].name, 36)}” goes first (at least ${MIN_LINE} characters).`, `Block 3.1: Begründen Sie, warum „${short(DECISION_BY_ID[r2.order[0] ?? r2.picks[0]].name, 36)}“ zuerst kommt (mindestens ${MIN_LINE} Zeichen).`));
+  if (r2.picks.length < R2_PICK) e(IDS.decisionPick, tt(`Block 3.1: choose at least ${R2_PICK} strategic decisions (you have ${r2.picks.length}).`, `Block 3.1: Wählen Sie mindestens ${R2_PICK} strategische Entscheidungen (Sie haben ${r2.picks.length}).`));
+  if (r2.picks.length >= R2_PICK && r2.orderWhy.trim().length < MIN_PLAN)
+    e(IDS.decisionOrderWhy, tt(`Block 3.1: say why you built the plan this way and why not the others (at least ${MIN_PLAN} characters).`, `Block 3.1: Sagen Sie, warum Sie den Plan so gebaut haben und warum nicht die anderen (mindestens ${MIN_PLAN} Zeichen).`));
 
   // Block 3.2 (Core)
   if (!r2.risk) e(IDS.risk, tt("Block 3.2: choose the biggest risk of your plan.", "Block 3.2: Wählen Sie das größte Risiko Ihres Plans."));

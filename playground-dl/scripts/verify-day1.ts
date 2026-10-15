@@ -13,6 +13,8 @@ import { r1Missing, r2Missing } from "../lib/day1/missing";
 import { KEY_D1_R1, KEY_D1_R2, MENTOR_PASSCODE } from "../lib/day1/mentorKey";
 import { dossierProgress, taskBlocks, CORE_UNITS } from "../lib/day1/progress";
 import { analysisBody, memoBody } from "../lib/day1/exportDoc";
+import { planOf, rangeOf } from "../lib/day1/r2Panel";
+import { DPANEL } from "../data/day1/route2Panel";
 import { MIN_SLOT, SENTENCE_PER_MEASURE, composeReason, toggleFix, withReason } from "../lib/day1/reason";
 import { setCurrentLang } from "../lib/lang";
 import { emptyD1R1, mergeDefaults } from "../store/useStore";
@@ -59,7 +61,7 @@ for (const lang of ["en", "de"] as const) {
 
   // 4 · the strategy picks fit the yearly limit
   ok(decisionsCost(MODEL_DECISIONS) <= R2_BUDGET, `the model decisions cost ${decisionsCost(MODEL_DECISIONS)} ≤ ${R2_BUDGET}`);
-  ok(DECISIONS.length === 7, "seven decisions");
+  ok(DECISIONS.length === 12, "twelve decisions");
 
   // 5 · the plan's own printed figures
   ok(DROPOUT === 40 && BUDGET === 50000 && MONTHS === 2, "40% drop-out, €50,000 and 2 months, as the plan prints them");
@@ -119,6 +121,27 @@ for (const lang of ["en", "de"] as const) {
   ok(SENTENCE_PER_MEASURE ? r1Missing(noSlot).some((m) => m.id === "reason-m1") : !r1Missing(noSlot).some((m) => m.id === "reason-m1"), "an unfinished sentence is named in the missing list only while the sentence is asked for");
   const oldBlob = mergeDefaults(emptyD1R1(), { chosen: ["m1"], reasons: { m1: "old text" } });
   ok(oldBlob.chosen[0] === "m1" && Object.keys(oldBlob.fixes).length === 0 && oldBlob.reasons.m1 === "old text", "an old-shape blob loads with empty fixes and slots");
+
+  // 8c · the decision panel (Block 3.1): the reference plan holds every test, and each kind of open finding is raised with a way to act
+  const planOfPicks = (picks: string[]) => planOf({ picks: picks as never, order: picks as never }, 0);
+  ok(planOfPicks(["d1", "d2", "d4", "d8"]).bars.spent === 120000 && r2Missing({ ...p1, d1: { ...p1.d1, r2: { ...p1.d1.r2, picks: ["d1", "d2", "d4", "d8"], order: ["d1", "d2", "d4", "d8"] } } } as Persisted).length === 0, "four decisions are allowed and leave nothing missing");
+  ok(r2Missing({ ...p1, d1: { ...p1.d1, r2: { ...p1.d1.r2, picks: ["d1", "d2"], order: ["d1", "d2"] } } } as Persisted).some((m) => m.id === "decision-pick"), "fewer than three decisions are named in the missing list");
+  ok(planOfPicks([...MODEL_DECISIONS]).holding === 4 && planOfPicks([...MODEL_DECISIONS]).applicable === 4, "the reference three decisions hold all four tests");
+  ok(planOf({ picks: [...MODEL_DECISIONS], order: [...MODEL_DECISIONS] }, 1).holding === 4, "the reference plan still holds when every build takes 25% longer");
+  const badPlan = planOfPicks(["d7", "d5", "d6"]);
+  ok(badPlan.tests.every((x) => !x.holds), "marketing, points and AI together open every test");
+  ok(badPlan.tests.every((x) => x.open.every((o) => o.fact && o.plain && o.rule && o.ways.length >= 2)), "every open finding has what is off, plain words, a rule and two ways to act");
+  ok(planOfPicks(["d2", "d1", "d4"]).tests.find((x) => x.id === "first")?.holds === false, "a first decision the others do not rest on is raised");
+  ok(planOf({ picks: ["d6", "d1", "d8"], order: ["d1", "d8", "d6"] }, 0).tests.find((x) => x.id === "budget")?.open.some((o) => /month 14/.test(o.fact) || /Monat 14/.test(o.fact)) === true, "AI recommendations that wait for the path are late");
+  ok(planOfPicks(["d1", "d2", "d3"]).bars.over === 0 && planOfPicks(["d6", "d1", "d4"]).bars.over > 0, "the budget bar reads over only when the three cost more than the limit");
+  ok(rangeOf({ picks: ["d6", "d1", "d8"] as never, order: [] as never }).risk[0] !== null, "the bars carry a range across both build-time scenarios");
+  ok(Object.keys(DPANEL).length === DECISIONS.length, "every decision has panel facts");
+  const relaunch = planOf({ picks: ["d11", "d4", "d1"] as never, order: ["d11", "d4", "d1"] as never }, 0);
+  ok(relaunch.tests.find((x) => x.id === "first")?.holds === false && relaunch.tests.find((x) => x.id === "budget")?.holds === false, "a full rebuild as the first decision is raised, and it is in use only after the twelve months");
+  const look = planOf({ picks: ["d10", "d1", "d4"] as never, order: ["d1", "d4", "d10"] as never }, 0);
+  ok(look.tests.find((x) => x.id === "purpose")?.holds === false && look.items.d10.notes.length > 0, "a decision that only changes the look is raised in the box and in the purpose test");
+  ok(planOf({ picks: ["d7", "d1", "d4"] as never, order: ["d7", "d1", "d4"] as never }, 0).items.d7.notes.some((n) => /first/.test(n) || /erster/.test(n)), "a first decision nothing rests on carries a note in its own box");
+  ok(r2Missing({ ...p1, d1: { ...p1.d1, r2: { ...p1.d1.r2, picks: ["d7", "d5", "d6"], order: ["d7", "d5", "d6"] } } } as Persisted).every((m) => !/test|panel/i.test(m.label)), "a plan with open tests is never a missing item (#38)");
 
   // 9 · the export bodies are built, in this language, and never print a key or a verdict
   const a = analysisBody(p1);

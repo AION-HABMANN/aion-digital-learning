@@ -74,6 +74,16 @@ export function decisionKey(): AnswerKeyBlock {
         ? `Reference pick: ${euro(d.cost)}, ${d.weeks} weeks. ${d.id === "d4" ? "It is the decision that lets later decisions rest on evidence, which the decision-architecture item of the plan asks for." : "It meets a printed finding that every learner meets."}`
         : d.id === "d3"
           ? "Defendable: it meets the Understanding finding, but at €40,000 and 20 weeks it is the costliest fix; it would go next year."
+          : d.id === "d8"
+            ? "Defendable, not in the model: it is cheap (€20,000, 8 weeks) and shows where learners leave, but it counts who leaves, not why; a learner who picks it instead of the research programme should say what they still would not know."
+            : d.id === "d10"
+              ? "Rejected: it changes the look (UI), not the experience; no printed finding is about the look, and it is not a first decision."
+              : d.id === "d11"
+                ? "Rejected as a first move: €110,000 and 40 weeks rebuilt on a guess, in one go with no way back. Even with evidence it would be in use only after the twelve months; prefer what you can undo cheaply while you learn (Materi B3)."
+                : d.id === "d12"
+                  ? "Rejected: more content serves a business goal, not a learner's problem; ten courses on a platform learners cannot find their way through add to the confusion."
+            : d.id === "d9"
+              ? "Rejected: €70,000 and 30 weeks to carry the same unclear courses onto a phone; no printed finding is about the channel, and it waits for the path to be in place."
           : d.id === "d5"
             ? "Rejected in the plan's own logic: extrinsic reward, answers no printed finding, and the effect fades; competitors using it is not a reason."
             : d.id === "d6"
@@ -81,7 +91,7 @@ export function decisionKey(): AnswerKeyBlock {
               : "Rejected: it fixes acquisition, not experience; more learners arriving at the same platform leave at the same rate.";
       return { label: d.name, expected: model, why };
     }),
-    teachingNote: "A different set of three defends if the reason is written and the three together answer the vision. Budget is a live hint, not a lock (CLAUDE.md #38); a set over the €120,000 limit exports with the amount printed as a fact.",
+    teachingNote: "The task asks for at least three decisions; more are allowed, and the panel shows what more costs. A different set defends if the reason covers the whole plan (the order, and why not the others) and the decisions together answer the vision. Budget is a live hint, not a lock (CLAUDE.md #38); a set over the €120,000 limit exports with the amount printed as a fact.",
   };
 }
 

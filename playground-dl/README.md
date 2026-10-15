@@ -296,3 +296,13 @@ Every Day 1 card (A1 to A5, B1 to B3) has a "Read the comic" row that opens a sh
 ## Block 2.2 upgrade (CLAUDE.md #55, Day 1, added 2026-10-16)
 
 Block 2.2 now opens with a step tracker and three collapsed area cards (the brief's own problems per area, the measures that act on each, reached / not reached yet). Per measure the learner picks which problem(s) of the case it fixes (several allowed, or "none of these"), then impact and risk (with a scenario), and the priority list shows each row's impact, effort, risk and problems. Every required free-text field of Day 1 has a collapsed "How to build the answer". The per-measure sentence ("Say it in one sentence") is built and **switched off** (`SENTENCE_PER_MEASURE` in `lib/day1/reason.ts`) because the plan does not ask for it. Deviation: the problem picker and the scenario wording are ours, on top of the plan's three criteria (#50). Persisted shape: version 6 (`fixes`, `slotA`, `slotB`). `verify:day1` covers the new fields.
+
+
+## Block 3.1 decision panel (CLAUDE.md #47 adapted, #55 section 6, Day 1, added 2026-10-16)
+
+Day 1 Route 2 Block 3.1 now shows nine decisions (two new: `d8` drop-out analytics, `d9` mobile app) and a live panel under the list: four layers with links that can break, three bars (Budget, Aimed at the problem, Risk, the last two as ranges across "as estimated" and "25% longer") and four tests with plain-words findings and ways to act. The learner still chooses exactly three and orders them; the reason for position one now asks which decision the others rest on. Deviations from #47: no tiers, no Step A / Step B, no reading of the plan, no mentor category; the open tests never block export (#38). The reference plan (paths, progress, research programme) holds all four tests. Files: `components/day1/DecisionPanel.tsx`, `data/day1/route2Panel.ts`, `lib/day1/r2Panel.ts`.
+
+
+### Block 3.1 update (CLAUDE.md #56, 2026-10-16)
+
+Block 3.1 now offers **twelve** decisions (new: a new visual style, a full rebuild in one go, ten new courses), asks for **at least three** (more are allowed; the panel shows what more costs), has no separate card list (each decision is a box in the picture with *Choose / Remove* and *Details*), shows a visible "What the panel noticed" notice and notes inside the boxes, and replaces "Why does the first decision go first?" with **"Why did you build the plan this way, and why not the others?"** (at least 60 characters; model answer, mentor guide, export heading and missing label follow). `verify:day1` covers the extra scenarios.

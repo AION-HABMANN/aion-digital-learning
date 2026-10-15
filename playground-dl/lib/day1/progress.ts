@@ -11,6 +11,8 @@ export type TaskBlockId = "b11" | "b12" | "b13" | "b21" | "b22" | "b31" | "b32";
 export const MIN_LINE = 30;
 export const MIN_SENTENCE = 40;
 export const MIN_REASON = 20;
+/** Block 3.1: the learner explains the whole plan (what comes first and unlocks what, and why not the others), so the reason is longer than a one-line reason. */
+export const MIN_PLAN = 60;
 
 /**
  * Blocks that deepen or repeat a skill a Core block already teaches (CLAUDE.md #35): collapsed by default, never removed, never required.
@@ -40,7 +42,7 @@ export function taskBlocks(p: Persisted): Record<TaskBlockId, boolean> {
     r1.order.length === PICK_MEASURES &&
     len(r1.orderWhy) >= MIN_LINE &&
     len(r1.missingInfo) >= MIN_LINE;
-  const b31 = len(r2.vision) >= MIN_SENTENCE && r2.picks.length === R2_PICK && r2.order.length === R2_PICK && len(r2.orderWhy) >= MIN_LINE;
+  const b31 = len(r2.vision) >= MIN_SENTENCE && r2.picks.length >= R2_PICK && r2.order.length >= R2_PICK && len(r2.orderWhy) >= MIN_PLAN;
   const b32 = !!r2.risk && len(r2.riskPlan) >= MIN_REASON && len(r2.uncertain) >= 60 && !!r2.owner && r2.evidence.length >= 2 && len(r2.giveUp) >= MIN_LINE;
   return {
     b11: FINDING_IDS.every((id) => r1.sort[id] !== null) && !!r1.worst && len(r1.worstWhy) >= MIN_LINE,

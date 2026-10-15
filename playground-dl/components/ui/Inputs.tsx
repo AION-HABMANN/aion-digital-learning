@@ -80,6 +80,7 @@ export function OptionList<T extends string>({
   cols = 1,
   disabledIds = [],
   onDisabledClick,
+  domId,
 }: {
   options: Opt<T>[];
   value: T | T[] | null;
@@ -90,6 +91,8 @@ export function OptionList<T extends string>({
   /** Options that cannot be added right now (a limit was reached). They stay clickable: the click explains. */
   disabledIds?: T[];
   onDisabledClick?: (id: T) => void;
+  /** A DOM id for each option's button, so a link elsewhere can scroll to it. */
+  domId?: (id: T) => string;
 }) {
   const on = (id: T) => (Array.isArray(value) ? value.includes(id) : value === id);
   return (
@@ -99,6 +102,7 @@ export function OptionList<T extends string>({
         return (
           <button
             key={o.id}
+            id={domId?.(o.id)}
             type="button"
             aria-pressed={on(o.id)}
             aria-disabled={locked || undefined}

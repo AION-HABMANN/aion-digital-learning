@@ -12,9 +12,9 @@ export const R2_BUDGET = 120000;
 export const R2_MONTHS = 12;
 export const R2_PICK = 3;
 
-export type DecisionId = "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7";
-export const DECISION_IDS: DecisionId[] = ["d1", "d2", "d3", "d4", "d5", "d6", "d7"];
-export type DecisionArea = "orientation" | "understanding" | "motivation" | "evidence" | "reward" | "technology" | "growth";
+export type DecisionId = "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "d9" | "d10" | "d11" | "d12";
+export const DECISION_IDS: DecisionId[] = ["d1", "d2", "d3", "d4", "d8", "d5", "d6", "d9", "d10", "d11", "d7", "d12"];
+export type DecisionArea = "orientation" | "understanding" | "motivation" | "evidence" | "reward" | "technology" | "growth" | "channel" | "surface" | "rebuild" | "volume";
 
 type DecisionDef = { id: DecisionId; name: Tx; what: Tx; notice: Tx; cost: number; weeks: number; area: DecisionArea };
 const DECISIONS_DEF: DecisionDef[] = [
@@ -30,12 +30,27 @@ const DECISIONS_DEF: DecisionDef[] = [
   { id: "d4", cost: 30000, weeks: 52, area: "evidence", name: t("A standing user-research programme", "Ein dauerhaftes Nutzerforschungsprogramm"),
     what: t("Interview learners every month and run a usability test every quarter, and feed the results to every UX decision.", "Jeden Monat Lernende befragen und jedes Quartal einen Usability-Test durchführen und die Ergebnisse in jede UX-Entscheidung einfließen lassen."),
     notice: t("Nothing changes on screen at first; decisions rest on what learners actually do.", "Zunächst ändert sich auf dem Bildschirm nichts; Entscheidungen beruhen darauf, was Lernende tatsächlich tun.") },
+  { id: "d8", cost: 20000, weeks: 8, area: "evidence", name: t("A learning-analytics view of drop-out", "Eine Learning-Analytics-Sicht auf den Abbruch"),
+    what: t("Record where in each course learners stop and show it, lesson by lesson, to the whole team.", "Erfassen, an welcher Stelle jedes Kurses Lernende aufhören, und das Lektion für Lektion dem ganzen Team zeigen."),
+    notice: t("Nothing changes on screen; the team sees which lessons learners leave.", "Auf dem Bildschirm ändert sich nichts; das Team sieht, welche Lektionen Lernende verlassen.") },
   { id: "d5", cost: 35000, weeks: 16, area: "reward", name: t("Points, badges and a leaderboard", "Punkte, Badges und eine Rangliste"),
     what: t("Introduce points for each lesson, badges for milestones and a ranking of learners.", "Punkte für jede Lektion, Badges für Meilensteine und eine Rangliste der Lernenden einführen."),
     notice: t("Learners collect points and see where they stand against others.", "Die Lernenden sammeln Punkte und sehen, wo sie gegenüber anderen stehen.") },
   { id: "d6", cost: 90000, weeks: 36, area: "technology", name: t("AI-driven personal recommendations", "KI-gestützte persönliche Empfehlungen"),
     what: t("Build a system that recommends the next lesson to each learner from their behaviour.", "Ein System bauen, das jeder Lernenden aus ihrem Verhalten die nächste Lektion empfiehlt."),
     notice: t("Each learner is shown a different next step, chosen by software.", "Jede Lernende bekommt einen anderen nächsten Schritt gezeigt, von Software gewählt.") },
+  { id: "d9", cost: 70000, weeks: 30, area: "channel", name: t("A mobile app for learning on the go", "Eine Mobile App zum Lernen unterwegs"),
+    what: t("Build an app that opens the same courses on a phone.", "Eine App bauen, die dieselben Kurse auf dem Handy öffnet."),
+    notice: t("Learners can open LearnFast as an app; the lessons inside are unchanged.", "Lernende können LearnFast als App öffnen; die Lektionen darin bleiben unverändert.") },
+  { id: "d10", cost: 30000, weeks: 12, area: "surface", name: t("A new visual style for the whole platform", "Ein neuer visueller Stil für die ganze Plattform"),
+    what: t("Redesign colours, icons and fonts of every screen.", "Farben, Icons und Schriften jedes Bildschirms neu gestalten."),
+    notice: t("The platform looks different; the way it works stays the same.", "Die Plattform sieht anders aus; die Bedienung bleibt gleich.") },
+  { id: "d11", cost: 110000, weeks: 40, area: "rebuild", name: t("Rebuild the whole platform in one go", "Die ganze Plattform auf einmal neu bauen"),
+    what: t("Redesign every course, screen and path at once and switch to the new platform on one day.", "Jeden Kurs, jeden Bildschirm und jeden Pfad auf einmal neu gestalten und an einem Tag auf die neue Plattform umstellen."),
+    notice: t("One day everything looks and works differently, and there is no way back.", "Eines Tages sieht und funktioniert alles anders, und es gibt keinen Weg zurück.") },
+  { id: "d12", cost: 55000, weeks: 24, area: "volume", name: t("Ten new courses", "Zehn neue Kurse"),
+    what: t("Produce ten new courses for the catalogue.", "Zehn neue Kurse für den Katalog produzieren."),
+    notice: t("The catalogue is longer; the courses work as before.", "Der Katalog ist länger; die Kurse funktionieren wie bisher.") },
   { id: "d7", cost: 60000, weeks: 12, area: "growth", name: t("Double the marketing budget", "Das Marketingbudget verdoppeln"),
     what: t("Spend twice as much on advertising to win more new learners.", "Doppelt so viel für Werbung ausgeben, um mehr neue Lernende zu gewinnen."),
     notice: t("More new learners arrive; the platform they meet is unchanged.", "Mehr neue Lernende kommen; die Plattform, auf die sie treffen, bleibt unverändert.") },
@@ -50,6 +65,10 @@ export const DECISION_AREA = bi({
   reward: t("Adds rewards", "Fügt Belohnungen hinzu"),
   technology: t("Adds technology", "Fügt Technologie hinzu"),
   growth: t("Aims at growth, not experience", "Zielt auf Wachstum, nicht auf Erlebnis"),
+  channel: t("Adds a new channel", "Fügt einen neuen Kanal hinzu"),
+  surface: t("Acts on: the look, not the experience", "Wirkt auf: das Aussehen, nicht das Erlebnis"),
+  rebuild: t("Rebuilds everything at once", "Baut alles auf einmal neu"),
+  volume: t("Adds more content", "Fügt mehr Inhalt hinzu"),
 });
 export const decisionsCost = (ids: DecisionId[]) => ids.reduce((s, id) => s + DECISION_BY_ID[id].cost, 0);
 export const MODEL_DECISIONS: DecisionId[] = ["d1", "d2", "d4"];

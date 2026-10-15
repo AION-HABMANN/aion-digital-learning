@@ -5,7 +5,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { CAUSE_PICK, CLAIM_IDS, FINDING_IDS, PICK_MEASURES } from "@/data/day1/case";
 import type { AreaId, CauseId, ClaimBin, ClaimId, FindingId, MeasureId, ReflectKey } from "@/data/day1/case";
-import { R2_PICK } from "@/data/day1/route2";
 import type { DecisionId, EvidenceId, OwnerId, RiskId } from "@/data/day1/route2";
 import { KEY_D1_R1, KEY_D1_R2 } from "@/lib/day1/mentorKey";
 import { KEY_D2_R1, KEY_D2_R2 } from "@/lib/day2/mentorKey";
@@ -369,7 +368,7 @@ export const useStore = create<Persisted & Session & Actions>()(
       toggleDecision: (id) =>
         set((s) => {
           const r = s.d1.r2;
-          const picks = r.picks.includes(id) ? r.picks.filter((c) => c !== id) : r.picks.length >= R2_PICK ? r.picks : [...r.picks, id];
+          const picks = r.picks.includes(id) ? r.picks.filter((c) => c !== id) : [...r.picks, id];
           return { d1: { ...s.d1, r2: { ...r, picks, order: syncOrder(r.order, picks) } } };
         }),
       moveDecision: (id, dir) => set((s) => ({ d1: { ...s.d1, r2: { ...s.d1.r2, order: swap(s.d1.r2.order, id, dir) } } })),

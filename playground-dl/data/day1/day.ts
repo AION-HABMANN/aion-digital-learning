@@ -48,7 +48,7 @@ export function pageNav(route: RouteNo): NavGroup[] {
       label: "Task 2",
       items: [
         { id: "task-2", short: tt("Case", "Fall"), title: tt("The situation: SkillUp's Chief UX Officer", "Die Lage: Chief UX Officer von SkillUp") },
-        blk("3.1", tt("Vision, three decisions, order", "Vision, drei Entscheidungen, Reihenfolge"), "b31"),
+        blk("3.1", tt("Vision, decisions, order", "Vision, Entscheidungen, Reihenfolge"), "b31"),
         blk("3.2", tt("Risk, a decision without complete data, how we decide, what you give up", "Risiko, eine Entscheidung ohne vollständige Daten, wie wir entscheiden, worauf Sie verzichten"), "b32"),
         { id: "memo-panel", short: tt("Memo", "Memo"), title: tt("The memo as it builds", "Das Memo, wie es entsteht") },
         { id: "export-l3", short: "Export", title: tt("Export the UX Strategy Memo", "UX Strategy Memo exportieren") },

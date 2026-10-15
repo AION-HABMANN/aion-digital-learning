@@ -85,8 +85,8 @@ export function KEY_D1_R2(): Partial<D1R2> {
     picks: [...MODEL_DECISIONS],
     order: [...MODEL_DECISIONS],
     orderWhy: tt(
-      "Paths come first because every learner meets orientation before anything else. Progress is cheap and builds on the path. Research runs alongside so later decisions rest on what learners actually do.",
-      "Pfade kommen zuerst, weil jede Lernende zuerst auf Orientierung trifft. Fortschritt ist günstig und baut auf dem Pfad auf. Die Forschung läuft parallel, damit spätere Entscheidungen darauf beruhen, was Lernende tatsächlich tun.",
+      "Paths come first because every learner meets orientation before anything else, and the other decisions work better once a path exists. Progress and feedback come next: they are cheap and build on the path, because a learner can only see progress along something. The research programme runs alongside from the start, so that later decisions rest on what learners actually do and not on the drop-out number alone. I left out the AI recommendations: at €90,000 they take most of the budget and they need data and a path we do not have yet. I also left out points and badges and the marketing, because neither fixes a problem the case names.",
+      "Pfade kommen zuerst, weil jede Lernende zuerst auf Orientierung trifft und die anderen Entscheidungen besser wirken, sobald ein Pfad existiert. Fortschritt und Feedback kommen danach: Sie sind günstig und bauen auf dem Pfad auf, denn Fortschritt sieht man nur entlang von etwas. Das Forschungsprogramm läuft von Anfang an nebenher, damit spätere Entscheidungen darauf beruhen, was Lernende tatsächlich tun, und nicht allein auf der Abbruchzahl. Die KI-Empfehlungen habe ich weggelassen: Mit 90.000 € verbrauchen sie den größten Teil des Budgets und brauchen Daten und einen Pfad, die wir noch nicht haben. Punkte und Badges sowie das Marketing habe ich ebenfalls weggelassen, weil keines ein Problem behebt, das der Fall nennt.",
     ),
     risk: MODEL_RISK_PICK,
     riskPlan: tt(

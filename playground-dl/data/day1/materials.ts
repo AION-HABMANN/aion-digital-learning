@@ -122,8 +122,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Bei jeder UX-Entscheidung ziehen Ziele in verschiedene Richtungen. Das Beispiel des Plans selbst: Usability, Inhaltstiefe und Zeitdruck. Ein einfacher Bildschirm ist leicht zu bedienen, trägt aber vielleicht weniger Tiefe; Tiefe braucht Zeit, die die Lernenden vielleicht nicht haben. Auf Managementebene kommt eine zweite Spannung dazu: was für die Nutzer am besten ist, was billig zu bauen ist und was das Geschäft verlangt. Eine gute Entscheidung benennt die Spannung in einem Satz, sagt, was jede Seite bekommt, und sagt, was sie verliert.",
     ),
     why: t(
-      "Block 3.1 asks you to pick three strategic decisions under a limited budget while competitors move. This card gives you the way to weigh them.",
-      "Block 3.1 verlangt, drei strategische Entscheidungen bei begrenztem Budget zu wählen, während Wettbewerber sich bewegen. Diese Karte gibt Ihnen die Art, sie abzuwägen.",
+      "Block 3.1 asks you to pick at least three strategic decisions under a limited budget while competitors move. This card gives you the way to weigh them.",
+      "Block 3.1 verlangt, mindestens drei strategische Entscheidungen bei begrenztem Budget zu wählen, während Wettbewerber sich bewegen. Diese Karte gibt Ihnen die Art, sie abzuwägen.",
     ),
     picture: t(
       "The grid weighs three options for LearnLoop on user value, business value and risk. Select a cell to read the reason. Press “Read the comic” above the picture to see the card told as a short story.",

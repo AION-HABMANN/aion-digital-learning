@@ -116,7 +116,7 @@ ${quoted}
 <h2>${esc(tt("2 · Three strategic UX decisions, in order", "2 · Drei strategische UX-Entscheidungen, in Reihenfolge"))}</h2>
 <table><thead><tr><th>#</th><th>${esc(tt("Decision", "Entscheidung"))}</th><th class="num">${esc(tt("Cost", "Kosten"))}</th><th class="num">${esc(tt("Weeks", "Wochen"))}</th></tr></thead><tbody>${rows || `<tr><td colspan="4">—</td></tr>`}</tbody></table>
 <p class="legend">${esc(facts)}</p>
-<h2>${esc(tt("3 · Why this order", "3 · Warum diese Reihenfolge"))}</h2>${para(r2.orderWhy)}
+<h2>${esc(tt("3 · Why this plan, in this order, and why not the others", "3 · Warum dieser Plan, in dieser Reihenfolge, und warum nicht die anderen"))}</h2>${para(r2.orderWhy)}
 <h2>${esc(tt("4 · The biggest risk and what I do about it", "4 · Das größte Risiko und was ich dagegen tue"))}</h2>
 <p><strong>${esc(risk)}</strong></p>${para(r2.riskPlan)}
 <h2>${esc(tt("5 · How we decide on UX in future", "5 · Wie wir künftig über UX entscheiden"))}</h2>

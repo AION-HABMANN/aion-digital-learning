@@ -14,6 +14,7 @@ import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
 import { RevealHint } from "@/components/ui/RevealHint";
 import { WritingHelp } from "@/components/ui/WritingHelp";
+import { DecisionPanel } from "@/components/day1/DecisionPanel";
 import { FINDING_BY_ID } from "@/data/day1/case";
 import { DECISIONS, DECISION_AREA, DECISION_BY_ID, EVIDENCE, EVIDENCE_MIN, OWNERS, R2_BUDGET, R2_MONTHS, R2_PICK, RISKS, decisionsCost } from "@/data/day1/route2";
 import type { DecisionId, EvidenceId, OwnerId, RiskId } from "@/data/day1/route2";
@@ -22,7 +23,7 @@ import { architectureKey, decisionKey, riskKey } from "@/lib/day1/answerKey";
 import { memoBody } from "@/lib/day1/exportDoc";
 import { decisionOrderGuide, giveUpGuide, riskPlanGuide, uncertainGuide, visionGuide } from "@/lib/day1/guides";
 import { IDS, r2Missing } from "@/lib/day1/missing";
-import { BLOCK_MINUTES, CORE2_MINUTES, MIN_LINE, MIN_REASON, MIN_SENTENCE } from "@/lib/day1/progress";
+import { BLOCK_MINUTES, CORE2_MINUTES, MIN_LINE, MIN_PLAN, MIN_REASON, MIN_SENTENCE } from "@/lib/day1/progress";
 import type { MissingEntry } from "@/lib/missing";
 import { useJumpTo } from "@/lib/useJumpTo";
 import { euro, tt } from "@/lib/lang";
@@ -64,7 +65,7 @@ function CaseBrief() {
         <div className="rounded-lg border border-line bg-canvas p-3 text-caption">
           <p className="smallcaps">{tt(`How the task runs · two core blocks, about ${CORE2_MINUTES} min`, `So läuft die Aufgabe · zwei Kernblöcke, ca. ${CORE2_MINUTES} Min.`)}</p>
           <ol className="mt-1 list-decimal space-y-1 pl-4 text-ink">
-            <li>{tt("Block 3.1: your UX vision, three strategic decisions and their order (B1, B2).", "Block 3.1: Ihre UX-Vision, drei strategische Entscheidungen und ihre Reihenfolge (B1, B2).")}</li>
+            <li>{tt("Block 3.1: your UX vision, at least three strategic decisions and their order (B1, B2).", "Block 3.1: Ihre UX-Vision, mindestens drei strategische Entscheidungen und ihre Reihenfolge (B1, B2).")}</li>
             <li>{tt("Block 3.2: the biggest risk, one decision without complete data, how you will decide in future, and what you give up (B3).", "Block 3.2: das größte Risiko, eine Entscheidung ohne vollständige Daten, wie Sie künftig entscheiden und worauf Sie verzichten (B3).")}</li>
           </ol>
         </div>
@@ -97,17 +98,14 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
   const move = useStore((s) => s.moveDecision);
   const patch = useStore((s) => s.patchD1R2);
   const mentor = useStore((s) => s.mentorUnlocked);
-  const [note, setNote] = useState("");
-  const full = r.picks.length >= R2_PICK;
-  const cost = decisionsCost(r.picks);
   return (
     <AnswerBlock
       id="block-3-1"
-      title={tt("Block 3.1 · UX vision, three decisions, and their order", "Block 3.1 · UX-Vision, drei Entscheidungen und ihre Reihenfolge")}
+      title={tt("Block 3.1 · UX vision, your decisions, and their order", "Block 3.1 · UX-Vision, Ihre Entscheidungen und ihre Reihenfolge")}
       kind="JUDGED"
       core
       minutes={BLOCK_MINUTES["3.1"]}
-      findIt={tt("Route 2 → Task 2 → the vision field, then the seven decisions in the list below, each with its printed cost and weeks. Answer in the field and the list.", "Route 2 → Task 2 → das Feld für die Vision, dann die sieben Entscheidungen in der Liste darunter, jeweils mit gedruckten Kosten und Wochen. Antworten Sie im Feld und in der Liste.")}
+      findIt={tt("Route 2 → Task 2 → the vision field, then the twelve decisions in the picture below, each with its printed cost and weeks. Answer in the field and the list.", "Route 2 → Task 2 → das Feld für die Vision, dann die sieben Entscheidungen in der Liste darunter, jeweils mit gedruckten Kosten und Wochen. Antworten Sie im Feld und in der Liste.")}
     >
       <MaterialRefs refs={["B1", "B2"]} />
       <TextBox
@@ -131,33 +129,11 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       <ExampleAnswer id="vision-example" guide={visionGuide()} />
       {mentor && <MentorGuide guide={visionGuide()} />}
 
-      <Field id={IDS.decisionPick} label={tt(`Choose exactly ${R2_PICK} strategic UX decisions`, `Wählen Sie genau ${R2_PICK} strategische UX-Entscheidungen`)} help={tt("Each shows what it is, what a learner notices, its cost and weeks, and what it acts on. You have chosen:", "Jede zeigt, was sie ist, was Lernende bemerken, ihre Kosten und Wochen, und worauf sie wirkt. Sie haben gewählt:") + ` ${r.picks.length} / ${R2_PICK}`}>
-        <OptionList<DecisionId>
-          options={DECISIONS.map((d) => ({ id: d.id, label: `${d.name} · ${euro(d.cost)} · ${d.weeks} ${tt("weeks", "Wochen")}`, tag: DECISION_AREA[d.area], sub: `${d.what}\n${tt("A learner notices:", "Lernende bemerken:")} ${d.notice}` }))}
-          value={r.picks}
-          onChange={(id) => {
-            setNote("");
-            toggle(id);
-          }}
-          multi
-          cols={2}
-          label={tt("Strategic UX decisions", "Strategische UX-Entscheidungen")}
-          disabledIds={full ? DECISIONS.map((d) => d.id) : []}
-          onDisabledClick={() => setNote(tt(`You have ${R2_PICK}. Deselect one first.`, `Sie haben ${R2_PICK}. Wählen Sie zuerst eine ab.`))}
-        />
-        {note && <p role="status" className="text-caption text-ash">{note}</p>}
+      <Field id={IDS.decisionPick} label={tt(`Choose your strategic UX decisions (at least ${R2_PICK})`, `Wählen Sie Ihre strategischen UX-Entscheidungen (mindestens ${R2_PICK})`)} help={tt("Twelve decisions, and some lean on others: the picture shows how. Choose or remove a decision in its box; “Details” shows what it is, what a learner notices, its cost and weeks, and what it acts on. You have chosen:", "Zwölf Entscheidungen, und manche stützen sich auf andere: Das Bild zeigt wie. Wählen oder entfernen Sie eine Entscheidung in ihrem Kasten; „Details“ zeigt, was sie ist, was Lernende bemerken, ihre Kosten und Wochen, und worauf sie wirkt. Sie haben gewählt:") + ` ${r.picks.length} (${tt(`at least ${R2_PICK}`, `mindestens ${R2_PICK}`)})`}>
+        <DecisionPanel />
       </Field>
-      {r.picks.length > 0 && (
-        <div className="space-y-2">
-          <BudgetBar items={r.picks.map((id) => ({ id, short: id.toUpperCase(), cost: DECISION_BY_ID[id].cost }))} budget={R2_BUDGET} title={tt("Cost of the chosen decisions against the yearly budget", "Kosten der gewählten Entscheidungen gegen das Jahresbudget")} />
-          <p className="text-caption text-ink" aria-live="polite">
-            {tt(`Total ${euro(cost)} of ${euro(R2_BUDGET)}${cost > R2_BUDGET ? `, ${euro(cost - R2_BUDGET)} over` : ""}.`, `Gesamt ${euro(cost)} von ${euro(R2_BUDGET)}${cost > R2_BUDGET ? `, ${euro(cost - R2_BUDGET)} darüber` : ""}.`)}{" "}
-            {cost > R2_BUDGET && <span className="text-ash">{tt("Going over is allowed; say why. It is printed in the memo as a fact.", "Das Überschreiten ist erlaubt; sagen Sie, warum. Es steht als Tatsache im Memo.")}</span>}
-          </p>
-        </div>
-      )}
-      {r.picks.length === R2_PICK && (
-        <Field id={IDS.decisionOrder} label={tt("Your roadmap: put the three decisions in order", "Ihre Roadmap: Bringen Sie die drei Entscheidungen in eine Reihenfolge")} help={tt("The first happens first. Move one up or down with the arrows.", "Die erste geschieht zuerst. Verschieben Sie eine mit den Pfeilen nach oben oder unten.")}>
+      {r.picks.length >= R2_PICK && (
+        <Field id={IDS.decisionOrder} label={tt("Your roadmap: put your decisions in order", "Ihre Roadmap: Bringen Sie Ihre Entscheidungen in eine Reihenfolge")} help={tt("The first happens first. Move one up or down with the arrows.", "Die erste geschieht zuerst. Verschieben Sie eine mit den Pfeilen nach oben oder unten.")}>
           <ol className="space-y-1.5">
             {r.order.map((id, i) => (
               <li key={id} className="flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-1.5">
@@ -176,18 +152,19 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       )}
       <TextBox
         id={IDS.decisionOrderWhy}
-        label={tt("Why does the first decision go first?", "Warum kommt die erste Entscheidung zuerst?")}
-        help={tt(`A reason for position one: reach, cost, what the others depend on, or the evidence it brings. At least ${MIN_LINE} characters.`, `Ein Grund für Platz eins: Reichweite, Kosten, wovon die anderen abhängen oder die Belege, die sie bringt. Mindestens ${MIN_LINE} Zeichen.`)}
+        label={tt("Why did you build the plan this way, and why not the others?", "Warum haben Sie den Plan so gebaut, und warum nicht die anderen?")}
+        help={tt(`Explain your plan step by step: what comes first and what it unlocks for the next step. Then name at least one decision you left out and why. The picture above shows what leans on what. At least ${MIN_PLAN} characters.`, `Erklären Sie Ihren Plan Schritt für Schritt: was zuerst kommt und was es für den nächsten Schritt freischaltet. Nennen Sie dann mindestens eine Entscheidung, die Sie weggelassen haben, und warum. Das Bild oben zeigt, was sich auf was stützt. Mindestens ${MIN_PLAN} Zeichen.`)}
         value={r.orderWhy}
         onChange={(v) => patch({ orderWhy: v })}
-        min={MIN_LINE}
-        rows={3}
+        min={MIN_PLAN}
+        rows={5}
       >
         <WritingHelp
           id="decisionorder-kit"
           steps={[
-            tt("Say why decision one has to start first: it reaches most learners, it costs least, or the others need it.", "Sagen Sie, warum Entscheidung eins zuerst starten muss: Sie erreicht die meisten Lernenden, kostet am wenigsten oder die anderen brauchen sie."),
-            tt("Add what you expect to learn from it that helps the next decision.", "Fügen Sie hinzu, was Sie daraus lernen und was der nächsten Entscheidung hilft."),
+            tt("Start with what comes first and say what the others rest on (look at the links in the picture).", "Beginnen Sie mit dem, was zuerst kommt, und sagen Sie, worauf die anderen ruhen (sehen Sie auf die Verbindungen im Bild)."),
+            tt("Say in a sentence per step what it unlocks for the next one, and why that order.", "Sagen Sie in einem Satz pro Schritt, was er für den nächsten freischaltet, und warum diese Reihenfolge."),
+            tt("Name one decision you left out and what it would have cost you or leaned on.", "Nennen Sie eine Entscheidung, die Sie weggelassen haben, und was sie Sie gekostet oder wovon sie abgehangen hätte."),
           ]}
         />
       </TextBox>
@@ -213,7 +190,7 @@ export function Block32({ missing }: { missing: MissingEntry[] }) {
       kind="JUDGED"
       core
       minutes={BLOCK_MINUTES["3.2"]}
-      findIt={tt("Route 2 → Task 2 → the three decisions you chose in Block 3.1, then the fields below. Answer in the lists and the text boxes.", "Route 2 → Task 2 → die drei Entscheidungen, die Sie in Block 3.1 gewählt haben, dann die Felder darunter. Antworten Sie in den Listen und Textfeldern.")}
+      findIt={tt("Route 2 → Task 2 → the decisions you chose in Block 3.1, then the fields below. Answer in the lists and the text boxes.", "Route 2 → Task 2 → die Entscheidungen, die Sie in Block 3.1 gewählt haben, dann die Felder darunter. Antworten Sie in den Listen und Textfeldern.")}
     >
       <MaterialRefs refs={["B3", "B2"]} />
       <Field id={IDS.risk} label={tt("The biggest risk of your plan", "Das größte Risiko Ihres Plans")} help={tt("Imagine the plan has failed in a year. Which reason is the most likely? Choose one.", "Stellen Sie sich vor, der Plan ist in einem Jahr gescheitert. Welcher Grund ist am wahrscheinlichsten? Wählen Sie einen.")}>
