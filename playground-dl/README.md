@@ -8,8 +8,7 @@ testing, adaptive learning), **Day 3** (Module 2, Day 1 of 2: learning psycholog
 `../CLAUDE.md` #1 to #50 and the two-route form of #30. Palette: the DL "Ocean" palette (#15).
 
 **Live site:** https://aion-dl.vercel.app (Day 1 at https://aion-dl.vercel.app/day/1/). Vercel project `aion-dl` of the account `attoyibi`; deployed from this folder with the CLI.
-It is not connected to GitHub yet, so a push does not deploy: run `vercel deploy --prod --yes` in this folder (Vercel detects Next.js and the static export; when the project is connected to the
-repository, set its Root Directory to `playground-dl`). **Days 2 and 3 are deployed; Days 4 to 6 are built, verified and pushed to GitHub, and not deployed yet.**
+A push to `main` of the GitHub repository `AION-HABMANN/aion-digital-learning` deploys it automatically (the project's Root Directory is `playground-dl`; confirmed 2026-10-15). Running `vercel deploy --prod` from inside this folder fails because of that Root Directory setting; deploy by pushing. **Days 2 and 3 are deployed; Days 4 to 6 are built, verified and pushed to GitHub, and not deployed yet.**
 
 The cases: **Day 1 · SkillUp GmbH** runs the learning platform LearnFast (40 of every 100 learners do not finish; €50,000, two months; Route 2 €120,000).
 **Day 2 · LearnPro**, a stagnating platform (€60,000, three months; Route 2 €200,000). **Day 3 · EduCore**, a platform with an overwhelm effect (€40,000, four weeks; Route 2 €150,000).
