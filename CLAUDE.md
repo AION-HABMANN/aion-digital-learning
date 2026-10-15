@@ -2204,3 +2204,26 @@ The user's standing instruction (2026-10-13), after the written feedback of Habm
 - **Language and layout.** Word documents are English only. The layout is the existing Ocean layout; Habmann has given no template.
 - **The sheet "Document use Day 1-8"** in the plan workbook shows, per UE and day, which document is used and how. Rebuild with `_tools/add_doc_use_sheet.py` (it replaces the sheet; the plan's three sheets are not touched).
 - **Rebuild order:** `python _tools/make_trainer.py`, then `python _tools/build_all.py`; copy the files into `_upload-to-drive` (Day-NN: Materi and Task; Trainer-only: the eight Trainer files).
+
+## 54. Story comics on the study cards: a "Read the comic" row replaces "Walk me through it" (reference: Day 1)
+
+The user's standing request (2026-10-15, first built on Day 1, after the same idea worked for the CS course, `aion-cs` rule #49): a card's material is easier to understand as a short
+picture story than as a diagram plus a walk-through. **It is now the standing standard for the DL course (user decision 2026-10-15):** every new DL day ships a comic on every study card from the start, and Days 2 to 16 get theirs when the user
+asks (until then they keep "Walk me through it"). **Day 1 is the reference** (`playground-dl/components/comic/`, `components/day1/comicScenes.tsx`, `data/day1/comics.ts`); copy from it, never from memory. It is a rule about the **website only** (#52); the Word documents keep their own detail.
+
+- **Not a new story: the card's own material told in pictures.** Each comic uses the people and the example company the card already uses (Day 1: Mia, Daniel, Lena, LearnLoop's managing
+  director) and the card's own figures, rules and words. Where the card had a "Walk me through it" story, the comic is that story drawn; where it had none (a static diagram, two tables), the comic tells
+  the card's idea in four or five panels. Nothing is invented that the card does not say, and everything invented for the example stays labelled as a Case assumption on screen (#16).
+- **Replaces the walk-through, one per card.** On Day 1 the `useStory` plan, the `<Story>` row and the spotlight classes were removed from A2, A3, A5 and B2, and the "Press “Walk me through it”" sentence in the
+  cards' "How to read the picture" now says to press “Read the comic”. The shared `Story` component stays in `components/materi/kit.tsx` for the days that still use it. The diagram's own controls, "The point" and
+  "What this shows" are unchanged (#20, #36).
+- **Where and what:** one quiet row at the top of the card's body ("▶ Read the comic · title · teaser · n panels, about 2 minutes"), opening a modal (`ComicButton`, `ComicModal.tsx`): the drawing, the speech in
+  HTML (wraps in both languages), a tag that names what the panel shows (labels carry the meaning, never colour alone), an always-visible "What this panel means" through `glossify` (#19), and an optional "Look at:" line.
+  Next / Back, step dots, ← → and Escape; focus moves in and back; the header and footer stay fixed so Next is always visible (check 390 px and a 450 px-high pane). The glossary panel (z 45) sits above the modal (z 44).
+- **Order of a comic:** the situation, the problem, the fix, and a last panel that states the card's rule in one sentence and names the task block that uses it (never an Optional block from a Core card, #40).
+- **Drawings:** pure SVG from `ComicKit.tsx` (`Person`, `Screen` mock windows, `Dots` for Low / Mid / High, `Check`, `Cross`), a 320 × 190 frame, hardcoded neutral greys with the site's blue only where the point needs it (#52, honest
+  drawings), one-string `<title>` and `aria-label` (#10), no sentences inside the SVG (only numerals, names and one-word labels through `tt`, with German money as `12.000 €`). A rating in a drawing is the same rating the card's diagram
+  prints (computed from, or copied once from, the same data).
+- **Data:** `data/dayN/comics.ts`, `bi({...}) as Record<MaterialId, Comic>`, both languages written by hand (#32); one `ART_DN` record mapping each panel's `art` key to its drawing.
+- **Coverage check before a day ships:** every card that has a "Walk me through it" or a picture-only explanation has a comic; each panel's drawing, speech and "means" agree; every figure equals the card's; both languages;
+  Escape, ← →, Next and Start over work; no horizontal scroll at 390 px; no card still says “Walk me through it” where the comic replaced it.

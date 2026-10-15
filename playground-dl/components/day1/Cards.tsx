@@ -1,6 +1,9 @@
 "use client";
 
 import { Bul } from "@/components/materi/kit";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D1 } from "@/components/day1/comicScenes";
+import { COMICS_D1 } from "@/data/day1/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { DecisionFrame, ExperienceToNumber, LessonScreen, SystemVsLearner, TensionExample, UxUiLayers, WeighExample } from "@/components/day1/diagrams";
 import { tt } from "@/lib/lang";
@@ -23,6 +26,7 @@ export function CardA1() {
         tt("On a learning platform a UX problem shows up as a learning problem: someone who cannot find, follow or finish a course does not learn.", "Auf einer Lernplattform zeigt sich ein UX-Problem als Lernproblem: Wer einen Kurs nicht findet, nicht verfolgen oder nicht abschließen kann, lernt nicht."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.A1} art={ART_D1} />
       <UxUiLayers />
       <Bul
         items={[
@@ -47,6 +51,7 @@ export function CardA2() {
         tt("Learners, teachers and organisations want different things. A measure that helps one can burden another, so name who it helps.", "Lernende, Lehrende und Organisationen wollen Verschiedenes. Eine Maßnahme, die einem hilft, kann einen anderen belasten, also benennen Sie, wem sie hilft."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.A2} art={ART_D1} />
       <SystemVsLearner />
       <DataTable
         caption={tt("Three kinds of users and what each needs", "Drei Arten von Nutzern und was jede braucht")}
@@ -74,6 +79,7 @@ export function CardA3() {
         tt("The drop-out figure is the consequence, not a cause and not an area: it is where the principles failing end up.", "Die Abbruchquote ist die Folge, keine Ursache und kein Bereich: Dort landet es, wenn die Prinzipien verletzt sind."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.A3} art={ART_D1} />
       <LessonScreen />
       <DataTable
         caption={tt("The three principles, the question each asks and how it typically fails", "Die drei Prinzipien, die Frage jedes einzelnen und wie es typischerweise scheitert")}
@@ -102,6 +108,7 @@ export function CardA4() {
         tt("Ask whether the learner studies alone or with a trainer before you choose: alone, the platform must supply the structure and feedback a trainer would.", "Fragen Sie, ob die Lernenden allein oder mit Trainer lernen, bevor Sie wählen: Allein muss die Plattform die Struktur und das Feedback liefern, die ein Trainer gäbe."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.A4} art={ART_D1} />
       <DataTable
         caption={tt("A classic app next to a learning platform", "Eine klassische App neben einer Lernplattform")}
         head={[tt("", ""), tt("Classic app (pay, book, buy)", "Klassische App (bezahlen, buchen, kaufen)"), tt("Learning platform", "Lernplattform")]}
@@ -139,6 +146,7 @@ export function CardA5() {
         tt("Put the chosen measures in order and say why the first goes first. Going over budget is allowed with a stated reason; saying nothing about what you do not know is not.", "Bringen Sie die gewählten Maßnahmen in eine Reihenfolge und sagen Sie, warum die erste zuerst kommt. Das Budget zu überschreiten ist mit genanntem Grund erlaubt; nichts darüber zu sagen, was Sie nicht wissen, ist es nicht."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.A5} art={ART_D1} />
       <WeighExample />
       <Bul
         items={[
@@ -165,6 +173,7 @@ export function CardB1() {
         tt("A number such as a drop-out rate counts who left, not why. Treat it as a symptom until you know the cause.", "Eine Zahl wie die Abbruchquote zählt, wer gegangen ist, nicht warum. Behandeln Sie sie als Symptom, bis Sie die Ursache kennen."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.B1} art={ART_D1} />
       <ExperienceToNumber />
       <DataTable
         caption={tt("Three numbers a learning business watches", "Drei Zahlen, die ein Lerngeschäft beobachtet")}
@@ -192,6 +201,7 @@ export function CardB2() {
         tt("Order decisions by what unlocks the others, usually a fix every learner meets (orientation) before an extra.", "Ordnen Sie Entscheidungen danach, was die anderen freischaltet, meist eine Lösung, auf die jede Lernende trifft (Orientierung), vor einem Extra."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.B2} art={ART_D1} />
       <TensionExample />
       <Bul
         items={[
@@ -217,6 +227,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name the thing you postpone.", "Nichts aufzugeben heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben."),
       ]}
     >
+      <ComicButton comic={COMICS_D1.B3} art={ART_D1} />
       <DecisionFrame />
       <Bul
         items={[

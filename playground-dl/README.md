@@ -288,3 +288,7 @@ In every generic day: Core blocks 1.1 and 2.2 read only the case brief, the prin
 ### Verification (2026-10-15)
 
 `tsc`; `verify:day1` to `verify:day7`; `verify:day8` to `verify:day16` (each checks the facts and keys, the model sort, the effort bands, the missing lists, the exports, the German coverage, the glossary, the references, the materials and the migration); production build and static export; every `/day/N/` page and route returns 200 on the deployed site.
+
+## Story comics (CLAUDE.md #54, Day 1, added 2026-10-15)
+
+Every Day 1 card (A1 to A5, B1 to B3) has a "Read the comic" row that opens a short picture story of the card's own material, with Next / Back and a plain-words meaning per panel, in EN and DE. It replaces "Walk me through it" on A2, A3, A5 and B2. Files: `components/comic/` (drawing kit and modal), `components/day1/comicScenes.tsx`, `data/day1/comics.ts`. Other days still use the walk-through until the user asks.

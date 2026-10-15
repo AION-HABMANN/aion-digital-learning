@@ -56,8 +56,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Block 1.1 und Block 2.2 beurteilen Sie Probleme und Maßnahmen aus Sicht der Lernenden. Der Test dieser Karte: Wessen Ziel dient jeder Bildschirm und jede Maßnahme, dem der Lernenden oder dem des Systems?",
     ),
     picture: t(
-      "Switch between “System's view” and “Learner's view”. The same course is shown twice: first sorted by the system's features, then by what a learner wants to do. Press “Walk me through it” for three short steps.",
-      "Wechseln Sie zwischen „Sicht des Systems“ und „Sicht der Lernenden“. Derselbe Kurs wird zweimal gezeigt: erst nach den Funktionen des Systems geordnet, dann nach dem, was Lernende tun wollen. Drücken Sie „Führen Sie mich durch“ für drei kurze Schritte.",
+      "Switch between “System's view” and “Learner's view”. The same course is shown twice: first sorted by the system's features, then by what a learner wants to do. Press “Read the comic” above the picture to see the card told as a short story.",
+      "Wechseln Sie zwischen „Sicht des Systems“ und „Sicht der Lernenden“. Derselbe Kurs wird zweimal gezeigt: erst nach den Funktionen des Systems geordnet, dann nach dem, was Lernende tun wollen. Drücken Sie über dem Bild „Comic lesen“, um die Karte als kurze Geschichte zu sehen.",
     ),
   },
   A3: {
@@ -70,8 +70,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Das sind die drei Bereiche, in die Block 1.1 die Befunde einsortiert: Orientierung, Verständnis, Motivation. Jeder Befund ist eines dieser Prinzipien, das fehlt oder verletzt ist.",
     ),
     picture: t(
-      "Under the lesson screen are three switches: Orientation, Light load, Feedback. Switch each on or off and watch the same lesson change. “What this shows” says what the learner experiences. Press “Walk me through it” for three short steps.",
-      "Unter dem Lektionsbildschirm sind drei Schalter: Orientierung, Leichte Last, Feedback. Schalten Sie jeden ein oder aus und sehen Sie, wie sich dieselbe Lektion verändert. „Was das zeigt“ sagt, was die Lernenden erleben. Drücken Sie „Führen Sie mich durch“ für drei kurze Schritte.",
+      "Under the lesson screen are three switches: Orientation, Light load, Feedback. Switch each on or off and watch the same lesson change. “What this shows” says what the learner experiences. Press “Read the comic” above the picture to see the card told as a short story.",
+      "Unter dem Lektionsbildschirm sind drei Schalter: Orientierung, Leichte Last, Feedback. Schalten Sie jeden ein oder aus und sehen Sie, wie sich dieselbe Lektion verändert. „Was das zeigt“ sagt, was die Lernenden erleben. Drücken Sie über dem Bild „Comic lesen“, um die Karte als kurze Geschichte zu sehen.",
     ),
   },
   A4: {
@@ -98,8 +98,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 2.2 verlangt, vier Maßnahmen für SkillUp zu wählen, sie so zu bewerten, zu ordnen und die fehlende Information zu nennen. Das Beispiel hier nutzt LearnLoop, ein anderes Unternehmen, damit die Antwort nicht verraten wird.",
     ),
     picture: t(
-      "The grid shows three measures for LearnLoop. Select any cell to read why it has that rating. Press “Walk me through it” for three short steps.",
-      "Das Raster zeigt drei Maßnahmen für LearnLoop. Wählen Sie eine Zelle, um zu lesen, warum sie diese Bewertung hat. Drücken Sie „Führen Sie mich durch“ für drei kurze Schritte.",
+      "The grid shows three measures for LearnLoop. Select any cell to read why it has that rating. Press “Read the comic” above the picture to see the card told as a short story.",
+      "Das Raster zeigt drei Maßnahmen für LearnLoop. Wählen Sie eine Zelle, um zu lesen, warum sie diese Bewertung hat. Drücken Sie über dem Bild „Comic lesen“, um die Karte als kurze Geschichte zu sehen.",
     ),
   },
   B1: {
@@ -126,8 +126,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 3.1 verlangt, drei strategische Entscheidungen bei begrenztem Budget zu wählen, während Wettbewerber sich bewegen. Diese Karte gibt Ihnen die Art, sie abzuwägen.",
     ),
     picture: t(
-      "The grid weighs three options for LearnLoop on user value, business value and risk. Select a cell to read the reason. Press “Walk me through it” for three short steps.",
-      "Das Raster wägt drei Optionen für LearnLoop nach Nutzerwert, Geschäftswert und Risiko ab. Wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für drei kurze Schritte.",
+      "The grid weighs three options for LearnLoop on user value, business value and risk. Select a cell to read the reason. Press “Read the comic” above the picture to see the card told as a short story.",
+      "Das Raster wägt drei Optionen für LearnLoop nach Nutzerwert, Geschäftswert und Risiko ab. Wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie über dem Bild „Comic lesen“, um die Karte als kurze Geschichte zu sehen.",
     ),
   },
   B3: {

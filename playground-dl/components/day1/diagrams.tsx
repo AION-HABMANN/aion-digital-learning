@@ -2,13 +2,12 @@
 
 import { useId, useState } from "react";
 import clsx from "clsx";
-import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
-import type { StoryPlan } from "@/components/materi/kit";
+import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { euro, tt } from "@/lib/lang";
 
 /**
  * Day 1 · the teaching diagrams. Every diagram is an inline SVG or plain HTML with a `viewBox` or fluid width, legible at 380 px. The
- * interactive ones (A2, A3, A5, B2) carry "The point", "Walk me through it" and an always-visible "What this shows" (CLAUDE.md #20, #36).
+ * interactive ones (A2, A3, A5, B2) carry "The point" and an always-visible "What this shows" (CLAUDE.md #20, #36).
  * Static ones (A1, B1, B3) need none. Example companies: LearnLoop (an online-course provider), never SkillUp, so no task is answered here.
  */
 
@@ -70,12 +69,6 @@ type ViewMode = "system" | "learner";
 
 export function SystemVsLearner() {
   const [view, setView] = useState<ViewMode>("system");
-  const story = useStory([
-    { title: tt("Mia has twenty minutes", "Mia hat zwanzig Minuten"), say: tt("Let us follow Mia, a project manager at a logistics firm. Her employer pays for LearnLoop, an online-course platform, and yesterday she finished lesson 2 of a course on negotiating with suppliers. Today she has twenty free minutes before a meeting, so she opens the platform to carry on with lesson 3. Look at the menu on the left: this is how the platform's builders organised it, and it is the first thing Mia sees.", "Begleiten wir Mia, Projektleiterin bei einem Logistikunternehmen. Ihr Arbeitgeber bezahlt LearnLoop, eine Plattform für Online-Kurse, und gestern hat sie Lektion 2 eines Kurses über Lieferantenverhandlungen beendet. Heute hat sie zwanzig freie Minuten vor einem Termin und öffnet deshalb die Plattform, um mit Lektion 3 weiterzumachen. Sehen Sie auf das Menü links: So haben die Entwickler der Plattform sie geordnet, und es ist das Erste, was Mia sieht."), look: tt("the menu on the left", "das Menü links"), apply: () => setView("system") },
-    { title: tt("Where is lesson 3?", "Wo ist Lektion 3?"), say: tt("What happens next shows the problem. The menu has eight entries: Courses, Library, Catalogue, Forum, Certificates, Reports, Admin and Settings, and none of them says “continue”. Mia tries Courses, then Library.\n\nAfter three minutes she still has not found lesson 3, so her twenty minutes are almost gone and she closes the tab. LearnLoop never finds out why she left, and that is why a problem like this stays hidden.", "Was dann passiert, zeigt das Problem. Das Menü hat acht Einträge: Kurse, Bibliothek, Katalog, Forum, Zertifikate, Berichte, Admin und Einstellungen, und keiner sagt „Weitermachen“. Mia probiert Kurse, dann Bibliothek.\n\nNach drei Minuten hat sie Lektion 3 immer noch nicht gefunden, ihre zwanzig Minuten sind fast um, und sie schließt den Tab. LearnLoop erfährt nie, warum sie gegangen ist, und deshalb bleibt ein solches Problem verborgen."), look: tt("the eight entries: which one would you press?", "die acht Einträge: Welchen würden Sie drücken?"), apply: () => setView("system") },
-    { title: tt("The same platform, built around Mia's goal", "Dieselbe Plattform, um Mias Ziel herum gebaut"), say: tt("Now look at the same platform, organised differently: by what a learner wants to do instead of by what the software can do. The first card says “Carry on where I stopped: lesson 3 of 8”, so one click takes Mia straight back to her lesson. None of the features changed. What changed is who does the work of finding the goal: before it was Mia, and now it is the platform.", "Sehen Sie jetzt dieselbe Plattform, anders geordnet: nach dem, was Lernende tun wollen, statt nach dem, was die Software kann. Die erste Karte sagt „Dort weitermachen, wo ich aufgehört habe: Lektion 3 von 8“, ein Klick bringt Mia also direkt zu ihrer Lektion zurück. Keine Funktion hat sich geändert. Geändert hat sich, wer die Arbeit des Findens ihres Ziels macht: vorher war es Mia, jetzt ist es die Plattform."), look: tt("the three cards, and the one with the coloured outline", "die drei Karten, und die mit dem farbigen Rahmen"), apply: () => setView("learner") },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So when you judge any screen, ask whose goal it serves: the learner's or the system's. You can now switch between the two views yourself and watch the sentence under the picture change with them. You will use this same question again in Blocks 1.1 and 2.2.", "Wenn Sie also einen Bildschirm beurteilen, fragen Sie, wessen Ziel er dient: dem der Lernenden oder dem des Systems. Sie können jetzt selbst zwischen den beiden Sichten wechseln und beobachten, wie sich der Satz unter dem Bild mitverändert. Dieselbe Frage nutzen Sie in den Blöcken 1.1 und 2.2 wieder."), apply: () => setView("learner") },
-  ] satisfies StoryPlan[]);
   const features = [tt("Courses", "Kurse"), tt("Library", "Bibliothek"), tt("Catalogue", "Katalog"), tt("Forum", "Forum"), tt("Certificates", "Zertifikate"), tt("Reports", "Berichte"), tt("Admin", "Admin"), tt("Settings", "Einstellungen")];
   const goals = [
     [tt("Carry on where I stopped", "Dort weitermachen, wo ich aufgehört habe"), tt("Lesson 3 of 8 · UX basics", "Lektion 3 von 8 · UX-Grundlagen")],
@@ -83,14 +76,12 @@ export function SystemVsLearner() {
     [tt("Show my employer I finished", "Meinem Arbeitgeber zeigen, dass ich fertig bin"), tt("Your certificates", "Ihre Zertifikate")],
   ];
   const pick = (v: ViewMode) => {
-    story.leave();
     setView(v);
   };
   return (
     <Diagram label={tt("One platform, two ways to organise it · Exploratory", "Eine Plattform, zwei Arten, sie zu ordnen · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("A platform organised around its features makes the learner do the work of finding their goal. One organised around goals does that work for them. Ask of every screen: whose goal does it serve?", "Eine Plattform, die um ihre Funktionen herum organisiert ist, lässt die Lernenden die Arbeit des Findens ihres Ziels selbst machen. Eine, die um Ziele herum organisiert ist, nimmt ihnen diese Arbeit ab. Fragen Sie bei jedem Bildschirm: Wessen Ziel dient er?")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("View", "Sicht")} className="flex flex-wrap gap-2">
           {(["system", "learner"] as const).map((v) => (
             <button key={v} type="button" aria-pressed={view === v} onClick={() => pick(v)} className={clsx("btn btn-sm min-h-[40px] border", view === v ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
@@ -104,7 +95,7 @@ export function SystemVsLearner() {
           </div>
           {view === "system" ? (
             <div className="grid gap-3 p-3 sm:grid-cols-[11rem_1fr]">
-              <ul className={clsx("space-y-1 rounded-lg border border-line bg-canvas p-2 text-caption", story.step === 0 && "anim-pulse ring-2 ring-gold")}>
+              <ul className="space-y-1 rounded-lg border border-line bg-canvas p-2 text-caption">
                 {features.map((f) => (
                   <li key={f} className="rounded px-2 py-1 text-ink">{f}</li>
                 ))}
@@ -112,7 +103,7 @@ export function SystemVsLearner() {
               <p className="p-2 text-caption text-ash">{tt("Select an entry on the left. (You came to carry on with a lesson. Which entry is it?)", "Wählen Sie links einen Eintrag. (Sie wollten mit einer Lektion weitermachen. Welcher Eintrag ist es?)")}</p>
             </div>
           ) : (
-            <div className={clsx("grid gap-3 p-3 sm:grid-cols-3", story.step === 1 && "anim-pulse")}>
+            <div className="grid gap-3 p-3 sm:grid-cols-3">
               {goals.map(([a, b], i) => (
                 <div key={i} className={clsx("rounded-lg border p-3", i === 0 ? "border-accent bg-accentSoft" : "border-line bg-canvas")}>
                   <p className="text-body font-semibold text-ink">{a}</p>
@@ -139,22 +130,14 @@ export function LessonScreen() {
   const [light, setLight] = useState(false);
   const [feedback, setFeedback] = useState(false);
   const set = (f: (v: boolean) => void, v: boolean) => {
-    story.leave();
     f(v);
   };
-  const story = useStory([
-    { title: tt("Daniel opens lesson 3", "Daniel öffnet Lektion 3"), say: tt("Let us follow Daniel, who works in procurement and is taking an online course on contract basics. It is evening and he has had a long day, but he wants to finish lesson 3. When the lesson opens, he sees one block of about 500 words, nothing that tells him where this lesson sits in the course, and nothing that tells him how he is doing so far.\n\nImagine being Daniel: how long would you keep reading?", "Begleiten wir Daniel, der im Einkauf arbeitet und einen Online-Kurs über Vertragsgrundlagen belegt. Es ist Abend und er hat einen langen Tag hinter sich, aber er will Lektion 3 abschließen. Als sich die Lektion öffnet, sieht er einen Textblock von etwa 500 Wörtern, nichts, das ihm sagt, wo diese Lektion im Kurs steht, und nichts, das ihm sagt, wie er bisher vorankommt.\n\nStellen Sie sich vor, Sie wären Daniel: Wie lange würden Sie weiterlesen?"), look: tt("the whole screen: all three switches are off", "der ganze Bildschirm: alle drei Schalter sind aus"), apply: () => { setOrient(false); setLight(false); setFeedback(false); } },
-    { title: tt("First fix: where am I?", "Erste Lösung: Wo bin ich?"), say: tt("Let us improve the lesson in three steps, and each step answers one question. The first question is “where am I?”. A line at the top now reads “Module 2 › Lesson 3 of 8”, and a “Next lesson” button shows what comes after. Daniel knows where he is, but the text is still a wall, and knowing where you are does not make a hard text easy. So he is still struggling.", "Verbessern wir die Lektion in drei Schritten, und jeder Schritt beantwortet eine Frage. Die erste Frage lautet „Wo bin ich?“. Oben steht jetzt „Modul 2 › Lektion 3 von 8“, und ein Button „Nächste Lektion“ zeigt, was danach kommt. Daniel weiß, wo er ist, aber der Text ist immer noch eine Wand, und zu wissen, wo man ist, macht einen schweren Text nicht leicht. Er tut sich also immer noch schwer."), look: tt("the top bar of the lesson", "die obere Leiste der Lektion"), apply: () => { setOrient(true); setLight(false); setFeedback(false); } },
-    { title: tt("Second fix: can I follow this?", "Zweite Lösung: Kann ich folgen?"), say: tt("The second question is “can I follow this?”. The same lesson now has a heading, three short paragraphs, and the new word “wireframe” explained right where it appears. Because of this, Daniel can scan the page and find the main point in a few seconds. He reads instead of digging, so his attention goes into the lesson and not into decoding the screen.", "Die zweite Frage lautet „Kann ich folgen?“. Dieselbe Lektion hat jetzt eine Überschrift, drei kurze Absätze und das neue Wort „Wireframe“ direkt dort erklärt, wo es vorkommt. Deshalb kann Daniel die Seite überfliegen und die Hauptaussage in wenigen Sekunden finden. Er liest, statt zu graben, und seine Aufmerksamkeit fließt so in die Lektion und nicht ins Entziffern des Bildschirms."), look: tt("the text in the middle", "der Text in der Mitte"), apply: () => { setOrient(true); setLight(true); setFeedback(false); } },
-    { title: tt("Third fix: am I getting somewhere?", "Dritte Lösung: Komme ich voran?"), say: tt("The third question is “am I getting somewhere?”. At the bottom Daniel now sees “3 of 8 lessons done”, and after the quiz he reads “4 of 5 correct. Review question 2.” He can see that he is progressing, and he knows what to do about the question he missed. Each switch answered a different question, so you can now switch them off one at a time and watch which problem comes back.", "Die dritte Frage lautet „Komme ich voran?“. Unten sieht Daniel jetzt „3 von 8 Lektionen erledigt“, und nach dem Quiz liest er „4 von 5 richtig. Prüfen Sie Frage 2 noch einmal.“ Er sieht, dass er vorankommt, und er weiß, was er mit der verfehlten Frage tun kann. Jeder Schalter hat eine andere Frage beantwortet, also können Sie sie jetzt einzeln ausschalten und beobachten, welches Problem zurückkommt."), look: tt("the bottom bar: progress and the quiz result", "die untere Leiste: Fortschritt und Quizergebnis"), apply: () => { setOrient(true); setLight(true); setFeedback(true); } },
-  ] satisfies StoryPlan[]);
   const n = [orient, light, feedback].filter(Boolean).length;
   const lines = (k: number, w: number[]) => Array.from({ length: k }, (_, i) => <span key={i} className="block h-2 rounded bg-line" style={{ width: `${w[i % w.length]}%` }} />);
   return (
     <Diagram label={tt("A lesson screen and its three principles · Exploratory", "Ein Lektionsbildschirm und seine drei Prinzipien · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("A learning screen has three jobs: show where you are, ask for no needless effort, and show that you are getting somewhere. When one is missing, learners stop for a reason you can name.", "Ein Lernbildschirm hat drei Aufgaben: zeigen, wo man ist, keine unnötige Mühe verlangen und zeigen, dass man vorankommt. Fehlt eine, hören Lernende aus einem Grund auf, den Sie benennen können.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="group" aria-label={tt("Principles", "Prinzipien")} className="flex flex-wrap gap-2">
           {[
             [tt("Orientation", "Orientierung"), orient, setOrient],
@@ -167,7 +150,7 @@ export function LessonScreen() {
           ))}
         </div>
         <div className="overflow-hidden rounded-xl border-2 border-ash bg-paper" aria-label={tt("A drawn lesson screen", "Ein gezeichneter Lektionsbildschirm")}>
-          <div className={clsx("flex flex-wrap items-center justify-between gap-2 border-b border-line bg-mist px-3 py-2 text-caption", story.step === 1 && "anim-pulse")}>
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-mist px-3 py-2 text-caption">
             {orient ? (
               <>
                 <span className="text-ink">{tt("UX basics › Module 2 › Lesson 3 of 8", "UX-Grundlagen › Modul 2 › Lektion 3 von 8")}</span>
@@ -198,7 +181,7 @@ export function LessonScreen() {
               </div>
             )}
           </div>
-          <div className={clsx("border-t border-line bg-mist px-3 py-2 text-caption", story.step === 1 && "anim-pulse")}>
+          <div className="border-t border-line bg-mist px-3 py-2 text-caption">
             {feedback ? (
               <div className="flex flex-wrap items-center gap-3">
                 <span className="text-ink">{tt("3 of 8 lessons done", "3 von 8 Lektionen erledigt")}</span>
@@ -295,12 +278,6 @@ export function OptionGrid({ label, rows, cols, selected, onSelect, caption }: {
 
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
-  const story = useStory([
-    { title: tt("Idea one: a guided first week", "Idee eins: eine geführte erste Woche"), say: tt("Let us look at LearnLoop, an online-course provider. It has a problem: 30 of every 100 new learners leave in the first week. To improve this, LearnLoop has €30,000 and six weeks, and three ideas on the table.\n\nWe will rate each idea on three questions: how much it helps the learner (user impact), what it costs (effort), and what could go wrong (risk). The first idea is a guided first week that tells every newcomer what to do first. It costs €7,000, and the rule says that anything under €10,000 has Low effort, so its effort is Low.", "Sehen wir uns LearnLoop an, einen Anbieter von Online-Kursen. Das Unternehmen hat ein Problem: 30 von je 100 neuen Lernenden gehen in der ersten Woche. Um das zu verbessern, hat LearnLoop 30.000 € und sechs Wochen und drei Ideen auf dem Tisch.\n\nWir bewerten jede Idee mit drei Fragen: wie sehr sie den Lernenden hilft (Nutzerwirkung), was sie kostet (Aufwand) und was schiefgehen kann (Risiko). Die erste Idee ist eine geführte erste Woche, die jeder Neuen sagt, was sie zuerst tun soll. Sie kostet 7.000 €, und die Regel sagt, dass alles unter 10.000 € niedrigen Aufwand hat, ihr Aufwand ist also Niedrig."), look: tt("the top row, effort", "die obere Zeile, Aufwand"), apply: () => setSel("x1.effort") },
-    { title: tt("Does it help? Could it backfire?", "Hilft sie? Kann sie nach hinten losgehen?"), say: tt("Now the other two questions for the same idea. Does it help? Week one is exactly where learners leave, and with a guided week a newcomer finally knows where to start, so the user impact is High. Could it go wrong? It adds a path and takes nothing away, and LearnLoop can switch it off again, so the risk is Low. Put together, this is a cheap, direct and safe measure.", "Nun die beiden anderen Fragen für dieselbe Idee. Hilft sie? Gerade in Woche eins gehen Lernende, und mit einer geführten Woche weiß eine Neue endlich, wo sie anfangen soll, die Nutzerwirkung ist also Hoch. Kann sie schiefgehen? Sie fügt einen Pfad hinzu und nimmt nichts weg, und LearnLoop kann sie wieder abschalten, das Risiko ist also Niedrig. Zusammen ergibt das eine günstige, direkte und sichere Maßnahme."), look: tt("the top row, user impact and risk", "die obere Zeile, Nutzerwirkung und Risiko"), apply: () => setSel("x1.risk") },
-    { title: tt("Idea two: a tempting leaderboard", "Idee zwei: eine verlockende Rangliste"), say: tt("The second idea is a leaderboard, a ranking of learners by activity. It costs €12,000, which is between €10,000 and €15,000, so the effort is Mid. It sounds exciting, but a ranking mostly rewards learners who are already active, and a newcomer who is lost gains nothing from it, so its user impact is Low. It can even backfire: learners at the bottom of a ranking may leave sooner, and they are the ones LearnLoop most wants to keep, so the risk is High.", "Die zweite Idee ist eine Rangliste, die Lernende nach Aktivität ordnet. Sie kostet 12.000 €, das liegt zwischen 10.000 € und 15.000 €, der Aufwand ist also Mittel. Sie klingt aufregend, aber eine Rangliste belohnt vor allem Lernende, die ohnehin aktiv sind, und eine verirrte Neue gewinnt nichts davon, die Nutzerwirkung ist also Niedrig. Sie kann sogar nach hinten losgehen: Lernende am Ende einer Rangliste gehen vielleicht früher, und genau sie will LearnLoop am meisten halten, das Risiko ist also Hoch."), look: tt("the middle row, risk", "die mittlere Zeile, Risiko"), apply: () => setSel("x2.risk") },
-    { title: tt("Idea three, and what is still unknown", "Idee drei, und was noch unbekannt ist"), say: tt("The third idea is to rewrite the whole course catalogue. It costs €27,000, so the effort is High, and it would use almost the whole budget. Most of the benefit would also come after the six weeks, while learners are leaving in week one.\n\nLearnLoop also does not know yet whether newcomers leave because they lack direction or because they lack time, and it should find that out before it commits the money. To choose well, rate every measure on the same three questions, say what you do not know, and then decide. Select any cell in the table to read its reason.", "Die dritte Idee ist, den ganzen Kurskatalog neu zu schreiben. Sie kostet 27.000 €, der Aufwand ist also Hoch, und sie würde fast das ganze Budget verbrauchen. Der größte Nutzen käme außerdem nach den sechs Wochen, während die Lernenden in Woche eins gehen.\n\nDazu weiß LearnLoop noch nicht, ob Neue gehen, weil ihnen Orientierung fehlt oder weil ihnen Zeit fehlt, und das sollte es herausfinden, bevor es das Geld bindet. Um gut zu wählen, bewerten Sie jede Maßnahme mit denselben drei Fragen, sagen Sie, was Sie nicht wissen, und entscheiden Sie dann. Wählen Sie eine Zelle in der Tabelle, um ihren Grund zu lesen."), look: tt("the bottom row, effort and user impact", "die untere Zeile, Aufwand und Nutzerwirkung"), apply: () => setSel("x3.effort") },
-  ] satisfies StoryPlan[]);
   const rows: GridRow[] = [
     { id: "x1", name: tt("Guided first week", "Geführte erste Woche"), sub: euro(7000), cells: {
       impact: { level: 3, reason: tt("Week one is where learners leave, and this tells every new learner exactly what to do first.", "In Woche eins gehen Lernende, und dies sagt jeder neuen Lernenden genau, was sie zuerst tun soll.") },
@@ -327,8 +304,7 @@ export function WeighExample() {
     <Diagram label={tt("A worked example: LearnLoop weighs three measures · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Maßnahmen ab · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("To choose under a budget, ask every measure the same three questions: how much does it help the learner, what does it cost, what could go wrong? Then say what you still do not know.", "Um unter einem Budget zu wählen, stellen Sie jeder Maßnahme dieselben drei Fragen: Wie sehr hilft sie den Lernenden, was kostet sie, was kann schiefgehen? Dann sagen Sie, was Sie noch nicht wissen.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
-        <OptionGrid label={tt("LearnLoop · budget €30,000, six weeks", "LearnLoop · Budget 30.000 €, sechs Wochen")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { story.leave(); setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · budget €30,000, six weeks", "LearnLoop · Budget 30.000 €, sechs Wochen")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => setSel(k)} />
         <p className="rounded-md border border-line bg-canvas px-3 py-2 text-caption text-ink">
           <span className="smallcaps mr-1.5">{tt("Still unknown", "Noch unbekannt")}</span>
           {tt("Whether week-one leavers lack direction or lack time. LearnLoop would run five short interviews before committing the whole budget.", "Ob die Abbrecher der ersten Woche Orientierung oder Zeit vermissen. LearnLoop würde fünf kurze Interviews führen, bevor es das ganze Budget bindet.")}
@@ -382,12 +358,6 @@ export function ExperienceToNumber() {
 
 export function TensionExample() {
   const [sel, setSel] = useState<string | null>(null);
-  const story = useStory([
-    { title: tt("The managing director wants growth", "Die Geschäftsführerin will Wachstum"), say: tt("Let us look at LearnLoop again, this time at management level. The managing director wants the company to grow this year. At the same time, satisfaction scores are falling and the budget is limited. In the meeting three ideas come up, and each one serves a different goal. The first is more marketing. It serves the growth goal, because it brings new sign-ups quickly.", "Sehen wir uns LearnLoop noch einmal an, diesmal auf Managementebene. Die Geschäftsführerin will, dass das Unternehmen dieses Jahr wächst. Gleichzeitig sinken die Zufriedenheitswerte, und das Budget ist begrenzt. In der Besprechung kommen drei Ideen auf, und jede dient einem anderen Ziel. Die erste ist mehr Marketing. Sie dient dem Wachstumsziel, weil sie schnell neue Anmeldungen bringt."), look: tt("the bottom row, business value", "die untere Zeile, Geschäftswert"), apply: () => setSel("y3.business") },
-    { title: tt("The catch", "Der Haken"), say: tt("There is a catch, though. The new learners arrive, meet the same confusing platform, and many of them leave again. So part of the money is lost, and nothing has become better for the learners who were already there. In other words, the growth goal can only be reached if the user goal is reached as well.", "Es gibt aber einen Haken. Die neuen Lernenden kommen, treffen auf dieselbe verwirrende Plattform, und viele von ihnen gehen wieder. Ein Teil des Geldes ist also verloren, und für die Lernenden, die schon da waren, ist nichts besser geworden. Mit anderen Worten: Das Wachstumsziel lässt sich nur erreichen, wenn auch das Nutzerziel erreicht wird."), look: tt("the bottom row, risk", "die untere Zeile, Risiko"), apply: () => setSel("y3.risk") },
-    { title: tt("An option that serves both", "Eine Option, die beiden dient"), say: tt("The user team suggests a different idea: simplify the navigation. It is a small change and it can be undone. Learners find their course more easily, and as a result more of them finish, which also helps the business, only more slowly. Compare this with the third idea, adding more courses. It sounds like added value, but a longer catalogue makes finding the right course harder, so it serves a business goal while hurting the user goal.", "Das Nutzerteam schlägt eine andere Idee vor: die Navigation vereinfachen. Das ist eine kleine Änderung, und sie lässt sich zurücknehmen. Lernende finden ihren Kurs leichter, und dadurch schließen mehr von ihnen ab, was auch dem Geschäft hilft, nur langsamer. Vergleichen Sie das mit der dritten Idee, mehr Kurse anzubieten. Sie klingt nach Mehrwert, aber ein längerer Katalog macht das Finden des richtigen Kurses schwerer, sie dient also einem Geschäftsziel und schadet dem Nutzerziel."), look: tt("the middle row, user value; then the top row", "die mittlere Zeile, Nutzerwert; dann die obere Zeile"), apply: () => setSel("y2.user") },
-    { title: tt("How to decide", "Wie man entscheidet"), say: tt("How should management decide? A good decision first names the conflict in one sentence, for example quick growth against a platform that learners can actually use. Then it says what each side gets and what it loses, and only then does it decide. When the options are close, it is wise to prefer the one that can be undone cheaply while you learn more. Select any cell in the table to read the reason for its rating.", "Wie soll das Management entscheiden? Eine gute Entscheidung benennt zuerst den Konflikt in einem Satz, zum Beispiel schnelles Wachstum gegen eine Plattform, die Lernende wirklich nutzen können. Dann sagt sie, was jede Seite bekommt und was sie verliert, und erst danach entscheidet sie. Liegen die Optionen nah beieinander, ist es klug, die zu bevorzugen, die sich günstig zurücknehmen lässt, während man mehr lernt. Wählen Sie eine Zelle in der Tabelle, um den Grund ihrer Bewertung zu lesen."), apply: () => setSel("y1.risk") },
-  ] satisfies StoryPlan[]);
   const rows: GridRow[] = [
     { id: "y1", name: tt("Add more courses", "Mehr Kurse hinzufügen"), sub: tt("a business goal", "ein Geschäftsziel"), cells: {
       user: { level: 1, reason: tt("More to choose from makes finding the right course harder, not easier.", "Mehr Auswahl macht das Finden des richtigen Kurses schwerer, nicht leichter.") },
@@ -414,8 +384,7 @@ export function TensionExample() {
     <Diagram label={tt("A worked example: LearnLoop weighs three options against conflicting goals · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Optionen gegen Zielkonflikte ab · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("In a UX decision the goals pull in different directions. A good decision names the conflict, says what each side gets and loses, and keeps what cannot be undone to a minimum.", "Bei einer UX-Entscheidung ziehen die Ziele in verschiedene Richtungen. Eine gute Entscheidung benennt den Konflikt, sagt, was jede Seite bekommt und verliert, und hält das, was sich nicht zurücknehmen lässt, gering.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
-        <OptionGrid label={tt("LearnLoop · limited budget, falling satisfaction, management wants growth", "LearnLoop · begrenztes Budget, sinkende Zufriedenheit, das Management will Wachstum")} caption={tt("Three options for LearnLoop (Case assumption, example company)", "Drei Optionen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { story.leave(); setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · limited budget, falling satisfaction, management wants growth", "LearnLoop · begrenztes Budget, sinkende Zufriedenheit, das Management will Wachstum")} caption={tt("Three options for LearnLoop (Case assumption, example company)", "Drei Optionen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => setSel(k)} />
       </div>
     </Diagram>
   );
