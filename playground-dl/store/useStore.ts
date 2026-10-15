@@ -30,7 +30,7 @@ import type { RouteNo } from "@/data/course";
  * and is covered by the deep `merge` (CLAUDE.md #9).
  */
 export const STORAGE_KEY = "dl-v1";
-export const PERSIST_VERSION = 5;
+export const PERSIST_VERSION = 6;
 const HISTORY_CAP = 100;
 
 /** 0 means not chosen yet; 1 Low, 2 Mid, 3 High. */
@@ -73,6 +73,10 @@ export type D1R1 = {
   effort: Record<string, Score>;
   risk: Record<string, Score>;
   reasons: Record<string, string>;
+  /** Per measure: the problems of the case it fixes (ProblemIds, or "none") and the two sentences of "Say it in one sentence" (lib/day1/reason.ts). `reasons` holds the composed text once complete. */
+  fixes: Record<string, string[]>;
+  slotA: Record<string, string>;
+  slotB: Record<string, string>;
   effortFlags: string[];
   effortClue: boolean;
   effortResult: { holds: number; rated: number } | null;
@@ -178,6 +182,9 @@ export const emptyD1R1 = (): D1R1 => ({
   effort: {},
   risk: {},
   reasons: {},
+  fixes: {},
+  slotA: {},
+  slotB: {},
   effortFlags: [],
   effortClue: false,
   effortResult: null,
@@ -258,7 +265,7 @@ export function mergeDefaults<T>(base: T, saved: unknown): T {
 
 /**
  * The migration of a saved blob to the current shape. Pure, so it can be tested without a browser. Version 1 held Day 1 only; version 2
- * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6); version 4 adds Day 7 (d7); version 5 adds the generic days (dg). A blob that lacks them gets empty ones here, and the deep merge fills any single field.
+ * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6); version 4 adds Day 7 (d7); version 5 adds the generic days (dg); version 6 adds Day 1 Block 2.2's `fixes`, `slotA`, `slotB` (the deep merge fills them). A blob that lacks them gets empty ones here, and the deep merge fills any single field.
  */
 export function migratePersisted(persisted: unknown, from: number): Persisted {
   const p = (persisted ?? {}) as Partial<Persisted>;

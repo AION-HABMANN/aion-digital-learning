@@ -1,3 +1,4 @@
+import { SENTENCE_PER_MEASURE, fixList } from "@/lib/day1/reason";
 import { MATERIALS } from "@/data/day1/materials";
 import { PICK_MEASURES } from "@/data/day1/case";
 import { FINDING_IDS } from "@/data/day1/case";
@@ -35,7 +36,7 @@ export function taskBlocks(p: Persisted): Record<TaskBlockId, boolean> {
   const { r1, r2 } = p.d1;
   const b22 =
     r1.chosen.length === PICK_MEASURES &&
-    r1.chosen.every((id) => !!r1.impact[id] && !!r1.risk[id] && len(r1.reasons[id] ?? "") >= MIN_REASON) &&
+    r1.chosen.every((id) => fixList(r1.fixes[id]).length > 0 && !!r1.impact[id] && !!r1.risk[id] && (!SENTENCE_PER_MEASURE || len(r1.reasons[id] ?? "") >= MIN_REASON)) &&
     r1.order.length === PICK_MEASURES &&
     len(r1.orderWhy) >= MIN_LINE &&
     len(r1.missingInfo) >= MIN_LINE;

@@ -15,7 +15,11 @@ export type HelpRef = { label: string; value: string; target: string; before?: (
  */
 export function WritingHelp({ id, steps, refs, refsTitle, label }: { id: string; steps: string[]; refs?: HelpRef[]; refsTitle?: string; label?: string }) {
   return (
-    <RevealHint id={id} label={label ?? tt("Show what to look at", "Zeigen, worauf Sie schauen")} title={tt("What to look at · and how to build the answer", "Worauf Sie schauen · und wie Sie die Antwort aufbauen")}>
+    <RevealHint
+      id={id}
+      label={label ?? (refs?.length ? tt("Show what to look at", "Zeigen, worauf Sie schauen") : tt("Show how to build the answer", "Zeigen, wie Sie die Antwort aufbauen"))}
+      title={refs?.length ? tt("What to look at · and how to build the answer", "Worauf Sie schauen · und wie Sie die Antwort aufbauen") : tt("How to build the answer", "Wie Sie die Antwort aufbauen")}
+    >
       <div className="space-y-2 text-caption text-ink">
         {refs && refs.length > 0 && (
           <div>

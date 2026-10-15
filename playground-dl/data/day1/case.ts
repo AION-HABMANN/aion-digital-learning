@@ -187,6 +187,26 @@ export const MEASURE_AREA = bi({
   evidence: t("Gathers evidence", "Sammelt Belege"),
 });
 
+/**
+ * The problems the case brief itself names, each under the area it hurts (CLAUDE.md #45, #46). Block 2.2 asks which of them a measure fixes;
+ * the quotes are the brief's own words, nothing is added. `none` stands for a measure that fixes none of them.
+ */
+export type ProblemId = "p1" | "p2" | "p3" | "p4" | "p5";
+export const PROBLEM_IDS: ProblemId[] = ["p1", "p2", "p3", "p4", "p5"];
+export const NO_PROBLEM = "none";
+type ProblemDef = { id: ProblemId; area: AreaId; quote: Tx };
+const PROBLEMS_DEF: ProblemDef[] = [
+  { id: "p1", area: "orientation", quote: t("there is no clear learning path", "es gibt keinen klaren Lernpfad") },
+  { id: "p2", area: "orientation", quote: t("the dashboard is cluttered", "das Dashboard ist unübersichtlich") },
+  { id: "p3", area: "understanding", quote: t("the content is hard to understand", "der Inhalt ist schwer verständlich") },
+  { id: "p4", area: "understanding", quote: t("the lessons are long texts without structure", "die Lektionen sind lange Texte ohne Struktur") },
+  { id: "p5", area: "motivation", quote: t("there is no progress bar", "es gibt keine Fortschrittsleiste") },
+];
+export const PROBLEMS = bi(PROBLEMS_DEF);
+export const PROBLEM_BY_ID = Object.fromEntries(PROBLEMS.map((p) => [p.id, p])) as Record<ProblemId, (typeof PROBLEMS)[number]>;
+/** The problems each reference measure fixes, one or more (the key; a different, well-reasoned pick also exports, #38). */
+export const MODEL_FIX: Record<string, ProblemId[]> = { m1: ["p1", "p2"], m2: ["p3", "p4"], m3: ["p5"], m4: ["p3", "p4"] };
+
 /** Effort follows the printed cost (a rule taught in Materi A5): under €10,000 Low, €10,000 to €15,000 Mid, above that High. */
 export const EFFORT_LOW_MAX = 9999;
 export const EFFORT_MID_MAX = 15000;
@@ -215,6 +235,11 @@ export const riskText = (s: number) =>
       : s === 3
         ? tt("We cannot undo it and much is at stake", "Wir können sie nicht rückgängig machen und es steht viel auf dem Spiel")
         : "—";
+/** Short forms of the impact and risk sentences, for the chips of the priority list. */
+export const impactShort = (s: number) =>
+  s === 3 ? tt("removes a main cause", "beseitigt eine Hauptursache") : s === 2 ? tt("helps part of them", "hilft einem Teil") : s === 1 ? tt("touches a symptom only", "berührt nur ein Symptom") : tt("not rated yet", "noch nicht bewertet");
+export const riskShort = (s: number) =>
+  s === 1 ? tt("can be switched off", "lässt sich abschalten") : s === 2 ? tt("money lost if it fails", "Geld weg, wenn es scheitert") : s === 3 ? tt("cannot be undone", "nicht rückgängig zu machen") : tt("not rated yet", "noch nicht bewertet");
 export const budgetShare = (cost: number) => Math.round((cost / BUDGET) * 100);
 export const timeShare = (weeks: number) => Math.round((weeks / WEEKS_LIMIT) * 100);
 const shareWord = (p: number) => (p < 25 ? tt("a small part", "ein kleiner Teil") : p <= 50 ? tt("a large part", "ein großer Teil") : tt("most", "das meiste"));

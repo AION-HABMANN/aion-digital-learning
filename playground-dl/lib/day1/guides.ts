@@ -2,6 +2,7 @@ import type { MeasureId } from "@/data/day1/case";
 import { KEY_D1_R1, KEY_D1_R2 } from "@/lib/day1/mentorKey";
 import type { MentorGuide } from "@/lib/mentorGuide";
 import { tt } from "@/lib/lang";
+import { reasonText } from "@/lib/day1/reason";
 
 /**
  * Worked answers for every free-text question of Day 1 (CLAUDE.md #23). `answer` is the real model text the mentor sees after the passcode,
@@ -63,7 +64,7 @@ export function reasonGuide(id: MeasureId): MentorGuide {
   const r = R1();
   return {
     title: `2.2 · Why this measure gets its ratings (${id})`,
-    answer: r.reasons?.[id] ?? "",
+    answer: reasonText({ fixes: r.fixes ?? {}, slotA: r.slotA ?? {}, slotB: r.slotB ?? {}, reasons: r.reasons ?? {} }, id),
     example: tt(
       "A weekly study planner at LearnLoop costs €6,000, a small part of the budget. It answers the finding that learners do not know when to study, and the risk is small because it can be switched off.",
       "Ein wöchentlicher Lernplaner bei LearnLoop kostet 6.000 €, ein kleiner Teil des Budgets. Er beantwortet den Befund, dass Lernende nicht wissen, wann sie lernen sollen, und das Risiko ist klein, weil man ihn abschalten kann.",

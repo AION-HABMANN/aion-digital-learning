@@ -1,4 +1,4 @@
-import { AREAS, AREA_IDS, CAUSES, CAUSE_MODEL, CLAIMS, CLAIM_TRUTH, FINDINGS, FINDING_AREA, MEASURES, MODEL_MEASURES, MODEL_RISK, MODEL_IMPACT, BUDGET, WEEKS_LIMIT, budgetShare, impactText, riskText, totalCost } from "@/data/day1/case";
+import { AREAS, AREA_IDS, CAUSES, CAUSE_MODEL, CLAIMS, CLAIM_TRUTH, FINDINGS, FINDING_AREA, MEASURES, MODEL_MEASURES, MODEL_RISK, MODEL_IMPACT, MODEL_FIX, PROBLEM_BY_ID, BUDGET, WEEKS_LIMIT, budgetShare, impactText, riskText, totalCost } from "@/data/day1/case";
 import { DECISIONS, MODEL_DECISIONS, MODEL_EVIDENCE, MODEL_OWNER, EVIDENCE, OWNERS, RISKS, MODEL_RISK_PICK } from "@/data/day1/route2";
 import type { AnswerKeyBlock } from "@/lib/answerKey";
 import { euro } from "@/lib/lang";
@@ -47,7 +47,7 @@ export function measureKey(): AnswerKeyBlock {
     options: MEASURES.map((m) => {
       const model = MODEL_MEASURES.includes(m.id);
       const why = model
-        ? `Answers a printed finding (${m.area}). It uses ${use(m.cost, m.weeks)} (${euro(m.cost)}). Reference sentences: impact “${impactText(MODEL_IMPACT[m.id])}”, risk “${riskText(MODEL_RISK[m.id])}”.`
+        ? `Answers a printed finding (${m.area}). It uses ${use(m.cost, m.weeks)} (${euro(m.cost)}). Reference problems it fixes: ${MODEL_FIX[m.id].map((p) => `“${PROBLEM_BY_ID[p].quote}”`).join(" and ")}. Reference sentences: impact “${impactText(MODEL_IMPACT[m.id])}”, risk “${riskText(MODEL_RISK[m.id])}”.`
         : m.id === "m5"
           ? `Rejected in the plan's own logic: points and badges are extrinsic and answer none of the three findings areas directly; the short-term effect fades and the cost is Mid. A learner who funds it must say what it does for the learner.`
           : m.id === "m9"

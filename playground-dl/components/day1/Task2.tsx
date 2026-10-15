@@ -182,7 +182,15 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
         onChange={(v) => patch({ orderWhy: v })}
         min={MIN_LINE}
         rows={3}
-      />
+      >
+        <WritingHelp
+          id="decisionorder-kit"
+          steps={[
+            tt("Say why decision one has to start first: it reaches most learners, it costs least, or the others need it.", "Sagen Sie, warum Entscheidung eins zuerst starten muss: Sie erreicht die meisten Lernenden, kostet am wenigsten oder die anderen brauchen sie."),
+            tt("Add what you expect to learn from it that helps the next decision.", "Fügen Sie hinzu, was Sie daraus lernen und was der nächsten Entscheidung hilft."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="decisionorder-example" guide={decisionOrderGuide()} />
       {mentor && <MentorGuide guide={decisionOrderGuide()} />}
       <AnswerKey block={decisionKey()} />
@@ -219,7 +227,15 @@ export function Block32({ missing }: { missing: MissingEntry[] }) {
         onChange={(v) => patch({ riskPlan: v })}
         min={MIN_REASON}
         rows={2}
-      />
+      >
+        <WritingHelp
+          id="riskplan-kit"
+          steps={[
+            tt("Name one action in the form “I would…”.", "Nennen Sie eine Maßnahme in der Form „Ich würde…“."),
+            tt("Say what you would see, and by when, that tells you the risk is coming true.", "Sagen Sie, was Sie sehen würden und bis wann, das zeigt, dass das Risiko eintritt."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="riskplan-example" guide={riskPlanGuide()} />
       {mentor && <MentorGuide guide={riskPlanGuide()} />}
 
@@ -259,7 +275,15 @@ export function Block32({ missing }: { missing: MissingEntry[] }) {
         onChange={(v) => patch({ giveUp: v })}
         min={MIN_LINE}
         rows={2}
-      />
+      >
+        <WritingHelp
+          id="giveup-kit"
+          steps={[
+            tt("Name one thing you leave out or postpone, and who would miss it.", "Nennen Sie eine Sache, die Sie weglassen oder verschieben, und wer sie vermissen würde."),
+            tt("Say when you would look at it again.", "Sagen Sie, wann Sie sie wieder ansehen würden."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="giveup-example" guide={giveUpGuide()} />
       {mentor && <MentorGuide guide={giveUpGuide()} />}
       <AnswerKey block={riskKey()} />

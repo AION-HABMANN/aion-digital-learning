@@ -13,7 +13,9 @@ import { r1Missing, r2Missing } from "../lib/day1/missing";
 import { KEY_D1_R1, KEY_D1_R2, MENTOR_PASSCODE } from "../lib/day1/mentorKey";
 import { dossierProgress, taskBlocks, CORE_UNITS } from "../lib/day1/progress";
 import { analysisBody, memoBody } from "../lib/day1/exportDoc";
+import { MIN_SLOT, SENTENCE_PER_MEASURE, composeReason, toggleFix, withReason } from "../lib/day1/reason";
 import { setCurrentLang } from "../lib/lang";
+import { emptyD1R1, mergeDefaults } from "../store/useStore";
 import type { Persisted } from "../store/useStore";
 
 let failed = 0;
@@ -94,11 +96,29 @@ for (const lang of ["en", "de"] as const) {
     effort: Object.fromEntries(other.map((id) => [id, effortBand(MEASURE_BY_ID[id].cost)])),
     risk: Object.fromEntries(other.map((id) => [id, 3])),
     reasons: Object.fromEntries(other.map((id) => [id, "A different choice with a clear reason of my own here."])),
+    fixes: Object.fromEntries(other.map((id) => [id, ["none"]])),
+    slotA: Object.fromEntries(other.map((id) => [id, "see something new on screen"])),
+    slotB: Object.fromEntries(other.map((id) => [id, "it does not touch the problem"])),
   };
   const pOther: Persisted = { ...p1, d1: { ...p1.d1, r1: r1o } } as Persisted;
   ok(totalCost([...other]) > BUDGET, "the other set is over budget");
   ok(r1Missing(pOther).length === 0, "an over-budget set with reasons still has nothing missing");
   ok(/over|darüber/.test(analysisBody(pOther)), "the export prints the over-budget amount as a fact");
+
+  // 8b · "Say it in one sentence" (Block 2.2): the picked problem plus two sentences compose the reason; a missing part is named; an old blob loads
+  const keyR1 = KEY_D1_R1();
+  ok(MODEL_MEASURES.every((id) => composeReason(keyR1.fixes?.[id], keyR1.slotA?.[id] ?? "", keyR1.slotB?.[id] ?? "") === keyR1.reasons?.[id] && (keyR1.reasons?.[id] ?? "").length > 0), "the model sentence of each reference measure is composed from its problem and two slots");
+  ok(composeReason(["p1"], "short", "short") === "" && MIN_SLOT > 5, "a sentence with a slot under the minimum is not complete");
+  const stepOne = withReason(emptyD1R1(), "m1", { fix: ["p1", "p2"] });
+  ok(stepOne.reasons.m1 === "" && stepOne.fixes.m1.length === 2, "picking only the problems keeps the reason empty");
+  ok(toggleFix(["p1"], "p2").join() === "p1,p2" && toggleFix(["p1", "p2"], "p1").join() === "p2" && toggleFix(["p1"], "none").join() === "none" && toggleFix(["none"], "p3").join() === "p3", "a measure can fix several problems; “none of these” excludes the others");
+  ok(/“there is no clear learning path” and “the dashboard is cluttered”|„es gibt keinen klaren Lernpfad“ und „das Dashboard ist unübersichtlich“/.test(composeReason(["p1", "p2"], "see the whole path at once", "they know where to start")), "the sentence names every picked problem");
+  const noFix = { ...p1, d1: { ...p1.d1, r1: { ...p1.d1.r1, fixes: {} } } } as Persisted;
+  ok(r1Missing(noFix).some((m) => m.id === "fix-m1"), "a measure without a picked problem is named in the missing list");
+  const noSlot = { ...p1, d1: { ...p1.d1, r1: { ...p1.d1.r1, slotB: {} } } } as Persisted;
+  ok(SENTENCE_PER_MEASURE ? r1Missing(noSlot).some((m) => m.id === "reason-m1") : !r1Missing(noSlot).some((m) => m.id === "reason-m1"), "an unfinished sentence is named in the missing list only while the sentence is asked for");
+  const oldBlob = mergeDefaults(emptyD1R1(), { chosen: ["m1"], reasons: { m1: "old text" } });
+  ok(oldBlob.chosen[0] === "m1" && Object.keys(oldBlob.fixes).length === 0 && oldBlob.reasons.m1 === "old text", "an old-shape blob loads with empty fixes and slots");
 
   // 9 · the export bodies are built, in this language, and never print a key or a verdict
   const a = analysisBody(p1);

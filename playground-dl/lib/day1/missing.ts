@@ -1,6 +1,7 @@
 import { FINDING_BY_ID, FINDING_IDS, MEASURE_BY_ID, PICK_MEASURES } from "@/data/day1/case";
 import { DECISION_BY_ID, EVIDENCE_MIN, R2_PICK } from "@/data/day1/route2";
 import { OPTIONAL_BLOCKS, MIN_LINE, MIN_REASON, MIN_SENTENCE } from "@/lib/day1/progress";
+import { MIN_SLOT, SENTENCE_PER_MEASURE, fixList } from "@/lib/day1/reason";
 import { participantMissing, short } from "@/lib/missing";
 import type { MissingEntry } from "@/lib/missing";
 import { tt } from "@/lib/lang";
@@ -17,6 +18,7 @@ export const IDS = {
   causeWhy: "causewhy-field",
   measurePick: "measure-pick",
   measure: (id: string) => `measure-${id}`,
+  fix: (id: string) => `fix-${id}`,
   reason: (id: string) => `reason-${id}`,
   order: "order-field",
   orderWhy: "orderwhy-field",
@@ -57,7 +59,8 @@ export function r1Missing(p: Persisted): MissingEntry[] {
   for (const id of r1.chosen) {
     const name = MEASURE_BY_ID[id].name;
     if (!r1.impact[id] || !r1.risk[id]) e(IDS.measure(id), tt(`Block 2.2: pick a sentence for “${short(name, 36)}” on what it does for the learners and on what could go wrong.`, `Block 2.2: Wählen Sie für „${short(name, 36)}“ je einen Satz dazu, was sie für die Lernenden tut und was schiefgehen könnte.`));
-    if ((r1.reasons[id] ?? "").trim().length < MIN_REASON) e(IDS.reason(id), tt(`Block 2.2: say why “${short(name, 36)}” gets those ratings (at least ${MIN_REASON} characters).`, `Block 2.2: Begründen Sie, warum „${short(name, 36)}“ diese Bewertungen bekommt (mindestens ${MIN_REASON} Zeichen).`));
+    if (fixList(r1.fixes[id]).length === 0) e(IDS.fix(id), tt(`Block 2.2: pick which problem or problems of the case “${short(name, 36)}” fixes (or “none of these”).`, `Block 2.2: Wählen Sie, welches Problem oder welche Probleme des Falls „${short(name, 36)}“ behebt (oder „keines davon“).`));
+    if (SENTENCE_PER_MEASURE && ((r1.slotA[id] ?? "").trim().length < MIN_SLOT || (r1.slotB[id] ?? "").trim().length < MIN_SLOT)) e(IDS.reason(id), tt(`Block 2.2: finish the sentence for “${short(name, 36)}”: what the learner can then do, and what follows (at least ${MIN_SLOT} characters each).`, `Block 2.2: Vervollständigen Sie den Satz für „${short(name, 36)}“: was die Lernenden dann tun können und was daraus folgt (mindestens je ${MIN_SLOT} Zeichen).`));
   }
   if (r1.chosen.length === PICK_MEASURES && r1.orderWhy.trim().length < MIN_LINE) e(IDS.orderWhy, tt(`Block 2.2: say why your first priority goes first (at least ${MIN_LINE} characters).`, `Block 2.2: Begründen Sie, warum Ihre erste Priorität zuerst kommt (mindestens ${MIN_LINE} Zeichen).`));
   if (r1.missingInfo.trim().length < MIN_LINE) e(IDS.missingInfo, tt(`Block 2.2: say what information you are missing (at least ${MIN_LINE} characters).`, `Block 2.2: Sagen Sie, welche Information Ihnen fehlt (mindestens ${MIN_LINE} Zeichen).`));

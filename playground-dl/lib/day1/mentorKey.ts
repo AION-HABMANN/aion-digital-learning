@@ -1,6 +1,7 @@
-import { CAUSE_MODEL, CLAIM_TRUTH, MODEL_IMPACT, MODEL_MEASURES, MODEL_RISK, TRUTH_SORT } from "@/data/day1/case";
+import { CAUSE_MODEL, CLAIM_TRUTH, MODEL_FIX, MODEL_IMPACT, MODEL_MEASURES, MODEL_RISK, TRUTH_SORT } from "@/data/day1/case";
 import { MODEL_DECISIONS, MODEL_EVIDENCE, MODEL_OWNER, MODEL_RISK_PICK } from "@/data/day1/route2";
 import { tt } from "@/lib/lang";
+import { composeReason } from "@/lib/day1/reason";
 import type { D1R1, D1R2, Score } from "@/store/useStore";
 
 /**
@@ -10,6 +11,26 @@ import type { D1R1, D1R2, Score } from "@/store/useStore";
  * (learning paths, modular content, a progress indicator, less cognitive load); a different, well-reasoned choice also exports (#38).
  */
 export const MENTOR_PASSCODE = "muchson123";
+
+/** The two learner sentences of Block 2.2 for each reference measure ("so this measure lets the learner …", "so …"). */
+const SLOTS = (): Record<string, { a: string; b: string }> => ({
+  m1: {
+    a: tt("see after the first lesson what comes next and the whole path", "nach der ersten Lektion sehen, was als Nächstes kommt, und den ganzen Pfad"),
+    b: tt("fewer of them give up on day one, and the main cause of leaving is removed; the paths need care, so the risk is Mid", "weniger geben am ersten Tag auf, und die Hauptursache fürs Gehen entfällt; die Pfade brauchen Sorgfalt, das Risiko ist also mittel"),
+  },
+  m2: {
+    a: tt("take a lesson in a few short screens, each with one clear goal", "eine Lektion in wenigen kurzen Bildschirmen durcharbeiten, jeder mit einem klaren Ziel"),
+    b: tt("the content becomes easier to follow, but the lessons must be rewritten, so the result comes later", "der Inhalt wird leichter verständlich, aber die Lektionen müssen neu geschrieben werden, das Ergebnis kommt also später"),
+  },
+  m3: {
+    a: tt("see “3 of 8 lessons done” on every course page", "auf jeder Kursseite „3 von 8 Lektionen erledigt“ sehen"),
+    b: tt("they can tell they are getting somewhere; it is cheap, fast and easy to switch off", "sie erkennen, dass sie vorankommen; es ist billig, schnell und leicht wieder abzuschalten"),
+  },
+  m4: {
+    a: tt("scan a lesson by its headings and tap a term to see its meaning", "eine Lektion über ihre Überschriften überfliegen und per Tipp die Bedeutung eines Begriffs sehen"),
+    b: tt("reading costs less effort, and headings and explained terms are cheap and low risk", "das Lesen kostet weniger Mühe, und Überschriften und erklärte Begriffe sind billig und risikoarm"),
+  },
+});
 
 export function KEY_D1_R1(): Partial<D1R1> {
   const impact: Record<string, Score> = { ...MODEL_IMPACT } as Record<string, Score>;
@@ -39,12 +60,10 @@ export function KEY_D1_R1(): Partial<D1R1> {
     chosen: [...MODEL_MEASURES],
     impact,
     risk,
-    reasons: {
-      m1: tt("It answers the main finding: learners cannot tell where to start or what comes next. High impact for every learner; Mid risk because the paths must be designed with care.", "Sie beantwortet den Hauptbefund: Lernende erkennen nicht, wo sie anfangen oder was als Nächstes kommt. Hohe Wirkung für jede Lernende; mittleres Risiko, weil die Pfade sorgfältig gestaltet werden müssen."),
-      m2: tt("Short units make the 500-word lessons easier to follow, but they need rewriting, so the result comes later.", "Kurze Einheiten machen die Lektionen mit 500 Wörtern leichter verfolgbar, sie müssen aber neu geschrieben werden, das Ergebnis kommt also später."),
-      m3: tt("A cheap, fast fix for the missing progress bar; a safe change that shows learners they are getting somewhere.", "Eine billige, schnelle Lösung für die fehlende Fortschrittsleiste; eine sichere Änderung, die zeigt, dass Lernende vorankommen."),
-      m4: tt("Headings and explained terms are cheap and low risk, and they cut the effort of reading each lesson.", "Überschriften und erklärte Begriffe sind billig und risikoarm, und sie senken die Mühe beim Lesen jeder Lektion."),
-    },
+    fixes: { ...MODEL_FIX },
+    slotA: Object.fromEntries(Object.entries(SLOTS()).map(([id, v]) => [id, v.a])),
+    slotB: Object.fromEntries(Object.entries(SLOTS()).map(([id, v]) => [id, v.b])),
+    reasons: Object.fromEntries(Object.entries(SLOTS()).map(([id, v]) => [id, composeReason(MODEL_FIX[id], v.a, v.b)])),
     order: [...MODEL_MEASURES],
     orderWhy: tt(
       "Learning paths come first because every learner meets the orientation problem before anything else, and the other three measures work better once a path exists.",

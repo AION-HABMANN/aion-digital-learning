@@ -291,3 +291,8 @@ In every generic day: Core blocks 1.1 and 2.2 read only the case brief, the prin
 ## Story comics (CLAUDE.md #54, Day 1, added 2026-10-15)
 
 Every Day 1 card (A1 to A5, B1 to B3) has a "Read the comic" row that opens a short picture story of the card's own material, with Next / Back and a plain-words meaning per panel, in EN and DE. It replaces "Walk me through it" on A2, A3, A5 and B2. Files: `components/comic/` (drawing kit and modal), `components/day1/comicScenes.tsx`, `data/day1/comics.ts`. Other days still use the walk-through until the user asks.
+
+
+## Block 2.2 upgrade (CLAUDE.md #55, Day 1, added 2026-10-16)
+
+Block 2.2 now opens with a step tracker and three collapsed area cards (the brief's own problems per area, the measures that act on each, reached / not reached yet). Per measure the learner picks which problem(s) of the case it fixes (several allowed, or "none of these"), then impact and risk (with a scenario), and the priority list shows each row's impact, effort, risk and problems. Every required free-text field of Day 1 has a collapsed "How to build the answer". The per-measure sentence ("Say it in one sentence") is built and **switched off** (`SENTENCE_PER_MEASURE` in `lib/day1/reason.ts`) because the plan does not ask for it. Deviation: the problem picker and the scenario wording are ours, on top of the plan's three criteria (#50). Persisted shape: version 6 (`fixes`, `slotA`, `slotB`). `verify:day1` covers the new fields.

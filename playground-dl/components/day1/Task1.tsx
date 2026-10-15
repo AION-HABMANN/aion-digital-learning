@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Block22Overview } from "@/components/day1/CoverageStrip";
 import { LearnFastScreens } from "@/components/day1/LearnFast";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
@@ -18,14 +19,15 @@ import { OptionalSection } from "@/components/ui/OptionalSection";
 import { PlacementBoard } from "@/components/ui/PlacementBoard";
 import { RevealHint } from "@/components/ui/RevealHint";
 import { WritingHelp } from "@/components/ui/WritingHelp";
-import { AREAS, AREA_IDS, BUDGET, CAUSES, CAUSE_PICK, CLAIMS, CLAIM_BINS, DROPOUT, FINDINGS, FINDING_BY_ID, MEASURES, MEASURE_AREA, MEASURE_BY_ID, MONTHS, PICK_MEASURES, REFLECT, WEEKS_LIMIT, IMPACT_SCORES, RISK_SCORES, budgetShare, effortSentence, impactText, longestWeeks, riskText, timeShare, totalCost } from "@/data/day1/case";
+import { AREAS, AREA_IDS, BUDGET, NO_PROBLEM, PROBLEMS, CAUSES, CAUSE_PICK, CLAIMS, CLAIM_BINS, DROPOUT, FINDINGS, FINDING_BY_ID, MEASURES, MEASURE_AREA, MEASURE_BY_ID, MONTHS, PICK_MEASURES, REFLECT, WEEKS_LIMIT, IMPACT_SCORES, RISK_SCORES, budgetShare, effortSentence, impactShort, impactText, longestWeeks, riskShort, riskText, timeShare, totalCost } from "@/data/day1/case";
 import type { AreaId, CauseId, ClaimBin, ClaimId, FindingId, MeasureId } from "@/data/day1/case";
 import { analysisBody } from "@/lib/day1/exportDoc";
 import { causeHolds, claimHolds, sortHolds } from "@/lib/day1/checks";
 import { causeGuide, missingGuide, needGuide, orderGuide, reasonGuide, reflectGuide, worstGuide } from "@/lib/day1/guides";
 import { causeKey, claimKey, measureKey, sortKey } from "@/lib/day1/answerKey";
 import { IDS, r1Missing } from "@/lib/day1/missing";
-import { BLOCK_MINUTES, CORE1_MINUTES, MIN_LINE, MIN_REASON, TASK1_MINUTES } from "@/lib/day1/progress";
+import { BLOCK_MINUTES, CORE1_MINUTES, MIN_LINE, TASK1_MINUTES } from "@/lib/day1/progress";
+import { MIN_SLOT, SENTENCE_PER_MEASURE, fixList, fixQuotes, reasonLead, toggleFix, withReason } from "@/lib/day1/reason";
 import type { MissingEntry } from "@/lib/missing";
 import { routeHref } from "@/data/course";
 import { Gloss } from "@/lib/glossify";
@@ -260,7 +262,15 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
         onChange={(v) => patch({ need: v })}
         min={MIN_LINE}
         rows={2}
-      />
+      >
+        <WritingHelp
+          id="need-kit"
+          steps={[
+            tt("Start with “I would find out by…” and name where the evidence would come from.", "Beginnen Sie mit „Ich würde es herausfinden, indem…“ und nennen Sie, woher die Belege kämen."),
+            tt("Say what it would tell you about the learners that the 40% does not.", "Sagen Sie, was es Ihnen über die Lernenden verriete, das die 40 % nicht verraten."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="need-example" guide={needGuide()} />
       {mentor && <MentorGuide guide={needGuide()} />}
       <AnswerKey block={claimKey()} />
@@ -352,12 +362,34 @@ export function Block21({ missing }: { missing: MissingEntry[] }) {
         onChange={(v) => patch({ causeWhy: v })}
         min={MIN_LINE}
         rows={2}
-      />
+      >
+        <WritingHelp
+          id="cause-kit"
+          steps={[
+            tt("Quote or point at one printed line of the case or a finding.", "Zitieren Sie eine gedruckte Zeile des Falls oder eines Befunds, oder zeigen Sie darauf."),
+            tt("Say with “so” or “because” how that line makes a learner leave.", "Sagen Sie mit „deshalb“ oder „weil“, wie diese Zeile Lernende zum Gehen bringt."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="cause-example" guide={causeGuide()} />
       {mentor && <MentorGuide guide={causeGuide()} />}
       <AnswerKey block={causeKey()} />
       <BlockMissing block="2.1" missing={missing} />
     </AnswerBlock>
+  );
+}
+
+/** One of the two sentence slots of "Say it in one sentence" (Block 2.2). */
+function Slot({ id, label, value, onChange }: { id: string; label: string; value: string; onChange: (v: string) => void }) {
+  const len = value.trim().length;
+  return (
+    <div>
+      <label htmlFor={id} className="flex flex-wrap items-baseline justify-between gap-2 text-caption font-semibold text-ink">
+        <span>{label}</span>
+        <span className={`tnum text-micro font-normal normal-case tracking-normal ${len >= MIN_SLOT ? "text-signal" : "text-ash"}`}>{`${len} / ${MIN_SLOT} ${tt("characters", "Zeichen")}`}</span>
+      </label>
+      <textarea id={id} rows={2} className="field mt-1" value={value} onChange={(e) => onChange(e.target.value)} />
+    </div>
   );
 }
 
@@ -374,6 +406,15 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
   const full = chosen.length >= PICK_MEASURES;
   const cost = totalCost(chosen);
   const weeks = longestWeeks(chosen);
+  // Facts about the order, never a verdict (CLAUDE.md #38, #44): the first measure that sits above one rated as removing more of the problem.
+  const higher = (() => {
+    for (let i = 0; i < r.order.length; i++)
+      for (let j = i + 1; j < r.order.length; j++) if ((r.impact[r.order[i]] ?? 0) > 0 && (r.impact[r.order[j]] ?? 0) > (r.impact[r.order[i]] ?? 0)) return [r.order[i], r.order[j]] as const;
+    return null;
+  })();
+  const orderHint = higher
+    ? tt(`“${MEASURE_BY_ID[higher[0]].name}” is above “${MEASURE_BY_ID[higher[1]].name}”, which you rated as removing more of the problem. If that is deliberate, say why below.`, `„${MEASURE_BY_ID[higher[0]].name}“ steht über „${MEASURE_BY_ID[higher[1]].name}“, die Sie als wirksamer gegen das Problem bewertet haben. Wenn das Absicht ist, sagen Sie unten, warum.`)
+    : tt("Your order follows what you rated: the measures that remove more of the problem come first. Cost, weeks and risk are on each row; weigh them in your reason below.", "Ihre Reihenfolge folgt Ihrer Bewertung: Die Maßnahmen, die mehr vom Problem beseitigen, stehen vorn. Kosten, Wochen und Risiko stehen in jeder Zeile; wägen Sie sie in Ihrer Begründung unten ab.");
   const set = (key: "impact" | "risk", id: MeasureId, v: Score) => patch((s) => ({ [key]: { ...s[key], [id]: v } }));
   return (
     <AnswerBlock
@@ -390,6 +431,8 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
           <strong>{tt("The limits:", "Die Grenzen:")}</strong> {euro(BUDGET)}, {tt(`${MONTHS} months (${WEEKS_LIMIT} weeks)`, `${MONTHS} Monate (${WEEKS_LIMIT} Wochen)`)}. {tt("The findings of Block 1.1 and the case brief are your evidence. Effort is read from the printed cost and weeks; for impact and risk you pick the sentence that fits.", "Die Befunde aus Block 1.1 und der Fall sind Ihre Belege. Der Aufwand wird aus den gedruckten Kosten und Wochen gelesen; bei Nutzerwirkung und Risiko wählen Sie den Satz, der passt.")}
         </p>
       </div>
+
+      <Block22Overview />
 
       <Field id={IDS.measurePick} label={tt(`Choose exactly ${PICK_MEASURES} measures`, `Wählen Sie genau ${PICK_MEASURES} Maßnahmen`)} help={tt("Each shows what it does, what a learner notices, its cost and its weeks, and what it acts on. You have chosen:", "Jede zeigt, was sie tut, was die Lernenden bemerken, ihre Kosten und Wochen, und worauf sie wirkt. Sie haben gewählt:") + ` ${chosen.length} / ${PICK_MEASURES}`}>
         <OptionList<MeasureId>
@@ -420,6 +463,7 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
 
       {chosen.map((id) => {
         const m = MEASURE_BY_ID[id];
+        const quotes = fixQuotes(r.fixes[id]);
         return (
           <div key={id} id={IDS.measure(id)} className="space-y-4 rounded-lg border border-line bg-paper p-3">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -441,10 +485,27 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
               </div>
               <p className="text-caption text-ink" aria-live="polite">{effortSentence(m.cost, m.weeks)}</p>
             </div>
+            <div id={IDS.fix(id)} className="space-y-1.5">
+              <p className="text-body font-semibold text-ink">{tt("Which problem of the case does it fix?", "Welches Problem des Falls behebt sie?")}</p>
+              <p className="text-micro normal-case tracking-normal text-ash">
+                {tt("Look at: the case brief above, and “A learner notices” on its card. A measure can fix more than one: pick every problem it answers. You have picked:", "Schauen Sie auf: die Fallbeschreibung oben und „Lernende bemerken“ auf ihrer Karte. Eine Maßnahme kann mehrere beheben: Wählen Sie jedes Problem, das sie beantwortet. Sie haben gewählt:")} {fixList(r.fixes[id]).length}
+              </p>
+              <OptionList<string>
+                options={[
+                  ...PROBLEMS.map((p) => ({ id: p.id as string, label: `“${p.quote}”`, sub: AREAS[p.area].label })),
+                  { id: NO_PROBLEM, label: tt("none of these", "keines davon") },
+                ]}
+                value={fixList(r.fixes[id])}
+                onChange={(v) => patch((s) => withReason(s, id, { fix: toggleFix(s.fixes[id], v) }))}
+                multi
+                label={`${m.name}: ${tt("the problem it fixes", "das Problem, das sie behebt")}`}
+                cols={2}
+              />
+            </div>
             {(
               [
-                ["impact", tt("What does it do for the learners?", "Was bewirkt sie für die Lernenden?"), tt("Pick the sentence that fits. A different pick with a reason is fine.", "Wählen Sie den Satz, der passt. Eine andere Wahl mit Begründung ist in Ordnung."), IMPACT_SCORES, impactText],
-                ["risk", tt("What could go wrong?", "Was könnte schiefgehen?"), tt("Pick the sentence that fits.", "Wählen Sie den Satz, der passt."), RISK_SCORES, riskText],
+                ["impact", tt("How much of that problem does it remove?", "Wie viel von diesem Problem beseitigt sie?"), tt("Pick the sentence that fits. A different pick with a reason is fine.", "Wählen Sie den Satz, der passt. Eine andere Wahl mit Begründung ist in Ordnung."), IMPACT_SCORES, impactText],
+                ["risk", tt("What could go wrong?", "Was könnte schiefgehen?"), tt(`Imagine: after ${m.weeks} weeks it does not work. What is left? Pick the sentence that fits.`, `Stellen Sie sich vor: Nach ${m.weeks} Wochen wirkt sie nicht. Was bleibt? Wählen Sie den Satz, der passt.`), RISK_SCORES, riskText],
               ] as const
             ).map(([key, label, help, scores, text]) => (
               <div key={key} className="space-y-1.5">
@@ -467,20 +528,34 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
             ))}
             {r.impact[id] && r.risk[id] ? (
               <p className="rounded-md bg-accentSoft px-3 py-2 text-caption text-ink" aria-live="polite">
-                <span className="smallcaps mr-1.5">{tt("Your reading", "Ihre Lesart")}</span>
+                <span className="smallcaps mr-1.5">{tt("Your picks", "Ihre Wahl")}</span>
+                {quotes.length ? tt(`Fixes ${quotes.map((x) => `“${x}”`).join(" and ")}; `, `Behebt ${quotes.map((x) => `„${x}“`).join(" und ")}; `) : ""}
                 {tt(`${impactText(r.impact[id]).toLowerCase()}; it uses ${budgetShare(m.cost)} percent of the budget; ${riskText(r.risk[id]).toLowerCase()}.`, `${impactText(r.impact[id]).toLowerCase()}; sie braucht ${budgetShare(m.cost)} Prozent des Budgets; ${riskText(r.risk[id]).toLowerCase()}.`)}
               </p>
-            ) : null}            <TextBox
-              id={IDS.reason(id)}
-              label={tt("Why these ratings?", "Warum diese Bewertungen?")}
-              help={tt(`One or two sentences: which printed finding it answers, and what could go wrong. At least ${MIN_REASON} characters.`, `Ein bis zwei Sätze: welchen gedruckten Befund sie beantwortet und was schiefgehen kann. Mindestens ${MIN_REASON} Zeichen.`)}
-              value={r.reasons[id] ?? ""}
-              onChange={(v) => patch((s) => ({ reasons: { ...s.reasons, [id]: v } }))}
-              min={MIN_REASON}
-              rows={2}
-            />
+            ) : null}
+            {SENTENCE_PER_MEASURE && (
+              <>
+            <div id={IDS.reason(id)} className="space-y-2 rounded-md border border-line bg-mist/60 p-2.5">
+              <p className="smallcaps text-ash">{tt("Say it in one sentence", "Sagen Sie es in einem Satz")}</p>
+              <p className="text-micro normal-case tracking-normal text-ash">
+                {tt("The start comes from the problem you picked. Finish it in your own words.", "Der Anfang kommt aus dem Problem, das Sie gewählt haben. Führen Sie ihn in eigenen Worten zu Ende.")}
+              </p>
+              <p className="text-caption font-semibold text-ink">{reasonLead(r.fixes[id]) || tt("Pick the problem or problems above first.", "Wählen Sie zuerst oben das Problem oder die Probleme.")}</p>
+              <Slot id={`slota-${id}`} label={tt("so this measure lets the learner …", "deshalb lässt diese Maßnahme die Lernenden …")} value={r.slotA[id] ?? ""} onChange={(v) => patch((s) => withReason(s, id, { a: v }))} />
+              <Slot id={`slotb-${id}`} label={tt("so …", "deshalb …")} value={r.slotB[id] ?? ""} onChange={(v) => patch((s) => withReason(s, id, { b: v }))} />
+              <WritingHelp
+                id={`reason-kit-${id}`}
+                refs={quotes.length ? [{ label: tt("The problem you picked, in the case brief", "Das gewählte Problem in der Fallbeschreibung"), value: quotes.map((x) => `“${x}”`).join(" · "), target: "case-brief" }] : undefined}
+                steps={[
+                  tt("First part: say what the learner can then do or see. Use “A learner notices” on the card.", "Erster Teil: Sagen Sie, was die Lernenden dann tun oder sehen können. Nutzen Sie „Lernende bemerken“ auf der Karte."),
+                  tt("Second part: say what follows, for the learners who leave, or what it costs and risks.", "Zweiter Teil: Sagen Sie, was daraus folgt, für die Lernenden, die gehen, oder was es kostet und riskiert."),
+                ]}
+              />
+            </div>
             <ExampleAnswer id={`reason-example-${id}`} guide={reasonGuide(id)} />
             {mentor && <MentorGuide guide={reasonGuide(id)} />}
+              </>
+            )}
           </div>
         );
       })}
@@ -488,19 +563,35 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
       {chosen.length === PICK_MEASURES && (
         <Field id={IDS.order} label={tt("Put your four measures in priority order", "Bringen Sie Ihre vier Maßnahmen in eine Prioritätsreihenfolge")} help={tt("The first is the most important. Move one up or down with the arrows.", "Die erste ist die wichtigste. Verschieben Sie eine mit den Pfeilen nach oben oder unten.")}>
           <ol className="space-y-1.5">
-            {r.order.map((id, i) => (
-              <li key={id} className="flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-1.5">
-                <span className="tnum w-5 font-bold text-ash">{i + 1}</span>
-                <span className="min-w-0 flex-1 text-ink">{MEASURE_BY_ID[id].name}</span>
-                <button type="button" aria-label={tt(`Move ${MEASURE_BY_ID[id].name} up`, `${MEASURE_BY_ID[id].name} nach oben`)} onClick={() => move(id, -1)} className="btn-ghost btn-sm" aria-disabled={i === 0}>
-                  ↑
-                </button>
-                <button type="button" aria-label={tt(`Move ${MEASURE_BY_ID[id].name} down`, `${MEASURE_BY_ID[id].name} nach unten`)} onClick={() => move(id, 1)} className="btn-ghost btn-sm" aria-disabled={i === r.order.length - 1}>
-                  ↓
-                </button>
-              </li>
-            ))}
+            {r.order.map((id, i) => {
+              const mm = MEASURE_BY_ID[id];
+              const qs = fixQuotes(r.fixes[id]);
+              return (
+                <li key={id} className="rounded-lg border border-line bg-paper px-3 py-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="tnum w-5 font-bold text-ash">{i + 1}</span>
+                    <span className="min-w-0 flex-1 text-ink">{mm.name}</span>
+                  <button type="button" aria-label={tt(`Move ${MEASURE_BY_ID[id].name} up`, `${MEASURE_BY_ID[id].name} nach oben`)} onClick={() => move(id, -1)} className="btn-ghost btn-sm" aria-disabled={i === 0}>
+                    ↑
+                  </button>
+                  <button type="button" aria-label={tt(`Move ${MEASURE_BY_ID[id].name} down`, `${MEASURE_BY_ID[id].name} nach unten`)} onClick={() => move(id, 1)} className="btn-ghost btn-sm" aria-disabled={i === r.order.length - 1}>
+                    ↓
+                  </button>
+                  </div>
+                  <ul className="mt-1 flex flex-wrap gap-1.5 pl-7 text-micro normal-case tracking-normal text-ink" aria-label={tt(`Your analysis of ${mm.name}`, `Ihre Analyse von ${mm.name}`)}>
+                    <li className={`rounded border px-1.5 py-0.5 ${r.impact[id] ? "border-line bg-canvas" : "border-dashed border-ash"}`}><span className="smallcaps mr-1 text-ash">{tt("Impact", "Wirkung")}</span>{impactShort(r.impact[id] ?? 0)}</li>
+                    <li className="rounded border border-line bg-canvas px-1.5 py-0.5"><span className="smallcaps mr-1 text-ash">{tt("Effort", "Aufwand")}</span>{euro(mm.cost)} · {budgetShare(mm.cost)} % · {mm.weeks} {tt("weeks", "Wochen")}</li>
+                    <li className={`rounded border px-1.5 py-0.5 ${r.risk[id] ? "border-line bg-canvas" : "border-dashed border-ash"}`}><span className="smallcaps mr-1 text-ash">{tt("Risk", "Risiko")}</span>{riskShort(r.risk[id] ?? 0)}</li>
+                  </ul>
+                  {qs.length > 0 && <p className="mt-1 pl-7 text-micro normal-case tracking-normal text-ash">{tt("Fixes:", "Behebt:")} {qs.map((x) => `“${x}”`).join(", ")}</p>}
+                </li>
+              );
+            })}
           </ol>
+          <p className="text-caption text-ash" aria-live="polite">
+            <span className="smallcaps mr-1.5">{tt("What this shows", "Was das zeigt")}</span>
+            {orderHint}
+          </p>
         </Field>
       )}
       <TextBox
@@ -511,7 +602,15 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
         onChange={(v) => patch({ orderWhy: v })}
         min={MIN_LINE}
         rows={3}
-      />
+      >
+        <WritingHelp
+          id="order-kit"
+          steps={[
+            tt("Say why position one comes before the other three: what it fixes first, or what the others depend on.", "Sagen Sie, warum Platz eins vor den anderen drei kommt: was sie zuerst behebt oder wovon die anderen abhängen."),
+            tt("Support it with one fact printed on its card, such as its cost or its weeks.", "Stützen Sie es mit einer gedruckten Angabe auf ihrer Karte, etwa Kosten oder Wochen."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="order-example" guide={orderGuide()} />
       {mentor && <MentorGuide guide={orderGuide()} />}
       <TextBox
@@ -522,7 +621,15 @@ export function Block22({ missing }: { missing: MissingEntry[] }) {
         onChange={(v) => patch({ missingInfo: v })}
         min={MIN_LINE}
         rows={3}
-      />
+      >
+        <WritingHelp
+          id="missing-kit"
+          steps={[
+            tt("Name one specific thing you do not know yet that could change your order.", "Nennen Sie eine konkrete Sache, die Sie noch nicht wissen und die Ihre Reihenfolge ändern könnte."),
+            tt("Say how you would find it out, and whom or what you would ask.", "Sagen Sie, wie Sie es herausfänden und wen oder was Sie fragen würden."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="missing-example" guide={missingGuide()} />
       {mentor && <MentorGuide guide={missingGuide()} />}
       <AnswerKey block={measureKey()} />

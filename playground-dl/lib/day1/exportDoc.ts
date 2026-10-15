@@ -2,6 +2,7 @@ import { AREAS, BUDGET, CAUSES, CLAIMS, CLAIM_BINS, DROPOUT, FINDINGS, FINDING_B
 import { DECISION_AREA, DECISION_BY_ID, EVIDENCE, OWNERS, R2_BUDGET, RISKS, decisionsCost } from "@/data/day1/route2";
 import { cell, docHeader, dateLabel, para } from "@/lib/exportDoc";
 import { euro, tt } from "@/lib/lang";
+import { reasonText } from "@/lib/day1/reason";
 import { esc } from "@/lib/svg";
 import type { Persisted } from "@/store/useStore";
 
@@ -69,7 +70,7 @@ ${has13 ? reflectBlocks : optNote()}
 ${has21 ? `${causeList}${para(r1.causeWhy)}` : optNote()}
 <h3>${esc(tt("2.2 · Four measures, rated and ordered", "2.2 · Vier Maßnahmen, bewertet und geordnet"))}</h3>
 <table><thead><tr><th>${esc(tt("Measure", "Maßnahme"))}</th><th>${esc(tt("User impact", "Nutzerwirkung"))}</th><th>${esc(tt("Effort (read from cost and weeks)", "Aufwand (aus Kosten und Wochen gelesen)"))}</th><th>${esc(tt("Risk", "Risiko"))}</th><th class="num">${esc(tt("Cost", "Kosten"))}</th><th class="num">${esc(tt("Weeks", "Wochen"))}</th></tr></thead><tbody>${measureRows || `<tr><td colspan="6">—</td></tr>`}</tbody></table>
-${chosen.length ? `<h3>${esc(tt("Why these ratings", "Warum diese Bewertungen"))}</h3><ul>${chosen.map((id) => `<li><strong>${esc(MEASURE_BY_ID[id].name)}</strong>: ${cell(r1.reasons[id] ?? "")}</li>`).join("")}</ul>` : ""}
+${chosen.length ? `<h3>${esc(tt("Why these ratings", "Warum diese Bewertungen"))}</h3><ul>${chosen.map((id) => `<li><strong>${esc(MEASURE_BY_ID[id].name)}</strong>: ${cell(reasonText(r1, id))}</li>`).join("")}</ul>` : ""}
 <p class="legend">${esc(facts)}</p>
 <h3>${esc(tt("Priority order", "Reihenfolge der Priorität"))}</h3>
 <ol>${order.map((id) => `<li>${esc(MEASURE_BY_ID[id].name)}</li>`).join("") || "<li>—</li>"}</ol>
