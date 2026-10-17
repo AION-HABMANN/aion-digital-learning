@@ -77,11 +77,11 @@ export function optWhyGuide(): MentorGuide {
     title: "1.2 · Your decision under time pressure",
     answer: R1().optWhy ?? "",
     example: tt(
-      "I would test low-fidelity first: with the short time and the small budget it leaves most of both free, and after two weeks we know what learners do, which the other two options cannot tell us before the money is spent.",
-      "Ich würde zuerst Low-Fidelity testen: Bei der kurzen Zeit und dem kleinen Budget bleibt davon das Meiste frei, und nach zwei Wochen wissen wir, was Lernende tun, was die anderen beiden Optionen uns vor dem Geldausgeben nicht sagen können.",
+      "I would test low-fidelity first. I assume “limited” means enough for one test round and a first build, but not for a full rebuild. With that, the first weeks cost little and tell us what learners do, which the other two options cannot tell us before the money is spent; what we build next follows from the tests.",
+      "Ich würde zuerst Low-Fidelity testen. Ich nehme an, „begrenzt“ heißt: genug für eine Testrunde und einen ersten Bau, aber nicht für einen vollständigen Umbau. Damit kosten die ersten Wochen wenig und zeigen uns, was Lernende tun, was die anderen beiden Optionen uns vor dem Geldausgeben nicht sagen können; was wir danach bauen, folgt aus den Tests.",
     ),
     why: "The plan asks to make a decision. Either option defends if the reason ties it to the three conditions (time, budget, unclear needs), including A when the learner argues a polished prototype is needed; C needs a stated answer to what is risked.",
-    lookFor: ["Names the option and a condition that weighs for it.", "Says what is given up by not choosing the others.", "Does not rest on “it looks finished”."],
+    lookFor: ["Names the option and a condition that weighs for it.", "Says what is given up by not choosing the others.", "Does not rest on “it looks finished”.", "Says what is assumed about “limited” (helpful, not required), and may say what follows the first step."],
   };
 }
 

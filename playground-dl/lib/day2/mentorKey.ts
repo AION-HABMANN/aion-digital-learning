@@ -54,8 +54,8 @@ export function KEY_D2_R1(): Partial<D2R1> {
     },
     optChoice: MODEL_OPT,
     optWhy: tt(
-      "Option B. With three months, a limited budget and unclear needs, a low-fidelity test is the cheapest way to learn what works, and it keeps the rest of the time and money free. A is polished but built on an untested idea, and C finds problems only when learners leave.",
-      "Option B. Bei drei Monaten, begrenztem Budget und unklaren Bedürfnissen ist ein Low-Fidelity-Test der günstigste Weg zu lernen, was funktioniert, und er hält die übrige Zeit und das übrige Geld frei. A ist ausgearbeitet, aber auf eine ungetestete Idee gebaut, und C findet Probleme erst, wenn Lernende gehen.",
+      "Option B. I assume “limited” means enough for one test round and a first build, but not for a full rebuild. With three months, that budget and unclear needs, a low-fidelity test is the cheapest way to learn what works, and it keeps the rest of the time and money free; what we build next follows from the tests. A is polished but built on an untested idea, and C finds problems only when learners leave.",
+      "Option B. Ich nehme an, „begrenzt“ heißt: genug für eine Testrunde und einen ersten Bau, aber nicht für einen vollständigen Umbau. Bei drei Monaten, diesem Budget und unklaren Bedürfnissen ist ein Low-Fidelity-Test der günstigste Weg zu lernen, was funktioniert, und er hält die übrige Zeit und das übrige Geld frei; was wir danach bauen, folgt aus den Tests. A ist ausgearbeitet, aber auf eine ungetestete Idee gebaut, und C findet Probleme erst, wenn Lernende gehen.",
     ),
     noTest: tt(
       "We build the wrong thing and find out only after launch, when every change is expensive and the budget goes into rework. Learners leave before we know why, and a competitor may ship a better version while we rework. The one that worries me most is finding out late.",

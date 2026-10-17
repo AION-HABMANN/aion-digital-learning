@@ -60,7 +60,7 @@ function CaseBrief() {
         <div className="rounded-lg border border-line bg-canvas p-3 text-caption">
           <p className="smallcaps">{tt("The conditions", "Die Rahmenbedingungen")}</p>
           <ul className="mt-1 list-disc space-y-1 pl-4 text-ink">
-            <li>{tt(`Time: ${MONTHS} months`, `Zeit: ${MONTHS} Monate`)}</li>
+            <li>{tt(`Time: ${MONTHS} months, until the next management review`, `Zeit: ${MONTHS} Monate, bis zur nächsten Management-Runde`)}</li>
             <li>{tt("Budget: limited", "Budget: begrenzt")}</li>
             <li>{tt("User needs: unclear", "Nutzerbedürfnisse: unklar")}</li>
           </ul>
@@ -74,11 +74,47 @@ function CaseBrief() {
           </ol>
         </div>
       </div>
+      <div id="case-known" className="rounded-lg border border-line bg-canvas p-3 text-caption">
+        <p className="smallcaps">{tt("What is known and what is open", "Was bekannt ist und was offen ist")}</p>
+        <div className="mt-2 grid gap-3 md:grid-cols-3">
+          <div>
+            <p className="font-semibold text-ink">{tt("In the brief", "Im Auftrag")}</p>
+            <ul className="mt-1 list-disc space-y-1 pl-4 text-ink">
+              <li>{tt("Learners drop out of courses early.", "Lernende brechen Kurse früh ab.")}</li>
+              <li>{tt("There is no personalisation.", "Es gibt keine Personalisierung.")}</li>
+              <li>{tt("The content is rated “boring”.", "Der Inhalt wird als „langweilig“ bewertet.")}</li>
+              <li>{tt(`The goal is to improve the platform; ${MONTHS} months, a limited budget.`, `Das Ziel ist, die Plattform zu verbessern; ${MONTHS} Monate, ein begrenztes Budget.`)}</li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-semibold text-ink">{tt("Clear · Case assumption", "Klar · Fallannahme")}</p>
+            <ul className="mt-1 list-disc space-y-1 pl-4 text-ink">
+              <li>{tt("LearnPro is live and has a catalogue of courses.", "LearnPro ist live und hat einen Katalog von Kursen.")}</li>
+              <li>{tt("The platform records how many learners start and finish each course.", "Die Plattform erfasst, wie viele Lernende jeden Kurs beginnen und beenden.")}</li>
+              <li>{tt("The rating “boring” comes from comments in the feedback form.", "Die Bewertung „langweilig“ stammt aus Kommentaren im Feedback-Formular.")}</li>
+              <li>{tt(`The ${MONTHS} months run until the next management review.`, `Die ${MONTHS} Monate laufen bis zur nächsten Management-Runde.`)}</li>
+              <li>{tt("The platform you develop in Block 1.2 is LearnPro's next version.", "Die Plattform, die Sie in Block 1.2 entwickeln, ist die nächste Version von LearnPro.")}</li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-semibold text-ink">{tt("Open · on purpose", "Offen · mit Absicht")}</p>
+            <ul className="mt-1 list-disc space-y-1 pl-4 text-ink">
+              <li>{tt("Why learners leave: nobody has asked them yet.", "Warum Lernende gehen: Bisher hat sie niemand gefragt.")}</li>
+              <li>{tt("What “boring” means exactly.", "Was „langweilig“ genau bedeutet.")}</li>
+              <li>{tt("What learners expect from personalisation.", "Was Lernende von Personalisierung erwarten.")}</li>
+              <li>{tt("How large the budget is: it is not set.", "Wie groß das Budget ist: Es ist nicht festgelegt.")}</li>
+            </ul>
+          </div>
+        </div>
+        <p className="mt-2 text-ash">
+          {tt("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.")}
+        </p>
+      </div>
       <Callout label={tt("Case assumption", "Fallannahme")}>
         <p>
           {tt(
-            "The brief says: users drop out early, no personalisation, content rated boring, three months, limited budget, unclear user needs. Everything else is made up for this exercise: the two platform drawings and the pictures of the three prototypes.",
-            "Der Auftrag sagt: Nutzer brechen früh ab, keine Personalisierung, Inhalt als langweilig bewertet, drei Monate, begrenztes Budget, unklare Nutzerbedürfnisse. Alles andere ist für diese Übung erfunden: die beiden Plattform-Zeichnungen und die Bilder der drei Prototypen.",
+            "The brief says: users drop out early, no personalisation, content rated boring, three months, limited budget, unclear user needs. Everything else is made up for this exercise: the two platform drawings, the pictures of the three prototypes and the facts marked “Clear”.",
+            "Der Auftrag sagt: Nutzer brechen früh ab, keine Personalisierung, Inhalt als langweilig bewertet, drei Monate, begrenztes Budget, unklare Nutzerbedürfnisse. Alles andere ist für diese Übung erfunden: die beiden Plattform-Zeichnungen, die Bilder der drei Prototypen und die als „Klar“ markierten Fakten.",
           )}
         </p>
       </Callout>
@@ -392,12 +428,13 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
     >
       <MaterialRefs refs={["A2", "A5"]} />
       <div id="block-1-2-brief" className="space-y-2 rounded-lg border border-line bg-canvas p-3 text-caption text-ink">
-        <p>{tt("You are developing a new learning platform. Three options are on the table. The conditions are:", "Sie entwickeln eine neue Lernplattform. Drei Optionen stehen zur Wahl. Die Rahmenbedingungen sind:")}</p>
+        <p>{tt("You are developing a new learning platform, LearnPro's next version. Three options are on the table. The conditions are:", "Sie entwickeln eine neue Lernplattform, die nächste Version von LearnPro. Drei Optionen stehen zur Wahl. Die Rahmenbedingungen sind:")}</p>
         <ul className="list-disc space-y-0.5 pl-5">
-          <li>{tt("time pressure: three months", "Zeitdruck: drei Monate")}</li>
+          <li>{tt("time pressure: three months, until the next management review", "Zeitdruck: drei Monate, bis zur nächsten Management-Runde")}</li>
           <li>{tt("a limited budget", "ein begrenztes Budget")}</li>
           <li>{tt("the needs of the users are unclear", "die Bedürfnisse der Nutzer sind unklar")}</li>
         </ul>
+        <p className="text-ash">{tt("As in most projects, the amount of the budget is not set and the needs of the users are not yet known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist die Höhe des Budgets nicht festgelegt, und die Bedürfnisse der Nutzer sind noch nicht bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.")}</p>
       </div>
       <OptionCards />
 
@@ -423,7 +460,7 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
       {mentor && <MentorGuide guide={assessGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 2 of 3", "Frage 2 von 3")}</p>
-      <Field id="optchoice-field" label={tt("Make a decision", "Treffen Sie eine Entscheidung")} help={tt("Choose one of the three options.", "Wählen Sie eine der drei Optionen.")}>
+      <Field id="optchoice-field" label={tt("Make a decision", "Treffen Sie eine Entscheidung")} help={tt("Choose the option you would start with. The three options fill the three months in different ways.", "Wählen Sie die Option, mit der Sie beginnen würden. Die drei Optionen füllen die drei Monate unterschiedlich.")}>
         <OptionList<OptId> options={OPTS.map((o) => ({ id: o.id, label: `${o.id} · ${o.name}` }))} value={r.optChoice} onChange={(id) => patch({ optChoice: id })} label={tt("Your decision", "Ihre Entscheidung")} />
       </Field>
       <TextBox
@@ -441,6 +478,8 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
           steps={[
             tt("Name the option and the condition that weighs most for it (the time, the budget or the unclear needs).", "Nennen Sie die Option und die Bedingung, die am meisten für sie spricht (die Zeit, das Budget oder die unklaren Bedürfnisse)."),
             tt("Say what you give up by not choosing one of the others.", "Sagen Sie, worauf Sie verzichten, wenn Sie nicht eine der anderen wählen."),
+            tt("Say in one sentence what you assume “limited” means for your choice.", "Sagen Sie in einem Satz, was Sie unter „begrenzt“ für Ihre Wahl annehmen."),
+            tt("If it helps, say what you would do after the first step within the three months. This is not required.", "Wenn es hilft, sagen Sie, was Sie nach dem ersten Schritt innerhalb der drei Monate tun würden. Das ist nicht verlangt."),
           ]}
         />
       </TextBox>
@@ -519,6 +558,67 @@ function CoachingCard() {
               ))}
             </ul>
           </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/**
+ * A second hidden card for the facilitator: the standard answers to the questions a participant with experience asks about the case (the budget, the
+ * three months, whether options combine). Same rules as the coaching card: nothing shows without the mentor passcode, no fields, not in the missing
+ * list, the ring, the page map or the export. The answers only repeat the case brief; they never add a figure.
+ */
+function CaseQaCard() {
+  const mentor = useStore((s) => s.mentorUnlocked);
+  const [open, setOpen] = useState(false);
+  if (!mentor) return null;
+  const qa: [string, string][] = [
+    [
+      tt("What exactly is the budget?", "Wie hoch ist das Budget genau?"),
+      tt("It is not set, on purpose. Ask the participant to write down what they assume, and whether the choice would change if the budget were twice as large or half as large. A good decision holds in more than one case.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Wahl ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre. Eine gute Entscheidung hält in mehr als einem Fall."),
+    ],
+    [
+      tt("Three months only for a prototype? That makes no sense.", "Drei Monate nur für einen Prototyp? Das ergibt keinen Sinn."),
+      tt("Correct. The choice in Block 1.2 is the first step; what follows depends on what the tests show. How the participant would work through the months is written in Block 2.1.", "Richtig. Die Wahl in Block 1.2 ist der erste Schritt; was folgt, hängt davon ab, was die Tests zeigen. Wie die Teilnehmenden die Monate durcharbeiten würden, steht in Block 2.1."),
+    ],
+    [
+      tt("Can I combine the options?", "Darf ich die Optionen kombinieren?"),
+      tt("Choose the one you start with. Naming what follows is welcome, but the choice is one.", "Wählen Sie die, mit der Sie beginnen. Zu nennen, was folgt, ist willkommen, aber die Wahl ist eine."),
+    ],
+    [
+      tt("Is this a new platform or LearnPro?", "Ist das eine neue Plattform oder LearnPro?"),
+      tt("LearnPro's next version (a Case assumption, written in the case brief).", "Die nächste Version von LearnPro (eine Fallannahme, im Fall-Auftrag festgehalten)."),
+    ],
+    [
+      tt("What data do we have?", "Welche Daten haben wir?"),
+      tt("See “What is known and what is open” in the case brief: starts and finishes per course are recorded; nobody has asked learners why they leave.", "Siehe „Was bekannt ist und was offen ist“ im Fall-Auftrag: Beginn und Abschluss je Kurs werden erfasst; niemand hat Lernende gefragt, warum sie gehen."),
+    ],
+    [
+      tt("Who rated the content as boring, and what does it mean?", "Wer hat den Inhalt als langweilig bewertet, und was heißt das?"),
+      tt("Comments in the feedback form. What “boring” means is open: it is one of the things a test would find out.", "Kommentare im Feedback-Formular. Was „langweilig“ heißt, ist offen: Es gehört zu dem, was ein Test herausfinden würde."),
+    ],
+    [
+      tt("How many learners drop out?", "Wie viele Lernende brechen ab?"),
+      tt("The brief gives no figure and the site prints none. The drop-out is a fact; its size is not given. Do not invent a number: the decision does not depend on it.", "Der Auftrag nennt keine Zahl, und die Seite druckt keine. Der Abbruch ist ein Fakt; seine Größe ist nicht angegeben. Erfinden Sie keine Zahl: Die Entscheidung hängt nicht davon ab."),
+    ],
+  ];
+  return (
+    <section id="case-qa-card" aria-label={tt("Case questions for the facilitator", "Fall-Fragen für die Moderation")} className="print:hidden">
+      <button type="button" aria-expanded={open} aria-controls="case-qa-body" onClick={() => setOpen((o) => !o)} className="btn-ghost btn-sm">
+        {open ? tt("Hide the case questions", "Die Fall-Fragen ausblenden") : tt("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen")}
+      </button>
+      {open && (
+        <div id="case-qa-body" className="card mt-2 space-y-3 p-4 md:p-6">
+          <p className="smallcaps text-accent">{tt("If a participant asks …", "Wenn Teilnehmende fragen …")}</p>
+          <dl className="space-y-3 text-body text-ink">
+            {qa.map(([q, a]) => (
+              <div key={q}>
+                <dt className="font-semibold">{q}</dt>
+                <dd className="mt-0.5">{a}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       )}
     </section>
@@ -688,6 +788,7 @@ export function Task1() {
         <h2 id="task1-h">{tt("UX Analysis File: compare platforms, plan prototypes and tests", "UX Analysis File: Plattformen vergleichen, Prototypen und Tests planen")}</h2>
       </header>
       <CaseBrief />
+      <CaseQaCard />
       <PartHeading id="part-1" n={1} title={tt("Compare platforms and options", "Plattformen und Optionen vergleichen")} level={tt("Level 1 · Knowledge", "Level 1 · Wissen")} />
       <Block11 missing={missing} />
       <Block12 missing={missing} />
