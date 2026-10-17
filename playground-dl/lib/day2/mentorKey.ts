@@ -123,5 +123,25 @@ export function KEY_D2_R2(): Partial<D2R2> {
       "I decide to run a rule-based personalisation pilot in one course. I do not know whether learners want recommended steps or whether our data is good enough. I will reverse it if pilot completion is not clearly above the control group after eight weeks.",
       "Ich entscheide, einen regelbasierten Personalisierungs-Pilot in einem Kurs zu fahren. Ich weiß nicht, ob Lernende empfohlene Schritte wollen oder ob unsere Daten gut genug sind. Ich nehme ihn zurück, wenn die Completion im Pilot nach acht Wochen nicht deutlich über der Kontrollgruppe liegt.",
     ),
+    // the same answers as guided tables, so the model completes the block in either layout
+    dataRows: [
+      { data: tt("Where learners leave (drop-out per lesson)", "Wo Lernende gehen (Abbruch pro Lektion)"), have: tt("Yes: recorded today", "Ja: wird heute erfasst"), how: tt("Already in the platform data", "Schon in den Plattformdaten") },
+      { data: tt("How long a unit takes", "Wie lange eine Einheit dauert"), have: tt("No", "Nein"), how: tt("Five-learner tests every two weeks", "Tests mit fünf Lernenden alle zwei Wochen") },
+      { data: tt("Why learners leave", "Warum Lernende gehen"), have: tt("No", "Nein"), how: tt("Eight interviews", "Acht Interviews") },
+    ],
+    roadRows: [
+      { item: tt("Guided learning path and feedback after each task, tested low-fidelity first", "Geführter Lernpfad und Feedback nach jeder Aufgabe, zuerst als Low-Fidelity getestet"), why: tt("It helps every learner and the later steps depend on it", "Er hilft jeder Lernenden, und die späteren Schritte hängen davon ab") },
+      { item: tt("A learning dashboard for the team", "Ein Lern-Dashboard für das Team"), why: tt("So the team sees where learners leave", "Damit das Team sieht, wo Lernende gehen") },
+      { item: tt("A rule-based personalisation pilot in one course, with a control group", "Ein regelbasierter Personalisierungs-Pilot in einem Kurs, mit Kontrollgruppe"), why: tt("Small and testable; the recommendation engine waits for its result", "Klein und testbar; die Empfehlungs-Engine wartet auf sein Ergebnis") },
+    ],
+    riskRows: [
+      { risk: tt("Buying AI first uses most of the budget and leaves learners with the same problems", "Zuerst KI zu kaufen verbraucht den größten Teil des Budgets und lässt Lernende mit denselben Problemen"), side: tt("Technology", "Technologie"), action: tt("Path and feedback first; the AI is a later step with a stop sign", "Pfad und Feedback zuerst; die KI ist ein späterer Schritt mit Stoppschild") },
+      { risk: tt("Learners keep leaving because the next step is unclear", "Lernende gehen weiter, weil der nächste Schritt unklar ist"), side: tt("Users", "Nutzer"), action: tt("A guided path and feedback, tested with five learners per round", "Ein geführter Pfad und Feedback, getestet mit fünf Lernenden pro Runde") },
+    ],
+    uncRows: {
+      decide: tt("Run a rule-based personalisation pilot in one course.", "Einen regelbasierten Personalisierungs-Pilot in einem Kurs fahren."),
+      unknown: tt("Whether learners want recommended steps and whether our data is good enough.", "Ob Lernende empfohlene Schritte wollen und ob unsere Daten gut genug sind."),
+      reverse: tt("If pilot completion is not clearly above the control group after eight weeks.", "Wenn die Completion im Pilot nach acht Wochen nicht deutlich über der Kontrollgruppe liegt."),
+    },
   };
 }

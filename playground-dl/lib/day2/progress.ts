@@ -32,6 +32,37 @@ export const diffLines = (t: string) => t.split(/\r?\n/).map((x) => x.replace(/^
 export const diffCount = (r1: { diffMode: "table" | "text"; diffs: string; diffRows: DiffRow[] }) => (r1.diffMode === "table" ? r1.diffRows.filter((r) => rowGaps(r).length === 0).length : diffLines(r1.diffs).length);
 
 export const ASSESS_KEYS = ["risk", "benefit", "effort"] as const;
+
+/* Route 2, questions 3 to 6: a text box, or a guided table whose rows the learner can add. Only the chosen layout counts. */
+export const DATA_KEYS = ["data", "have", "how"] as const;
+export const ROAD_KEYS = ["item", "why"] as const;
+export const RISK_KEYS = ["risk", "side", "action"] as const;
+export const UNC_KEYS = ["decide", "unknown", "reverse"] as const;
+/** A table answer counts from this many complete rows; a row with some cells and not all is named, an empty row is ignored. */
+export const MIN_ROWS = 2;
+export const MAX_ROWS = 8;
+type Cells = Record<string, string>;
+/** Columns that hold a short answer by design ("Yes", "No", "Users"): two characters are enough there. */
+const SHORT_KEYS = ["have", "side"];
+export const rowKind = (r: Cells, keys: readonly string[]): "empty" | "partial" | "full" => {
+  if (keys.every((k) => !(r[k] ?? "").trim())) return "empty";
+  return keys.every((k) => cellText(r[k]).length >= (SHORT_KEYS.includes(k) ? 2 : MIN_CELL)) ? "full" : "partial";
+};
+export const rowsFull = (rows: Cells[], keys: readonly string[]) => rows.filter((r) => rowKind(r, keys) === "full").length;
+export const rowsPartial = (rows: Cells[], keys: readonly string[]) => rows.map((r, i) => (rowKind(r, keys) === "partial" ? i : -1)).filter((i) => i >= 0);
+export const rowsOk = (rows: Cells[], keys: readonly string[]) => rowsFull(rows, keys) >= MIN_ROWS && rowsPartial(rows, keys).length === 0;
+const tlen = (t: string) => t.trim().length;
+export type R2Like = {
+  testing: string; dataMode: Mode; dataRows: Cells[];
+  roadmap: string; roadMode: Mode; roadRows: Cells[];
+  riskText: string; riskMode: Mode; riskRows: Cells[];
+  uncertain: string; uncMode: Mode; uncRows: Cells;
+};
+export const dataOk = (r: R2Like) => (r.dataMode === "table" ? rowsOk(r.dataRows, DATA_KEYS) : tlen(r.testing) >= MIN_LINE);
+export const roadOk = (r: R2Like) => (r.roadMode === "table" ? rowsOk(r.roadRows, ROAD_KEYS) : tlen(r.roadmap) >= MIN_LINE);
+export const riskOk = (r: R2Like) => (r.riskMode === "table" ? rowsOk(r.riskRows, RISK_KEYS) : tlen(r.riskText) >= MIN_LINE);
+export const uncGaps = (r: R2Like) => UNC_KEYS.filter((k) => tlen(r.uncRows[k] ?? "") < MIN_REASON);
+export const uncOk = (r: R2Like) => (r.uncMode === "table" ? uncGaps(r).length === 0 : tlen(r.uncertain) >= MIN_FRAME);
 export const TEST_KEYS = ["what", "how", "measure"] as const;
 type Mode = "text" | "table";
 
@@ -66,7 +97,7 @@ export function taskBlocks(p: Persisted): Record<TaskBlockId, boolean> {
     b11: !!r1.prefer && len(r1.preferWhy) >= MIN_LINE && diffCount(r1) >= DIFFS_N && r1.principles.every((x) => len(x) >= MIN_LINE),
     b12: assessDone(r1) && !!r1.optChoice && len(r1.optWhy) >= MIN_LINE && len(r1.noTest) >= MIN_LINE,
     b21: len(r1.weakText) >= MIN_LINE && len(r1.approachText) >= MIN_LINE && testsDone(r1) && !!r1.adaptive && len(r1.adaptiveWhy) >= MIN_LINE,
-    b31: !!r2.adaptive && len(r2.adaptiveWhy) >= MIN_LINE && len(r2.prototyping) >= MIN_LINE && len(r2.testing) >= MIN_LINE && len(r2.roadmap) >= MIN_LINE && len(r2.riskText) >= MIN_LINE && len(r2.uncertain) >= MIN_FRAME,
+    b31: !!r2.adaptive && len(r2.adaptiveWhy) >= MIN_LINE && len(r2.prototyping) >= MIN_LINE && dataOk(r2) && roadOk(r2) && riskOk(r2) && uncOk(r2),
   };
 }
 

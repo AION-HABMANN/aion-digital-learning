@@ -7,6 +7,8 @@ import { BlockMissing } from "@/components/ui/BlockMissing";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { Field } from "@/components/ui/Field";
+import { CellField, GridTable, LayoutLink } from "@/components/ui/FormOrTable";
+import { RowsTable } from "@/components/ui/RowsTable";
 import { OptionList, TextBox } from "@/components/ui/Inputs";
 import { CaseKnown } from "@/components/ui/CaseKnown";
 import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
@@ -24,7 +26,8 @@ import { adaptiveKey } from "@/lib/day2/answerKey";
 import { memoBody } from "@/lib/day2/exportDoc";
 import { prototypingGuide, r2AdaptiveGuide, riskTextGuide, roadmapGuide, testingGuide, uncertainGuide } from "@/lib/day2/guides";
 import { IDS, r2Missing } from "@/lib/day2/missing";
-import { BLOCK_MINUTES, CORE2_MINUTES, MIN_FRAME, MIN_LINE } from "@/lib/day2/progress";
+import { DATA_GUIDE, RISK_GUIDE, ROAD_GUIDE, UNC_GUIDE } from "@/data/day2/tableGuides";
+import { BLOCK_MINUTES, CORE2_MINUTES, MIN_FRAME, MIN_LINE, MIN_ROWS } from "@/lib/day2/progress";
 import type { MissingEntry } from "@/lib/missing";
 import { useJumpTo } from "@/lib/useJumpTo";
 import { tt } from "@/lib/lang";
@@ -222,89 +225,164 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       {mentor && <MentorGuide guide={prototypingGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 3 of 6", "Frage 3 von 6")}</p>
-      <TextBox
-        id={IDS.testing}
-        label={tt("UX testing strategy: which data do we need?", "UX-Teststrategie: welche Daten brauchen wir?")}
-        help={tt(`Name the data, say which you already have and how you get the rest. At least ${MIN_LINE} characters.`, `Nennen Sie die Daten, sagen Sie, welche Sie schon haben und wie Sie den Rest bekommen. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.testing}
-        onChange={(v) => patch({ testing: v })}
-        min={MIN_LINE}
-        rows={4}
-      >
-        <WritingHelp
-          id="testing-kit"
-          steps={[
-            tt("List the data you need: what says how many (drop-out, time, completion) and what says why (tests, interviews).", "Listen Sie die Daten auf, die Sie brauchen: was sagt, wie viele (Abbruch, Zeit, Abschluss), und was sagt, warum (Tests, Interviews)."),
-            tt("Mark what you have today and how you collect what is missing.", "Markieren Sie, was Sie heute haben und wie Sie das Fehlende erheben."),
-          ]}
+      {r.dataMode === "text" ? (
+        <TextBox
+          id={IDS.testing}
+          label={tt("UX testing strategy: which data do we need?", "UX-Teststrategie: welche Daten brauchen wir?")}
+          help={tt(`Name the data, say which you already have and how you get the rest. At least ${MIN_LINE} characters.`, `Nennen Sie die Daten, sagen Sie, welche Sie schon haben und wie Sie den Rest bekommen. Mindestens ${MIN_LINE} Zeichen.`)}
+          value={r.testing}
+          onChange={(v) => patch({ testing: v })}
+          min={MIN_LINE}
+          rows={4}
+        >
+          <WritingHelp
+            id="testing-kit"
+            steps={[
+              tt("List the data you need: what says how many (drop-out, time, completion) and what says why (tests, interviews).", "Listen Sie die Daten auf, die Sie brauchen: was sagt, wie viele (Abbruch, Zeit, Abschluss), und was sagt, warum (Tests, Interviews)."),
+              tt("Mark what you have today and how you collect what is missing.", "Markieren Sie, was Sie heute haben und wie Sie das Fehlende erheben."),
+            ]}
+          />
+        </TextBox>
+      ) : (
+        <RowsTable
+          id={IDS.testing}
+          label={tt("UX testing strategy: which data do we need?", "UX-Teststrategie: welche Daten brauchen wir?")}
+          help={tt(`One row per piece of data: the data, whether you have it today, how you get it. Add rows as you need. At least ${MIN_ROWS} complete rows.`, `Eine Zeile pro Information: die Daten, ob Sie sie heute haben, wie Sie sie bekommen. Fügen Sie Zeilen hinzu, wie Sie sie brauchen. Mindestens ${MIN_ROWS} vollständige Zeilen.`)}
+          cols={[{ key: "data", label: tt("Data", "Daten") }, { key: "have", label: tt("Have it already?", "Schon vorhanden?") }, { key: "how", label: tt("How you get it", "Wie Sie sie bekommen") }]}
+          rows={r.dataRows}
+          onCell={(i, k, v) => patch((st) => ({ dataRows: st.dataRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+          onAdd={() => patch((st) => ({ dataRows: [...st.dataRows, { data: "", have: "", how: "" }] }))}
+          onRemoveLast={() => patch((st) => ({ dataRows: st.dataRows.slice(0, -1) }))}
+          rowId={IDS.dataRow}
+          guide={DATA_GUIDE}
         />
-      </TextBox>
+      )}
+      <LayoutLink mode={r.dataMode} onMode={(m) => patch({ dataMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="testing-example" guide={testingGuide()} />
       {mentor && <MentorGuide guide={testingGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 4 of 6", "Frage 4 von 6")}</p>
-      <TextBox
-        id={IDS.roadmap}
-        label={tt("A prioritised innovation roadmap", "Eine priorisierte Innovations-Roadmap")}
-        help={tt(`One item per line, the first priority first. Say what waits for later. At least ${MIN_LINE} characters.`, `Ein Punkt pro Zeile, die erste Priorität zuerst. Sagen Sie, was auf später wartet. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.roadmap}
-        onChange={(v) => patch({ roadmap: v })}
-        min={MIN_LINE}
-        rows={6}
-        placeholder={tt("1. …\n2. …\n3. …\nLater: …", "1. …\n2. …\n3. …\nSpäter: …")}
-      >
-        <WritingHelp
-          id="roadmap-kit"
-          refs={[{ label: tt("How to prioritise a roadmap (Materi B2)", "Wie man eine Roadmap priorisiert (Materi B2)"), value: tt("rules of the card", "Regeln der Karte"), target: "mat-B2", before: b("B2") }]}
-          steps={[
-            tt("Put first what helps every learner and what the others depend on.", "Setzen Sie an die erste Stelle, was jeder Lernenden hilft und wovon die anderen Punkte abhängen."),
-            tt("Order the rest, and say what you postpone and why.", "Ordnen Sie den Rest und sagen Sie, was Sie verschieben und warum."),
-          ]}
+      {r.roadMode === "text" ? (
+        <TextBox
+          id={IDS.roadmap}
+          label={tt("A prioritised innovation roadmap", "Eine priorisierte Innovations-Roadmap")}
+          help={tt(`One item per line, the first priority first. Say what waits for later. At least ${MIN_LINE} characters.`, `Ein Punkt pro Zeile, die erste Priorität zuerst. Sagen Sie, was auf später wartet. Mindestens ${MIN_LINE} Zeichen.`)}
+          value={r.roadmap}
+          onChange={(v) => patch({ roadmap: v })}
+          min={MIN_LINE}
+          rows={6}
+          placeholder={tt("1. …\n2. …\n3. …\nLater: …", "1. …\n2. …\n3. …\nSpäter: …")}
+        >
+          <WritingHelp
+            id="roadmap-kit"
+            refs={[{ label: tt("How to prioritise a roadmap (Materi B2)", "Wie man eine Roadmap priorisiert (Materi B2)"), value: tt("rules of the card", "Regeln der Karte"), target: "mat-B2", before: b("B2") }]}
+            steps={[
+              tt("Put first what helps every learner and what the others depend on.", "Setzen Sie an die erste Stelle, was jeder Lernenden hilft und wovon die anderen Punkte abhängen."),
+              tt("Order the rest, and say what you postpone and why.", "Ordnen Sie den Rest und sagen Sie, was Sie verschieben und warum."),
+            ]}
+          />
+        </TextBox>
+      ) : (
+        <RowsTable
+          id={IDS.roadmap}
+          label={tt("A prioritised innovation roadmap", "Eine priorisierte Innovations-Roadmap")}
+          help={tt(`One row per step, the first priority first: what, and why it has this place. Put what waits for later in the last rows. At least ${MIN_ROWS} complete rows.`, `Eine Zeile pro Schritt, die erste Priorität zuerst: was, und warum er diesen Platz hat. Setzen Sie, was auf später wartet, in die letzten Zeilen. Mindestens ${MIN_ROWS} vollständige Zeilen.`)}
+          cols={[{ key: "item", label: tt("What", "Was") }, { key: "why", label: tt("Why in this place", "Warum an dieser Stelle") }]}
+          rows={r.roadRows}
+          onCell={(i, k, v) => patch((st) => ({ roadRows: st.roadRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+          onAdd={() => patch((st) => ({ roadRows: [...st.roadRows, { item: "", why: "" }] }))}
+          onRemoveLast={() => patch((st) => ({ roadRows: st.roadRows.slice(0, -1) }))}
+          rowId={IDS.roadRow}
+          guide={ROAD_GUIDE} numbered orderHead={tt("Order", "Reihenfolge")}
         />
-      </TextBox>
+      )}
+      <LayoutLink mode={r.roadMode} onMode={(m) => patch({ roadMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="roadmap-example" guide={roadmapGuide()} />
       {mentor && <MentorGuide guide={roadmapGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 5 of 6", "Frage 5 von 6")}</p>
-      <TextBox
-        id={IDS.riskText}
-        label={tt("Risk analysis: technology against user value", "Risikoanalyse: Technologie gegen Nutzerwert")}
-        help={tt(`Name the risks of the technology and of the user side, and what you do about the biggest. At least ${MIN_LINE} characters.`, `Nennen Sie die Risiken der Technologie und der Nutzerseite und was Sie gegen das größte tun. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.riskText}
-        onChange={(v) => patch({ riskText: v })}
-        min={MIN_LINE}
-        rows={4}
-      >
-        <WritingHelp
-          id="risktext-kit"
-          steps={[
-            tt("Ask what could go wrong if you buy the technology, and what could go wrong for the learners if you do not.", "Fragen Sie, was schiefgehen kann, wenn Sie die Technologie kaufen, und was für die Lernenden, wenn Sie es nicht tun."),
-            tt("Pick the biggest risk and say what your plan does about it.", "Wählen Sie das größte Risiko und sagen Sie, was Ihr Plan dagegen tut."),
-          ]}
+      {r.riskMode === "text" ? (
+        <TextBox
+          id={IDS.riskText}
+          label={tt("Risk analysis: technology against user value", "Risikoanalyse: Technologie gegen Nutzerwert")}
+          help={tt(`Name the risks of the technology and of the user side, and what you do about the biggest. At least ${MIN_LINE} characters.`, `Nennen Sie die Risiken der Technologie und der Nutzerseite und was Sie gegen das größte tun. Mindestens ${MIN_LINE} Zeichen.`)}
+          value={r.riskText}
+          onChange={(v) => patch({ riskText: v })}
+          min={MIN_LINE}
+          rows={4}
+        >
+          <WritingHelp
+            id="risktext-kit"
+            steps={[
+              tt("Ask what could go wrong if you buy the technology, and what could go wrong for the learners if you do not.", "Fragen Sie, was schiefgehen kann, wenn Sie die Technologie kaufen, und was für die Lernenden, wenn Sie es nicht tun."),
+              tt("Pick the biggest risk and say what your plan does about it.", "Wählen Sie das größte Risiko und sagen Sie, was Ihr Plan dagegen tut."),
+            ]}
+          />
+        </TextBox>
+      ) : (
+        <RowsTable
+          id={IDS.riskText}
+          label={tt("Risk analysis: technology against user value", "Risikoanalyse: Technologie gegen Nutzerwert")}
+          help={tt(`One row per risk: the risk, whose it is (the technology or the users), what you do about it. At least ${MIN_ROWS} complete rows.`, `Eine Zeile pro Risiko: das Risiko, wessen es ist (die Technologie oder die Nutzer), was Sie dagegen tun. Mindestens ${MIN_ROWS} vollständige Zeilen.`)}
+          cols={[{ key: "risk", label: tt("Risk", "Risiko") }, { key: "side", label: tt("Side", "Seite") }, { key: "action", label: tt("What you do about it", "Was Sie dagegen tun") }]}
+          rows={r.riskRows}
+          onCell={(i, k, v) => patch((st) => ({ riskRows: st.riskRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+          onAdd={() => patch((st) => ({ riskRows: [...st.riskRows, { risk: "", side: "", action: "" }] }))}
+          onRemoveLast={() => patch((st) => ({ riskRows: st.riskRows.slice(0, -1) }))}
+          rowId={IDS.riskRow}
+          guide={RISK_GUIDE}
         />
-      </TextBox>
+      )}
+      <LayoutLink mode={r.riskMode} onMode={(m) => patch({ riskMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="risktext-example" guide={riskTextGuide()} />
       {mentor && <MentorGuide guide={riskTextGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 6 of 6", "Frage 6 von 6")}</p>
-      <TextBox
-        id={IDS.uncertain}
-        label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
-        help={tt(`Say what you decide, what you do not know, and when you would reverse it. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie die Entscheidung zurücknähmen. Mindestens ${MIN_FRAME} Zeichen.`)}
-        value={r.uncertain}
-        onChange={(v) => patch({ uncertain: v })}
-        min={MIN_FRAME}
-        rows={4}
-      >
-        <WritingHelp
-          id="uncertain-kit"
-          refs={[{ label: tt("Deciding when data is missing (Materi B3)", "Entscheiden bei fehlenden Daten (Materi B3)"), value: tt("rules of the card", "Regeln der Karte"), target: "mat-B3", before: b("B3") }]}
-          steps={[
-            tt("Write the decision in one sentence: what you will do now.", "Schreiben Sie die Entscheidung in einem Satz: was Sie jetzt tun."),
-            tt("Name what you do not know, and the sign and the time at which you would reverse it.", "Nennen Sie, was Sie nicht wissen, und das Zeichen und den Zeitpunkt, zu dem Sie sie zurücknähmen."),
-          ]}
-        />
-      </TextBox>
+      {r.uncMode === "text" ? (
+        <TextBox
+          id={IDS.uncertain}
+          label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
+          help={tt(`Say what you decide, what you do not know, and when you would reverse it. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie die Entscheidung zurücknähmen. Mindestens ${MIN_FRAME} Zeichen.`)}
+          value={r.uncertain}
+          onChange={(v) => patch({ uncertain: v })}
+          min={MIN_FRAME}
+          rows={4}
+        >
+          <WritingHelp
+            id="uncertain-kit"
+            refs={[{ label: tt("Deciding when data is missing (Materi B3)", "Entscheiden bei fehlenden Daten (Materi B3)"), value: tt("rules of the card", "Regeln der Karte"), target: "mat-B3", before: b("B3") }]}
+            steps={[
+              tt("Write the decision in one sentence: what you will do now.", "Schreiben Sie die Entscheidung in einem Satz: was Sie jetzt tun."),
+              tt("Name what you do not know, and the sign and the time at which you would reverse it.", "Nennen Sie, was Sie nicht wissen, und das Zeichen und den Zeitpunkt, zu dem Sie sie zurücknähmen."),
+            ]}
+          />
+        </TextBox>
+      ) : (
+        <Field
+          id={IDS.uncertain}
+          label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
+          help={tt("Three parts, one row each: what you decide, what you do not know, when you would reverse it.", "Drei Teile, je eine Zeile: was Sie entscheiden, was Sie nicht wissen, wann Sie die Entscheidung zurücknähmen.")}
+        >
+          <GridTable
+            head={[tt("Part", "Teil"), tt("Your answer", "Ihre Antwort")]}
+            hints={[UNC_GUIDE.hints.first, UNC_GUIDE.hints.text]}
+            example={[UNC_GUIDE.example.first, UNC_GUIDE.example.cells.text]}
+            exampleLabel={UNC_GUIDE.exampleLabel}
+            rows={(
+              [
+                ["decide", tt("What I decide", "Was ich entscheide")],
+                ["unknown", tt("What I do not know", "Was ich nicht weiß")],
+                ["reverse", tt("When I would reverse it", "Wann ich sie zurücknähme")],
+              ] as const
+            ).map(([k, name]) => ({
+              id: IDS.uncRow(k),
+              label: name,
+              cells: [<CellField key={k} value={r.uncRows[k]} onChange={(v) => patch((st) => ({ uncRows: { ...st.uncRows, [k]: v } }))} label={name} />],
+            }))}
+          />
+        </Field>
+      )}
+      <LayoutLink mode={r.uncMode} onMode={(m) => patch({ uncMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="uncertain-example" guide={uncertainGuide()} />
       {mentor && <MentorGuide guide={uncertainGuide()} />}
       <AnswerKey block={adaptiveKey()} />

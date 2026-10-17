@@ -1,5 +1,5 @@
 import { OPT_BY_ID, OPT_IDS, TEST_SLOTS } from "@/data/day2/case";
-import { ASSESS_KEYS, DIFFS_N, MIN_ASSESS, MIN_CELL, MIN_FRAME, MIN_LINE, TEST_KEYS, cellText, diffCount, rowGaps } from "@/lib/day2/progress";
+import { ASSESS_KEYS, DATA_KEYS, DIFFS_N, MIN_ASSESS, MIN_CELL, MIN_FRAME, MIN_LINE, MIN_REASON, MIN_ROWS, RISK_KEYS, ROAD_KEYS, TEST_KEYS, cellText, diffCount, rowGaps, rowsFull, rowsPartial, uncGaps } from "@/lib/day2/progress";
 import { participantMissing } from "@/lib/missing";
 import type { MissingEntry } from "@/lib/missing";
 import { tt } from "@/lib/lang";
@@ -25,6 +25,10 @@ export const IDS = {
   weak: "weak-field",
   approach: "approach-field",
   tests: "tests-field",
+  dataRow: (i: number) => `data-row-${i}`,
+  roadRow: (i: number) => `road-row-${i}`,
+  riskRow: (i: number) => `risk-row-${i}`,
+  uncRow: (k: string) => `unc-row-${k}`,
   testSlot: (id: string) => `test-${id}`,
   adaptive: "adaptive-field",
   adaptiveWhy: "adaptivewhy-field",
@@ -103,9 +107,22 @@ export function r2Missing(p: Persisted): MissingEntry[] {
   if (!r2.adaptive) e(IDS.r2Adaptive, tt("Block 3.1: decide whether to invest in adaptive learning: yes, partly or no.", "Block 3.1: Entscheiden Sie, ob Sie in adaptives Lernen investieren: ja, teilweise oder nein."));
   if (!long(r2.adaptiveWhy, MIN_LINE)) e(IDS.r2AdaptiveWhy, tt(`Block 3.1: say why; if partly, what you fund now and what waits (at least ${MIN_LINE} characters).`, `Block 3.1: Sagen Sie, warum; bei „teilweise“, was Sie jetzt finanzieren und was wartet (mindestens ${MIN_LINE} Zeichen).`));
   if (!long(r2.prototyping, MIN_LINE)) e(IDS.prototyping, tt(`Block 3.1: write your prototyping strategy: how you test new features (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Prototyping-Strategie: wie Sie neue Funktionen testen (mindestens ${MIN_LINE} Zeichen).`));
-  if (!long(r2.testing, MIN_LINE)) e(IDS.testing, tt(`Block 3.1: write your UX testing strategy: which data you need (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre UX-Teststrategie: welche Daten Sie brauchen (mindestens ${MIN_LINE} Zeichen).`));
-  if (!long(r2.roadmap, MIN_LINE)) e(IDS.roadmap, tt(`Block 3.1: write your prioritised innovation roadmap, first priority first (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre priorisierte Innovations-Roadmap, die erste Priorität zuerst (mindestens ${MIN_LINE} Zeichen).`));
-  if (!long(r2.riskText, MIN_LINE)) e(IDS.riskText, tt(`Block 3.1: write your risk analysis: technology against user value (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Risikoanalyse: Technologie gegen Nutzerwert (mindestens ${MIN_LINE} Zeichen).`));
-  if (!long(r2.uncertain, MIN_FRAME)) e(IDS.uncertain, tt(`Block 3.1: write the decision you make under uncertainty: what you decide, what you do not know, when you would reverse it (at least ${MIN_FRAME} characters).`, `Block 3.1: Schreiben Sie die Entscheidung unter Unsicherheit: was Sie entscheiden, was Sie nicht wissen, wann Sie sie zurücknähmen (mindestens ${MIN_FRAME} Zeichen).`));
+  // questions 3 to 6: a text box or a guided table; only the chosen layout counts
+  if (r2.dataMode === "table") {
+    if (rowsFull(r2.dataRows, DATA_KEYS) < MIN_ROWS) e(IDS.testing, tt(`Block 3.1: name the data you need in at least ${MIN_ROWS} complete rows: the data, whether you have it, how you get it.`, `Block 3.1: Nennen Sie die Daten, die Sie brauchen, in mindestens ${MIN_ROWS} vollständigen Zeilen: die Daten, ob Sie sie haben, wie Sie sie bekommen.`));
+    for (const i of rowsPartial(r2.dataRows, DATA_KEYS)) e(IDS.dataRow(i), tt(`Block 3.1: finish data row ${i + 1} (the data, whether you have it, how you get it) or clear it.`, `Block 3.1: Vervollständigen Sie Daten-Zeile ${i + 1} (die Daten, ob Sie sie haben, wie Sie sie bekommen) oder leeren Sie sie.`));
+  } else if (!long(r2.testing, MIN_LINE)) e(IDS.testing, tt(`Block 3.1: write your UX testing strategy: which data you need (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre UX-Teststrategie: welche Daten Sie brauchen (mindestens ${MIN_LINE} Zeichen).`));
+  if (r2.roadMode === "table") {
+    if (rowsFull(r2.roadRows, ROAD_KEYS) < MIN_ROWS) e(IDS.roadmap, tt(`Block 3.1: write your roadmap in at least ${MIN_ROWS} complete rows, first priority first: what and why.`, `Block 3.1: Schreiben Sie Ihre Roadmap in mindestens ${MIN_ROWS} vollständigen Zeilen, die erste Priorität zuerst: was und warum.`));
+    for (const i of rowsPartial(r2.roadRows, ROAD_KEYS)) e(IDS.roadRow(i), tt(`Block 3.1: finish roadmap row ${i + 1} (what, and why in this place) or clear it.`, `Block 3.1: Vervollständigen Sie Roadmap-Zeile ${i + 1} (was, und warum an dieser Stelle) oder leeren Sie sie.`));
+  } else if (!long(r2.roadmap, MIN_LINE)) e(IDS.roadmap, tt(`Block 3.1: write your prioritised innovation roadmap, first priority first (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre priorisierte Innovations-Roadmap, die erste Priorität zuerst (mindestens ${MIN_LINE} Zeichen).`));
+  if (r2.riskMode === "table") {
+    if (rowsFull(r2.riskRows, RISK_KEYS) < MIN_ROWS) e(IDS.riskText, tt(`Block 3.1: name at least ${MIN_ROWS} risks in complete rows: the risk, its side (technology or users), what you do about it.`, `Block 3.1: Nennen Sie mindestens ${MIN_ROWS} Risiken in vollständigen Zeilen: das Risiko, seine Seite (Technologie oder Nutzer), was Sie dagegen tun.`));
+    for (const i of rowsPartial(r2.riskRows, RISK_KEYS)) e(IDS.riskRow(i), tt(`Block 3.1: finish risk row ${i + 1} (the risk, its side, what you do) or clear it.`, `Block 3.1: Vervollständigen Sie Risiko-Zeile ${i + 1} (das Risiko, seine Seite, was Sie tun) oder leeren Sie sie.`));
+  } else if (!long(r2.riskText, MIN_LINE)) e(IDS.riskText, tt(`Block 3.1: write your risk analysis: technology against user value (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Risikoanalyse: Technologie gegen Nutzerwert (mindestens ${MIN_LINE} Zeichen).`));
+  if (r2.uncMode === "table") {
+    const names: Record<string, string> = { decide: tt("what you decide", "was Sie entscheiden"), unknown: tt("what you do not know", "was Sie nicht wissen"), reverse: tt("when you would reverse it", "wann Sie sie zurücknähmen") };
+    for (const k of uncGaps(r2)) e(IDS.uncRow(k), tt(`Block 3.1: write ${names[k]} (at least ${MIN_REASON} characters).`, `Block 3.1: Schreiben Sie, ${names[k]} (mindestens ${MIN_REASON} Zeichen).`));
+  } else if (!long(r2.uncertain, MIN_FRAME)) e(IDS.uncertain, tt(`Block 3.1: write the decision you make under uncertainty: what you decide, what you do not know, when you would reverse it (at least ${MIN_FRAME} characters).`, `Block 3.1: Schreiben Sie die Entscheidung unter Unsicherheit: was Sie entscheiden, was Sie nicht wissen, wann Sie sie zurücknähmen (mindestens ${MIN_FRAME} Zeichen).`));
   return out;
 }

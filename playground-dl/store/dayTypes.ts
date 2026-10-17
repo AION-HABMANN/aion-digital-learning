@@ -48,10 +48,19 @@ export type D2R2 = {
   adaptive: Verdict | null;
   adaptiveWhy: string;
   prototyping: string;
+  /** Questions 3 to 6 can be written as text (the default) or as a guided table; the other layout is kept, only the chosen one counts. */
   testing: string;
+  dataMode: "text" | "table";
+  dataRows: { data: string; have: string; how: string }[];
   roadmap: string;
+  roadMode: "text" | "table";
+  roadRows: { item: string; why: string }[];
   riskText: string;
+  riskMode: "text" | "table";
+  riskRows: { risk: string; side: string; action: string }[];
   uncertain: string;
+  uncMode: "text" | "table";
+  uncRows: { decide: string; unknown: string; reverse: string };
 };
 
 export type D2State = { r1: D2R1; r2: D2R2 };
@@ -86,9 +95,17 @@ export const emptyD2R2 = (): D2R2 => ({
   adaptiveWhy: "",
   prototyping: "",
   testing: "",
+  dataMode: "text",
+  dataRows: Array.from({ length: 3 }, () => ({ data: "", have: "", how: "" })),
   roadmap: "",
+  roadMode: "text",
+  roadRows: Array.from({ length: 3 }, () => ({ item: "", why: "" })),
   riskText: "",
+  riskMode: "text",
+  riskRows: Array.from({ length: 3 }, () => ({ risk: "", side: "", action: "" })),
   uncertain: "",
+  uncMode: "text",
+  uncRows: { decide: "", unknown: "", reverse: "" },
 });
 
 export const emptyD2 = (): D2State => ({ r1: emptyD2R1(), r2: emptyD2R2() });

@@ -30,7 +30,7 @@ import type { RouteNo } from "@/data/course";
  * and is covered by the deep `merge` (CLAUDE.md #9).
  */
 export const STORAGE_KEY = "dl-v1";
-export const PERSIST_VERSION = 9;
+export const PERSIST_VERSION = 10;
 const HISTORY_CAP = 100;
 
 /** 0 means not chosen yet; 1 Low, 2 Mid, 3 High. */
@@ -250,7 +250,8 @@ export function mergeDefaults<T>(base: T, saved: unknown): T {
   if (Array.isArray(base)) {
     if (!Array.isArray(saved)) return base;
     if (base.length === 0) return saved as T;
-    return base.map((b, i) => mergeDefaults(b, saved[i])) as T;
+    // a learner may have added rows (a guided table grows): keep every saved item, shaped like the last default item
+    return Array.from({ length: Math.max(base.length, saved.length) }, (_, i) => mergeDefaults(base[Math.min(i, base.length - 1)], saved[i])) as T;
   }
   if (isPlain(base)) {
     if (!isPlain(saved)) return base;
@@ -265,7 +266,7 @@ export function mergeDefaults<T>(base: T, saved: unknown): T {
 
 /**
  * The migration of a saved blob to the current shape. Pure, so it can be tested without a browser. Version 1 held Day 1 only; version 2
- * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6); version 4 adds Day 7 (d7); version 5 adds the generic days (dg); version 6 adds Day 1 Block 2.2's `fixes`, `slotA`, `slotB` (the deep merge fills them); version 7 adds Day 2 Block 1.1's `diffMode`, `diffs` and `diffRows` and Block 1.2's `assessMode`, `assessText`, `assessRows` and `noTest` (the deep merge fills them; the old rating fields of Block 1.2 are dropped and stay harmlessly in an old blob, and the Block 1.4 sort keeps its saved placements). version 8 replaces the Day 3 task fields (CLAUDE.md #57: `problemMode`, `problems`, `problemRows`, `feel`, `improve`, the assessment, `optOrder`, `optChoice`, `optWhy`, the causes and improvements, `priority`, `justify`; Route 2 `strategy`, `measures`, `definition`, `riskText`, `logic`, `uncertain`); the deep merge keeps what still fits (`improve`, `optWhy`, `strategy`, `definition`, `uncertain`) and fills the rest, and the old fields stay harmlessly in an old blob. version 9 replaces the task state of Days 4 to 6 with the free-form shape (store/dayTypesFree.ts: `text`, `modes`, `rows`, `assessText`, `assessRows`, `picks`, keyed by the field ids of the day's spec); the deep merge fills the new keys and the old fields stay harmlessly in an old blob, so earlier Day 4 to 6 task answers are not carried over. A blob that lacks them gets empty ones here, and the deep merge fills any single field.
+ * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6); version 4 adds Day 7 (d7); version 5 adds the generic days (dg); version 6 adds Day 1 Block 2.2's `fixes`, `slotA`, `slotB` (the deep merge fills them); version 7 adds Day 2 Block 1.1's `diffMode`, `diffs` and `diffRows` and Block 1.2's `assessMode`, `assessText`, `assessRows` and `noTest` (the deep merge fills them; the old rating fields of Block 1.2 are dropped and stay harmlessly in an old blob, and the Block 1.4 sort keeps its saved placements). version 8 replaces the Day 3 task fields (CLAUDE.md #57: `problemMode`, `problems`, `problemRows`, `feel`, `improve`, the assessment, `optOrder`, `optChoice`, `optWhy`, the causes and improvements, `priority`, `justify`; Route 2 `strategy`, `measures`, `definition`, `riskText`, `logic`, `uncertain`); the deep merge keeps what still fits (`improve`, `optWhy`, `strategy`, `definition`, `uncertain`) and fills the rest, and the old fields stay harmlessly in an old blob. version 9 replaces the task state of Days 4 to 6 with the free-form shape (store/dayTypesFree.ts: `text`, `modes`, `rows`, `assessText`, `assessRows`, `picks`, keyed by the field ids of the day's spec); the deep merge fills the new keys and the old fields stay harmlessly in an old blob, so earlier Day 4 to 6 task answers are not carried over. version 10 adds Day 2 Route 2's table layouts (`dataMode`, `dataRows`, `roadMode`, `roadRows`, `riskMode`, `riskRows`, `uncMode`, `uncRows`; the deep merge fills them and now also keeps rows a learner added). A blob that lacks them gets empty ones here, and the deep merge fills any single field.
  */
 export function migratePersisted(persisted: unknown, from: number): Persisted {
   const p = (persisted ?? {}) as Partial<Persisted>;

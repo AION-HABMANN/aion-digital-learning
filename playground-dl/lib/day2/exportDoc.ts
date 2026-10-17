@@ -76,6 +76,18 @@ ${tests}
 /* ------------------------------------------------------------------ Route 2 · the UX Strategy Memo */
 
 /** The Level 3 memo. The on-screen live memo and the exported file are both built by this function. */
+/** A guided table of Route 2 as the learner filled it: empty rows are left out, the row number leads when the order matters. */
+function rowsTable(rows: Record<string, string>[], keys: string[], heads: string[], numbered: boolean): string {
+  const filled = rows.filter((r) => keys.some((k) => (r[k] ?? "").trim()));
+  if (!filled.length) return empty;
+  return `<table><thead><tr>${numbered ? "<th>#</th>" : ""}${heads.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${filled.map((r, i) => `<tr>${numbered ? `<td class="id">${i + 1}</td>` : ""}${keys.map((k) => `<td>${cell(r[k] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+function uncTable(r: Record<string, string>): string {
+  const parts: [string, string][] = [[tt("What I decide", "Was ich entscheide"), r.decide ?? ""], [tt("What I do not know", "Was ich nicht weiß"), r.unknown ?? ""], [tt("When I would reverse it", "Wann ich sie zurücknähme"), r.reverse ?? ""]];
+  if (!parts.some(([, v]) => v.trim())) return empty;
+  return `<table><tbody>${parts.map(([k, v]) => `<tr><td><strong>${esc(k)}</strong></td><td>${cell(v)}</td></tr>`).join("")}</tbody></table>`;
+}
+
 export function memoBody(p: Persisted): string {
   const { r1, r2 } = p.d2;
   const quoted = r1.adaptive
@@ -91,10 +103,10 @@ ${quoted}
 <h2>${esc(tt("1 · Do we invest in adaptive learning?", "1 · Investieren wir in adaptives Lernen?"))}</h2>
 <p><strong>${esc(verdict(r2.adaptive))}</strong></p>${para(r2.adaptiveWhy)}
 <h2>${esc(tt("2 · Prototyping strategy: how we test new features", "2 · Prototyping-Strategie: wie wir neue Funktionen testen"))}</h2>${para(r2.prototyping)}
-<h2>${esc(tt("3 · UX testing strategy: the data we need", "3 · UX-Teststrategie: die Daten, die wir brauchen"))}</h2>${para(r2.testing)}
-<h2>${esc(tt("4 · Prioritised innovation roadmap", "4 · Priorisierte Innovations-Roadmap"))}</h2>${para(r2.roadmap)}
-<h2>${esc(tt("5 · Risk analysis: technology against user value", "5 · Risikoanalyse: Technologie gegen Nutzerwert"))}</h2>${para(r2.riskText)}
-<h2>${esc(tt("6 · One decision under uncertainty", "6 · Eine Entscheidung unter Unsicherheit"))}</h2>${para(r2.uncertain)}
+<h2>${esc(tt("3 · UX testing strategy: the data we need", "3 · UX-Teststrategie: die Daten, die wir brauchen"))}</h2>${r2.dataMode === "table" ? rowsTable(r2.dataRows, ["data", "have", "how"], [tt("Data", "Daten"), tt("Have it already?", "Schon vorhanden?"), tt("How we get it", "Wie wir sie bekommen")], false) : para(r2.testing)}
+<h2>${esc(tt("4 · Prioritised innovation roadmap", "4 · Priorisierte Innovations-Roadmap"))}</h2>${r2.roadMode === "table" ? rowsTable(r2.roadRows, ["item", "why"], [tt("What", "Was"), tt("Why in this place", "Warum an dieser Stelle")], true) : para(r2.roadmap)}
+<h2>${esc(tt("5 · Risk analysis: technology against user value", "5 · Risikoanalyse: Technologie gegen Nutzerwert"))}</h2>${r2.riskMode === "table" ? rowsTable(r2.riskRows, ["risk", "side", "action"], [tt("Risk", "Risiko"), tt("Side", "Seite"), tt("What we do about it", "Was wir dagegen tun")], false) : para(r2.riskText)}
+<h2>${esc(tt("6 · One decision under uncertainty", "6 · Eine Entscheidung unter Unsicherheit"))}</h2>${r2.uncMode === "table" ? uncTable(r2.uncRows) : para(r2.uncertain)}
 
 <div class="foot">${esc(tt(`Generated ${dateLabel()}.`, `Erstellt am ${dateLabel()}.`))}</div>`;
 }

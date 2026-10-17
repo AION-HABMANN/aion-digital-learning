@@ -19,8 +19,8 @@ export type TableGuide = {
   hints: Record<string, string>;
   /** The grey example row: the text of the first column, then one text per column key. */
   example: { first: string; cells: Record<string, string> };
-  /** Suggestions a learner can tap into a cell, for the columns named in `cols` (optional, never required). */
-  suggest?: { cols: string[]; values: { id: string; label: string }[]; note: string };
+  /** Suggestions a learner can tap into a cell, per column key (optional, never required). */
+  suggest?: Record<string, { values: { id: string; label: string }[]; note: string }>;
 };
 
 /** Small taps under a cell that put a suggestion at the start of the cell ("Low: "). The learner can type anything instead. */
@@ -204,7 +204,7 @@ export function FormOrTable({
                   return (
                     <div key={c.key}>
                       <CellField value={cur} onChange={(v) => onCell(it.id, c.key, v)} label={`${it.label}: ${c.label}`} />
-                      {guide?.suggest?.cols.includes(c.key) && <SuggestChips values={guide.suggest.values} note={guide.suggest.note} current={cur} onPick={(v) => onCell(it.id, c.key, v)} />}
+{guide?.suggest?.[c.key] && <SuggestChips values={guide.suggest[c.key].values} note={guide.suggest[c.key].note} current={cur} onPick={(v) => onCell(it.id, c.key, v)} />}
                     </div>
                   );
                 }),

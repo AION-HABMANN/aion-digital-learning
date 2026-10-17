@@ -43,15 +43,19 @@ export const ASSESS_GUIDE = bi({
       effort: t("High: weeks of writing and recording.", "Hoch: Wochen an Schreiben und Aufnehmen."),
     },
   },
-  suggest: {
-    cols: ["risk", "benefit", "effort"],
-    values: [
-      { id: "low", label: t("Low", "Niedrig") },
-      { id: "medium", label: t("Medium", "Mittel") },
-      { id: "high", label: t("High", "Hoch") },
-    ],
-    note: t("A scale many teams use (optional):", "Eine Skala, die viele Teams nutzen (optional):"),
-  },
+  suggest: Object.fromEntries(
+    ["risk", "benefit", "effort"].map((k) => [
+      k,
+      {
+        values: [
+          { id: "low", label: t("Low", "Niedrig") },
+          { id: "medium", label: t("Medium", "Mittel") },
+          { id: "high", label: t("High", "Hoch") },
+        ],
+        note: t("A scale many teams use (optional):", "Eine Skala, die viele Teams nutzen (optional):"),
+      },
+    ]),
+  ),
 }) as TableGuide;
 
 export const TESTS_GUIDE = bi({
@@ -69,6 +73,97 @@ export const TESTS_GUIDE = bi({
       what: t("Whether new learners find the first lesson.", "Ob neue Lernende die erste Lektion finden."),
       how: t("Five learners try to start from a paper sketch while we watch.", "Fünf Lernende versuchen, von einer Papierskizze aus zu starten, während wir zusehen."),
       measure: t("How many find it without help, and where they hesitate.", "Wie viele es ohne Hilfe finden und wo sie zögern."),
+    },
+  },
+}) as TableGuide;
+
+/* ------------------------------------------------------------------ Route 2, questions 3 to 6 */
+
+export const DATA_GUIDE = bi({
+  title: TITLE,
+  exampleLabel: EXAMPLE,
+  hints: {
+    first: t("", ""),
+    data: t("one piece of data you would need", "eine Information, die Sie brauchen würden"),
+    have: t("whether you have it today", "ob Sie sie heute haben"),
+    how: t("how you get it, or where it comes from", "wie Sie sie bekommen oder woher sie kommt"),
+  },
+  example: {
+    first: t("", ""),
+    cells: {
+      data: t("How long a new learner needs for the first lesson", "Wie lange eine neue Lernende für die erste Lektion braucht"),
+      have: t("No: it is not recorded today", "Nein: Es wird heute nicht erfasst"),
+      how: t("Time it in tests with five learners", "In Tests mit fünf Lernenden messen"),
+    },
+  },
+  suggest: {
+    have: {
+      values: [
+        { id: "yes", label: t("Yes", "Ja") },
+        { id: "partly", label: t("Partly", "Teilweise") },
+        { id: "no", label: t("No", "Nein") },
+      ],
+      note: t("A quick answer (optional):", "Eine schnelle Antwort (optional):"),
+    },
+  },
+}) as TableGuide;
+
+export const ROAD_GUIDE = bi({
+  title: TITLE,
+  exampleLabel: EXAMPLE,
+  hints: {
+    first: t("the place in the order: the first priority is number 1", "der Platz in der Reihenfolge: die erste Priorität ist Nummer 1"),
+    item: t("what you do, in a few words", "was Sie tun, in wenigen Worten"),
+    why: t("why it has this place: what depends on it or what it unlocks", "warum es diesen Platz hat: was davon abhängt oder was es freischaltet"),
+  },
+  example: {
+    first: t("1", "1"),
+    cells: {
+      item: t("A progress bar with a next step on every page", "Ein Fortschrittsbalken mit einem nächsten Schritt auf jeder Seite"),
+      why: t("Every learner sees it, and it needs no new data.", "Jede Lernende sieht ihn, und er braucht keine neuen Daten."),
+    },
+  },
+}) as TableGuide;
+
+export const RISK_GUIDE = bi({
+  title: TITLE,
+  exampleLabel: EXAMPLE,
+  hints: {
+    first: t("", ""),
+    risk: t("what could go wrong, in a sentence", "was schiefgehen könnte, in einem Satz"),
+    side: t("whose risk it is: the technology or the users", "wessen Risiko es ist: die Technologie oder die Nutzer"),
+    action: t("what you do about it", "was Sie dagegen tun"),
+  },
+  example: {
+    first: t("", ""),
+    cells: {
+      risk: t("A new feature is built before anyone has tested it", "Eine neue Funktion wird gebaut, bevor sie jemand getestet hat"),
+      side: t("Technology (the new feature)", "Technologie (die neue Funktion)"),
+      action: t("Test a sketch with five learners first", "Zuerst eine Skizze mit fünf Lernenden testen"),
+    },
+  },
+  suggest: {
+    side: {
+      values: [
+        { id: "tech", label: t("Technology", "Technologie") },
+        { id: "users", label: t("Users", "Nutzer") },
+      ],
+      note: t("A quick answer (optional):", "Eine schnelle Antwort (optional):"),
+    },
+  },
+}) as TableGuide;
+
+export const UNC_GUIDE = bi({
+  title: TITLE,
+  exampleLabel: EXAMPLE,
+  hints: {
+    first: t("the three parts of the decision", "die drei Teile der Entscheidung"),
+    text: t("write each part in your own words; a sentence each is enough", "schreiben Sie jeden Teil in eigenen Worten; ein Satz je Teil genügt"),
+  },
+  example: {
+    first: t("Example (LearnLoop)", "Beispiel (LearnLoop)"),
+    cells: {
+      text: t("I decide to test a progress bar in one course. I do not know whether learners want it. I would reverse it if completion is not up after six weeks.", "Ich entscheide, einen Fortschrittsbalken in einem Kurs zu testen. Ich weiß nicht, ob Lernende ihn wollen. Ich nähme ihn zurück, wenn die Completion nach sechs Wochen nicht gestiegen ist."),
     },
   },
 }) as TableGuide;

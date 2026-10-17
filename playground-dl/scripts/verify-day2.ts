@@ -8,7 +8,7 @@
  */
 import { FACTS, FACT_IDS, MODEL_OPT, MONTHS, OPTS, OPT_IDS, TEST_SLOTS } from "../data/day2/case";
 import { MATERIALS, MATERIAL_PLAIN } from "../data/day2/materials";
-import { ASSESS_GUIDE, DIFFS_GUIDE, TESTS_GUIDE } from "../data/day2/tableGuides";
+import { ASSESS_GUIDE, DATA_GUIDE, DIFFS_GUIDE, RISK_GUIDE, ROAD_GUIDE, TESTS_GUIDE, UNC_GUIDE } from "../data/day2/tableGuides";
 import { GLOSSARY, GLOSS_LOOKUP, GLOSS_LOOKUP_DE } from "../data/glossary";
 import { r1Missing, r2Missing } from "../lib/day2/missing";
 import { KEY_D2_R1, KEY_D2_R2 } from "../lib/day2/mentorKey";
@@ -38,13 +38,21 @@ for (const lang of ["en", "de"] as const) {
   console.log(`\n=== ${lang.toUpperCase()} ===`);
 
   // 0 · the guided tables (DL-STANDARD section 15): a hint per column, a full grey example row from another company, none of it copied from the model answers
-  const guides: [string, typeof ASSESS_GUIDE, string[]][] = [["differences", DIFFS_GUIDE, ["a", "b"]], ["assessment", ASSESS_GUIDE, ["risk", "benefit", "effort"]], ["tests", TESTS_GUIDE, ["what", "how", "measure"]]];
-  const modelText = JSON.stringify(KEY_D2_R1());
-  for (const [n, g, keys] of guides) {
-    ok(g.hints.first.length > 5 && g.title.length > 5 && keys.every((k) => (g.hints[k]?.length ?? 0) > 5 && (g.example.cells[k]?.length ?? 0) > 5), `${n} table: a hint for every column and a full example row`);
-    ok(!modelText.includes(g.example.first) && keys.every((k) => !modelText.includes(g.example.cells[k])), `${n} table: the example is not part of the model answer`);
+  const guides: [string, typeof ASSESS_GUIDE, string[], boolean][] = [
+    ["differences", DIFFS_GUIDE, ["a", "b"], true],
+    ["assessment", ASSESS_GUIDE, ["risk", "benefit", "effort"], true],
+    ["tests", TESTS_GUIDE, ["what", "how", "measure"], true],
+    ["Route 2 data", DATA_GUIDE, ["data", "have", "how"], false],
+    ["Route 2 roadmap", ROAD_GUIDE, ["item", "why"], true],
+    ["Route 2 risks", RISK_GUIDE, ["risk", "side", "action"], false],
+    ["Route 2 decision", UNC_GUIDE, ["text"], true],
+  ];
+  const modelText = JSON.stringify(KEY_D2_R1()) + JSON.stringify(KEY_D2_R2());
+  for (const [n, g, keys, first] of guides) {
+    ok(g.title.length > 5 && (!first || g.hints.first.length > 5) && keys.every((k) => (g.hints[k]?.length ?? 0) > 5 && (g.example.cells[k]?.length ?? 0) > 5), `${n} table: a hint for every column and a full example row`);
+    ok(keys.every((k) => !modelText.includes(g.example.cells[k])), `${n} table: the example is not part of the model answer`);
   }
-  ok(!!ASSESS_GUIDE.suggest && ASSESS_GUIDE.suggest.values.length === 3, "the assessment table suggests Low, Medium and High (optional)");
+  ok(!!ASSESS_GUIDE.suggest && Object.keys(ASSESS_GUIDE.suggest).length === 3 && ASSESS_GUIDE.suggest.risk.values.length === 3, "the assessment table suggests Low, Medium and High (optional)");
 
   // 1 · the case and its evidence: the plan prints no figure, so the site prints none
   ok(FACTS.length === 8 && FACT_IDS.length === 8 && FACTS.every((f) => f.text.length > 10 && f.where.length > 3), "the eight numbered places are plain descriptions");
@@ -113,6 +121,17 @@ for (const lang of ["en", "de"] as const) {
   // 7 · Route 2 · Block 3.1 (plan UE8-10): six items
   ok(r2Missing(withKey(p0, {}, { adaptive: "yes" as const, adaptiveWhy: "A different choice with a clear reason of my own: the competitors are ahead." })).length === 0, "a different decision on adaptive learning with a reason still has nothing missing");
   ok(r2Missing(withKey(p0, {}, { roadmap: "" })).some((m) => m.id === "roadmap-field") && r2Missing(withKey(p0, {}, { uncertain: "too short" })).some((m) => m.id === "uncertain-field"), "an empty roadmap and a too-short decision under uncertainty are named");
+  // the table layouts of questions 3 to 6 (guided tables; the rows can be added; only the chosen layout counts)
+  const t2 = { dataMode: "table" as const, roadMode: "table" as const, riskMode: "table" as const, uncMode: "table" as const };
+  ok(r2Missing(withKey(p0, {}, t2)).length === 0 && taskBlocks(withKey(p0, {}, t2)).b31, "the model tables complete Block 3.1 in the table layout");
+  ok(r2Missing(withKey(p0, {}, { ...t2, dataRows: [{ data: "Where learners leave", have: "Yes", how: "In the platform data" }, { data: "", have: "", how: "" }, { data: "", have: "", how: "" }] })).some((m) => m.id === "testing-field"), "fewer than two complete data rows is named");
+  ok(r2Missing(withKey(p0, {}, { ...t2, roadRows: [...KEY_D2_R2().roadRows!, { item: "A fourth step", why: "" }] })).some((m) => m.id === "road-row-3"), "a roadmap row with only its first cell is named (row 4) and does not count");
+  ok(r2Missing(withKey(p0, {}, { ...t2, roadRows: [...KEY_D2_R2().roadRows!, { item: "", why: "" }, { item: "", why: "" }] })).length === 0, "empty extra rows are ignored");
+  ok(r2Missing(withKey(p0, {}, { ...t2, uncRows: { decide: "Run a pilot in one course now.", unknown: "", reverse: "If it is not above the control group." } })).some((m) => m.id === "unc-row-unknown"), "an empty part of the decision under uncertainty is named");
+  ok(r2Missing(withKey(p0, {}, { dataMode: "table" as const, dataRows: KEY_D2_R2().dataRows!.map(() => ({ data: "", have: "", how: "" })) })).some((m) => m.id === "testing-field"), "in the table layout, a full text box does not count");
+  ok(r2Missing(withKey(p0, {}, { dataMode: "text" as const, dataRows: KEY_D2_R2().dataRows!.map(() => ({ data: "", have: "", how: "" })), testing: "" })).some((m) => m.id === "testing-field"), "in the text layout, a full table does not count");
+  const memoT = memoBody(withKey(p0, {}, t2));
+  ok(["<table>", KEY_D2_R2().dataRows![0].data.slice(0, 15), KEY_D2_R2().riskRows![0].side, KEY_D2_R2().uncRows!.decide.slice(0, 15)].every((x) => memoT.includes(x)) && !memoT.includes(KEY_D2_R2().testing!.slice(0, 25)), "the memo prints the chosen table layout, not the text");
   const memo = memoBody(p1);
   ok([KEY_D2_R2().roadmap!.slice(0, 20), KEY_D2_R2().riskText!.slice(0, 20), KEY_D2_R2().testing!.slice(0, 20)].every((x) => memo.includes(x)), "the memo prints the six answers");
 
@@ -126,6 +145,14 @@ for (const lang of ["en", "de"] as const) {
   ok(GLOSSARY.every((g) => g.match.length > 0 && !!g.plain), "every glossary entry has forms and an explanation");
   ok(GLOSSARY.every((g) => !!g.de && !!g.de.plain && g.de.match.length > 0), "every glossary entry has a German text");
   ok((lang === "en" ? GLOSS_LOOKUP : GLOSS_LOOKUP_DE).size > 60, "the glossary lookup has entries in this language");
+}
+
+// rows a learner added to a guided table survive the deep merge (a table grows)
+{
+  const five = Array.from({ length: 5 }, (_, i) => ({ item: `step ${i + 1}`, why: "because" }));
+  const merged = mergeDefaults(emptyD2R2(), { roadRows: five, roadMode: "table" });
+  ok(merged.roadRows.length === 5 && merged.roadRows[4].item === "step 5" && merged.roadMode === "table", "rows added to a guided table are kept by the deep merge");
+  ok(mergeDefaults(emptyD2R2(), { adaptive: "yes" }).dataRows.length === 3, "an old Route 2 slice gets three empty rows per table from the defaults");
 }
 
 setCurrentLang("en");
