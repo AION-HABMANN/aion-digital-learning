@@ -405,7 +405,7 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
       <FormOrTable
         id={IDS.assess}
         label={tt("Assess each option: risk, benefit and effort", "Bewerten Sie jede Option: Risiko, Nutzen und Aufwand")}
-        help={r.assessMode === "text" ? tt(`Write a few sentences for each option. At least ${MIN_ASSESS} characters each.`, `Schreiben Sie für jede Option ein paar Sätze. Mindestens ${MIN_ASSESS} Zeichen je Option.`) : tt("One row per option: say the risk, the benefit and the effort in a few words.", "Eine Zeile pro Option: Nennen Sie Risiko, Nutzen und Aufwand in wenigen Worten.")}
+        help={r.assessMode === "text" ? tt(`Write a few sentences for each option. Many teams rate each one Low, Medium or High with a reason; you may do that or write it in your own words. At least ${MIN_ASSESS} characters each.`, `Schreiben Sie für jede Option ein paar Sätze. Viele Teams bewerten jede mit Niedrig, Mittel oder Hoch und einem Grund; Sie können das so machen oder es in eigenen Worten schreiben. Mindestens ${MIN_ASSESS} Zeichen je Option.`) : tt("One row per option: say the risk, the benefit and the effort in a few words. Low, Medium or High with a reason is a common way; your own words count the same.", "Eine Zeile pro Option: Nennen Sie Risiko, Nutzen und Aufwand in wenigen Worten. Niedrig, Mittel oder Hoch mit einem Grund ist ein üblicher Weg; eigene Worte zählen genauso.")}
         mode={r.assessMode}
         onMode={(m) => patch({ assessMode: m })}
         items={assessItems}
