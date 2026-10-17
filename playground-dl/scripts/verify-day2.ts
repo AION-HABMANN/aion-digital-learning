@@ -121,7 +121,7 @@ console.log("\n=== language-independent ===");
 ok(MATERIALS.filter((x) => x.block === "A").reduce((s, x) => s + x.minutes, 0) === 60, "Materi A cards add up to 60 minutes");
 ok(MATERIALS.filter((x) => x.block === "B").reduce((s, x) => s + x.minutes, 0) === 60, "Materi B cards add up to 60 minutes");
 ok(MATERIALS.every((x) => !!MATERIAL_PLAIN[x.id].idea && !!MATERIAL_PLAIN[x.id].why && !!MATERIAL_PLAIN[x.id].picture), "every card has an In plain words box with all three parts");
-ok(MATERIALS.filter((x) => x.optional).map((x) => x.id).join() === "A4", "only A4 is an Optional card");
+ok(MATERIALS.filter((x) => x.optional).length === 0, "no card is Optional: the tasks draw on every card (CLAUDE.md #57)");
 ok(MENTOR_PASSCODE === "muchson123", "the mentor passcode is unchanged");
 
 // the migration (CLAUDE.md #9): an old blob with Day 1 only gets empty Day 2 and Day 3 slices; a Day 2 slice from before #57 keeps what still fits

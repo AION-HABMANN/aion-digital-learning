@@ -514,7 +514,7 @@ export function Block21({ missing }: { missing: MissingEntry[] }) {
       minutes={BLOCK_MINUTES["2.1"]}
       findIt={tt("Route 1 → Task 1 → the situation below, then the four questions.", "Route 1 → Task 1 → die Lage darunter, dann die vier Fragen.")}
     >
-      <MaterialRefs refs={["A2", "A3", "A5"]} />
+      <MaterialRefs refs={["A2", "A3", "A4", "A5"]} />
       <div id="block-2-1-situation" className="space-y-2 rounded-lg border border-line bg-canvas p-3 text-caption text-ink">
         <p className="smallcaps text-ash">{tt("The situation", "Die Lage")}</p>
         <ul className="list-disc space-y-0.5 pl-5">

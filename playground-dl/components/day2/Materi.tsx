@@ -62,7 +62,7 @@ export function MateriA() {
   return (
     <Block id="materi-a" title={tt("Materi A · 60 minutes, facilitator-led", "Materi A · 60 Minuten, moderiert")} intro={tt("Successful platforms, prototyping, testing and adaptive learning: what makes a platform work, how to test an idea cheaply, and how to weigh a decision", "Erfolgreiche Plattformen, Prototyping, Testen und adaptives Lernen: was eine Plattform funktionieren lässt, wie man eine Idee günstig testet und wie man eine Entscheidung abwägt")}>
       <p className="max-w-prose text-body text-ash">
-        {tt("Five cards, Level 1 and Level 2 in one run. Four are core; A4 goes deeper and is folded. Every diagram uses LearnLoop, another company, so the task is never answered for you.", "Fünf Karten, Level 1 und Level 2 in einem Durchgang. Vier sind Kern; A4 vertieft und ist eingeklappt. Jedes Diagramm nutzt LearnLoop, ein anderes Unternehmen, damit die Aufgabe nie für Sie gelöst wird.")}
+        {tt("Five cards, Level 1 and Level 2 in one run. Every diagram uses LearnLoop, another company, so the task is never answered for you.", "Fünf Karten, Level 1 und Level 2 in einem Durchgang. Jedes Diagramm nutzt LearnLoop, ein anderes Unternehmen, damit die Aufgabe nie für Sie gelöst wird.")}
       </p>
       <Cards block="A" />
       <ReferencesAccordion block="A" keys={REFS_A} note={NOTE()} />

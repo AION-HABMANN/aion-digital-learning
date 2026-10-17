@@ -6,7 +6,7 @@ import { OptionGrid } from "@/components/day1/diagrams";
 import type { GridRow } from "@/components/day1/diagrams";
 import { CourseStartMock, PlatformMock } from "@/components/day2/mocks";
 import type { Fidelity } from "@/components/day2/mocks";
-import { ChainFig, CostBands, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
+import { ChainFig, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
 import type { MatrixPoint } from "@/components/materi/figures";
 import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
 import type { StoryPlan } from "@/components/materi/kit";
@@ -413,29 +413,87 @@ export function AdaptiveLevels() {
 
 /* ------------------------------------------------------------------ A5 · LearnLoop weighs three options (interactive) */
 
+/** Three small pictures of LearnLoop's three options: a full course, a paper sketch with five learners, a wait for the numbers. Own colours (#52). */
+function OptionPics() {
+  const uid = useId().replace(/:/g, "");
+  return (
+    <div role="group" aria-label={tt("The three options of LearnLoop, drawn", "Die drei Optionen von LearnLoop, gezeichnet")} className="grid gap-2 sm:grid-cols-3">
+      <figure className="rounded-lg border border-line bg-paper p-2">
+        <svg viewBox="0 0 160 90" className="h-auto w-full" role="img" aria-labelledby={`${uid}-a`}>
+          <title id={`${uid}-a`}>{tt("Twelve video tiles: a full onboarding course", "Zwölf Video-Kacheln: ein kompletter Onboarding-Kurs")}</title>
+          {Array.from({ length: 12 }, (_, i) => {
+            const x = 8 + (i % 6) * 24;
+            const y = 10 + Math.floor(i / 6) * 34;
+            return (
+              <g key={i}>
+                <rect x={x} y={y} width="20" height="28" rx="3" fill="#B5D4F4" stroke="#185FA5" />
+                <path d={`M${x + 7} ${y + 9} l8 5 l-8 5z`} fill="#185FA5" />
+              </g>
+            );
+          })}
+          <text x="80" y="86" textAnchor="middle" fontSize="9" fill="#5F5E5A">{tt("12 videos", "12 Videos")}</text>
+        </svg>
+        <figcaption className="smallcaps mt-1 text-ash">{tt("A · a full course", "A · ein ganzer Kurs")}</figcaption>
+      </figure>
+      <figure className="rounded-lg border border-line bg-paper p-2">
+        <svg viewBox="0 0 160 90" className="h-auto w-full" role="img" aria-labelledby={`${uid}-b`}>
+          <title id={`${uid}-b`}>{tt("A paper sketch and five learners trying it", "Eine Papierskizze und fünf Lernende, die sie ausprobieren")}</title>
+          <rect x="8" y="8" width="88" height="62" fill="#FBFAF4" stroke="#6B6A60" strokeWidth="1.5" />
+          <rect x="16" y="16" width="72" height="12" fill="none" stroke="#6B6A60" strokeDasharray="3 2" />
+          <rect x="16" y="34" width="72" height="10" fill="none" stroke="#6B6A60" />
+          <rect x="16" y="48" width="72" height="10" fill="none" stroke="#6B6A60" />
+          {Array.from({ length: 5 }, (_, j) => {
+            const px = 108 + (j % 3) * 16;
+            const py = 22 + Math.floor(j / 3) * 30;
+            return (
+              <g key={j}>
+                <circle cx={px} cy={py} r="5" fill="none" stroke="#3A3A35" strokeWidth="1.5" />
+                <path d={`M${px} ${py + 5} v12`} stroke="#3A3A35" strokeWidth="1.5" />
+              </g>
+            );
+          })}
+          <text x="80" y="86" textAnchor="middle" fontSize="9" fill="#5F5E5A">{tt("paper + 5 learners", "Papier + 5 Lernende")}</text>
+        </svg>
+        <figcaption className="smallcaps mt-1 text-ash">{tt("B · sketch and ask", "B · skizzieren und fragen")}</figcaption>
+      </figure>
+      <figure className="rounded-lg border border-line bg-paper p-2">
+        <svg viewBox="0 0 160 90" className="h-auto w-full" role="img" aria-labelledby={`${uid}-c`}>
+          <title id={`${uid}-c`}>{tt("A calendar with a flat line: waiting for next quarter's numbers", "Ein Kalender mit einer flachen Linie: warten auf die Zahlen des nächsten Quartals")}</title>
+          <rect x="14" y="8" width="132" height="66" rx="4" fill="#FFFFFF" stroke="#888780" />
+          <rect x="14" y="8" width="132" height="14" fill="#F1EFE8" stroke="#888780" />
+          <text x="22" y="18" fontSize="9" fill="#5F5E5A">{tt("Next quarter", "Nächstes Quartal")}</text>
+          <path d="M24 62 L50 54 L76 55 L102 50 L128 52" fill="none" stroke="#185FA5" strokeWidth="2" />
+          <text x="80" y="86" textAnchor="middle" fontSize="9" fill="#5F5E5A">{tt("wait and look", "warten und schauen")}</text>
+        </svg>
+        <figcaption className="smallcaps mt-1 text-ash">{tt("C · wait for the numbers", "C · auf die Zahlen warten")}</figcaption>
+      </figure>
+    </div>
+  );
+}
+
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
   const story = useStory([
-    { title: tt("Option B: test low-fidelity first", "Option B: zuerst Low-Fidelity testen"), say: tt("Let us look at LearnLoop again. It wants to improve how learners start a course, it has €60,000 and three months, and it does not yet know what learners need. Three options are on the table, and we rate each on benefit (what we learn or gain), effort (money and time) and risk (what could go wrong). Option B, a low-fidelity test first, costs €8,000, which is under €10,000, so its effort is Low.", "Sehen wir uns LearnLoop noch einmal an. Es will verbessern, wie Lernende einen Kurs beginnen, hat 60.000 € und drei Monate und weiß noch nicht, was Lernende brauchen. Drei Optionen liegen auf dem Tisch, und wir bewerten jede nach Nutzen (was wir lernen oder gewinnen), Aufwand (Geld und Zeit) und Risiko (was schiefgehen kann). Option B, zuerst Low-Fidelity zu testen, kostet 8.000 €, das ist unter 10.000 €, ihr Aufwand ist also Niedrig."), look: tt("the middle row, effort", "die mittlere Zeile, Aufwand"), apply: () => setSel("x2.effort") },
-    { title: tt("Why B is a good bet", "Warum B eine gute Wette ist"), say: tt("The benefit of option B is High, because after three weeks LearnLoop knows what works on structure and flow. The risk is Low: little money is spent and nothing is locked in. What B does not give is a finished product, so the build still comes afterwards, but it then rests on evidence.", "Der Nutzen von Option B ist Hoch, weil LearnLoop nach drei Wochen weiß, was bei Struktur und Ablauf funktioniert. Das Risiko ist Niedrig: Es wird wenig Geld ausgegeben, und nichts wird festgelegt. Was B nicht gibt, ist ein fertiges Produkt, der Bau kommt also noch danach, beruht dann aber auf Belegen."), look: tt("the middle row, benefit and risk", "die mittlere Zeile, Nutzen und Risiko"), apply: () => setSel("x2.risk") },
-    { title: tt("Options A and C", "Optionen A und C"), say: tt("Option A, a high-fidelity prototype now, costs €36,000, so its effort is High. LearnLoop learns something, but from a polished version of an untested idea, so the benefit is Mid, and the risk is Mid because a good-looking prototype is hard to drop. Option C, building directly, costs €54,000 and teaches nothing before launch: its benefit is Low and its risk High, because problems are then found by learners who leave.", "Option A, ein High-Fidelity-Prototyp jetzt, kostet 36.000 €, ihr Aufwand ist also Hoch. LearnLoop lernt etwas, aber aus einer ausgearbeiteten Version einer ungetesteten Idee, der Nutzen ist also Mittel, und das Risiko ist Mittel, weil sich ein gut aussehender Prototyp schwer verwerfen lässt. Option C, direkt zu bauen, kostet 54.000 € und lehrt vor dem Start nichts: Ihr Nutzen ist Niedrig und ihr Risiko Hoch, weil Probleme dann von Lernenden gefunden werden, die gehen."), look: tt("the top row and the bottom row, risk", "die obere und die untere Zeile, Risiko"), apply: () => setSel("x3.risk") },
+    { title: tt("Option B: sketch the first week and ask five learners", "Option B: die erste Woche skizzieren und fünf Lernende fragen"), say: tt("Let us look at LearnLoop, an online-course provider. It has a problem: many new learners leave in the first week, and it does not yet know why. It has a limited budget and one quarter, and three options are on the table. We rate each on benefit (what we learn or gain), effort (how much work and time it takes) and risk (what could go wrong if our idea of the learners is wrong). Option B, to sketch the first week and ask five learners, takes a sketch and five short sessions, so its effort is Low.", "Sehen wir uns LearnLoop an, einen Anbieter von Online-Kursen. Es hat ein Problem: Viele neue Lernende gehen in der ersten Woche, und es weiß noch nicht, warum. Es hat ein begrenztes Budget und ein Quartal, und drei Optionen liegen auf dem Tisch. Wir bewerten jede nach Nutzen (was wir lernen oder gewinnen), Aufwand (wie viel Arbeit und Zeit es braucht) und Risiko (was schiefgehen kann, wenn unsere Vorstellung von den Lernenden falsch ist). Option B, die erste Woche zu skizzieren und fünf Lernende zu fragen, braucht eine Skizze und fünf kurze Sitzungen, ihr Aufwand ist also Niedrig."), look: tt("the middle row, effort", "die mittlere Zeile, Aufwand"), apply: () => setSel("x2.effort") },
+    { title: tt("Why B is a good bet", "Warum B eine gute Wette ist"), say: tt("The benefit of option B is High, because within days LearnLoop sees where learners get lost, and why. The risk is Low: little is spent and nothing is locked in. What B does not give is a finished course, so the build still comes afterwards, but it then rests on evidence.", "Der Nutzen von Option B ist Hoch, weil LearnLoop innerhalb weniger Tage sieht, wo Lernende sich verlaufen, und warum. Das Risiko ist Niedrig: Es wird wenig ausgegeben, und nichts wird festgelegt. Was B nicht gibt, ist ein fertiger Kurs, der Bau kommt also noch danach, beruht dann aber auf Belegen."), look: tt("the middle row, benefit and risk", "die mittlere Zeile, Nutzen und Risiko"), apply: () => setSel("x2.risk") },
+    { title: tt("Options A and C", "Optionen A und C"), say: tt("Option A, a full onboarding course now, is High effort and High risk: twelve videos are made before any learner has seen one, so if the idea is wrong most of the work is lost, and its benefit is only Mid. Option C, to wait for next quarter's numbers, needs no effort, but the numbers say how many learners leave, not why, so its benefit is Low, and its risk is Mid because another quarter of learners leaves while LearnLoop waits.", "Option A, jetzt ein kompletter Onboarding-Kurs, hat hohen Aufwand und hohes Risiko: Zwölf Videos entstehen, bevor eine Lernende eines gesehen hat, ist die Idee also falsch, geht der größte Teil der Arbeit verloren, und der Nutzen ist nur Mittel. Option C, auf die Zahlen des nächsten Quartals zu warten, braucht keinen Aufwand, aber die Zahlen sagen, wie viele Lernende gehen, nicht warum, der Nutzen ist also Niedrig, und das Risiko ist Mittel, weil ein weiteres Quartal Lernender geht, während LearnLoop wartet."), look: tt("the top row and the bottom row", "die obere und die untere Zeile"), apply: () => setSel("x1.risk") },
     { title: tt("Decide, and say what you do not know", "Entscheiden, und sagen, was man nicht weiß"), say: tt("So LearnLoop chooses B and says what it still does not know: whether learners leave because the start is confusing or because the course is too long. A decision with a stated gap is stronger than one that pretends there is none. Select any cell in the table to read the reason for its rating.", "LearnLoop wählt also B und sagt, was es noch nicht weiß: ob Lernende gehen, weil der Start verwirrend oder der Kurs zu lang ist. Eine Entscheidung mit einer genannten Lücke ist stärker als eine, die so tut, als gäbe es keine. Wählen Sie eine Zelle in der Tabelle, um den Grund ihrer Bewertung zu lesen."), apply: () => setSel("x2.impact") },
   ] satisfies StoryPlan[]);
   const rows: GridRow[] = [
-    { id: "x1", name: tt("A · High-fidelity prototype now", "A · High-Fidelity-Prototyp jetzt"), sub: euro(36000), cells: {
-      impact: { level: 2, reason: tt("Real learning, but from a polished version of an untested idea.", "Echtes Lernen, aber aus einer ausgearbeiteten Version einer ungetesteten Idee.") },
-      effort: { level: 3, note: euro(36000), reason: tt("€36,000 is above €25,000, so the rule gives High.", "36.000 € liegen über 25.000 €, die Regel ergibt also Hoch.") },
-      risk: { level: 2, reason: tt("If the idea is wrong, most of the budget is spent, and the polish makes it hard to drop.", "Ist die Idee falsch, ist der größte Teil des Budgets ausgegeben, und die Politur macht es schwer, sie zu verwerfen.") },
+    { id: "x1", name: tt("A · Build a full onboarding course now", "A · Jetzt einen kompletten Onboarding-Kurs bauen"), cells: {
+      impact: { level: 2, reason: tt("A complete programme, but nobody knows yet whether it is what learners need.", "Ein vollständiges Programm, aber noch weiß niemand, ob es das ist, was Lernende brauchen.") },
+      effort: { level: 3, reason: tt("Twelve videos to plan, record and edit before the first learner sees one.", "Zwölf Videos zu planen, aufzunehmen und zu schneiden, bevor die erste Lernende eines sieht.") },
+      risk: { level: 3, reason: tt("If the idea is wrong, most of the work is lost, and finished videos are hard to change.", "Ist die Idee falsch, geht der größte Teil der Arbeit verloren, und fertige Videos lassen sich schwer ändern.") },
     } },
-    { id: "x2", name: tt("B · Low-fidelity test first", "B · Zuerst Low-Fidelity testen"), sub: euro(8000), cells: {
-      impact: { level: 3, reason: tt("Clear evidence on structure and flow in three weeks.", "Klare Belege zu Struktur und Ablauf in drei Wochen.") },
-      effort: { level: 1, note: euro(8000), reason: tt("€8,000 is under €10,000, so the rule gives Low.", "8.000 € liegen unter 10.000 €, die Regel ergibt also Niedrig.") },
-      risk: { level: 1, reason: tt("Small money and nothing locked in; the build still has to follow.", "Wenig Geld und nichts festgelegt; der Bau muss noch folgen.") },
+    { id: "x2", name: tt("B · Sketch the first week and ask five learners", "B · Die erste Woche skizzieren und fünf Lernende fragen"), cells: {
+      impact: { level: 3, reason: tt("Within days LearnLoop sees where learners get lost, and why.", "Innerhalb weniger Tage sieht LearnLoop, wo Lernende sich verlaufen, und warum.") },
+      effort: { level: 1, reason: tt("A sketch and five short sessions.", "Eine Skizze und fünf kurze Sitzungen.") },
+      risk: { level: 1, reason: tt("Little is spent and nothing is locked in; the build still has to follow.", "Es wird wenig ausgegeben und nichts festgelegt; der Bau muss noch folgen.") },
     } },
-    { id: "x3", name: tt("C · Build directly, no test", "C · Direkt bauen, kein Test"), sub: euro(54000), cells: {
-      impact: { level: 1, reason: tt("No evidence before launch.", "Keine Belege vor dem Start.") },
-      effort: { level: 3, note: euro(54000), reason: tt("€54,000 is above €25,000, so the rule gives High.", "54.000 € liegen über 25.000 €, die Regel ergibt also Hoch.") },
-      risk: { level: 3, reason: tt("Problems are found by learners who leave, and rework would use the rest of the budget.", "Probleme werden von Lernenden gefunden, die gehen, und Nacharbeit würde den Rest des Budgets verbrauchen.") },
+    { id: "x3", name: tt("C · Wait for next quarter's numbers", "C · Auf die Zahlen des nächsten Quartals warten"), cells: {
+      impact: { level: 1, reason: tt("The numbers say how many learners leave, not why.", "Die Zahlen sagen, wie viele Lernende gehen, nicht warum.") },
+      effort: { level: 1, reason: tt("Nothing to do now.", "Jetzt ist nichts zu tun.") },
+      risk: { level: 2, reason: tt("Another quarter of new learners leaves while LearnLoop waits.", "Ein weiteres Quartal neuer Lernender geht, während LearnLoop wartet.") },
     } },
   ];
   const cols = [
@@ -446,26 +504,13 @@ export function WeighExample() {
   return (
     <Diagram label={tt("A worked example: LearnLoop weighs three options · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Optionen ab · Explorativ")}>
       <div className="space-y-3">
-        <ThePoint>{tt("When user needs are unclear and time is short, the cheapest test that gives real evidence usually beats both building at once and testing nothing. Rate every option on benefit, effort and risk, then decide.", "Wenn die Nutzerbedürfnisse unklar sind und die Zeit knapp ist, schlägt der günstigste Test, der echte Belege liefert, meist sowohl das sofortige Bauen als auch das Nicht-Testen. Bewerten Sie jede Option nach Nutzen, Aufwand und Risiko, dann entscheiden Sie.")}</ThePoint>
+        <ThePoint>{tt("When user needs are unclear and time is short, the cheapest step that gives real evidence usually beats both building at once and doing nothing. Rate every option on benefit, effort and risk, then decide.", "Wenn die Nutzerbedürfnisse unklar sind und die Zeit knapp ist, schlägt der günstigste Schritt, der echte Belege liefert, meist sowohl das sofortige Bauen als auch das Nichtstun. Bewerten Sie jede Option nach Nutzen, Aufwand und Risiko, dann entscheiden Sie.")}</ThePoint>
         <Story steps={story.plan} step={story.step} onStep={story.go} />
-        <CostBands
-          title={tt("LearnLoop, three options: cost against the effort rule and the €60,000 budget", "LearnLoop, drei Optionen: Kosten gegen die Aufwandsregel und das Budget von 60.000 €")}
-          bars={[
-            { name: tt("A · High-fidelity now", "A · High-Fidelity jetzt"), cost: 36000 },
-            { name: tt("B · Low-fidelity first", "B · Zuerst Low-Fidelity"), cost: 8000 },
-            { name: tt("C · Build directly", "C · Direkt bauen"), cost: 54000 },
-          ]}
-          budget={60000}
-          bands={[
-            { to: 10000, label: tt("Low", "Niedrig") },
-            { to: 25000, label: tt("Mid", "Mittel") },
-            { to: null, label: tt("High", "Hoch") },
-          ]}
-        />
-        <OptionGrid label={tt("LearnLoop · budget €60,000, three months", "LearnLoop · Budget 60.000 €, drei Monate")} caption={tt("Three options for LearnLoop (Case assumption, example company)", "Drei Optionen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { story.leave(); setSel(k); }} />
+        <OptionPics />
+        <OptionGrid label={tt("LearnLoop · a limited budget, one quarter", "LearnLoop · ein begrenztes Budget, ein Quartal")} caption={tt("Three options for LearnLoop (Case assumption, example company)", "Drei Optionen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { story.leave(); setSel(k); }} />
         <p className="rounded-md border border-line bg-canvas px-3 py-2 text-caption text-ink">
           <span className="smallcaps mr-1.5">{tt("Still unknown", "Noch unbekannt")}</span>
-          <Gloss>{tt("Whether learners leave because the start is confusing or because the course is too long. LearnLoop would interview six learners who left before it commits more money.", "Ob Lernende gehen, weil der Start verwirrend oder der Kurs zu lang ist. LearnLoop würde sechs Ausgestiegene befragen, bevor es mehr Geld bindet.")}</Gloss>
+          <Gloss>{tt("Whether learners leave in week one because the start is confusing or because the course is too long. LearnLoop would ask five learners who left before it commits more.", "Ob Lernende in der ersten Woche gehen, weil der Start verwirrend oder der Kurs zu lang ist. LearnLoop würde fünf Ausgestiegene befragen, bevor es mehr bindet.")}</Gloss>
         </p>
       </div>
     </Diagram>
