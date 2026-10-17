@@ -1,8 +1,5 @@
 import type { OptId as D2OptId, PlatformId, TestSlot, Verdict } from "@/data/day2/case";
-import { FACT_IDS as D3_FACT_IDS } from "@/data/day3/case";
-import type { AreaId, CauseId, FactId as D3FactId, MeasureId, OptId as D3OptId, ReflectKey as D3ReflectKey } from "@/data/day3/case";
-import type { CheckId, DecisionId, OwnerId as D3OwnerId, RiskId as D3RiskId } from "@/data/day3/route2";
-import type { Score } from "@/store/useStore";
+import type { OptId as D3OptId } from "@/data/day3/case";
 
 /**
  * The persisted answer state of Day 2 and Day 3: one slice per day, each with its two routes (`r1`, `r2`), the same shape as Day 1's `d1`.
@@ -98,116 +95,78 @@ export const emptyD2 = (): D2State => ({ r1: emptyD2R1(), r2: emptyD2R2() });
 
 /* ------------------------------------------------------------------ Day 3 */
 
-/** Day 3 · Route 1 · Levels 1 and 2. Core: Block 1.1 (eight facts, the one that stops a learner first, the improvements) and Block 2.2 (four of nine measures). */
+type D3ProblemRow = { problem: string; side: string };
+type D3AssessRow = { impact: string; effort: string; risk: string };
+type D3CauseRow = { cause: string; improvement: string };
+
+/**
+ * Day 3 · Route 1 · Levels 1 and 2 (CLAUDE.md #57: the plan's own questions as free answers, every block Core).
+ * Block 1.1 (UE2): five problems from the user's perspective (one text box by default, or a table), how the learning process feels, what you
+ * would improve intuitively. Block 1.2 (UE3): assess three options (one box per option, or a table), a priority order, the option with the
+ * greatest effect. Block 2.1 (UE5-6): the case study: four causes and four UX improvements (boxes or a table), the priority, the justification.
+ * The UE4 coaching and the UE7 feedback round have no written answer and so no field.
+ */
 export type D3R1 = {
-  sort: Record<D3FactId, AreaId | null>;
-  sortHistory: Record<D3FactId, AreaId | null>[];
-  sortFuture: Record<D3FactId, AreaId | null>[];
-  sortChecks: number;
-  sortResult: Count | null;
-  sortClue: boolean;
-  sortReasoning: boolean;
-  worst: D3FactId | null;
-  worstWhy: string;
+  problemMode: "text" | "table";
+  problems: string;
+  problemRows: D3ProblemRow[];
+  feel: string;
   improve: string;
-  /** Block 1.2 (Optional): three options for a module, rated, ordered, with the one of greatest effect. */
-  optImpact: Record<string, Score>;
-  optEffort: Record<string, Score>;
-  optRisk: Record<string, Score>;
-  optEffortFlags: string[];
-  optEffortClue: boolean;
-  optEffortResult: { holds: number; rated: number } | null;
-  optOrder: D3OptId[];
+  assessMode: "text" | "table";
+  assessText: Record<string, string>;
+  assessRows: Record<string, D3AssessRow>;
+  optOrder: string;
+  optChoice: D3OptId | null;
   optWhy: string;
-  /** Block 1.3 (Optional): the coaching reflection. */
-  reflect: Record<D3ReflectKey, string>;
-  /** Block 2.1 (Optional): four causes of overload. */
-  causes: CauseId[];
-  causeResult: { holds: number; chosen: number } | null;
-  causeClue: boolean;
-  causeWhy: string;
-  /** Block 2.2 (Core): four measures, rated, ordered, with what is missing. */
-  chosen: MeasureId[];
-  impact: Record<string, Score>;
-  effort: Record<string, Score>;
-  risk: Record<string, Score>;
-  reasons: Record<string, string>;
-  effortFlags: string[];
-  effortClue: boolean;
-  effortResult: { holds: number; rated: number } | null;
-  order: MeasureId[];
-  orderWhy: string;
-  missingInfo: string;
-  checks: number;
+  causeMode: "text" | "table";
+  causesText: string;
+  improvementsText: string;
+  causeRows: D3CauseRow[];
+  priority: string;
+  justify: string;
 };
 
-/** Day 3 · Route 2 · Level 3. */
+/** Day 3 · Route 2 · Level 3: the plan's transfer project, five items and the decision under uncertainty (CLAUDE.md #57). */
 export type D3R2 = {
   strategy: string;
+  measures: string;
   definition: string;
-  picks: DecisionId[];
-  order: DecisionId[];
-  orderWhy: string;
-  risk: D3RiskId | null;
-  riskPlan: string;
-  owner: D3OwnerId | null;
-  lessonChecks: CheckId[];
+  riskText: string;
+  logic: string;
   uncertain: string;
-  giveUp: string;
 };
 
 export type D3State = { r1: D3R1; r2: D3R2 };
 
+const emptyD3Assess = (): D3AssessRow => ({ impact: "", effort: "", risk: "" });
+
 export const emptyD3R1 = (): D3R1 => ({
-  sort: Object.fromEntries(D3_FACT_IDS.map((id) => [id, null])) as D3R1["sort"],
-  sortHistory: [],
-  sortFuture: [],
-  sortChecks: 0,
-  sortResult: null,
-  sortClue: false,
-  sortReasoning: false,
-  worst: null,
-  worstWhy: "",
+  problemMode: "text",
+  problems: "",
+  problemRows: Array.from({ length: 5 }, () => ({ problem: "", side: "" })),
+  feel: "",
   improve: "",
-  optImpact: {},
-  optEffort: {},
-  optRisk: {},
-  optEffortFlags: [],
-  optEffortClue: false,
-  optEffortResult: null,
-  optOrder: [],
+  assessMode: "text",
+  assessText: { A: "", B: "", C: "" },
+  assessRows: { A: emptyD3Assess(), B: emptyD3Assess(), C: emptyD3Assess() },
+  optOrder: "",
+  optChoice: null,
   optWhy: "",
-  reflect: { a: "", b: "", c: "" },
-  causes: [],
-  causeResult: null,
-  causeClue: false,
-  causeWhy: "",
-  chosen: [],
-  impact: {},
-  effort: {},
-  risk: {},
-  reasons: {},
-  effortFlags: [],
-  effortClue: false,
-  effortResult: null,
-  order: [],
-  orderWhy: "",
-  missingInfo: "",
-  checks: 0,
+  causeMode: "text",
+  causesText: "",
+  improvementsText: "",
+  causeRows: Array.from({ length: 4 }, () => ({ cause: "", improvement: "" })),
+  priority: "",
+  justify: "",
 });
 
 export const emptyD3R2 = (): D3R2 => ({
   strategy: "",
+  measures: "",
   definition: "",
-  picks: [],
-  order: [],
-  orderWhy: "",
-  risk: null,
-  riskPlan: "",
-  owner: null,
-  lessonChecks: [],
+  riskText: "",
+  logic: "",
   uncertain: "",
-  giveUp: "",
 });
 
 export const emptyD3 = (): D3State => ({ r1: emptyD3R1(), r2: emptyD3R2() });

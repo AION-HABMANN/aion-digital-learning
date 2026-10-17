@@ -1,90 +1,105 @@
-import { FACT_BY_ID, FACT_IDS, MEASURE_BY_ID, PICK_MEASURES } from "@/data/day3/case";
-import { CHECK_MIN, DECISION_BY_ID, R2_PICK } from "@/data/day3/route2";
-import { MIN_FRAME, MIN_LINE, MIN_REASON, MIN_SENTENCE, OPTIONAL_BLOCKS } from "@/lib/day3/progress";
-import { participantMissing, short } from "@/lib/missing";
+import { OPT_BY_ID, OPT_IDS } from "@/data/day3/case";
+import { ASSESS_KEYS, CAUSES_N, IMPROVEMENTS_N, MEASURES_N, MIN_ASSESS, MIN_CELL, MIN_FRAME, MIN_LINE, PROBLEMS_N, causeCount, causeGaps, improvementCount, listLines, problemCount, problemGaps } from "@/lib/day3/progress";
+import { participantMissing } from "@/lib/missing";
 import type { MissingEntry } from "@/lib/missing";
 import { tt } from "@/lib/lang";
 import type { Persisted } from "@/store/useStore";
 
-/** DOM ids the missing list points at. One place, so the list and the UI cannot drift. */
+/**
+ * DOM ids the missing list points at. One place, so the list and the UI cannot drift. Every label starts "Block X.Y:", in both languages
+ * (the per-block notice of CLAUDE.md #34 filters on that prefix). All blocks are Core (#57): a missing entry is a field that is empty, too
+ * short, or a list that has fewer items than the plan asks for. A choice that differs from the model is never missing (#38).
+ */
 export const IDS = {
-  fact: (id: string) => `fact-${id}`,
-  worst: "worst-field",
-  worstWhy: "worstwhy-field",
+  pictures: "educore-pictures",
+  problems: "problems-field",
+  problemRow: (i: number) => `problems-row-${i}`,
+  feel: "feel-field",
   improve: "improve-field",
+  assess: "assess-field",
+  assessOpt: (id: string) => `assess-${id}`,
   optOrder: "optorder-field",
+  optChoice: "optchoice-field",
   optWhy: "optwhy-field",
-  causePick: "cause-pick",
-  causeWhy: "causewhy-field",
-  measurePick: "measure-pick",
-  measure: (id: string) => `measure-${id}`,
-  reason: (id: string) => `reason-${id}`,
-  order: "order-field",
-  orderWhy: "orderwhy-field",
-  missingInfo: "missinginfo-field",
+  causes: "causes-field",
+  improvements: "improvements-field",
+  causeRow: (i: number) => `cause-row-${i}`,
+  priority: "priority-field",
+  justify: "justify-field",
   strategy: "strategy-field",
+  measures: "measures-field",
   definition: "definition-field",
-  decisionPick: "decision-pick",
-  decisionOrder: "decisionorder-field",
-  decisionOrderWhy: "decisionorderwhy-field",
-  risk: "risk-field",
-  riskPlan: "riskplan-field",
-  owner: "owner-field",
-  lessonChecks: "lessonchecks-field",
+  riskText: "risktext-field",
+  logic: "logic-field",
   uncertain: "uncertain-field",
-  giveUp: "giveup-field",
 } as const;
 
-/**
- * Optional blocks (CLAUDE.md #35) are never required: their entries are dropped here, in one place, so the Export notice, the per-block
- * notice (#34) and the dossier ring agree. Every label starts "Block X.Y:", in both languages.
- */
-const BLOCK_OF = { b12: "1.2", b13: "1.3", b21: "2.1" } as const;
-const OPTIONAL_PREFIXES = OPTIONAL_BLOCKS.map((b) => `Block ${BLOCK_OF[b as keyof typeof BLOCK_OF]}:`);
-const coreOnly = (list: MissingEntry[]) => list.filter((m) => !OPTIONAL_PREFIXES.some((p) => m.label.startsWith(p)));
+const colName = (k: string) =>
+  k === "impact" ? tt("learning impact", "Lernwirkung") : k === "effort" ? tt("effort", "Aufwand") : k === "risk" ? tt("risk", "Risiko") : k === "problem" ? tt("the problem", "das Problem") : k === "side" ? tt("how it is for the learner", "wie es für die Lernende ist") : k === "cause" ? tt("the cause", "die Ursache") : tt("the improvement", "die Verbesserung");
 
 export function r1Missing(p: Persisted): MissingEntry[] {
   const out = participantMissing(p);
   const { r1 } = p.d3;
   const e = (id: string, label: string) => out.push({ id, label });
+  const long = (v: string, n: number) => v.trim().length >= n;
 
-  // Block 1.1 (Core)
-  for (const id of FACT_IDS)
-    if (r1.sort[id] === null) e(IDS.fact(id), tt(`Block 1.1: fact ${FACT_BY_ID[id].no} is not sorted into Amount, Form or Order and purpose.`, `Block 1.1: Fakt ${FACT_BY_ID[id].no} ist nicht in Menge, Form oder Ordnung und Zweck einsortiert.`));
-  if (!r1.worst) e(IDS.worst, tt("Block 1.1: choose the fact that would make you stop first.", "Block 1.1: Wählen Sie den Fakt, bei dem Sie zuerst aufhören würden."));
-  if (r1.worstWhy.trim().length < MIN_LINE) e(IDS.worstWhy, tt(`Block 1.1: say how the learning process feels, from the learner's side (at least ${MIN_LINE} characters).`, `Block 1.1: Sagen Sie, wie sich der Lernprozess anfühlt, aus Sicht der Lernenden (mindestens ${MIN_LINE} Zeichen).`));
-  if (r1.improve.trim().length < MIN_LINE) e(IDS.improve, tt(`Block 1.1: say what you would improve and which fact each improvement answers (at least ${MIN_LINE} characters).`, `Block 1.1: Sagen Sie, was Sie verbessern würden und welchen Fakt jede Verbesserung beantwortet (mindestens ${MIN_LINE} Zeichen).`));
-
-  // Block 2.2 (Core)
-  if (r1.chosen.length !== PICK_MEASURES) e(IDS.measurePick, tt(`Block 2.2: choose exactly ${PICK_MEASURES} measures (you have ${r1.chosen.length}).`, `Block 2.2: Wählen Sie genau ${PICK_MEASURES} Maßnahmen (Sie haben ${r1.chosen.length}).`));
-  for (const id of r1.chosen) {
-    const name = MEASURE_BY_ID[id].name;
-    if (!r1.impact[id] || !r1.effort[id] || !r1.risk[id]) e(IDS.measure(id), tt(`Block 2.2: “${short(name, 36)}” is not rated on learning impact, effort and risk.`, `Block 2.2: „${short(name, 36)}“ ist nicht nach Lernwirkung, Aufwand und Risiko bewertet.`));
-    if ((r1.reasons[id] ?? "").trim().length < MIN_REASON) e(IDS.reason(id), tt(`Block 2.2: say why “${short(name, 36)}” gets those ratings (at least ${MIN_REASON} characters).`, `Block 2.2: Begründen Sie, warum „${short(name, 36)}“ diese Bewertungen bekommt (mindestens ${MIN_REASON} Zeichen).`));
+  // Block 1.1: the plan's UE2 task, three questions in the plan's order (CLAUDE.md #57)
+  const nProblems = problemCount(r1);
+  if (r1.problemMode === "text") {
+    if (nProblems < PROBLEMS_N) e(IDS.problems, tt(`Block 1.1: describe ${PROBLEMS_N} problems from the learner's side, one per line (you have ${nProblems} of ${PROBLEMS_N}).`, `Block 1.1: Beschreiben Sie ${PROBLEMS_N} Probleme aus Sicht der Lernenden, eines pro Zeile (Sie haben ${nProblems} von ${PROBLEMS_N}).`));
+  } else {
+    r1.problemRows.forEach((row, i) => {
+      const gaps = problemGaps(row);
+      if (gaps.length) e(IDS.problemRow(i), tt(`Block 1.1: problem ${i + 1} still needs ${gaps.map(colName).join(", ")}.`, `Block 1.1: Problem ${i + 1} braucht noch: ${gaps.map(colName).join(", ")}.`));
+    });
   }
-  if (r1.chosen.length === PICK_MEASURES && r1.orderWhy.trim().length < MIN_LINE) e(IDS.orderWhy, tt(`Block 2.2: say why your first priority goes first (at least ${MIN_LINE} characters).`, `Block 2.2: Begründen Sie, warum Ihre erste Priorität zuerst kommt (mindestens ${MIN_LINE} Zeichen).`));
-  if (r1.missingInfo.trim().length < MIN_LINE) e(IDS.missingInfo, tt(`Block 2.2: say what information you are missing (at least ${MIN_LINE} characters).`, `Block 2.2: Sagen Sie, welche Information Ihnen fehlt (mindestens ${MIN_LINE} Zeichen).`));
-  return coreOnly(out);
+  if (!long(r1.feel, MIN_LINE)) e(IDS.feel, tt(`Block 1.1: say how the learning process feels (at least ${MIN_LINE} characters).`, `Block 1.1: Sagen Sie, wie sich der Lernprozess anfühlt (mindestens ${MIN_LINE} Zeichen).`));
+  if (!long(r1.improve, MIN_LINE)) e(IDS.improve, tt(`Block 1.1: say what you would improve intuitively (at least ${MIN_LINE} characters).`, `Block 1.1: Sagen Sie, was Sie intuitiv verbessern würden (mindestens ${MIN_LINE} Zeichen).`));
+
+  // Block 1.2: the plan's UE3 task, three questions
+  for (const id of OPT_IDS) {
+    const name = `${tt("Option", "Option")} ${id} · ${OPT_BY_ID[id].name}`;
+    if (r1.assessMode === "text") {
+      if (!long(r1.assessText[id] ?? "", MIN_ASSESS)) e(IDS.assessOpt(id), tt(`Block 1.2: assess ${name}: its learning impact, effort and risk (at least ${MIN_ASSESS} characters).`, `Block 1.2: Bewerten Sie ${name}: Lernwirkung, Aufwand und Risiko (mindestens ${MIN_ASSESS} Zeichen).`));
+    } else {
+      const lack = ASSESS_KEYS.filter((k) => (r1.assessRows[id]?.[k] ?? "").trim().length < MIN_CELL).map(colName);
+      if (lack.length) e(IDS.assessOpt(id), tt(`Block 1.2: ${name} still needs its ${lack.join(", ")}.`, `Block 1.2: ${name} braucht noch: ${lack.join(", ")}.`));
+    }
+  }
+  if (!long(r1.optOrder, MIN_ASSESS)) e(IDS.optOrder, tt(`Block 1.2: put the three options in a priority order, first priority first (at least ${MIN_ASSESS} characters).`, `Block 1.2: Bringen Sie die drei Optionen in eine Prioritätsreihenfolge, die erste Priorität zuerst (mindestens ${MIN_ASSESS} Zeichen).`));
+  if (!r1.optChoice) e(IDS.optChoice, tt("Block 1.2: choose the option A, B or C that has the greatest effect.", "Block 1.2: Wählen Sie die Option A, B oder C mit der größten Wirkung."));
+  if (!long(r1.optWhy, MIN_LINE)) e(IDS.optWhy, tt(`Block 1.2: say why that option has the greatest effect on learning (at least ${MIN_LINE} characters).`, `Block 1.2: Sagen Sie, warum diese Option die größte Wirkung aufs Lernen hat (mindestens ${MIN_LINE} Zeichen).`));
+
+  // Block 2.1: the plan's case study, four questions
+  const nCauses = causeCount(r1);
+  const nImps = improvementCount(r1);
+  if (r1.causeMode === "text") {
+    if (nCauses < CAUSES_N) e(IDS.causes, tt(`Block 2.1: identify ${CAUSES_N} causes of cognitive overload, one per line (you have ${nCauses} of ${CAUSES_N}).`, `Block 2.1: Erkennen Sie ${CAUSES_N} Ursachen kognitiver Überlastung, eine pro Zeile (Sie haben ${nCauses} von ${CAUSES_N}).`));
+    if (nImps < IMPROVEMENTS_N) e(IDS.improvements, tt(`Block 2.1: develop ${IMPROVEMENTS_N} UX improvements, one per line (you have ${nImps} of ${IMPROVEMENTS_N}).`, `Block 2.1: Entwickeln Sie ${IMPROVEMENTS_N} UX-Verbesserungen, eine pro Zeile (Sie haben ${nImps} von ${IMPROVEMENTS_N}).`));
+  } else {
+    r1.causeRows.forEach((row, i) => {
+      const gaps = causeGaps(row);
+      if (gaps.length) e(IDS.causeRow(i), tt(`Block 2.1: row ${i + 1} still needs ${gaps.map(colName).join(", ")}.`, `Block 2.1: Zeile ${i + 1} braucht noch: ${gaps.map(colName).join(", ")}.`));
+    });
+  }
+  if (!long(r1.priority, MIN_LINE)) e(IDS.priority, tt(`Block 2.1: prioritise your improvements, the first priority first (at least ${MIN_LINE} characters).`, `Block 2.1: Priorisieren Sie Ihre Verbesserungen, die erste Priorität zuerst (mindestens ${MIN_LINE} Zeichen).`));
+  if (!long(r1.justify, MIN_LINE)) e(IDS.justify, tt(`Block 2.1: justify your decision (at least ${MIN_LINE} characters).`, `Block 2.1: Begründen Sie Ihre Entscheidung (mindestens ${MIN_LINE} Zeichen).`));
+  return out;
 }
 
 export function r2Missing(p: Persisted): MissingEntry[] {
   const out = participantMissing(p);
   const { r2 } = p.d3;
   const e = (id: string, label: string) => out.push({ id, label });
+  const long = (v: string, n: number) => v.trim().length >= n;
 
-  // Block 3.1 (Core)
-  if (r2.strategy.trim().length < MIN_SENTENCE) e(IDS.strategy, tt(`Block 3.1: write your strategy to reduce cognitive load: what you reduce first and what you protect (at least ${MIN_SENTENCE} characters).`, `Block 3.1: Schreiben Sie Ihre Strategie zur Senkung der kognitiven Belastung: was Sie zuerst senken und was Sie schützen (mindestens ${MIN_SENTENCE} Zeichen).`));
-  if (r2.definition.trim().length < MIN_SENTENCE) e(IDS.definition, tt(`Block 3.1: write your definition of learning-effective UX: the learner, the goal, the cost and the proof (at least ${MIN_SENTENCE} characters).`, `Block 3.1: Schreiben Sie Ihre Definition von lerneffektivem UX: die Lernende, das Ziel, die Kosten und den Beleg (mindestens ${MIN_SENTENCE} Zeichen).`));
-  if (r2.picks.length !== R2_PICK) e(IDS.decisionPick, tt(`Block 3.1: choose exactly ${R2_PICK} measures (you have ${r2.picks.length}).`, `Block 3.1: Wählen Sie genau ${R2_PICK} Maßnahmen (Sie haben ${r2.picks.length}).`));
-  if (r2.picks.length === R2_PICK && r2.orderWhy.trim().length < MIN_LINE)
-    e(IDS.decisionOrderWhy, tt(`Block 3.1: say why “${short(DECISION_BY_ID[r2.order[0] ?? r2.picks[0]].name, 36)}” goes first (at least ${MIN_LINE} characters).`, `Block 3.1: Begründen Sie, warum „${short(DECISION_BY_ID[r2.order[0] ?? r2.picks[0]].name, 36)}“ zuerst kommt (mindestens ${MIN_LINE} Zeichen).`));
-
-  // Block 3.2 (Core)
-  if (!r2.risk) e(IDS.risk, tt("Block 3.2: choose the biggest risk of your plan.", "Block 3.2: Wählen Sie das größte Risiko Ihres Plans."));
-  if (r2.riskPlan.trim().length < MIN_REASON) e(IDS.riskPlan, tt(`Block 3.2: say what you do about that risk (at least ${MIN_REASON} characters).`, `Block 3.2: Sagen Sie, was Sie gegen dieses Risiko tun (mindestens ${MIN_REASON} Zeichen).`));
-  if (!r2.owner) e(IDS.owner, tt("Block 3.2: choose who decides whether a new lesson goes live.", "Block 3.2: Wählen Sie, wer entscheidet, ob eine neue Lektion live geht."));
-  if (r2.lessonChecks.length < CHECK_MIN) e(IDS.lessonChecks, tt(`Block 3.2: choose at least ${CHECK_MIN} checks every new lesson must pass (you have ${r2.lessonChecks.length}).`, `Block 3.2: Wählen Sie mindestens ${CHECK_MIN} Prüfungen, die jede neue Lektion bestehen muss (Sie haben ${r2.lessonChecks.length}).`));
-  if (r2.uncertain.trim().length < MIN_FRAME) e(IDS.uncertain, tt(`Block 3.2: write the decision you make without user data: what you decide, what you do not know, when you would reverse it (at least ${MIN_FRAME} characters).`, `Block 3.2: Schreiben Sie die Entscheidung ohne Nutzerdaten: was Sie entscheiden, was Sie nicht wissen, wann Sie sie zurücknähmen (mindestens ${MIN_FRAME} Zeichen).`));
-  if (r2.giveUp.trim().length < MIN_LINE) e(IDS.giveUp, tt(`Block 3.2: name what you give up or postpone (at least ${MIN_LINE} characters).`, `Block 3.2: Nennen Sie, worauf Sie verzichten oder was Sie verschieben (mindestens ${MIN_LINE} Zeichen).`));
-  return coreOnly(out);
+  // Block 3.1: the plan's transfer project, five items and the decision under uncertainty
+  if (!long(r2.strategy, MIN_LINE)) e(IDS.strategy, tt(`Block 3.1: write your strategy for reducing cognitive load (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Strategie zur Senkung der kognitiven Belastung (mindestens ${MIN_LINE} Zeichen).`));
+  const nMeasures = listLines(r2.measures).length;
+  if (nMeasures < MEASURES_N) e(IDS.measures, tt(`Block 3.1: write ${MEASURES_N} prioritised UX measures, the first priority first, one per line (you have ${nMeasures} of ${MEASURES_N}).`, `Block 3.1: Schreiben Sie ${MEASURES_N} priorisierte UX-Maßnahmen, die erste Priorität zuerst, eine pro Zeile (Sie haben ${nMeasures} von ${MEASURES_N}).`));
+  if (!long(r2.definition, MIN_LINE)) e(IDS.definition, tt(`Block 3.1: define “learning-effective UX” (at least ${MIN_LINE} characters).`, `Block 3.1: Definieren Sie „lerneffektives UX“ (mindestens ${MIN_LINE} Zeichen).`));
+  if (!long(r2.riskText, MIN_LINE)) e(IDS.riskText, tt(`Block 3.1: write your risk analysis: content that is too simple against content that is too complex (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Risikoanalyse: zu einfacher Inhalt gegen zu komplexen Inhalt (mindestens ${MIN_LINE} Zeichen).`));
+  if (!long(r2.logic, MIN_LINE)) e(IDS.logic, tt(`Block 3.1: write your decision logic for future content (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Entscheidungslogik für künftige Inhalte (mindestens ${MIN_LINE} Zeichen).`));
+  if (!long(r2.uncertain, MIN_FRAME)) e(IDS.uncertain, tt(`Block 3.1: write the decision you make under uncertainty: what you decide, what you do not know, when you would reverse it (at least ${MIN_FRAME} characters).`, `Block 3.1: Schreiben Sie die Entscheidung unter Unsicherheit: was Sie entscheiden, was Sie nicht wissen, wann Sie sie zurücknähmen (mindestens ${MIN_FRAME} Zeichen).`));
+  return out;
 }

@@ -2,41 +2,35 @@
 
 import { useEffect, useState } from "react";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
-import { AnswerKey } from "@/components/ui/AnswerKey";
 import { BlockMissing } from "@/components/ui/BlockMissing";
-import { BudgetBar } from "@/components/ui/BudgetBar";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
-import { Field } from "@/components/ui/Field";
-import { MeasureThumb } from "@/components/day3/mocks";
-import type { MeasureKind } from "@/components/day3/mocks";
-import { OptionList, TextBox } from "@/components/ui/Inputs";
+import { TextBox } from "@/components/ui/Inputs";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
-import { OrderList } from "@/components/ui/OrderList";
-import { RevealHint } from "@/components/ui/RevealHint";
 import { WritingHelp } from "@/components/ui/WritingHelp";
-import { FACT_BY_ID } from "@/data/day3/case";
-import { CHECKS, CHECK_MIN, DECISIONS, DECISION_AREA, DECISION_BY_ID, OWNERS, R2_BUDGET, R2_MONTHS, R2_PICK, RISKS, decisionsCost } from "@/data/day3/route2";
-import type { CheckId, DecisionId, OwnerId, RiskId } from "@/data/day3/route2";
+import { OPTS } from "@/data/day3/case";
 import { routeHref } from "@/data/course";
 import { DOC_CSS } from "@/lib/exportDoc";
-import { decisionKey, logicKey, riskKey } from "@/lib/day3/answerKey";
 import { memoBody } from "@/lib/day3/exportDoc";
-import { decisionOrderGuide, definitionGuide, giveUpGuide, riskPlanGuide, strategyGuide, uncertainGuide } from "@/lib/day3/guides";
+import { definitionGuide, logicGuide, measuresGuide, riskTextGuide, strategyGuide, uncertainGuide } from "@/lib/day3/guides";
 import { IDS, r2Missing } from "@/lib/day3/missing";
-import { BLOCK_MINUTES, CORE2_MINUTES, MIN_FRAME, MIN_LINE, MIN_REASON, MIN_SENTENCE } from "@/lib/day3/progress";
-import { swap, syncOrder, toggleCapped, toggleList } from "@/lib/lists";
+import { BLOCK_MINUTES, CORE2_MINUTES, MEASURES_N, MIN_FRAME, MIN_LINE, listLines } from "@/lib/day3/progress";
 import type { MissingEntry } from "@/lib/missing";
 import { useJumpTo } from "@/lib/useJumpTo";
-import { euro, tt } from "@/lib/lang";
+import { tt } from "@/lib/lang";
 import { exportName } from "@/lib/slug";
 import { showCardPart } from "@/store/useCardMore";
 import { usePersisted } from "@/store/usePersisted";
 import { useHydrated, useStore } from "@/store/useStore";
 
-/** Day 3 · Route 2 · the UX Strategy Memo (Level 3). Core: Block 3.1 and Block 3.2, which hold the plan's Transferprojekt (CLAUDE.md #44). */
+/**
+ * Day 3 · Route 2 · the UX Strategy Memo (Level 3, CLAUDE.md #57): the plan's transfer project as six free answers in one Core block: a strategy
+ * for reducing cognitive load, three prioritised UX measures, a definition of learning-effective UX, a risk analysis (content that is too simple
+ * against content that is too complex), a decision logic for future content, and one decision made under uncertainty. The plan prints no budget
+ * figure ("limited"), so the site prints none.
+ */
 
 function CaseBrief() {
   const r1 = useStore((s) => s.d3.r1);
@@ -49,36 +43,31 @@ function CaseBrief() {
       </div>
       <p className="max-w-prose text-body text-ink">
         {tt(
-          `You are the Chief Learning Experience Officer of EduCore. The platform is rated “too complicated”. The content is professionally necessary but hard to understand, and the budget is limited. Management wants a learning-psychology-based UX strategy for the next ${R2_MONTHS} months and expects you to take responsibility for learning success.`,
-          `Sie sind Chief Learning Experience Officer von EduCore. Die Plattform wird als „zu kompliziert“ bewertet. Der Inhalt ist fachlich nötig, aber schwer verständlich, und das Budget ist begrenzt. Die Geschäftsführung will eine lernpsychologisch fundierte UX-Strategie für die nächsten ${R2_MONTHS} Monate und erwartet, dass Sie die Verantwortung für den Lernerfolg übernehmen.`,
+          "You are the Chief Learning Experience Officer of EduCore. The platform is rated “too complicated”. The content is professionally necessary but hard to understand, and the budget is limited. Management wants a learning-psychology-based UX strategy and expects you to take responsibility for learning success.",
+          "Sie sind Chief Learning Experience Officer von EduCore. Die Plattform wird als „zu kompliziert“ bewertet. Der Inhalt ist fachlich nötig, aber schwer verständlich, und das Budget ist begrenzt. Die Geschäftsführung will eine lernpsychologisch fundierte UX-Strategie und erwartet, dass Sie die Verantwortung für den Lernerfolg übernehmen.",
         )}
       </p>
       <div className="grid gap-3 md:grid-cols-2">
         <div className="rounded-lg border border-line bg-canvas p-3 text-caption">
-          <p className="smallcaps">{tt("The limits", "Die Grenzen")}</p>
+          <p className="smallcaps">{tt("The framework", "Die Rahmenbedingungen")}</p>
           <ul className="mt-1 list-disc space-y-1 pl-4 text-ink">
-            <li>
-              {tt("Budget for the year: ", "Budget für das Jahr: ")}
-              <strong>{euro(R2_BUDGET)}</strong> <span className="text-ash">{tt("(Case assumption: the plan only says “limited”)", "(Fallannahme: der Plan sagt nur „begrenzt“)")}</span>
-            </li>
-            <li>{tt("Content: professionally necessary, so it cannot simply be cut.", "Inhalt: fachlich nötig, er lässt sich also nicht einfach kürzen.")}</li>
-            <li>{tt("You must decide even though you have no user data.", "Sie müssen entscheiden, obwohl Sie keine Nutzerdaten haben.")}</li>
+            <li>{tt("The learning platform is rated “too complicated”", "Die Lernplattform wird als „zu kompliziert“ bewertet")}</li>
+            <li>{tt("The content is professionally necessary, but hard to understand", "Der Inhalt ist fachlich nötig, aber schwer verständlich")}</li>
+            <li>{tt("The budget is limited", "Das Budget ist begrenzt")}</li>
+            <li>{tt("You decide without user data", "Sie entscheiden ohne Nutzerdaten")}</li>
           </ul>
         </div>
         <div className="rounded-lg border border-line bg-canvas p-3 text-caption">
-          <p className="smallcaps">{tt(`How the task runs · two core blocks, about ${CORE2_MINUTES} min`, `So läuft die Aufgabe · zwei Kernblöcke, ca. ${CORE2_MINUTES} Min.`)}</p>
-          <ol className="mt-1 list-decimal space-y-1 pl-4 text-ink">
-            <li>{tt("Block 3.1: your strategy to reduce cognitive load, your definition of learning-effective UX and three prioritised measures (B1, B2).", "Block 3.1: Ihre Strategie zur Senkung der kognitiven Belastung, Ihre Definition von lerneffektivem UX und drei priorisierte Maßnahmen (B1, B2).")}</li>
-            <li>{tt("Block 3.2: the biggest risk, the decision logic for future content, one decision under uncertainty, and what you give up (B2, B3).", "Block 3.2: das größte Risiko, die Entscheidungslogik für künftige Inhalte, eine Entscheidung unter Unsicherheit und worauf Sie verzichten (B2, B3).")}</li>
-          </ol>
+          <p className="smallcaps">{tt(`How the task runs · one block, about ${CORE2_MINUTES} min`, `So läuft die Aufgabe · ein Block, ca. ${CORE2_MINUTES} Min.`)}</p>
+          <p className="mt-1 text-ink">{tt("Block 3.1 asks six questions: your strategy for reducing cognitive load, three prioritised UX measures, your definition of learning-effective UX, a risk analysis, a decision logic for future content, and one decision you make on purpose under uncertainty.", "Block 3.1 stellt sechs Fragen: Ihre Strategie zur Senkung der kognitiven Belastung, drei priorisierte UX-Maßnahmen, Ihre Definition von lerneffektivem UX, eine Risikoanalyse, eine Entscheidungslogik für künftige Inhalte und eine Entscheidung, die Sie bewusst unter Unsicherheit treffen.")}</p>
         </div>
       </div>
       <p className="text-caption text-ash">
-        {r1.worst ? (
+        {r1.optChoice ? (
           <>
-            {tt("Your Route 1 answer, as a soft pointer: you judged this fact most stopping: ", "Ihre Antwort aus Route 1, als weicher Hinweis: Sie hielten diesen Fakt für den, bei dem man am ehesten aufhört: ")}
-            <strong className="text-ink">{FACT_BY_ID[r1.worst].short}</strong>.{" "}
-            <button type="button" onClick={() => jump("block-1-1", routeHref(3, 1))} className="font-semibold text-accent underline decoration-dotted underline-offset-2">
+            {tt("Your Route 1 answer, as a soft pointer: you judged this option to have the greatest effect on learning: ", "Ihre Antwort aus Route 1, als weicher Hinweis: Sie hielten diese Option für die mit der größten Wirkung aufs Lernen: ")}
+            <strong className="text-ink">{OPTS.find((o) => o.id === r1.optChoice)?.name}</strong>.{" "}
+            <button type="button" onClick={() => jump("block-1-2", routeHref(3, 1))} className="font-semibold text-accent underline decoration-dotted underline-offset-2">
               {tt("Open it in Route 1", "In Route 1 öffnen")}
             </button>
           </>
@@ -87,7 +76,7 @@ function CaseBrief() {
         )}
       </p>
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("The brief says: a platform rated too complicated, content professionally necessary but hard to understand, a limited budget, and a decision without user data. Everything else is made up: the €150,000, the seven measures with their costs and weeks.", "Der Auftrag sagt: eine als zu kompliziert bewertete Plattform, fachlich nötiger, aber schwer verständlicher Inhalt, ein begrenztes Budget und eine Entscheidung ohne Nutzerdaten. Alles andere ist erfunden: die 150.000 €, die sieben Maßnahmen mit ihren Kosten und Wochen.")}</p>
+        <p>{tt("The brief says: a platform rated too complicated, content professionally necessary but hard to understand, a limited budget, and a decision without user data. It prints no figure, so none is used here.", "Der Auftrag sagt: eine als zu kompliziert bewertete Plattform, fachlich nötiger, aber schwer verständlicher Inhalt, ein begrenztes Budget und eine Entscheidung ohne Nutzerdaten. Er nennt keine Zahl, daher wird hier keine verwendet.")}</p>
       </Callout>
     </section>
   );
@@ -99,36 +88,34 @@ function useR2() {
 
 /* ------------------------------------------------------------------ Block 3.1 */
 
-/** A small picture for each measure of the strategy (CLAUDE.md #52). */
-const DECISION_THUMB: Record<DecisionId, MeasureKind> = { d1: "rebuild", d2: "standard", d3: "testing", d4: "cut", d5: "feedback", d6: "summary", d7: "brand" };
-
 export function Block31({ missing }: { missing: MissingEntry[] }) {
   const { r, patch, mentor } = useR2();
-  const [note, setNote] = useState("");
-  const full = r.picks.length >= R2_PICK;
-  const cost = decisionsCost(r.picks);
+  const b = (id: string) => () => showCardPart(id as "B1", "rules");
+  const nM = listLines(r.measures).length;
   return (
     <AnswerBlock
       id="block-3-1"
-      title={tt("Block 3.1 · Strategy, definition and three measures", "Block 3.1 · Strategie, Definition und drei Maßnahmen")}
+      title={tt("Block 3.1 · Develop a learning-psychology-based UX strategy", "Block 3.1 · Eine lernpsychologisch fundierte UX-Strategie entwickeln")}
       kind="JUDGED"
       core
       minutes={BLOCK_MINUTES["3.1"]}
-      findIt={tt("Route 2 → Task 2 → the two fields for the strategy and the definition, then the seven measures in the list below, each with its printed cost and weeks. Answer in the fields and the list.", "Route 2 → Task 2 → die zwei Felder für Strategie und Definition, dann die sieben Maßnahmen in der Liste darunter, jeweils mit gedruckten Kosten und Wochen. Antworten Sie in den Feldern und der Liste.")}
+      findIt={tt("Route 2 → Task 2 → the situation above, then the six questions below.", "Route 2 → Task 2 → die Lage oben, dann die sechs Fragen darunter.")}
     >
-      <MaterialRefs refs={["B1", "B2"]} />
+      <MaterialRefs refs={["B1", "B2", "B3"]} />
+
+      <p className="smallcaps text-ash">{tt("Question 1 of 6", "Frage 1 von 6")}</p>
       <TextBox
         id={IDS.strategy}
-        label={tt("Your strategy for reducing cognitive load", "Ihre Strategie zur Senkung der kognitiven Belastung")}
-        help={tt(`One to three sentences: what you will reduce first, and what you will protect. At least ${MIN_SENTENCE} characters.`, `Ein bis drei Sätze: was Sie zuerst senken und was Sie schützen. Mindestens ${MIN_SENTENCE} Zeichen.`)}
+        label={tt("A strategy for reducing cognitive load", "Eine Strategie zur Senkung der kognitiven Belastung")}
+        help={tt(`One to three sentences: what you will reduce first, and what you will protect. At least ${MIN_LINE} characters.`, `Ein bis drei Sätze: was Sie zuerst senken und was Sie schützen. Mindestens ${MIN_LINE} Zeichen.`)}
         value={r.strategy}
         onChange={(v) => patch({ strategy: v })}
-        min={MIN_SENTENCE}
+        min={MIN_LINE}
         rows={3}
       >
         <WritingHelp
           id="strategy-kit"
-          refs={[{ label: tt("Cut extraneous load first, protect the subject (Materi B2)", "Zuerst die extrinsische Belastung kürzen, das Thema schützen (Materi B2)"), value: tt("reduce · protect", "senken · schützen"), target: "mat-B2", before: () => showCardPart("B2", "rules") }]}
+          refs={[{ label: tt("Cut extraneous load first, protect the subject (Materi B2)", "Zuerst die extrinsische Belastung kürzen, das Thema schützen (Materi B2)"), value: tt("reduce · protect", "senken · schützen"), target: "mat-B2", before: b("B2") }]}
           steps={[
             tt("Say what you reduce first (clutter, a wall of text) and for whom.", "Sagen Sie, was Sie zuerst senken (Unübersichtlichkeit, eine Textwand) und für wen."),
             tt("Say what you protect (the professional depth of the content).", "Sagen Sie, was Sie schützen (die fachliche Tiefe des Inhalts)."),
@@ -138,18 +125,41 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       <ExampleAnswer id="strategy-example" guide={strategyGuide()} />
       {mentor && <MentorGuide guide={strategyGuide()} />}
 
+      <p className="smallcaps text-ash">{tt("Question 2 of 6", "Frage 2 von 6")}</p>
+      <TextBox
+        id={IDS.measures}
+        label={tt(`${MEASURES_N} prioritised UX measures`, `${MEASURES_N} priorisierte UX-Maßnahmen`)}
+        help={tt(`Write them as a list, one measure per line, the first priority first. You have ${nM} of ${MEASURES_N}.`, `Schreiben Sie sie als Liste, eine Maßnahme pro Zeile, die erste Priorität zuerst. Sie haben ${nM} von ${MEASURES_N}.`)}
+        value={r.measures}
+        onChange={(v) => patch({ measures: v })}
+        rows={5}
+        placeholder={tt("1. …\n2. …\n3. …", "1. …\n2. …\n3. …")}
+      >
+        <WritingHelp
+          id="measures-kit"
+          refs={[{ label: tt("Learning effectiveness and cognitive efficiency (Materi B1)", "Lerneffektivität und kognitive Effizienz (Materi B1)"), value: tt("the two yardsticks", "die beiden Maßstäbe"), target: "mat-B1", before: b("B1") }]}
+          steps={[
+            tt("Choose measures that act on the load, not on the look, and that you could start on now.", "Wählen Sie Maßnahmen, die auf die Belastung wirken, nicht auf das Aussehen, und mit denen Sie jetzt beginnen könnten."),
+            tt("Put first the one that helps learning most for the effort, and say in a few words why.", "Setzen Sie die an die erste Stelle, die fürs Lernen im Verhältnis zum Aufwand am meisten bringt, und sagen Sie in wenigen Worten warum."),
+          ]}
+        />
+      </TextBox>
+      <ExampleAnswer id="measures-example" guide={measuresGuide()} />
+      {mentor && <MentorGuide guide={measuresGuide()} />}
+
+      <p className="smallcaps text-ash">{tt("Question 3 of 6", "Frage 3 von 6")}</p>
       <TextBox
         id={IDS.definition}
-        label={tt("Your definition of “learning-effective UX”", "Ihre Definition von „lerneffektivem UX“")}
-        help={tt(`Name the learner, the goal, the cost to be kept low, and how you will know (the proof). At least ${MIN_SENTENCE} characters.`, `Nennen Sie die Lernende, das Ziel, die Kosten, die niedrig gehalten werden sollen, und woran Sie es erkennen (den Beleg). Mindestens ${MIN_SENTENCE} Zeichen.`)}
+        label={tt("A definition of “learning-effective UX”", "Eine Definition von „lerneffektivem UX“")}
+        help={tt(`Name the learner, the goal, the cost to be kept low, and how you will know. At least ${MIN_LINE} characters.`, `Nennen Sie die Lernende, das Ziel, die Kosten, die niedrig gehalten werden sollen, und woran Sie es erkennen. Mindestens ${MIN_LINE} Zeichen.`)}
         value={r.definition}
         onChange={(v) => patch({ definition: v })}
-        min={MIN_SENTENCE}
+        min={MIN_LINE}
         rows={3}
       >
         <WritingHelp
           id="definition-kit"
-          refs={[{ label: tt("The four parts of a definition (Materi B1)", "Die vier Teile einer Definition (Materi B1)"), value: tt("learner · goal · cost · proof", "Lernende · Ziel · Kosten · Beleg"), target: "mat-B1", before: () => showCardPart("B1", "rules") }]}
+          refs={[{ label: tt("The four parts of a definition (Materi B1)", "Die vier Teile einer Definition (Materi B1)"), value: tt("learner · goal · cost · proof", "Lernende · Ziel · Kosten · Beleg"), target: "mat-B1", before: b("B1") }]}
           steps={[
             tt("Start with “A learning-effective UX is one in which …” and name the learner and the goal.", "Beginnen Sie mit „Ein lerneffektives UX ist eines, in dem …“ und nennen Sie die Lernende und das Ziel."),
             tt("Add the cost kept low (effort that does not help learning) and the proof (what they can explain or do afterwards).", "Ergänzen Sie die niedrig gehaltenen Kosten (Anstrengung, die nicht beim Lernen hilft) und den Beleg (was sie danach erklären oder tun können)."),
@@ -159,127 +169,72 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       <ExampleAnswer id="definition-example" guide={definitionGuide()} />
       {mentor && <MentorGuide guide={definitionGuide()} />}
 
-      <Field id={IDS.decisionPick} label={tt(`Choose exactly ${R2_PICK} measures`, `Wählen Sie genau ${R2_PICK} Maßnahmen`)} help={tt("Each shows what it is, its cost and its weeks, and what it acts on. You have chosen:", "Jede zeigt, was sie ist, ihre Kosten und Wochen und worauf sie wirkt. Sie haben gewählt:") + ` ${r.picks.length} / ${R2_PICK}`}>
-        <OptionList<DecisionId>
-          options={DECISIONS.map((d) => ({ id: d.id, label: `${d.no} · ${d.name} · ${euro(d.cost)} · ${d.weeks} ${tt("weeks", "Wochen")}`, tag: DECISION_AREA[d.area], visual: <MeasureThumb kind={DECISION_THUMB[d.id]} />, sub: d.what }))}
-          value={r.picks}
-          onChange={(id) => {
-            setNote("");
-            patch((s) => {
-              const picks = toggleCapped(s.picks, id, R2_PICK);
-              return { picks, order: syncOrder(s.order, picks) };
-            });
-          }}
-          multi
-          cols={2}
-          label={tt("Measures for the strategy", "Maßnahmen für die Strategie")}
-          disabledIds={full ? DECISIONS.map((d) => d.id) : []}
-          onDisabledClick={() => setNote(tt(`You have ${R2_PICK}. Deselect one first.`, `Sie haben ${R2_PICK}. Wählen Sie zuerst eine ab.`))}
-        />
-        {note && <p role="status" className="text-caption text-ash">{note}</p>}
-      </Field>
-      {r.picks.length > 0 && (
-        <div className="space-y-2">
-          <BudgetBar items={r.picks.map((id) => ({ id, short: DECISION_BY_ID[id].no, cost: DECISION_BY_ID[id].cost }))} budget={R2_BUDGET} title={tt("Cost of the chosen measures against the yearly budget", "Kosten der gewählten Maßnahmen gegen das Jahresbudget")} />
-          <p className="text-caption text-ink" aria-live="polite">
-            {tt(`Total ${euro(cost)} of ${euro(R2_BUDGET)}${cost > R2_BUDGET ? `, ${euro(cost - R2_BUDGET)} over` : ""}.`, `Gesamt ${euro(cost)} von ${euro(R2_BUDGET)}${cost > R2_BUDGET ? `, ${euro(cost - R2_BUDGET)} darüber` : ""}.`)}{" "}
-            {cost > R2_BUDGET && <span className="text-ash">{tt("Going over is allowed; say why. It is printed in the memo as a fact.", "Das Überschreiten ist erlaubt; sagen Sie, warum. Es steht als Tatsache im Memo.")}</span>}
-          </p>
-        </div>
-      )}
-      {r.picks.length === R2_PICK && (
-        <Field id={IDS.decisionOrder} label={tt("Put the three measures in priority order", "Bringen Sie die drei Maßnahmen in eine Prioritätsreihenfolge")} help={tt("The first is the most important. Move one up or down with the arrows.", "Die erste ist die wichtigste. Verschieben Sie eine mit den Pfeilen nach oben oder unten.")}>
-          <OrderList<DecisionId> order={r.order} name={(id) => `${DECISION_BY_ID[id].no} · ${DECISION_BY_ID[id].name}`} onMove={(id, dir) => patch((s) => ({ order: swap(s.order, id, dir) }))} />
-        </Field>
-      )}
+      <p className="smallcaps text-ash">{tt("Question 4 of 6", "Frage 4 von 6")}</p>
       <TextBox
-        id={IDS.decisionOrderWhy}
-        label={tt("Why does the first measure go first?", "Warum kommt die erste Maßnahme zuerst?")}
-        help={tt(`Say what it does for learning effectiveness and for cognitive efficiency. At least ${MIN_LINE} characters.`, `Sagen Sie, was sie für die Lerneffektivität und für die kognitive Effizienz leistet. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.orderWhy}
-        onChange={(v) => patch({ orderWhy: v })}
+        id={IDS.riskText}
+        label={tt("Risk analysis: content that is too simple against content that is too complex", "Risikoanalyse: zu einfacher gegen zu komplexen Inhalt")}
+        help={tt(`Name the risk on each side and say what you do about the bigger one. At least ${MIN_LINE} characters.`, `Nennen Sie das Risiko auf jeder Seite und sagen Sie, was Sie gegen das größere tun. Mindestens ${MIN_LINE} Zeichen.`)}
+        value={r.riskText}
+        onChange={(v) => patch({ riskText: v })}
         min={MIN_LINE}
-        rows={3}
-      />
-      <ExampleAnswer id="decisionorder-example" guide={decisionOrderGuide()} />
-      {mentor && <MentorGuide guide={decisionOrderGuide()} />}
-      <AnswerKey block={decisionKey()} />
-      <BlockMissing block="3.1" missing={missing} />
-    </AnswerBlock>
-  );
-}
+        rows={4}
+      >
+        <WritingHelp
+          id="risktext-kit"
+          refs={[{ label: tt("Efficiency against deep learning (Materi B2)", "Effizienz gegen tiefes Lernen (Materi B2)"), value: tt("conflicting goals", "Zielkonflikte"), target: "mat-B2", before: b("B2") }]}
+          steps={[
+            tt("Write what goes wrong if the content becomes too simple, and what goes wrong if it stays too complex.", "Schreiben Sie, was schiefgeht, wenn der Inhalt zu einfach wird, und was, wenn er zu komplex bleibt."),
+            tt("Pick the bigger risk and say what your plan does about it and what you would notice.", "Wählen Sie das größere Risiko und sagen Sie, was Ihr Plan dagegen tut und was Sie bemerken würden."),
+          ]}
+        />
+      </TextBox>
+      <ExampleAnswer id="risktext-example" guide={riskTextGuide()} />
+      {mentor && <MentorGuide guide={riskTextGuide()} />}
 
-/* ------------------------------------------------------------------ Block 3.2 */
-
-export function Block32({ missing }: { missing: MissingEntry[] }) {
-  const { r, patch, mentor } = useR2();
-  return (
-    <AnswerBlock
-      id="block-3-2"
-      title={tt("Block 3.2 · Risk, decision logic, a decision under uncertainty, and what you give up", "Block 3.2 · Risiko, Entscheidungslogik, eine Entscheidung unter Unsicherheit und worauf Sie verzichten")}
-      kind="JUDGED"
-      core
-      minutes={BLOCK_MINUTES["3.2"]}
-      findIt={tt("Route 2 → Task 2 → the three measures you chose in Block 3.1, then the fields below. Answer in the lists and the text boxes.", "Route 2 → Task 2 → die drei Maßnahmen, die Sie in Block 3.1 gewählt haben, dann die Felder darunter. Antworten Sie in den Listen und Textfeldern.")}
-    >
-      <MaterialRefs refs={["B3", "B2"]} />
-      <Field id={IDS.risk} label={tt("The biggest risk of your plan", "Das größte Risiko Ihres Plans")} help={tt("Content that is too simple against content that is too complex. Imagine the plan has failed in a year. Which reason is the most likely? Choose one.", "Zu einfacher Inhalt gegen zu komplexen Inhalt. Stellen Sie sich vor, der Plan ist in einem Jahr gescheitert. Welcher Grund ist am wahrscheinlichsten? Wählen Sie einen.")}>
-        <OptionList<RiskId> options={RISKS.map((x) => ({ id: x.id, label: x.text }))} value={r.risk} onChange={(id) => patch({ risk: id })} label={tt("Risks", "Risiken")} />
-      </Field>
+      <p className="smallcaps text-ash">{tt("Question 5 of 6", "Frage 5 von 6")}</p>
       <TextBox
-        id={IDS.riskPlan}
-        label={tt("What do you do about that risk?", "Was tun Sie gegen dieses Risiko?")}
-        help={tt(`One action, and when you would notice the risk. At least ${MIN_REASON} characters.`, `Eine Maßnahme, und wann Sie das Risiko bemerken würden. Mindestens ${MIN_REASON} Zeichen.`)}
-        value={r.riskPlan}
-        onChange={(v) => patch({ riskPlan: v })}
-        min={MIN_REASON}
-        rows={2}
-      />
-      <ExampleAnswer id="riskplan-example" guide={riskPlanGuide()} />
-      {mentor && <MentorGuide guide={riskPlanGuide()} />}
+        id={IDS.logic}
+        label={tt("A decision logic for future content", "Eine Entscheidungslogik für künftige Inhalte")}
+        help={tt(`A rule you can apply to every new lesson, and who decides. At least ${MIN_LINE} characters.`, `Eine Regel, die Sie auf jede neue Lektion anwenden können, und wer entscheidet. Mindestens ${MIN_LINE} Zeichen.`)}
+        value={r.logic}
+        onChange={(v) => patch({ logic: v })}
+        min={MIN_LINE}
+        rows={4}
+      >
+        <WritingHelp
+          id="logic-kit"
+          refs={[{ label: tt("A rule for content (Materi B3)", "Eine Regel für Inhalte (Materi B3)"), value: tt("checks · who decides", "Prüfungen · wer entscheidet"), target: "mat-B3", before: b("B3") }]}
+          steps={[
+            tt("List the questions every new lesson must pass before it goes live.", "Listen Sie die Fragen auf, die jede neue Lektion vor der Freigabe bestehen muss."),
+            tt("Say who decides, and what happens to a lesson that fails.", "Sagen Sie, wer entscheidet und was mit einer Lektion geschieht, die durchfällt."),
+          ]}
+        />
+      </TextBox>
+      <ExampleAnswer id="logic-example" guide={logicGuide()} />
+      {mentor && <MentorGuide guide={logicGuide()} />}
 
-      <Field id={IDS.owner} label={tt("Decision logic for future content: who decides whether a new lesson goes live?", "Entscheidungslogik für künftige Inhalte: Wer entscheidet, ob eine neue Lektion live geht?")} help={tt("Choose one.", "Wählen Sie eine Antwort.")}>
-        <OptionList<OwnerId> options={OWNERS.map((o) => ({ id: o.id, label: o.text }))} value={r.owner} onChange={(id) => patch({ owner: id })} label={tt("Who decides", "Wer entscheidet")} />
-      </Field>
-      <Field id={IDS.lessonChecks} label={tt("Which checks must every new lesson pass?", "Welche Prüfungen muss jede neue Lektion bestehen?")} help={tt(`Choose at least ${CHECK_MIN}. You have chosen: ${r.lessonChecks.length}`, `Wählen Sie mindestens ${CHECK_MIN}. Sie haben gewählt: ${r.lessonChecks.length}`)}>
-        <OptionList<CheckId> options={CHECKS.map((c) => ({ id: c.id, label: c.text }))} value={r.lessonChecks} onChange={(id) => patch((s) => ({ lessonChecks: toggleList(s.lessonChecks, id) }))} multi cols={2} label={tt("Checks for a new lesson", "Prüfungen für eine neue Lektion")} />
-      </Field>
-      <AnswerKey block={logicKey()} />
-
+      <p className="smallcaps text-ash">{tt("Question 6 of 6", "Frage 6 von 6")}</p>
       <TextBox
         id={IDS.uncertain}
-        label={tt("One decision you make without user data", "Eine Entscheidung, die Sie ohne Nutzerdaten treffen")}
-        help={tt(`Say what you decide, what you do not know, and when you would reverse it, with a figure and a time. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie es zurücknähmen, mit einer Zahl und einer Zeit. Mindestens ${MIN_FRAME} Zeichen.`)}
+        label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
+        help={tt(`Say what you decide, what you do not know, and when you would reverse it. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie die Entscheidung zurücknähmen. Mindestens ${MIN_FRAME} Zeichen.`)}
         value={r.uncertain}
         onChange={(v) => patch({ uncertain: v })}
         min={MIN_FRAME}
         rows={4}
       >
-        <RevealHint id="uncertain-frame" label={tt("Show the frame", "Den Rahmen zeigen")} title={tt("The four parts · taught in Materi B3", "Die vier Teile · aus Materi B3")}>
-          <ol className="list-decimal space-y-1 pl-5 text-caption text-ink">
-            <li>{tt("I decide …", "Ich entscheide …")}</li>
-            <li>{tt("I do not know …", "Ich weiß nicht …")}</li>
-            <li>{tt("I reverse if … (a figure) … by … (a time)", "Ich nehme zurück, wenn … (eine Zahl) … bis … (eine Zeit)")}</li>
-          </ol>
-          <p className="mt-1 text-micro text-ash">{tt("The fourth part, what you give up, has its own field below.", "Der vierte Teil, worauf Sie verzichten, hat unten ein eigenes Feld.")}</p>
-        </RevealHint>
+        <WritingHelp
+          id="uncertain-kit"
+          refs={[{ label: tt("Deciding without user data (Materi B3)", "Entscheiden ohne Nutzerdaten (Materi B3)"), value: tt("assume · test · reverse", "annehmen · testen · zurücknehmen"), target: "mat-B3", before: b("B3") }]}
+          steps={[
+            tt("Write the decision in one sentence: what you will do now.", "Schreiben Sie die Entscheidung in einem Satz: was Sie jetzt tun."),
+            tt("Name what you do not know, and the sign and the time at which you would reverse it.", "Nennen Sie, was Sie nicht wissen, und das Zeichen und den Zeitpunkt, zu dem Sie sie zurücknähmen."),
+          ]}
+        />
       </TextBox>
       <ExampleAnswer id="uncertain-example" guide={uncertainGuide()} />
       {mentor && <MentorGuide guide={uncertainGuide()} />}
-
-      <TextBox
-        id={IDS.giveUp}
-        label={tt("What do you give up or postpone?", "Worauf verzichten Sie oder was verschieben Sie?")}
-        help={tt(`Name something real that someone would miss. A plan that gives up nothing has not decided. At least ${MIN_LINE} characters.`, `Nennen Sie etwas Reales, das jemand vermissen würde. Ein Plan, der auf nichts verzichtet, hat nicht entschieden. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.giveUp}
-        onChange={(v) => patch({ giveUp: v })}
-        min={MIN_LINE}
-        rows={2}
-      />
-      <ExampleAnswer id="giveup-example" guide={giveUpGuide()} />
-      {mentor && <MentorGuide guide={giveUpGuide()} />}
-      <AnswerKey block={riskKey()} />
-      <BlockMissing block="3.2" missing={missing} />
+      <BlockMissing block="3.1" missing={missing} />
     </AnswerBlock>
   );
 }
@@ -321,12 +276,11 @@ export function Task2() {
   return (
     <div className="space-y-6">
       <header className="space-y-1">
-        <p className="smallcaps text-accent">{tt("Task 2 · two core blocks", "Task 2 · zwei Kernblöcke")}</p>
+        <p className="smallcaps text-accent">{tt("Task 2 · one block", "Task 2 · ein Block")}</p>
         <h2>{tt("UX Strategy Memo: decide as Chief Learning Experience Officer", "UX Strategy Memo: als Chief Learning Experience Officer entscheiden")}</h2>
       </header>
       <CaseBrief />
       <Block31 missing={missing} />
-      <Block32 missing={missing} />
       <MemoPanel />
       <ExportBar id="export-l3" previewTitle="" showPreview={false} exportLabel={tt("Export the UX Strategy Memo", "UX Strategy Memo exportieren")} docTitle="UX Strategy Memo" filename={filename} missing={missing} buildBody={() => memoBody(p)} />
     </div>

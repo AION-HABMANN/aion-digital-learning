@@ -2307,7 +2307,7 @@ Every free-text field and table cell is `components/ui/AutoTextarea.tsx` (starts
 
 ## 59. How to rebuild a day like Day 2: the checklist (2026-10-17) → see DL-STANDARD.md section 9
 
-Map first and get a yes; blocks from the plan's words, one at a time; a picture or demo in chat before building; Materi sync only when asked; Word only on the user's signal; verify; README, memory and DL-STANDARD.md updated; push only when asked. Day 2 is the reference.
+Write the map and build without waiting for a yes (v1.1: a full upgrade request needs no validation); blocks from the plan's words; Materi sync only when asked; Word only on the user's signal; verify; README, memory and DL-STANDARD.md updated; push only when asked. Day 2 is the reference.
 
 ## 60. Every platform, option and case artefact in a task is a working simulation (2026-10-17) → see DL-STANDARD.md section 4
 

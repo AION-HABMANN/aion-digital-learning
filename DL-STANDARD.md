@@ -2,7 +2,7 @@
 
 **This is the living rulebook for the DL course.** It holds the current standard, the history of every change, and which day already follows which version. When a day is adjusted and the change should apply elsewhere, it is changed **here first**, a line is added to the changelog, and the status matrix shows which days still need it.
 
-- **Current version: v1.0** (2026-10-17), first written from the rebuild of Day 2.
+- **Current version: v1.1** (2026-10-17), first written from the rebuild of Day 2.
 - **Reference implementation: Day 2** (`playground-dl/`, commits `dafc57f`, `f008ac4`, `3555e6b`, `ff322a3`).
 - **Read this file first for any DL task.** `CLAUDE.md` (#1 to #56) still holds the older rules; where they differ for a task, this file wins (section 10).
 - **Scope: the website only.** The Word documents follow their own rule (CLAUDE.md #53) and are touched only on the user's signal.
@@ -46,11 +46,11 @@ Every platform, option and case artefact a task asks the learner to judge is **a
 - **Options are experiences too** (Day 2 Block 1.2: a prototype that looks finished but where most taps are "not built yet"; a paper prototype paged by a person who plays the computer; the live product).
 - **The case company is a place to visit** (LearnPro today is the same simulation as Platform B; Route 2 has the manager's desk with the note, the competitor news and the table of what is recorded). A figure appears only where the plan prints one.
 - Own colours, never the site's blue, teal and rust; state is session-only, never counted, never exported; built inline, no external site; EN and DE by hand; 390 px without horizontal scroll. Day 2's simulations: `components/day2/sims.tsx`.
-- Before building a day's simulations, **show one as a working demo in chat** and wait for a yes.
+- A day's simulations are built directly from the plan's clues (v1.1: no demo-and-wait step on a full upgrade).
 
 ## 5. Real pictures (CLAUDE.md #52)
 
-What has a form is shown in a real picture, the same example once per variant, interactive where a change is the lesson; the words beside it only say what to look at. A task option that names a visual kind carries a thumbnail. Before building a new picture, draw it once as a simple mockup in chat.
+What has a form is shown in a real picture, the same example once per variant, interactive where a change is the lesson; the words beside it only say what to look at. A task option that names a visual kind carries a thumbnail. A new picture is built directly from the plan's clues (v1.1); a chat mockup only if the user asks for one.
 
 ## 6. The Materi follows the tasks (done when the user asks)
 
@@ -73,9 +73,9 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 
 ## 9. Order of work for a day (the checklist)
 
-1. Read the day's plan column and **write the map first**: UE row to block, with the number of questions; a row with no deliverable becomes a facilitator card. Show it to the user and wait for a yes.
+1. Read the day's plan column and **write the map first**: UE row to block, with the number of questions; a row with no deliverable becomes a facilitator card. **On a full upgrade request ("upgrade Day N like Day 2") do not wait for a yes: write the map in the README and build (v1.1).** Only a decision this standard does not settle is asked.
 2. Build each block from the plan's words (sections 1 and 2), one block at a time, slowly.
-3. Show each new picture or simulation as a mockup or demo **in chat first**, then build it.
+3. Pictures and simulations are built straight from the plan's clues (v1.1); show a mockup or demo in chat first only when the user asks to see it before it is built.
 4. Saved state, missing list, mentor key and guides (EN and DE), answer key only for fixed picks, export, `verify:dayN`.
 5. Sync the Materi when asked (section 6).
 6. Check (section 7). Write the README "Notes on deviations", update this file, update the memory note.
@@ -101,6 +101,8 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 | 2026-10-17 | v1.0 | Platforms, options and case artefacts are working simulations, one to one from the plan's clues | Seniors judge from experience; the plan gives only clues | All days; Day 2 done |
 | 2026-10-17 | v1.0 | The Materi follows the tasks: no card teaches a rule or figure the tasks no longer use; own options in worked examples; plan gaps closed; cards a block draws on are Core | The A5 effort rule by cost and the old block names no longer matched the tasks | All days; Day 2 done |
 | 2026-10-17 | v1.0 | Order of work: map first, one block at a time, picture or demo in chat first, tasks before Materi, Word only on signal | The user wants it slow and visible | All days |
+| 2026-10-17 | v1.1 | Day 3 rebuilt to the standard (Blocks 1.1, 1.2, 2.1, 3.1, two facilitator cards through the shared `FacilitatorCard`, simulations of the lesson, the options and the platform) | First use of the no-validation rule | Day 3 done |
+| 2026-10-17 | v1.1 | A full upgrade request ("upgrade Day N like Day 2") needs no validation: no map-and-wait, no mockup-and-wait; read the standard and build | The standard exists; the user does not want to confirm each day again | Day 3 and every later day |
 | 2026-10-17 | v1.0 | This file is the living rulebook; CLAUDE.md #57 to #60 point here | One place to update and to see what changed | All days |
 
 ## 12. Status matrix: which version each day follows
@@ -111,12 +113,14 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 |---|---|---|---|---|---|
 | 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | old (v1.1), wait |
 | **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **old, out of sync, wait** |
-| 3 | old | ✓ (shared) | old | old | old (v1.1), wait |
+| **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **old, out of sync, wait** |
 | 4 | old | ✓ (shared) | old | old | old (v1.1), wait |
 | 5 | old | ✓ (shared) | old | old | old (v1.1), wait |
 | 6 | old | ✓ (shared, journey cells) | old | old | old (v1.1), wait |
 | 7 | old | ✓ (shared) | old | old | old (v1.1), wait |
 | 8 | old | ✓ (shared) | old | old | old (v1.1), wait |
 | 9 to 16 | old | ✓ (shared) | old | old | no Word documents yet |
+
+**Reference for later days:** Day 3 adds the shared `components/ui/FacilitatorCard.tsx` and shows how a Level 1 task with an options block and a case study with a list-or-table pair are built (`components/day3/Task1.tsx`).
 
 **Open questions for the user:** whether Day 1 is converted to the standard (it has its own newer form from #55 and #56); which route to take for the days on shared engines (4 to 6, 8 to 16); when the Day 2 Word documents may be rebuilt.

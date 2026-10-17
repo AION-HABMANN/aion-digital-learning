@@ -31,11 +31,9 @@ export function pageNav(route: RouteNo): NavGroup[] {
         label: "Task 1",
         items: [
           { id: "case-brief", short: tt("Case", "Fall"), title: tt("The case: EduCore, a platform with an overwhelm effect", "Der Fall: EduCore, eine Plattform mit Überforderungseffekt") },
-          blk("1.1", tt("Eight facts: Amount, Form, Order and purpose", "Acht Fakten: Menge, Form, Ordnung und Zweck"), "b11"),
-          blk("1.2", tt("Reduce the load of a module: three options", "Die Belastung eines Moduls senken: drei Optionen"), "b12"),
-          blk("1.3", tt("Coaching reflection", "Coaching-Reflexion"), "b13"),
-          blk("2.1", tt("Four causes of overload", "Vier Ursachen der Überlastung"), "b21"),
-          blk("2.2", tt("Four improvements, rated and ordered", "Vier Verbesserungen, bewertet und geordnet"), "b22"),
+          blk("1.1", tt("A lesson screen: five problems, how it feels, what to improve", "Ein Lernbildschirm: fünf Probleme, wie es sich anfühlt, was zu verbessern ist"), "b11"),
+          blk("1.2", tt("Three options: assess, prioritise, the greatest effect", "Drei Optionen: bewerten, priorisieren, die größte Wirkung"), "b12"),
+          blk("2.1", tt("The case study: four causes, four improvements, priority, justification", "Die Fallstudie: vier Ursachen, vier Verbesserungen, Priorität, Begründung"), "b21"),
           { id: "export-l1l2", short: "Export", title: tt("Export the UX Analysis File", "UX Analysis File exportieren") },
         ],
       },
@@ -46,8 +44,7 @@ export function pageNav(route: RouteNo): NavGroup[] {
       label: "Task 2",
       items: [
         { id: "task-2", short: tt("Case", "Fall"), title: tt("The situation: EduCore's Chief Learning Experience Officer", "Die Lage: Chief Learning Experience Officer von EduCore") },
-        blk("3.1", tt("Strategy, definition, three measures, order", "Strategie, Definition, drei Maßnahmen, Reihenfolge"), "b31"),
-        blk("3.2", tt("Risk, decision logic, a decision without user data, what you give up", "Risiko, Entscheidungslogik, eine Entscheidung ohne Nutzerdaten, worauf Sie verzichten"), "b32"),
+        blk("3.1", tt("Strategy, three measures, definition, risk, decision logic, a decision under uncertainty", "Strategie, drei Maßnahmen, Definition, Risiko, Entscheidungslogik, eine Entscheidung unter Unsicherheit"), "b31"),
         { id: "memo-panel", short: tt("Memo", "Memo"), title: tt("The memo as it builds", "Das Memo, wie es entsteht") },
         { id: "export-l3", short: "Export", title: tt("Export the UX Strategy Memo", "UX Strategy Memo exportieren") },
       ],
@@ -70,13 +67,13 @@ export const DAY_INTRO = bi({
     {
       route: 1 as RouteNo,
       verb: t("Recognise and choose", "Erkennen und wählen"),
-      question: t("Is the overload on EduCore's screens a matter of amount, form or order and purpose, and which four of nine measures fit €40,000 and four weeks?", "Ist die Überlastung auf den Bildschirmen von EduCore eine Frage von Menge, Form oder Ordnung und Zweck, und welche vier von neun Maßnahmen passen zu 40.000 € und vier Wochen?"),
+      question: t("What does a learner struggle with on one EduCore lesson screen, which of three options for a module has the greatest effect, and what are the causes and the best four improvements for the whole platform?", "Womit kämpft eine Lernende auf einem EduCore-Lernbildschirm, welche von drei Optionen für ein Modul hat die größte Wirkung, und was sind die Ursachen und die besten vier Verbesserungen für die ganze Plattform?"),
       output: t("the UX Analysis File", "die UX Analysis File"),
     },
     {
       route: 2 as RouteNo,
       verb: t("Decide", "Entscheiden"),
-      question: t("As EduCore's Chief Learning Experience Officer, what does learning-effective UX mean, which three measures make up your strategy, and what do you give up?", "Was bedeutet lerneffektives UX für Sie als Chief Learning Experience Officer von EduCore, welche drei Maßnahmen bilden Ihre Strategie, und worauf verzichten Sie?"),
+      question: t("As EduCore's Chief Learning Experience Officer, what is your strategy for reducing cognitive load, which three measures come first, what does learning-effective UX mean, and what do you decide without user data?", "Was ist Ihre Strategie zur Senkung der kognitiven Belastung als Chief Learning Experience Officer von EduCore, welche drei Maßnahmen kommen zuerst, was bedeutet lerneffektives UX, und was entscheiden Sie ohne Nutzerdaten?"),
       output: t("the UX Strategy Memo", "das UX Strategy Memo"),
     },
   ],
@@ -85,7 +82,7 @@ export const DAY_INTRO = bi({
     { route: 1 as RouteNo, skill: t("Tell which kind of load you can change", "Erkennen, welche Art von Belastung man ändern kann"), payoff: t("A complaint like “too complicated” becomes a question: is it the subject, the presentation or the learner's effort to understand? You can ask it about any material you write.", "Eine Klage wie „zu kompliziert“ wird zu einer Frage: Liegt es am Thema, an der Darstellung oder an der Mühe des Verstehens? Sie können sie zu jedem Material stellen, das Sie schreiben.") },
     { route: 1 as RouteNo, skill: t("Use chunking and visual hierarchy", "Chunking und visuelle Hierarchie nutzen"), payoff: t("Short units with one goal and a marked key sentence help in a slide deck, a handout or a screen: wherever someone has to hold something in mind.", "Kurze Einheiten mit einem Ziel und ein markierter Kernsatz helfen in einer Foliensammlung, einem Handout oder auf einem Bildschirm: überall, wo jemand etwas im Kopf behalten muss.") },
     { route: 2 as RouteNo, skill: t("Define success as learning, not as looking simple", "Erfolg als Lernen definieren, nicht als einfach aussehen"), payoff: t("A definition with a learner, a goal, a cost and a proof lets you say no to a change that only looks lighter.", "Eine Definition mit einer Lernenden, einem Ziel, Kosten und einem Beleg lässt Sie Nein zu einer Änderung sagen, die nur leichter aussieht.") },
-    { route: 2 as RouteNo, skill: t("Decide without user data", "Ohne Nutzerdaten entscheiden"), payoff: t("State what you decide, what you do not know, when you would reverse it and what you give up. That holds for any decision you cannot fully prove.", "Nennen Sie, was Sie entscheiden, was Sie nicht wissen, wann Sie es zurücknähmen und worauf Sie verzichten. Das gilt für jede Entscheidung, die Sie nicht voll belegen können.") },
+    { route: 2 as RouteNo, skill: t("Decide without user data", "Ohne Nutzerdaten entscheiden"), payoff: t("State what you decide, what you do not know and when you would reverse it. That holds for any decision you cannot fully prove.", "Nennen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie es zurücknähmen. Das gilt für jede Entscheidung, die Sie nicht voll belegen können.") },
     { route: 1 as RouteNo, skill: t("Leave with two reusable documents", "Mit zwei wiederverwendbaren Dokumenten gehen"), payoff: t("A UX Analysis File and a UX Strategy Memo. Keep them as templates for your own platform or course.", "Eine UX Analysis File und ein UX Strategy Memo. Behalten Sie sie als Vorlagen für Ihre eigene Plattform oder Ihren eigenen Kurs.") },
   ],
 });
@@ -94,20 +91,20 @@ export const ROUTE_CARDS = (route: RouteNo) =>
   route === 1
     ? {
         title: tt("Recognise the overload, choose the measures", "Die Überlastung erkennen, die Maßnahmen wählen"),
-        blurb: tt("Levels 1 and 2 on one case: sort eight facts about EduCore's screens, then choose four of nine measures within €40,000 and four weeks, rate them and put them in order.", "Level 1 und 2 an einem Fall: acht Fakten zu EduCores Bildschirmen sortieren, dann vier von neun Maßnahmen innerhalb von 40.000 € und vier Wochen wählen, bewerten und ordnen."),
+        blurb: tt("Levels 1 and 2 on one case: describe five problems of a lesson screen, assess three options for a learning module, then analyse EduCore's causes of overload and develop four UX improvements, prioritised and justified.", "Level 1 und 2 an einem Fall: fünf Probleme eines Lernbildschirms beschreiben, drei Optionen für ein Lernmodul bewerten, dann die Ursachen der Überlastung bei EduCore analysieren und vier UX-Verbesserungen entwickeln, priorisiert und begründet."),
         plan: [
           { label: tt("Materi A · five cards (facilitator-led)", "Materi A · fünf Karten (moderiert)"), minutes: 60 },
-          { label: tt("Task 1 · UX Analysis File, Core blocks 1.1 and 2.2", "Task 1 · UX Analysis File, Kernblöcke 1.1 und 2.2"), minutes: CORE1_MINUTES },
+          { label: tt("Task 1 · UX Analysis File, blocks 1.1, 1.2 and 2.1", "Task 1 · UX Analysis File, Blöcke 1.1, 1.2 und 2.1"), minutes: CORE1_MINUTES },
         ],
-        optional: tt(`Optional blocks add about ${TASK1_MINUTES - CORE1_MINUTES} min`, `Optionale Blöcke ergänzen etwa ${TASK1_MINUTES - CORE1_MINUTES} Min.`),
+        optional: "",
         export: "UX Analysis File",
       }
     : {
         title: tt("Decide the learning-experience strategy", "Die Lernerlebnis-Strategie entscheiden"),
-        blurb: tt("Level 3 in the Chief Learning Experience Officer's chair: a strategy to reduce cognitive load, a definition of learning-effective UX, three measures in order, the biggest risk, a decision logic for content, and what you give up.", "Level 3 auf dem Stuhl der Chief Learning Experience Officer: eine Strategie zur Senkung der kognitiven Belastung, eine Definition von lerneffektivem UX, drei Maßnahmen in Reihenfolge, das größte Risiko, eine Entscheidungslogik für Inhalte und worauf Sie verzichten."),
+        blurb: tt("Level 3 in the Chief Learning Experience Officer's chair: a strategy to reduce cognitive load, three prioritised UX measures, a definition of learning-effective UX, a risk analysis, a decision logic for content, and one decision under uncertainty.", "Level 3 auf dem Stuhl der Chief Learning Experience Officer: eine Strategie zur Senkung der kognitiven Belastung, drei priorisierte UX-Maßnahmen, eine Definition von lerneffektivem UX, eine Risikoanalyse, eine Entscheidungslogik für Inhalte und eine Entscheidung unter Unsicherheit."),
         plan: [
           { label: tt("Materi B · three cards (facilitator-led)", "Materi B · drei Karten (moderiert)"), minutes: 60 },
-          { label: tt("Task 2 · UX Strategy Memo, Core blocks 3.1 and 3.2", "Task 2 · UX Strategy Memo, Kernblöcke 3.1 und 3.2"), minutes: CORE2_MINUTES },
+          { label: tt("Task 2 · UX Strategy Memo, block 3.1", "Task 2 · UX Strategy Memo, Block 3.1"), minutes: CORE2_MINUTES },
         ],
         optional: "",
         export: "UX Strategy Memo",
