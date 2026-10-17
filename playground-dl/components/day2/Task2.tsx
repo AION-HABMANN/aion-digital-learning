@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
 import { BlockMissing } from "@/components/ui/BlockMissing";
-import { BudgetBar } from "@/components/ui/BudgetBar";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { Field } from "@/components/ui/Field";
@@ -12,30 +11,29 @@ import { OptionList, TextBox } from "@/components/ui/Inputs";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
-import { OrderList } from "@/components/ui/OrderList";
-import { RevealHint } from "@/components/ui/RevealHint";
 import { WritingHelp } from "@/components/ui/WritingHelp";
 import { VERDICTS } from "@/data/day2/case";
 import type { Verdict } from "@/data/day2/case";
-import { DATA, DATA_MIN, EVIDENCE, EVIDENCE_MIN, INVS, INV_AREA, INV_BY_ID, OWNERS, R2_BUDGET, R2_MONTHS, R2_PICK, RISKS, invsCost } from "@/data/day2/route2";
-import type { DataId, EvidenceId, InvId, OwnerId, RiskId } from "@/data/day2/route2";
 import { routeHref } from "@/data/course";
 import { DOC_CSS } from "@/lib/exportDoc";
-import { adaptiveKey, architectureKey, dataKey, invKey, riskKey } from "@/lib/day2/answerKey";
+import { adaptiveKey } from "@/lib/day2/answerKey";
 import { memoBody } from "@/lib/day2/exportDoc";
-import { giveUpGuide, invOrderGuide, prototypingGuide, r2AdaptiveGuide, riskPlanGuide, uncertainGuide } from "@/lib/day2/guides";
+import { prototypingGuide, r2AdaptiveGuide, riskTextGuide, roadmapGuide, testingGuide, uncertainGuide } from "@/lib/day2/guides";
 import { IDS, r2Missing } from "@/lib/day2/missing";
-import { BLOCK_MINUTES, CORE2_MINUTES, MIN_FRAME, MIN_LINE, MIN_REASON } from "@/lib/day2/progress";
-import { swap, syncOrder, toggleCapped, toggleList } from "@/lib/lists";
+import { BLOCK_MINUTES, CORE2_MINUTES, MIN_FRAME, MIN_LINE } from "@/lib/day2/progress";
 import type { MissingEntry } from "@/lib/missing";
 import { useJumpTo } from "@/lib/useJumpTo";
-import { euro, tt } from "@/lib/lang";
+import { tt } from "@/lib/lang";
 import { exportName } from "@/lib/slug";
 import { showCardPart } from "@/store/useCardMore";
 import { usePersisted } from "@/store/usePersisted";
 import { useHydrated, useStore } from "@/store/useStore";
 
-/** Day 2 · Route 2 · the UX Strategy Memo (Level 3). Core: Block 3.1 and Block 3.2, which hold the plan's Transferprojekt (CLAUDE.md #44). */
+/**
+ * Day 2 · Route 2 · the UX Strategy Memo (Level 3, CLAUDE.md #57): the plan's transfer project as six free answers in one Core block: a decision
+ * on adaptive learning, a prototyping strategy, a UX testing strategy, a prioritised innovation roadmap, a risk analysis, and one decision made
+ * under uncertainty. The plan prints no budget or cost figure, so the site prints none.
+ */
 
 function CaseBrief() {
   const r1 = useStore((s) => s.d2.r1);
@@ -48,28 +46,23 @@ function CaseBrief() {
       </div>
       <p className="max-w-prose text-body text-ink">
         {tt(
-          `You are the Chief Product Officer of LearnPro. Competitors use AI and adaptive systems, your own platform is outdated, the budget is limited and your data situation is incomplete. Management wants a future strategy for the next ${R2_MONTHS} months and expects you to take responsibility for the investment decisions.`,
-          `Sie sind Chief Product Officer von LearnPro. Wettbewerber nutzen KI und adaptive Systeme, Ihre eigene Plattform ist veraltet, das Budget ist begrenzt, und Ihre Datenlage ist unvollständig. Die Geschäftsführung will eine Zukunftsstrategie für die nächsten ${R2_MONTHS} Monate und erwartet, dass Sie die Verantwortung für die Investitionsentscheidungen übernehmen.`,
+          "You are the Chief Product Officer of an EdTech company, LearnPro. Competitors use AI and adaptive systems, your own platform is outdated, the budget is limited and your data situation is incomplete. You are asked to develop a future strategy for the learning platform and to take responsibility for the investment decisions.",
+          "Sie sind Chief Product Officer eines EdTech-Unternehmens, LearnPro. Wettbewerber nutzen KI und adaptive Systeme, Ihre eigene Plattform ist veraltet, das Budget ist begrenzt und Ihre Datenlage ist unvollständig. Sie sollen eine Zukunftsstrategie für die Lernplattform entwickeln und die Verantwortung für die Investitionsentscheidungen übernehmen.",
         )}
       </p>
       <div className="grid gap-3 md:grid-cols-2">
         <div className="rounded-lg border border-line bg-canvas p-3 text-caption">
-          <p className="smallcaps">{tt("The limits", "Die Grenzen")}</p>
+          <p className="smallcaps">{tt("The framework", "Die Rahmenbedingungen")}</p>
           <ul className="mt-1 list-disc space-y-1 pl-4 text-ink">
-            <li>
-              {tt("Budget for the year: ", "Budget für das Jahr: ")}
-              <strong>{euro(R2_BUDGET)}</strong> <span className="text-ash">{tt("(Case assumption: the plan only says “limited”)", "(Fallannahme: der Plan sagt nur „begrenzt“)")}</span>
-            </li>
-            <li>{tt("Data: incomplete. You know where learners leave, not why.", "Daten: unvollständig. Sie wissen, wo Lernende gehen, nicht warum.")}</li>
-            <li>{tt("You must decide even though the data is incomplete.", "Sie müssen entscheiden, obwohl die Daten unvollständig sind.")}</li>
+            <li>{tt("Competitors use AI and adaptive systems", "Wettbewerber nutzen KI und adaptive Systeme")}</li>
+            <li>{tt("Your own platform is outdated", "Ihre eigene Plattform ist veraltet")}</li>
+            <li>{tt("The budget is limited", "Das Budget ist begrenzt")}</li>
+            <li>{tt("The data situation is incomplete", "Die Datenlage ist unvollständig")}</li>
           </ul>
         </div>
         <div className="rounded-lg border border-line bg-canvas p-3 text-caption">
-          <p className="smallcaps">{tt(`How the task runs · two core blocks, about ${CORE2_MINUTES} min`, `So läuft die Aufgabe · zwei Kernblöcke, ca. ${CORE2_MINUTES} Min.`)}</p>
-          <ol className="mt-1 list-decimal space-y-1 pl-4 text-ink">
-            <li>{tt("Block 3.1: your decision on adaptive learning, your prototyping and testing strategy, the data you need and your roadmap (B1, B2).", "Block 3.1: Ihre Entscheidung zu adaptivem Lernen, Ihre Prototyping- und Teststrategie, die Daten, die Sie brauchen, und Ihre Roadmap (B1, B2).")}</li>
-            <li>{tt("Block 3.2: the biggest risk, one decision under uncertainty, how you will decide in future, and what you give up (B3).", "Block 3.2: das größte Risiko, eine Entscheidung unter Unsicherheit, wie Sie künftig entscheiden und worauf Sie verzichten (B3).")}</li>
-          </ol>
+          <p className="smallcaps">{tt(`How the task runs · one block, about ${CORE2_MINUTES} min`, `So läuft die Aufgabe · ein Block, ca. ${CORE2_MINUTES} Min.`)}</p>
+          <p className="mt-1 text-ink">{tt("Block 3.1 asks six questions: your decision on adaptive learning, your prototyping strategy, your UX testing strategy, a prioritised innovation roadmap, a risk analysis, and one decision you make on purpose under uncertainty.", "Block 3.1 stellt sechs Fragen: Ihre Entscheidung zu adaptivem Lernen, Ihre Prototyping-Strategie, Ihre UX-Teststrategie, eine priorisierte Innovations-Roadmap, eine Risikoanalyse und eine Entscheidung, die Sie bewusst unter Unsicherheit treffen.")}</p>
         </div>
       </div>
       <p className="text-caption text-ash">
@@ -77,7 +70,7 @@ function CaseBrief() {
           <>
             {tt("Your Route 1 answer, as a soft pointer: you decided on adaptive learning: ", "Ihre Antwort aus Route 1, als weicher Hinweis: Sie haben zu adaptivem Lernen entschieden: ")}
             <strong className="text-ink">{VERDICTS.find((v) => v.id === r1.adaptive)?.label}</strong>.{" "}
-            <button type="button" onClick={() => jump("block-2-2", routeHref(2, 1))} className="font-semibold text-accent underline decoration-dotted underline-offset-2">
+            <button type="button" onClick={() => jump("block-2-1", routeHref(2, 1))} className="font-semibold text-accent underline decoration-dotted underline-offset-2">
               {tt("Open it in Route 1", "In Route 1 öffnen")}
             </button>
           </>
@@ -86,7 +79,7 @@ function CaseBrief() {
         )}
       </p>
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("The brief says: competitors use AI and adaptive systems, an outdated platform, a limited budget, incomplete data. Everything else is made up: the €200,000, the seven investments with their costs and weeks.", "Der Auftrag sagt: Wettbewerber nutzen KI und adaptive Systeme, eine veraltete Plattform, ein begrenztes Budget, unvollständige Daten. Alles andere ist erfunden: die 200.000 €, die sieben Investitionen mit ihren Kosten und Wochen.")}</p>
+        <p>{tt("The brief says: competitors use AI and adaptive systems, an outdated platform, a limited budget, incomplete data. It prints no figure, so none is used here.", "Der Auftrag sagt: Wettbewerber nutzen KI und adaptive Systeme, eine veraltete Plattform, ein begrenztes Budget, unvollständige Daten. Er nennt keine Zahl, daher wird hier keine verwendet.")}</p>
       </Callout>
     </section>
   );
@@ -100,26 +93,26 @@ function useR2() {
 
 export function Block31({ missing }: { missing: MissingEntry[] }) {
   const { r, patch, mentor } = useR2();
-  const [note, setNote] = useState("");
-  const full = r.picks.length >= R2_PICK;
-  const cost = invsCost(r.picks);
+  const b = (id: string, part: "rules" | "calc" | "table" = "rules") => () => showCardPart(id as "B1", part);
   return (
     <AnswerBlock
       id="block-3-1"
-      title={tt("Block 3.1 · Decision, prototyping and testing strategy, data and roadmap", "Block 3.1 · Entscheidung, Prototyping- und Teststrategie, Daten und Roadmap")}
+      title={tt("Block 3.1 · Develop a future strategy for the learning platform", "Block 3.1 · Eine Zukunftsstrategie für die Lernplattform entwickeln")}
       kind="JUDGED"
       core
       minutes={BLOCK_MINUTES["3.1"]}
-      findIt={tt("Route 2 → Task 2 → the decision on adaptive learning, the two strategy fields, the data list and the seven investments below, each with its printed cost and weeks.", "Route 2 → Task 2 → die Entscheidung zu adaptivem Lernen, die zwei Strategiefelder, die Datenliste und die sieben Investitionen darunter, jeweils mit gedruckten Kosten und Wochen.")}
+      findIt={tt("Route 2 → Task 2 → the situation above, then the six questions below.", "Route 2 → Task 2 → die Lage oben, dann die sechs Fragen darunter.")}
     >
-      <MaterialRefs refs={["B1", "B2"]} />
-      <Field id={IDS.r2Adaptive} label={tt("Do we invest in adaptive learning?", "Investieren wir in adaptives Lernen?")} help={tt("Choose one. “Partly” is a real answer.", "Wählen Sie eine. „Teilweise“ ist eine echte Antwort.")}>
+      <MaterialRefs refs={["B1", "B2", "B3"]} />
+
+      <p className="smallcaps text-ash">{tt("Question 1 of 6", "Frage 1 von 6")}</p>
+      <Field id={IDS.r2Adaptive} label={tt("Decision: do we invest in adaptive learning?", "Entscheidung: investieren wir in adaptives Lernen?")} help={tt("Choose one. “Partly” is a real answer.", "Wählen Sie eine. „Teilweise“ ist eine echte Antwort.")}>
         <OptionList<Verdict> options={VERDICTS.map((v) => ({ id: v.id, label: v.label }))} value={r.adaptive} onChange={(id) => patch({ adaptive: id })} label={tt("Adaptive learning", "Adaptives Lernen")} cols={2} />
       </Field>
       <TextBox
         id={IDS.r2AdaptiveWhy}
         label={tt("Why?", "Warum?")}
-        help={tt(`If you say Partly, say which part you fund now and which part waits for evidence. At least ${MIN_LINE} characters.`, `Wenn Sie „Teilweise“ sagen, nennen Sie, welchen Teil Sie jetzt finanzieren und welcher Teil auf Belege wartet. Mindestens ${MIN_LINE} Zeichen.`)}
+        help={tt(`Say why. If you say Partly, say what you fund now and what waits. At least ${MIN_LINE} characters.`, `Sagen Sie, warum. Wenn Sie „Teilweise“ sagen, nennen Sie, was Sie jetzt finanzieren und was wartet. Mindestens ${MIN_LINE} Zeichen.`)}
         value={r.adaptiveWhy}
         onChange={(v) => patch({ adaptiveWhy: v })}
         min={MIN_LINE}
@@ -127,155 +120,125 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       >
         <WritingHelp
           id="r2adaptive-kit"
-          refs={[{ label: tt("Staged bets: fund the cheapest stage that gives evidence (Materi B1)", "Gestufte Wetten: die günstigste Stufe finanzieren, die Belege liefert (Materi B1)"), value: tt("a gate with a figure", "ein Gate mit einer Zahl"), target: "mat-B1", before: () => showCardPart("B1", "rules") }]}
+          refs={[{ label: tt("The situation", "Die Lage"), value: tt("competitors · outdated · limited budget · incomplete data", "Wettbewerber · veraltet · begrenztes Budget · unvollständige Daten"), target: "task-2" }]}
           steps={[
-            tt("Say yes, partly or no in your first words.", "Sagen Sie in Ihren ersten Worten ja, teilweise oder nein."),
-            tt("If partly: name the small, tested step you fund now, and the part that waits for its gate.", "Bei „teilweise“: nennen Sie den kleinen, getesteten Schritt, den Sie jetzt finanzieren, und den Teil, der auf sein Gate wartet."),
+            tt("Weigh the competitors' AI against the learner problem it would solve, the data you have and the budget.", "Wägen Sie die KI der Wettbewerber gegen das Lernendenproblem ab, das sie lösen würde, gegen die Daten, die Sie haben, und das Budget."),
+            tt("Name the simplest first step, and what you leave for later.", "Nennen Sie den einfachsten ersten Schritt und was Sie auf später verschieben."),
           ]}
         />
       </TextBox>
       <ExampleAnswer id="r2adaptive-example" guide={r2AdaptiveGuide()} />
       {mentor && <MentorGuide guide={r2AdaptiveGuide()} />}
 
+      <p className="smallcaps text-ash">{tt("Question 2 of 6", "Frage 2 von 6")}</p>
       <TextBox
         id={IDS.prototyping}
-        label={tt("Prototyping strategy: how will we test new features?", "Prototyping-Strategie: Wie testen wir neue Funktionen?")}
-        help={tt(`Name the fidelity you start with and the first question it answers. At least ${MIN_LINE} characters.`, `Nennen Sie die Fidelity, mit der Sie beginnen, und die erste Frage, die sie beantwortet. Mindestens ${MIN_LINE} Zeichen.`)}
+        label={tt("Prototyping strategy: how do we test new features?", "Prototyping-Strategie: wie testen wir neue Funktionen?")}
+        help={tt(`Say which fidelity you start with, what you test first, and what has to be true before something is built. At least ${MIN_LINE} characters.`, `Sagen Sie, mit welcher Fidelity Sie beginnen, was Sie zuerst testen und was gelten muss, bevor etwas gebaut wird. Mindestens ${MIN_LINE} Zeichen.`)}
         value={r.prototyping}
         onChange={(v) => patch({ prototyping: v })}
         min={MIN_LINE}
-        rows={3}
-      />
+        rows={4}
+      >
+        <WritingHelp
+          id="prototyping-kit"
+          steps={[
+            tt("Choose how you start (low or high fidelity) and why it fits a limited budget and incomplete data.", "Wählen Sie, wie Sie beginnen (Low oder High Fidelity), und warum es zu einem begrenzten Budget und unvollständigen Daten passt."),
+            tt("Say what a new feature has to show in a test before it is built.", "Sagen Sie, was eine neue Funktion in einem Test zeigen muss, bevor sie gebaut wird."),
+          ]}
+        />
+      </TextBox>
       <ExampleAnswer id="prototyping-example" guide={prototypingGuide()} />
       {mentor && <MentorGuide guide={prototypingGuide()} />}
 
-      <Field id={IDS.dataPick} label={tt("UX testing strategy: which data do we need?", "UX-Teststrategie: Welche Daten brauchen wir?")} help={tt(`Choose at least ${DATA_MIN}, and be ready to say which question each answers. You have chosen: ${r.data.length}`, `Wählen Sie mindestens ${DATA_MIN} und seien Sie bereit zu sagen, welche Frage jede beantwortet. Sie haben gewählt: ${r.data.length}`)}>
-        <OptionList<DataId> options={DATA.map((d) => ({ id: d.id, label: d.text }))} value={r.data} onChange={(id) => patch((s) => ({ data: toggleList(s.data, id) }))} multi cols={2} label={tt("Data a testing strategy needs", "Daten, die eine Teststrategie braucht")} />
-      </Field>
-      <AnswerKey block={dataKey()} />
-
-      <Field id={IDS.invPick} label={tt(`Your roadmap: choose exactly ${R2_PICK} investments`, `Ihre Roadmap: Wählen Sie genau ${R2_PICK} Investitionen`)} help={tt("Each shows what it is, its cost and its weeks, and what it acts on. You have chosen:", "Jede zeigt, was sie ist, ihre Kosten und Wochen und worauf sie wirkt. Sie haben gewählt:") + ` ${r.picks.length} / ${R2_PICK}`}>
-        <OptionList<InvId>
-          options={INVS.map((d) => ({ id: d.id, label: `${d.no} · ${d.name} · ${euro(d.cost)} · ${d.weeks} ${tt("weeks", "Wochen")}`, tag: INV_AREA[d.area], sub: d.what }))}
-          value={r.picks}
-          onChange={(id) => {
-            setNote("");
-            patch((s) => {
-              const picks = toggleCapped(s.picks, id, R2_PICK);
-              return { picks, order: syncOrder(s.order, picks) };
-            });
-          }}
-          multi
-          cols={2}
-          label={tt("Investments", "Investitionen")}
-          disabledIds={full ? INVS.map((d) => d.id) : []}
-          onDisabledClick={() => setNote(tt(`You have ${R2_PICK}. Deselect one first.`, `Sie haben ${R2_PICK}. Wählen Sie zuerst eine ab.`))}
-        />
-        {note && <p role="status" className="text-caption text-ash">{note}</p>}
-      </Field>
-      {r.picks.length > 0 && (
-        <div className="space-y-2">
-          <BudgetBar items={r.picks.map((id) => ({ id, short: INV_BY_ID[id].no, cost: INV_BY_ID[id].cost }))} budget={R2_BUDGET} title={tt("Cost of the chosen investments against the yearly budget", "Kosten der gewählten Investitionen gegen das Jahresbudget")} />
-          <p className="text-caption text-ink" aria-live="polite">
-            {tt(`Total ${euro(cost)} of ${euro(R2_BUDGET)}${cost > R2_BUDGET ? `, ${euro(cost - R2_BUDGET)} over` : ""}.`, `Gesamt ${euro(cost)} von ${euro(R2_BUDGET)}${cost > R2_BUDGET ? `, ${euro(cost - R2_BUDGET)} darüber` : ""}.`)}{" "}
-            {cost > R2_BUDGET && <span className="text-ash">{tt("Going over is allowed; say why. It is printed in the memo as a fact.", "Das Überschreiten ist erlaubt; sagen Sie, warum. Es steht als Tatsache im Memo.")}</span>}
-          </p>
-        </div>
-      )}
-      {r.picks.length === R2_PICK && (
-        <Field id={IDS.invOrder} label={tt("Put the three investments in order", "Bringen Sie die drei Investitionen in eine Reihenfolge")} help={tt("The first happens first. Move one up or down with the arrows.", "Die erste geschieht zuerst. Verschieben Sie eine mit den Pfeilen nach oben oder unten.")}>
-          <OrderList<InvId> order={r.order} name={(id) => INV_BY_ID[id].name} onMove={(id, dir) => patch((s) => ({ order: swap(s.order, id, dir) }))} />
-        </Field>
-      )}
+      <p className="smallcaps text-ash">{tt("Question 3 of 6", "Frage 3 von 6")}</p>
       <TextBox
-        id={IDS.invOrderWhy}
-        label={tt("Why does the first investment go first?", "Warum kommt die erste Investition zuerst?")}
-        help={tt(`Reach, cost, what the others depend on, or the evidence it brings. At least ${MIN_LINE} characters.`, `Reichweite, Kosten, wovon die anderen abhängen oder die Belege, die sie bringt. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.orderWhy}
-        onChange={(v) => patch({ orderWhy: v })}
+        id={IDS.testing}
+        label={tt("UX testing strategy: which data do we need?", "UX-Teststrategie: welche Daten brauchen wir?")}
+        help={tt(`Name the data, say which you already have and how you get the rest. At least ${MIN_LINE} characters.`, `Nennen Sie die Daten, sagen Sie, welche Sie schon haben und wie Sie den Rest bekommen. Mindestens ${MIN_LINE} Zeichen.`)}
+        value={r.testing}
+        onChange={(v) => patch({ testing: v })}
         min={MIN_LINE}
-        rows={3}
-      />
-      <ExampleAnswer id="invorder-example" guide={invOrderGuide()} />
-      {mentor && <MentorGuide guide={invOrderGuide()} />}
-      <AnswerKey block={adaptiveKey()} />
-      <AnswerKey block={invKey()} />
-      <BlockMissing block="3.1" missing={missing} />
-    </AnswerBlock>
-  );
-}
+        rows={4}
+      >
+        <WritingHelp
+          id="testing-kit"
+          steps={[
+            tt("List the data you need: what says how many (drop-out, time, completion) and what says why (tests, interviews).", "Listen Sie die Daten auf, die Sie brauchen: was sagt, wie viele (Abbruch, Zeit, Abschluss), und was sagt, warum (Tests, Interviews)."),
+            tt("Mark what you have today and how you collect what is missing.", "Markieren Sie, was Sie heute haben und wie Sie das Fehlende erheben."),
+          ]}
+        />
+      </TextBox>
+      <ExampleAnswer id="testing-example" guide={testingGuide()} />
+      {mentor && <MentorGuide guide={testingGuide()} />}
 
-/* ------------------------------------------------------------------ Block 3.2 */
-
-export function Block32({ missing }: { missing: MissingEntry[] }) {
-  const { r, patch, mentor } = useR2();
-  return (
-    <AnswerBlock
-      id="block-3-2"
-      title={tt("Block 3.2 · Risk, a decision under uncertainty, how you decide, and what you give up", "Block 3.2 · Risiko, eine Entscheidung unter Unsicherheit, wie Sie entscheiden und worauf Sie verzichten")}
-      kind="JUDGED"
-      core
-      minutes={BLOCK_MINUTES["3.2"]}
-      findIt={tt("Route 2 → Task 2 → the three investments you chose in Block 3.1, then the fields below. Answer in the lists and the text boxes.", "Route 2 → Task 2 → die drei Investitionen, die Sie in Block 3.1 gewählt haben, dann die Felder darunter. Antworten Sie in den Listen und Textfeldern.")}
-    >
-      <MaterialRefs refs={["B3", "B2"]} />
-      <Field id={IDS.risk} label={tt("The biggest risk of your plan", "Das größte Risiko Ihres Plans")} help={tt("Technology against user value. Imagine the plan has failed in a year. Which reason is the most likely? Choose one.", "Technologie gegen Nutzerwert. Stellen Sie sich vor, der Plan ist in einem Jahr gescheitert. Welcher Grund ist am wahrscheinlichsten? Wählen Sie einen.")}>
-        <OptionList<RiskId> options={RISKS.map((x) => ({ id: x.id, label: x.text }))} value={r.risk} onChange={(id) => patch({ risk: id })} label={tt("Risks", "Risiken")} />
-      </Field>
+      <p className="smallcaps text-ash">{tt("Question 4 of 6", "Frage 4 von 6")}</p>
       <TextBox
-        id={IDS.riskPlan}
-        label={tt("What do you do about that risk?", "Was tun Sie gegen dieses Risiko?")}
-        help={tt(`One action, and when you would notice the risk. At least ${MIN_REASON} characters.`, `Eine Maßnahme, und wann Sie das Risiko bemerken würden. Mindestens ${MIN_REASON} Zeichen.`)}
-        value={r.riskPlan}
-        onChange={(v) => patch({ riskPlan: v })}
-        min={MIN_REASON}
-        rows={2}
-      />
-      <ExampleAnswer id="riskplan-example" guide={riskPlanGuide()} />
-      {mentor && <MentorGuide guide={riskPlanGuide()} />}
+        id={IDS.roadmap}
+        label={tt("A prioritised innovation roadmap", "Eine priorisierte Innovations-Roadmap")}
+        help={tt(`One item per line, the first priority first. Say what waits for later. At least ${MIN_LINE} characters.`, `Ein Punkt pro Zeile, die erste Priorität zuerst. Sagen Sie, was auf später wartet. Mindestens ${MIN_LINE} Zeichen.`)}
+        value={r.roadmap}
+        onChange={(v) => patch({ roadmap: v })}
+        min={MIN_LINE}
+        rows={6}
+        placeholder={tt("1. …\n2. …\n3. …\nLater: …", "1. …\n2. …\n3. …\nSpäter: …")}
+      >
+        <WritingHelp
+          id="roadmap-kit"
+          refs={[{ label: tt("How to prioritise a roadmap (Materi B2)", "Wie man eine Roadmap priorisiert (Materi B2)"), value: tt("rules of the card", "Regeln der Karte"), target: "mat-B2", before: b("B2") }]}
+          steps={[
+            tt("Put first what helps every learner and what the others depend on.", "Setzen Sie an die erste Stelle, was jeder Lernenden hilft und wovon die anderen Punkte abhängen."),
+            tt("Order the rest, and say what you postpone and why.", "Ordnen Sie den Rest und sagen Sie, was Sie verschieben und warum."),
+          ]}
+        />
+      </TextBox>
+      <ExampleAnswer id="roadmap-example" guide={roadmapGuide()} />
+      {mentor && <MentorGuide guide={roadmapGuide()} />}
 
+      <p className="smallcaps text-ash">{tt("Question 5 of 6", "Frage 5 von 6")}</p>
+      <TextBox
+        id={IDS.riskText}
+        label={tt("Risk analysis: technology against user value", "Risikoanalyse: Technologie gegen Nutzerwert")}
+        help={tt(`Name the risks of the technology and of the user side, and what you do about the biggest. At least ${MIN_LINE} characters.`, `Nennen Sie die Risiken der Technologie und der Nutzerseite und was Sie gegen das größte tun. Mindestens ${MIN_LINE} Zeichen.`)}
+        value={r.riskText}
+        onChange={(v) => patch({ riskText: v })}
+        min={MIN_LINE}
+        rows={4}
+      >
+        <WritingHelp
+          id="risktext-kit"
+          steps={[
+            tt("Ask what could go wrong if you buy the technology, and what could go wrong for the learners if you do not.", "Fragen Sie, was schiefgehen kann, wenn Sie die Technologie kaufen, und was für die Lernenden, wenn Sie es nicht tun."),
+            tt("Pick the biggest risk and say what your plan does about it.", "Wählen Sie das größte Risiko und sagen Sie, was Ihr Plan dagegen tut."),
+          ]}
+        />
+      </TextBox>
+      <ExampleAnswer id="risktext-example" guide={riskTextGuide()} />
+      {mentor && <MentorGuide guide={riskTextGuide()} />}
+
+      <p className="smallcaps text-ash">{tt("Question 6 of 6", "Frage 6 von 6")}</p>
       <TextBox
         id={IDS.uncertain}
-        label={tt("One decision you deliberately make under uncertainty", "Eine Entscheidung, die Sie bewusst unter Unsicherheit treffen")}
-        help={tt(`Say what you decide, what you do not know, and when you would reverse it, with a figure and a time. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie es zurücknähmen, mit einer Zahl und einer Zeit. Mindestens ${MIN_FRAME} Zeichen.`)}
+        label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
+        help={tt(`Say what you decide, what you do not know, and when you would reverse it. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie die Entscheidung zurücknähmen. Mindestens ${MIN_FRAME} Zeichen.`)}
         value={r.uncertain}
         onChange={(v) => patch({ uncertain: v })}
         min={MIN_FRAME}
         rows={4}
       >
-        <RevealHint id="uncertain-frame" label={tt("Show the frame", "Den Rahmen zeigen")} title={tt("The four parts · taught in Materi B3", "Die vier Teile · aus Materi B3")}>
-          <ol className="list-decimal space-y-1 pl-5 text-caption text-ink">
-            <li>{tt("I decide …", "Ich entscheide …")}</li>
-            <li>{tt("I do not know …", "Ich weiß nicht …")}</li>
-            <li>{tt("I reverse if … (a figure) … by … (a time)", "Ich nehme zurück, wenn … (eine Zahl) … bis … (eine Zeit)")}</li>
-          </ol>
-          <p className="mt-1 text-micro text-ash">{tt("The fourth part, what you give up, has its own field below.", "Der vierte Teil, worauf Sie verzichten, hat unten ein eigenes Feld.")}</p>
-        </RevealHint>
+        <WritingHelp
+          id="uncertain-kit"
+          refs={[{ label: tt("Deciding when data is missing (Materi B3)", "Entscheiden bei fehlenden Daten (Materi B3)"), value: tt("rules of the card", "Regeln der Karte"), target: "mat-B3", before: b("B3") }]}
+          steps={[
+            tt("Write the decision in one sentence: what you will do now.", "Schreiben Sie die Entscheidung in einem Satz: was Sie jetzt tun."),
+            tt("Name what you do not know, and the sign and the time at which you would reverse it.", "Nennen Sie, was Sie nicht wissen, und das Zeichen und den Zeitpunkt, zu dem Sie sie zurücknähmen."),
+          ]}
+        />
       </TextBox>
       <ExampleAnswer id="uncertain-example" guide={uncertainGuide()} />
       {mentor && <MentorGuide guide={uncertainGuide()} />}
-
-      <Field id={IDS.owner} label={tt("How will LearnPro decide on innovations in future? Who decides?", "Wie wird LearnPro künftig über Innovationen entscheiden? Wer entscheidet?")} help={tt("Choose one.", "Wählen Sie eine Antwort.")}>
-        <OptionList<OwnerId> options={OWNERS.map((o) => ({ id: o.id, label: o.text }))} value={r.owner} onChange={(id) => patch({ owner: id })} label={tt("Who decides", "Wer entscheidet")} />
-      </Field>
-      <Field id={IDS.evidence} label={tt("On what evidence?", "Auf welcher Grundlage?")} help={tt(`Choose at least ${EVIDENCE_MIN}. You have chosen: ${r.evidence.length}`, `Wählen Sie mindestens ${EVIDENCE_MIN}. Sie haben gewählt: ${r.evidence.length}`)}>
-        <OptionList<EvidenceId> options={EVIDENCE.map((e) => ({ id: e.id, label: e.text }))} value={r.evidence} onChange={(id) => patch((s) => ({ evidence: toggleList(s.evidence, id) }))} multi cols={2} label={tt("Evidence an innovation decision needs", "Belege, die eine Innovationsentscheidung braucht")} />
-      </Field>
-
-      <TextBox
-        id={IDS.giveUp}
-        label={tt("What do you give up or postpone?", "Worauf verzichten Sie oder was verschieben Sie?")}
-        help={tt(`Name something real that someone would miss. A plan that gives up nothing has not decided. At least ${MIN_LINE} characters.`, `Nennen Sie etwas Reales, das jemand vermissen würde. Ein Plan, der auf nichts verzichtet, hat nicht entschieden. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.giveUp}
-        onChange={(v) => patch({ giveUp: v })}
-        min={MIN_LINE}
-        rows={2}
-      />
-      <ExampleAnswer id="giveup-example" guide={giveUpGuide()} />
-      {mentor && <MentorGuide guide={giveUpGuide()} />}
-      <AnswerKey block={riskKey()} />
-      <AnswerKey block={architectureKey()} />
-      <BlockMissing block="3.2" missing={missing} />
+      <AnswerKey block={adaptiveKey()} />
+      <BlockMissing block="3.1" missing={missing} />
     </AnswerBlock>
   );
 }
@@ -317,12 +280,11 @@ export function Task2() {
   return (
     <div className="space-y-6">
       <header className="space-y-1">
-        <p className="smallcaps text-accent">{tt("Task 2 · two core blocks", "Task 2 · zwei Kernblöcke")}</p>
+        <p className="smallcaps text-accent">{tt("Task 2 · one block", "Task 2 · ein Block")}</p>
         <h2>{tt("UX Strategy Memo: decide as Chief Product Officer", "UX Strategy Memo: als Chief Product Officer entscheiden")}</h2>
       </header>
       <CaseBrief />
       <Block31 missing={missing} />
-      <Block32 missing={missing} />
       <MemoPanel />
       <ExportBar id="export-l3" previewTitle="" showPreview={false} exportLabel={tt("Export the UX Strategy Memo", "UX Strategy Memo exportieren")} docTitle="UX Strategy Memo" filename={filename} missing={missing} buildBody={() => memoBody(p)} />
     </div>

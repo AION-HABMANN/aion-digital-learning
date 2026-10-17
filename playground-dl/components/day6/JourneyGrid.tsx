@@ -1,5 +1,6 @@
 "use client";
 
+import { AutoTextarea } from "@/components/ui/AutoTextarea";
 import clsx from "clsx";
 import { EmotionCurve } from "@/components/day6/mocks";
 import { MIN_CELL } from "@/lib/day6/progress";
@@ -51,10 +52,9 @@ export function JourneyGrid({
                   <label htmlFor={`${idOf(p.id)}-${f}`} className="smallcaps block">
                     {LABEL[f]()}
                   </label>
-                  <textarea
+                  <AutoTextarea
                     id={`${idOf(p.id)}-${f}`}
-                    rows={2}
-                    className="field"
+                    minRows={2}
                     value={c?.[f] ?? ""}
                     onChange={(e) => onChange(p.id, { [f]: e.target.value } as Partial<JCell>)}
                     aria-label={`${name} · ${p.label} · ${LABEL[f]()}`}

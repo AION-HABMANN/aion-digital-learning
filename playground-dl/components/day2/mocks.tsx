@@ -247,3 +247,50 @@ export function ApproachThumb({ kind }: { kind: "paper" | "click" | "hifi" | "en
     </svg>
   );
 }
+
+/**
+ * Option C of Block 1.2: the same course-start screen as the real product, built in code and live in a browser. Real data sits behind it (a signed-in
+ * learner, three of twelve lessons done), which no prototype has. Own colours, never the site's (#15, #49).
+ */
+export function LiveStartMock({ className }: { className?: string }) {
+  const uid = useId().replace(/:/g, "");
+  const L = LESSONS();
+  const title = tt("Course · UX basics", "Kurs · UX-Grundlagen");
+  return (
+    <svg viewBox="0 0 240 170" className={className ?? "h-auto w-full"} role="img" aria-labelledby={`${uid}-t ${uid}-d`}>
+      <title id={`${uid}-t`}>{tt("The real product, built in code", "Das echte Produkt, in Code gebaut")}</title>
+      <desc id={`${uid}-d`}>
+        {tt(
+          "The course start as the live product in a browser window: an address bar, a coloured header with the signed-in learner's initials, a progress bar with three of twelve lessons done, three lesson cards with durations and a Continue button.",
+          "Der Kursstart als Live-Produkt in einem Browserfenster: eine Adressleiste, eine farbige Kopfleiste mit den Initialen der angemeldeten Lernenden, eine Fortschrittsleiste mit drei von zwölf Lektionen, drei Lektionskarten mit Dauer und ein Weiter-Button.",
+        )}
+      </desc>
+      <rect x="6" y="6" width="228" height="158" rx="6" fill="#FFFFFF" stroke="#B8B8B8" />
+      <path d="M6 12 a6 6 0 0 1 6 -6 h216 a6 6 0 0 1 6 6 v12 h-228 z" fill="#E8E9EC" />
+      {[16, 25, 34].map((x) => (
+        <circle key={x} cx={x} cy="15" r="2.5" fill="#B5B7BC" />
+      ))}
+      <rect x="46" y="9" width="150" height="12" rx="6" fill="#FFFFFF" />
+      <text x="56" y="18" fontFamily="system-ui,sans-serif" fontSize="7.5" fill="#666666">learnpro.example/course/1</text>
+      <rect x="6" y="24" width="228" height="22" fill="#4C2FBF" />
+      <text x="14" y="39" fontFamily="Georgia,serif" fontSize="11" fontWeight="700" fill="#FFFFFF">{title}</text>
+      <rect x="160" y="30" width="44" height="12" rx="6" fill="#F59E0B" />
+      <text x="182" y="39" textAnchor="middle" fontFamily="system-ui,sans-serif" fontSize="7.5" fontWeight="700" fill="#FFFFFF">{tt("Continue ›", "Weiter ›")}</text>
+      <circle cx="218" cy="35" r="8" fill="#FFFFFF" />
+      <text x="218" y="38" textAnchor="middle" fontFamily="system-ui,sans-serif" fontSize="7" fontWeight="700" fill="#4C2FBF">JM</text>
+      <text x="14" y="59" fontFamily="system-ui,sans-serif" fontSize="8.5" fill="#6A6A6A">{tt("3 of 12 lessons done", "3 von 12 Lektionen erledigt")}</text>
+      <rect x="14" y="63" width="208" height="5" rx="2.5" fill="#E9E6F5" />
+      <rect x="14" y="63" width="52" height="5" rx="2.5" fill="#F59E0B" />
+      {L.map((x, i) => (
+        <g key={x}>
+          <rect x="14" y={75 + i * 26} width="208" height="22" rx="7" fill="#FFFFFF" stroke="#E3DFF0" />
+          <circle cx="27" cy={86 + i * 26} r="6" fill={i === 0 ? "#2E9E6B" : "#C9B8F5"} />
+          <path d={i === 0 ? `M24.5 ${86 + i * 26} l2 2 l3.5 -3.5` : `M25 ${85 + i * 26} h4`} fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
+          <text x="40" y={89.5 + i * 26} fontFamily="system-ui,sans-serif" fontSize="10.5" fontWeight="700" fill="#2B2340">{x}</text>
+          <rect x="184" y={80 + i * 26} width="30" height="12" rx="6" fill="#EFE8FB" />
+          <text x="199" y={89 + i * 26} textAnchor="middle" fontFamily="system-ui,sans-serif" fontSize="8" fill="#4C2FBF">{tt("6 min", "6 Min.")}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}

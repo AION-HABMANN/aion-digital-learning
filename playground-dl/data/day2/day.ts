@@ -31,11 +31,9 @@ export function pageNav(route: RouteNo): NavGroup[] {
         label: "Task 1",
         items: [
           { id: "case-brief", short: tt("Case", "Fall"), title: tt("The case: LearnPro, a stagnating platform", "Der Fall: LearnPro, eine stagnierende Plattform") },
-          blk("1.1", tt("Two platforms: practices and principles", "Zwei Plattformen: Praktiken und Prinzipien"), "b11"),
-          blk("1.2", tt("Prototype and test: three options", "Prototyp und Test: drei Optionen"), "b12"),
-          blk("1.3", tt("Coaching reflection", "Coaching-Reflexion"), "b13"),
-          blk("2.1", tt("Three main weaknesses", "Drei Hauptschwächen"), "b21"),
-          blk("2.2", tt("Prototype approach, three tests, adaptive decision", "Prototyping-Ansatz, drei Tests, adaptive Entscheidung"), "b22"),
+          blk("1.1", tt("Two platforms: which one, five differences, three principles", "Zwei Plattformen: welche, fünf Unterschiede, drei Prinzipien"), "b11"),
+          blk("1.2", tt("Prototyping and testing: three options", "Prototyping und Testen: drei Optionen"), "b12"),
+          blk("2.1", tt("The case study: weaknesses, approach, three tests, adaptive decision", "Die Fallstudie: Schwächen, Ansatz, drei Tests, adaptive Entscheidung"), "b21"),
           { id: "export-l1l2", short: "Export", title: tt("Export the UX Analysis File", "UX Analysis File exportieren") },
         ],
       },
@@ -46,8 +44,7 @@ export function pageNav(route: RouteNo): NavGroup[] {
       label: "Task 2",
       items: [
         { id: "task-2", short: tt("Case", "Fall"), title: tt("The situation: LearnPro's Chief Product Officer", "Die Lage: Chief Product Officer von LearnPro") },
-        blk("3.1", tt("Decision, strategies, data, roadmap", "Entscheidung, Strategien, Daten, Roadmap"), "b31"),
-        blk("3.2", tt("Risk, a decision under uncertainty, how we decide, what you give up", "Risiko, eine Entscheidung unter Unsicherheit, wie wir entscheiden, worauf Sie verzichten"), "b32"),
+        blk("3.1", tt("Decision, prototyping, testing, roadmap, risk, a decision under uncertainty", "Entscheidung, Prototyping, Testen, Roadmap, Risiko, eine Entscheidung unter Unsicherheit"), "b31"),
         { id: "memo-panel", short: tt("Memo", "Memo"), title: tt("The memo as it builds", "Das Memo, wie es entsteht") },
         { id: "export-l3", short: "Export", title: tt("Export the UX Strategy Memo", "UX Strategy Memo exportieren") },
       ],
@@ -70,13 +67,13 @@ export const DAY_INTRO = bi({
     {
       route: 1 as RouteNo,
       verb: t("Compare and plan", "Vergleichen und planen"),
-      question: t("What does a platform that learners finish do differently from one they leave, and which prototype approach and three UX tests fit €60,000 and twelve weeks?", "Was macht eine Plattform, die Lernende abschließen, anders als eine, die sie verlassen, und welcher Prototyping-Ansatz und welche drei UX-Tests passen zu 60.000 € und zwölf Wochen?"),
+      question: t("What does a platform that learners finish do differently from one they leave, and which prototype approach and three UX tests fit three months, a limited budget and unclear user needs?", "Was macht eine Plattform, die Lernende abschließen, anders als eine, die sie verlassen, und welcher Prototyping-Ansatz und welche drei UX-Tests passen zu drei Monaten, begrenztem Budget und unklaren Nutzerbedürfnissen?"),
       output: t("the UX Analysis File", "die UX Analysis File"),
     },
     {
       route: 2 as RouteNo,
       verb: t("Decide", "Entscheiden"),
-      question: t("As LearnPro's Chief Product Officer, do you invest in adaptive learning, which three investments make up your roadmap, and what do you give up?", "Investieren Sie als Chief Product Officer von LearnPro in adaptives Lernen, welche drei Investitionen bilden Ihre Roadmap, und worauf verzichten Sie?"),
+      question: t("As LearnPro's Chief Product Officer, do you invest in adaptive learning, how do you test and prioritise, and which decision do you take on purpose under uncertainty?", "Investieren Sie als Chief Product Officer von LearnPro in adaptives Lernen, wie testen und priorisieren Sie, und welche Entscheidung treffen Sie bewusst unter Unsicherheit?"),
       output: t("the UX Strategy Memo", "das UX Strategy Memo"),
     },
   ],
@@ -94,20 +91,20 @@ export const ROUTE_CARDS = (route: RouteNo) =>
   route === 1
     ? {
         title: tt("Compare platforms, plan prototypes and tests", "Plattformen vergleichen, Prototypen und Tests planen"),
-        blurb: tt("Levels 1 and 2 on one case: sort eight facts about two platforms, then choose a prototype approach and three UX tests within €60,000 and twelve weeks, and decide on adaptive learning.", "Level 1 und 2 an einem Fall: acht Fakten zu zwei Plattformen sortieren, dann einen Prototyping-Ansatz und drei UX-Tests innerhalb von 60.000 € und zwölf Wochen wählen und über adaptives Lernen entscheiden."),
+        blurb: tt("Levels 1 and 2 on one case: compare two platforms, assess three prototyping and testing options, then analyse LearnPro, define a prototype approach and three UX tests, and decide on adaptive learning.", "Level 1 und 2 an einem Fall: zwei Plattformen vergleichen, drei Prototyping- und Testoptionen bewerten, dann LearnPro analysieren, einen Prototyping-Ansatz und drei UX-Tests definieren und über adaptives Lernen entscheiden."),
         plan: [
           { label: tt("Materi A · five cards (facilitator-led)", "Materi A · fünf Karten (moderiert)"), minutes: 60 },
-          { label: tt("Task 1 · UX Analysis File, Core blocks 1.1 and 2.2", "Task 1 · UX Analysis File, Kernblöcke 1.1 und 2.2"), minutes: CORE1_MINUTES },
+          { label: tt("Task 1 · UX Analysis File, blocks 1.1, 1.2 and 2.1", "Task 1 · UX Analysis File, Blöcke 1.1, 1.2 und 2.1"), minutes: CORE1_MINUTES },
         ],
-        optional: tt(`Optional blocks add about ${TASK1_MINUTES - CORE1_MINUTES} min`, `Optionale Blöcke ergänzen etwa ${TASK1_MINUTES - CORE1_MINUTES} Min.`),
+        optional: "",
         export: "UX Analysis File",
       }
     : {
         title: tt("Decide the innovation strategy", "Die Innovationsstrategie entscheiden"),
-        blurb: tt("Level 3 in the Chief Product Officer's chair: a decision on adaptive learning, a prototyping and testing strategy, three investments in order, the biggest risk, one decision under uncertainty, and what you give up.", "Level 3 auf dem Stuhl der Chief Product Officer: eine Entscheidung zu adaptivem Lernen, eine Prototyping- und Teststrategie, drei Investitionen in Reihenfolge, das größte Risiko, eine Entscheidung unter Unsicherheit und worauf Sie verzichten."),
+        blurb: tt("Level 3 in the Chief Product Officer's chair: a decision on adaptive learning, a prototyping strategy, a UX testing strategy, a prioritised innovation roadmap, a risk analysis, and one decision under uncertainty.", "Level 3 auf dem Stuhl der Chief Product Officer: eine Entscheidung zu adaptivem Lernen, eine Prototyping-Strategie, eine UX-Teststrategie, eine priorisierte Innovations-Roadmap, eine Risikoanalyse und eine Entscheidung unter Unsicherheit."),
         plan: [
           { label: tt("Materi B · three cards (facilitator-led)", "Materi B · drei Karten (moderiert)"), minutes: 60 },
-          { label: tt("Task 2 · UX Strategy Memo, Core blocks 3.1 and 3.2", "Task 2 · UX Strategy Memo, Kernblöcke 3.1 und 3.2"), minutes: CORE2_MINUTES },
+          { label: tt("Task 2 · UX Strategy Memo, block 3.1", "Task 2 · UX Strategy Memo, Block 3.1"), minutes: CORE2_MINUTES },
         ],
         optional: "",
         export: "UX Strategy Memo",

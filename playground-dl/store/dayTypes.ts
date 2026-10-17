@@ -1,6 +1,4 @@
-import { FACT_IDS as D2_FACT_IDS } from "@/data/day2/case";
-import type { ApproachId, FactId as D2FactId, OptId as D2OptId, PlatformId, PracticeId, ReflectKey as D2ReflectKey, RiskTickId, TestId, Verdict, WeakId } from "@/data/day2/case";
-import type { DataId, EvidenceId as D2EvidenceId, InvId, OwnerId as D2OwnerId, RiskId as D2RiskId } from "@/data/day2/route2";
+import type { OptId as D2OptId, PlatformId, TestSlot, Verdict } from "@/data/day2/case";
 import { FACT_IDS as D3_FACT_IDS } from "@/data/day3/case";
 import type { AreaId, CauseId, FactId as D3FactId, MeasureId, OptId as D3OptId, ReflectKey as D3ReflectKey } from "@/data/day3/case";
 import type { CheckId, DecisionId, OwnerId as D3OwnerId, RiskId as D3RiskId } from "@/data/day3/route2";
@@ -16,116 +14,84 @@ export type Count = { holds: number; placed: number };
 
 /* ------------------------------------------------------------------ Day 2 */
 
-/** Day 2 · Route 1 · Levels 1 and 2. Core: Block 1.1 (two platforms, three practices) and Block 2.2 (approach, three tests, the adaptive decision). */
+type AssessRow = { risk: string; benefit: string; effort: string };
+type TestRow = { what: string; how: string; measure: string };
+
+/**
+ * Day 2 · Route 1 · Levels 1 and 2 (CLAUDE.md #57: the plan's own questions as free answers, every block Core).
+ * Block 1.1 (UE2): prefer a platform, five differences (one text box by default, or a table), three principles.
+ * Block 1.2 (UE3): assess three options (one box per option by default, or a table), decide, risks without testing.
+ * Block 2.1 (UE5-6): the case study: weaknesses, a prototype approach, three UX tests (boxes or a table), the adaptive decision.
+ * The UE4 coaching has no written answer and so no field.
+ */
 export type D2R1 = {
-  sort: Record<D2FactId, PracticeId | null>;
-  sortHistory: Record<D2FactId, PracticeId | null>[];
-  sortFuture: Record<D2FactId, PracticeId | null>[];
-  sortChecks: number;
-  sortResult: Count | null;
-  sortClue: boolean;
-  sortReasoning: boolean;
   prefer: PlatformId | null;
   preferWhy: string;
+  diffMode: "text" | "table";
+  diffs: string;
+  diffRows: { aspect: string; a: string; b: string }[];
   principles: string[];
-  /** Block 1.2 (Optional): three options rated on benefit, effort and risk, a decision, the risks without testing. */
-  optBenefit: Record<string, Score>;
-  optEffort: Record<string, Score>;
-  optRisk: Record<string, Score>;
-  optEffortFlags: string[];
-  optEffortClue: boolean;
-  optEffortResult: { holds: number; rated: number } | null;
+  assessMode: "text" | "table";
+  assessText: Record<string, string>;
+  assessRows: Record<string, AssessRow>;
   optChoice: D2OptId | null;
   optWhy: string;
-  optRisks: RiskTickId[];
-  optRiskOther: string;
-  /** Block 1.3 (Optional): the coaching reflection. Never scored, never missing. */
-  reflect: Record<D2ReflectKey, string>;
-  /** Block 2.1 (Optional): three main weaknesses. */
-  weak: WeakId[];
-  weakResult: { holds: number; chosen: number } | null;
-  weakClue: boolean;
-  weakWhy: string;
-  /** Block 2.2 (Core). */
-  approach: ApproachId | null;
-  approachWhy: string;
-  tests: TestId[];
-  testQ: Record<string, string>;
+  noTest: string;
+  weakText: string;
+  approachText: string;
+  testMode: "text" | "table";
+  testText: Record<TestSlot, string>;
+  testRows: Record<TestSlot, TestRow>;
   adaptive: Verdict | null;
   adaptiveWhy: string;
-  missingInfo: string;
-  checks: number;
 };
 
-/** Day 2 · Route 2 · Level 3. */
+/** Day 2 · Route 2 · Level 3: the plan's transfer project, six items (CLAUDE.md #57). */
 export type D2R2 = {
   adaptive: Verdict | null;
   adaptiveWhy: string;
   prototyping: string;
-  data: DataId[];
-  picks: InvId[];
-  order: InvId[];
-  orderWhy: string;
-  risk: D2RiskId | null;
-  riskPlan: string;
+  testing: string;
+  roadmap: string;
+  riskText: string;
   uncertain: string;
-  owner: D2OwnerId | null;
-  evidence: D2EvidenceId[];
-  giveUp: string;
 };
 
 export type D2State = { r1: D2R1; r2: D2R2 };
 
+const emptyAssess = (): AssessRow => ({ risk: "", benefit: "", effort: "" });
+const emptyTest = (): TestRow => ({ what: "", how: "", measure: "" });
+
 export const emptyD2R1 = (): D2R1 => ({
-  sort: Object.fromEntries(D2_FACT_IDS.map((id) => [id, null])) as D2R1["sort"],
-  sortHistory: [],
-  sortFuture: [],
-  sortChecks: 0,
-  sortResult: null,
-  sortClue: false,
-  sortReasoning: false,
   prefer: null,
   preferWhy: "",
+  diffMode: "text",
+  diffs: "",
+  diffRows: Array.from({ length: 5 }, () => ({ aspect: "", a: "", b: "" })),
   principles: ["", "", ""],
-  optBenefit: {},
-  optEffort: {},
-  optRisk: {},
-  optEffortFlags: [],
-  optEffortClue: false,
-  optEffortResult: null,
+  assessMode: "text",
+  assessText: { A: "", B: "", C: "" },
+  assessRows: { A: emptyAssess(), B: emptyAssess(), C: emptyAssess() },
   optChoice: null,
   optWhy: "",
-  optRisks: [],
-  optRiskOther: "",
-  reflect: { a: "", b: "", c: "" },
-  weak: [],
-  weakResult: null,
-  weakClue: false,
-  weakWhy: "",
-  approach: null,
-  approachWhy: "",
-  tests: [],
-  testQ: {},
+  noTest: "",
+  weakText: "",
+  approachText: "",
+  testMode: "text",
+  testText: { "1": "", "2": "", "3": "" },
+  testRows: { "1": emptyTest(), "2": emptyTest(), "3": emptyTest() },
   adaptive: null,
   adaptiveWhy: "",
-  missingInfo: "",
-  checks: 0,
 });
 
 export const emptyD2R2 = (): D2R2 => ({
   adaptive: null,
   adaptiveWhy: "",
   prototyping: "",
-  data: [],
-  picks: [],
-  order: [],
-  orderWhy: "",
-  risk: null,
-  riskPlan: "",
+  testing: "",
+  roadmap: "",
+  riskText: "",
   uncertain: "",
-  owner: null,
-  evidence: [],
-  giveUp: "",
 });
 
 export const emptyD2 = (): D2State => ({ r1: emptyD2R1(), r2: emptyD2R2() });

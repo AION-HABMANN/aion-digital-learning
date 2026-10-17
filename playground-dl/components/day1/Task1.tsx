@@ -1,5 +1,6 @@
 "use client";
 
+import { AutoTextarea } from "@/components/ui/AutoTextarea";
 import Link from "next/link";
 import { useState } from "react";
 import { Block22Overview } from "@/components/day1/CoverageStrip";
@@ -388,7 +389,7 @@ function Slot({ id, label, value, onChange }: { id: string; label: string; value
         <span>{label}</span>
         <span className={`tnum text-micro font-normal normal-case tracking-normal ${len >= MIN_SLOT ? "text-signal" : "text-ash"}`}>{`${len} / ${MIN_SLOT} ${tt("characters", "Zeichen")}`}</span>
       </label>
-      <textarea id={id} rows={2} className="field mt-1" value={value} onChange={(e) => onChange(e.target.value)} />
+      <AutoTextarea id={id} minRows={2} className="mt-1" value={value} onChange={(e) => onChange(e.target.value)} />
     </div>
   );
 }

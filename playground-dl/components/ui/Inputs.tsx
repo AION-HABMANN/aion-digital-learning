@@ -1,5 +1,6 @@
 "use client";
 
+import { AutoTextarea } from "@/components/ui/AutoTextarea";
 import clsx from "clsx";
 import type { ReactNode } from "react";
 import { Field } from "@/components/ui/Field";
@@ -51,10 +52,9 @@ export function TextBox({
       onShowClue={onShowClue}
       meta={min ? <span className={clsx("tnum text-micro normal-case tracking-normal", len >= min ? "text-signal" : "text-ash")}>{`${len} / ${min} ${tt("characters", "Zeichen")}`}</span> : null}
     >
-      <textarea
+      <AutoTextarea
         id={`${id}-in`}
-        rows={rows}
-        className="field"
+        minRows={rows}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
