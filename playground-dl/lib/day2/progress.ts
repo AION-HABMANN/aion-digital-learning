@@ -19,6 +19,8 @@ export const DIFFS_N = 5;
 export const MIN_DIFF_LINE = 8;
 /** A table row or cell counts when each of its cells has this many characters. */
 export const MIN_CELL = 3;
+/** A table cell without the scale word a learner may tap in ("Medium: "): the scale alone is not an answer, the reason is. */
+export const cellText = (v: string | undefined) => (v ?? "").replace(/^\s*(Low|Medium|High|Niedrig|Mittel|Hoch):\s*/i, "").trim();
 /** A free-text box for one option or one test counts from this many characters. */
 export const MIN_ASSESS = 20;
 
@@ -35,7 +37,7 @@ type Mode = "text" | "table";
 
 /** Block 1.2 question 1: each option is assessed, as one box per option or as a table row. */
 export const assessMissing = (r1: { assessMode: Mode; assessText: Record<string, string>; assessRows: Record<string, Record<string, string>> }) =>
-  OPT_IDS.filter((id) => (r1.assessMode === "table" ? ASSESS_KEYS.some((k) => (r1.assessRows[id]?.[k] ?? "").trim().length < MIN_CELL) : (r1.assessText[id] ?? "").trim().length < MIN_ASSESS));
+  OPT_IDS.filter((id) => (r1.assessMode === "table" ? ASSESS_KEYS.some((k) => cellText(r1.assessRows[id]?.[k]).length < MIN_CELL) : (r1.assessText[id] ?? "").trim().length < MIN_ASSESS));
 export const assessDone = (r1: Parameters<typeof assessMissing>[0]) => assessMissing(r1).length === 0;
 
 /** Block 2.1 question 3: each of the three UX tests is defined, as one box per test or as a table row. */

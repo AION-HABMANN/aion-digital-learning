@@ -8,6 +8,7 @@
  */
 import { FACTS, FACT_IDS, MODEL_OPT, MONTHS, OPTS, OPT_IDS, TEST_SLOTS } from "../data/day2/case";
 import { MATERIALS, MATERIAL_PLAIN } from "../data/day2/materials";
+import { ASSESS_GUIDE, DIFFS_GUIDE, TESTS_GUIDE } from "../data/day2/tableGuides";
 import { GLOSSARY, GLOSS_LOOKUP, GLOSS_LOOKUP_DE } from "../data/glossary";
 import { r1Missing, r2Missing } from "../lib/day2/missing";
 import { KEY_D2_R1, KEY_D2_R2 } from "../lib/day2/mentorKey";
@@ -35,6 +36,15 @@ const ids = (m: { id: string }[], re: RegExp) => m.map((x) => x.id).filter((x) =
 for (const lang of ["en", "de"] as const) {
   setCurrentLang(lang);
   console.log(`\n=== ${lang.toUpperCase()} ===`);
+
+  // 0 · the guided tables (DL-STANDARD section 15): a hint per column, a full grey example row from another company, none of it copied from the model answers
+  const guides: [string, typeof ASSESS_GUIDE, string[]][] = [["differences", DIFFS_GUIDE, ["a", "b"]], ["assessment", ASSESS_GUIDE, ["risk", "benefit", "effort"]], ["tests", TESTS_GUIDE, ["what", "how", "measure"]]];
+  const modelText = JSON.stringify(KEY_D2_R1());
+  for (const [n, g, keys] of guides) {
+    ok(g.hints.first.length > 5 && g.title.length > 5 && keys.every((k) => (g.hints[k]?.length ?? 0) > 5 && (g.example.cells[k]?.length ?? 0) > 5), `${n} table: a hint for every column and a full example row`);
+    ok(!modelText.includes(g.example.first) && keys.every((k) => !modelText.includes(g.example.cells[k])), `${n} table: the example is not part of the model answer`);
+  }
+  ok(!!ASSESS_GUIDE.suggest && ASSESS_GUIDE.suggest.values.length === 3, "the assessment table suggests Low, Medium and High (optional)");
 
   // 1 · the case and its evidence: the plan prints no figure, so the site prints none
   ok(FACTS.length === 8 && FACT_IDS.length === 8 && FACTS.every((f) => f.text.length > 10 && f.where.length > 3), "the eight numbered places are plain descriptions");
@@ -81,6 +91,8 @@ for (const lang of ["en", "de"] as const) {
   ok(ids(r1Missing(tbl12), key12).length === 0 && taskBlocks(tbl12).b12, "the model table completes Block 1.2 in the table layout");
   const gap12 = withKey(p0, { assessMode: "table" as const, assessRows: { ...KEY_D2_R1().assessRows!, B: { ...KEY_D2_R1().assessRows!.B, effort: "" } } });
   ok(r1Missing(gap12).some((x) => x.id === "assess-B" && /effort|Aufwand/.test(x.label)), "a table row without its effort cell is named (option B, effort)");
+  const scaleOnly = withKey(p0, { assessMode: "table" as const, assessRows: { ...KEY_D2_R1().assessRows!, B: { ...KEY_D2_R1().assessRows!.B, effort: lang === "de" ? "Niedrig: " : "Low: " } } });
+  ok(r1Missing(scaleOnly).some((x) => x.id === "assess-B" && /effort|Aufwand/.test(x.label)), "a cell with only a tapped scale word (\"Low: \") is still named: the reason is the answer");
   ok(ids(r1Missing(withKey(p0, { assessMode: "table" as const, assessRows: emptyD2R1().assessRows })), key12).length === 3, "in the table layout, filled boxes do not count");
   ok(ids(r1Missing(withKey(p0, { optChoice: "C" as const, optWhy: "A different choice with a clear reason of my own: speed matters more to us." })), key12).length === 0, "a different decision with a reason still has nothing missing");
   ok(OPT_IDS.join() === "A,B,C" && MODEL_OPT === "B", "the reference decision is B (low-fidelity first)");

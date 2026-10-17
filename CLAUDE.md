@@ -2,7 +2,7 @@
 
 > **For any Digital Learning (DL) task, read [`DL-STANDARD.md`](DL-STANDARD.md) first.** It is the living rulebook: the current standard, the changelog of every
 > change and a status matrix of which day follows which version. Where it differs from #1 to #56 below for the tasks of a day, **it wins** (its section 10 lists what
-> is overridden). Rules #57 to #61 below are short pointers to it. Change rules there, not here.
+> is overridden). Rules #57 to #62 below are short pointers to it. Change rules there, not here.
 
 This directory is the shared parent for a series of independent `dayN` projects
 (`day1`, `day2`, `day3`, ...). Each is its own Next.js app, but they are one continuous
@@ -2318,3 +2318,7 @@ Write the map and build without waiting for a yes (v1.1: a full upgrade request 
 ## 61. Gap audit of the case: close the logic holes of a day's case without adding a figure (2026-10-17) → see DL-STANDARD.md section 14
 
 Experienced participants ask what "limited", "unclear" or "a short time" mean, and the plan's Task 2, case study and Level 3 project are three scenarios the site merged into one case. Audit each day once: one company across the tasks; every condition says what it is for; every vague word is settled qualitatively (a Case assumption) or listed as open on purpose, never given a figure or an anchor that rules an option out; options say what is asked ("start with", or an order); a "What is known and what is open" box in every case brief, Route 1 and Route 2 (`components/ui/CaseKnown.tsx`, `brief.known`); one sentence "As in most projects…" and a help step to state the assumption; a hidden facilitator card "if a participant asks" with the standard answers. Never contradict the plan, never name the cause the model solution finds. Reference: Day 2; applied to Days 3 to 6.
+
+## 62. The guided table: the form stays the default, a table with hints is one tap away (2026-10-17) → see DL-STANDARD.md section 15
+
+For a question of "several items, each described by several things" (options against risk, benefit and effort; the differences of two platforms; UX tests; journey phases) the quiet link under the field offers a guided table, a real table like a Google Docs one (borders, shaded header, cells that grow with the text, the whole row growing): a hint under every column header, one grey example row from another company, suggestions for a scale column (optional, the word alone is not an answer) and the rows the plan names. The form is untouched and stays the default; both layouts are kept, only the chosen one counts and is exported, the guidance never is. No total score, no dropdown, no example from the case, no grade tiers on the website. Reference: Day 2 (`components/ui/FormOrTable.tsx`, `data/day2/tableGuides.ts`).

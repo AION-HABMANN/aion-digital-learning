@@ -13,7 +13,7 @@ import { BlockMissing } from "@/components/ui/BlockMissing";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { Field } from "@/components/ui/Field";
-import { FormOrTable } from "@/components/ui/FormOrTable";
+import { CellField, FormOrTable, GridTable, LayoutLink } from "@/components/ui/FormOrTable";
 import { OptionList, TextBox } from "@/components/ui/Inputs";
 import { CaseKnown } from "@/components/ui/CaseKnown";
 import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
@@ -23,6 +23,7 @@ import { MentorGuide } from "@/components/ui/MentorGuide";
 import { RevealHint } from "@/components/ui/RevealHint";
 import { WritingHelp } from "@/components/ui/WritingHelp";
 import { FACTS, MONTHS, OPTS, PLATFORMS, TEST_SLOTS, VERDICTS } from "@/data/day2/case";
+import { ASSESS_GUIDE, DIFFS_GUIDE, TESTS_GUIDE } from "@/data/day2/tableGuides";
 import type { OptId, PlatformId, Verdict } from "@/data/day2/case";
 import { routeHref } from "@/data/course";
 import { adaptiveKey, optKey } from "@/lib/day2/answerKey";
@@ -258,44 +259,32 @@ export function Block11({ missing }: { missing: MissingEntry[] }) {
           help={tt(`One row per difference: what you compare, what Platform A has, what Platform B has. You have ${nDiffs} of ${DIFFS_N} rows complete.`, `Eine Zeile pro Unterschied: was Sie vergleichen, was Plattform A hat, was Plattform B hat. Sie haben ${nDiffs} von ${DIFFS_N} Zeilen vollständig.`)}
         >
           <div className="space-y-2">
-            <div className="smallcaps hidden grid-cols-[1fr_1.5fr_1.5fr] gap-2 px-1 text-ash md:grid" aria-hidden>
-              <span>{tt("What you compare", "Was Sie vergleichen")}</span>
-              <span>{tt("Platform A has", "Plattform A hat")}</span>
-              <span>{tt("Platform B has", "Plattform B hat")}</span>
-            </div>
-            {r.diffRows.map((row, i) => (
-              <div key={i} id={IDS.diffRow(i)} className="grid gap-2 rounded-lg border border-line bg-canvas p-2 md:grid-cols-[1fr_1.5fr_1.5fr] md:items-start md:border-0 md:bg-transparent md:p-0">
-                {(["aspect", "a", "b"] as const).map((k) => {
+            <GridTable
+              head={[tt("What you compare", "Was Sie vergleichen"), tt("Platform A has", "Plattform A hat"), tt("Platform B has", "Plattform B hat")]}
+              hints={[DIFFS_GUIDE.hints.first, DIFFS_GUIDE.hints.a, DIFFS_GUIDE.hints.b]}
+              example={[DIFFS_GUIDE.example.first, DIFFS_GUIDE.example.cells.a, DIFFS_GUIDE.example.cells.b]}
+              exampleLabel={DIFFS_GUIDE.exampleLabel}
+              rows={r.diffRows.map((row, i) => ({
+                id: IDS.diffRow(i),
+                cells: (["aspect", "a", "b"] as const).map((k) => {
                   const colName = k === "aspect" ? tt("What you compare", "Was Sie vergleichen") : k === "a" ? tt("Platform A has", "Plattform A hat") : tt("Platform B has", "Plattform B hat");
                   return (
-                    <label key={k} className="block">
-                      <span className="smallcaps text-ash md:sr-only">{`${i + 1} · ${colName}`}</span>
-                      <AutoTextarea
-                        className="mt-1 md:mt-0"
-                        minRows={1}
-                        value={row[k]}
-                        onChange={(e) => {
-                          const v = e.target.value;
-                          patch((st) => ({ diffRows: st.diffRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }));
-                        }}
-                        placeholder={i === 0 && k === "aspect" ? tt("e.g. Navigation", "z. B. Navigation") : ""}
-                        aria-label={tt(`Difference ${i + 1}: ${colName}`, `Unterschied ${i + 1}: ${colName}`)}
-                      />
-                    </label>
+                    <CellField
+                      key={k}
+                      value={row[k]}
+                      onChange={(v) => patch((st) => ({ diffRows: st.diffRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+                      label={tt(`Difference ${i + 1}: ${colName}`, `Unterschied ${i + 1}: ${colName}`)}
+                      placeholder={i === 0 && k === "aspect" ? tt("e.g. Navigation", "z. B. Navigation") : ""}
+                    />
                   );
-                })}
-              </div>
-            ))}
+                }),
+              }))}
+            />
             <DiffsHelp />
           </div>
         </Field>
       )}
-      <p className="px-1 text-caption text-ash">
-        <button type="button" onClick={() => patch({ diffMode: r.diffMode === "text" ? "table" : "text" })} className="underline decoration-dotted underline-offset-2 hover:text-ink">
-          {r.diffMode === "text" ? tt("Prefer a table? Fill in rows instead.", "Lieber eine Tabelle? Dann in Zeilen ausfüllen.") : tt("Back to one text box.", "Zurück zu einem Textfeld.")}
-        </button>{" "}
-        {tt("Your answer in the other layout is kept.", "Ihre Antwort im anderen Layout bleibt erhalten.")}
-      </p>
+      <LayoutLink mode={r.diffMode} onMode={(m) => patch({ diffMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="diffs-example" guide={diffsGuide()} />
       {mentor && <MentorGuide guide={diffsGuide()} />}
 
@@ -454,6 +443,7 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
         onCell={(id, k, v) => patch((st) => ({ assessRows: { ...st.assessRows, [id]: { ...st.assessRows[id], [k]: v } } }))}
         rowId={IDS.assessOpt}
         firstCol={tt("Option", "Option")}
+        guide={ASSESS_GUIDE}
       >
         <AssessHelp />
       </FormOrTable>
@@ -719,6 +709,7 @@ export function Block21({ missing }: { missing: MissingEntry[] }) {
         onCell={(id, k, v) => patch((st) => ({ testRows: { ...st.testRows, [id]: { ...st.testRows[id as "1"], [k]: v } } }))}
         rowId={IDS.testSlot}
         firstCol={tt("Test", "Test")}
+        guide={TESTS_GUIDE}
       >
         <WritingHelp
           id="tests-kit"

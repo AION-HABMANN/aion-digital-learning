@@ -2,7 +2,7 @@
 
 **This is the living rulebook for the DL course.** It holds the current standard, the history of every change, and which day already follows which version. When a day is adjusted and the change should apply elsewhere, it is changed **here first**, a line is added to the changelog, and the status matrix shows which days still need it.
 
-- **Current version: v1.3** (2026-10-17), first written from the rebuild of Day 2; v1.2 added the pixel story comics (section 13), v1.3 the gap audit of the case (section 14).
+- **Current version: v1.4** (2026-10-17), first written from the rebuild of Day 2; v1.2 added the pixel story comics (section 13), v1.3 the gap audit of the case (section 14), v1.4 the guided table (section 15).
 - **Reference implementation: Day 2** (`playground-dl/`, commits `dafc57f`, `f008ac4`, `3555e6b`, `ff322a3`).
 - **Read this file first for any DL task.** `CLAUDE.md` (#1 to #56) still holds the older rules; where they differ for a task, this file wins (section 10).
 - **Scope: the website only.** The Word documents follow their own rule (CLAUDE.md #53) and are touched only on the user's signal.
@@ -10,7 +10,7 @@
 ## How this file is kept up to date
 
 1. A change is decided in a session (the user adjusts something on a day, or asks for a rule).
-2. The rule is edited **in section 1 to 9, 13 or 14 of this file**, never only in a code comment or in chat.
+2. The rule is edited **in section 1 to 9 or 13 to 15 of this file**, never only in a code comment or in chat.
 3. A line goes into the **changelog (section 11)**: date, what changed, why, and which days it applies to (`all days`, `from Day N`, `Day N only`).
 4. The **status matrix (section 12)** is updated: the day that got the change is marked, the others stay open.
 5. The version number goes up (v1.1, v1.2, …) when a rule changes meaning; a wording fix does not bump it.
@@ -28,7 +28,7 @@
 ## 2. Fields: form by default, table as a quiet extra, fields that grow
 
 - A list of N items is **one text box, one item per line** by default. Where the plan asks for several things per item (risk, benefit, effort; what, how, measure), the default is **one box per item**.
-- A **table** (rows by columns) is offered through **one quiet text link under the field**, never a prominent button ("Prefer a table? Fill in rows instead."). Both layouts are kept, only the chosen one counts, and a switch never loses the other. Shared component: `components/ui/FormOrTable.tsx`; the five-row case of Block 1.1 is built in `components/day2/Task1.tsx`.
+- A **table** (rows by columns) is offered through **one quiet text link under the field**, never a prominent button; where the field has a guided table (section 15) the link reads "Not sure how to fill this in? Use the guided table." Both layouts are kept, only the chosen one counts, and a switch never loses the other. Shared component: `components/ui/FormOrTable.tsx`; the five-row case of Block 1.1 is built in `components/day2/Task1.tsx`.
 - **Every free-text field and every table cell is `components/ui/AutoTextarea.tsx`**: it starts small and grows with what is typed (like a Google Docs cell); no clipped answer, no inner scrollbar, no single-line `<input>` for an answer. `TextBox` (`components/ui/Inputs.tsx`) already uses it. A truly short value (the participant's name, the mentor passcode) stays an `<input>`.
 - **A rating scale is a recommendation, never a requirement.** Where the plan says "assess" and gives no scale, the help may say that teams often rate Low, Medium or High with a reason, and the model answer may use it; a learner who writes plain sentences is just as complete, and nothing checks for the words. The Materi says what practice looks like (a coarse scale or a value-effort two-by-two without data, a scoring formula with data) and that the reason carries the decision.
 - Every free-text field keeps: a collapsed "How to build the answer" (`WritingHelp`, CLAUDE.md #55 section 1), an example answer on a different company (`ExampleAnswer`, #23), a mentor model answer in EN and DE, and an entry in the missing list (#1, #34).
@@ -75,7 +75,7 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 ## 9. Order of work for a day (the checklist)
 
 1. Read the day's plan column and **write the map first**: UE row to block, with the number of questions; a row with no deliverable becomes a facilitator card. **On a full upgrade request ("upgrade Day N like Day 2") do not wait for a yes: write the map in the README and build (v1.1).** Only a decision this standard does not settle is asked.
-2. Build each block from the plan's words (sections 1 and 2), one block at a time, slowly. **Audit the case for logic gaps (section 14) and close them in the same pass.**
+2. Build each block from the plan's words (sections 1 and 2), one block at a time, slowly. **Audit the case for logic gaps (section 14) and close them in the same pass. Give every "item by several things" question a guided table (section 15).**
 3. Pictures and simulations are built straight from the plan's clues (v1.1); show a mockup or demo in chat first only when the user asks to see it before it is built.
 4. Saved state, missing list, mentor key and guides (EN and DE), answer key only for fixed picks, export, `verify:dayN`.
 5. Sync the Materi when asked (section 6).
@@ -107,6 +107,7 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 | 2026-10-17 | v1.1 | A full upgrade request ("upgrade Day N like Day 2") needs no validation: no map-and-wait, no mockup-and-wait; read the standard and build | The standard exists; the user does not want to confirm each day again | Day 3 and every later day |
 | 2026-10-17 | v1.0 | This file is the living rulebook; CLAUDE.md #57 to #60 point here | One place to update and to see what changed | All days |
 | 2026-10-17 | v1.2 | Case detail closes gaps in the plan's case without a figure: a "known and open" box, assumption sentences in the brief, a facilitator "if a participant asks" card (section 1); Day 2 Block 1.2 reworded (start with, LearnPro's next version, the three months for a management review) | Experienced participants asked what "limited" and "unclear" mean, and the plan's Task 2 ("a new platform") and case study (LearnPro) had been merged without saying so | Day 2 done; other days when the user asks |
+| 2026-10-17 | v1.4 | The table is a guided help (section 15): the form stays the default and keeps the learner free; the quiet link offers a guided table with a hint for every column, one grey example row from another company, suggestions for a scale column and the rows the plan names; a scale word alone does not count as an answer; layout and export unchanged (the chosen layout is exported, the guidance never) | Learners new to the topic do not know what to write in a blank box, experienced ones want the freedom of the form; the Full Stack worksheets show that a table with a worked row, named columns and a visible count tells a beginner what to fill in | Day 2 done (differences, assessment, tests); every "item by several things" question on later days |
 | 2026-10-17 | v1.3 | The gap audit of the case is a rule (section 14): one company across the tasks, every condition says what it is for, every vague word is settled qualitatively or listed as open on purpose, a "known and open" box in every case brief (Route 1 and Route 2), the sentence "As in most projects…" and a help step to state the assumption in the options block, and a hidden "if a participant asks" card with the standard answers; `CaseKnown`, `FacilitatorCard` with questions and answers, `brief.known` in the free-form engine, checked in `verify-free` | Experienced participants ask what "limited", "unclear" and "a short time" mean, and the plan's Task 2, case study and Level 3 project are three scenarios that had been merged without saying so | Days 2 to 6 done (Day 2 on 2026-10-17, Days 3 to 6 and Day 2 Route 2 the same day); later days when they are built |
 | 2026-10-17 | v1.2 | Story comics in pixel art on every study card of Days 2 to 6 ("Read the comic"), replacing the "Walk me through it" story; style, kit, German labels and checks recorded in section 13; CLAUDE.md #54 points here | The user approved the pixel style (a chat mockup of Day 2) and asked for Days 2 to 6 | Days 2 to 6 done; later days on request |
 
@@ -114,17 +115,17 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 
 `✓` done · `old` still the previous form · `wait` waiting for the user's signal · `n/a`
 
-| Day | Tasks (sections 1 to 3) | Fields grow (section 2) | Materi synced (section 6) | Simulations (section 4) | Comics (section 13) | Case gaps (section 14) | Word documents |
-|---|---|---|---|---|---|---|---|
-| 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | line-art (#54), ✓ | old | old (v1.1), wait |
-| **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **✓ pixel** | **✓** | **old, out of sync, wait** |
-| **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **✓ pixel** | **✓** | **old, out of sync, wait** |
-| **4** | **✓ v1.1** | **✓** | **old**, wait | **✓** (platforms, options, MotivaLearn, desk) | **✓ pixel** | **✓** | **old, out of sync, wait** |
-| **5** | **✓ v1.1** | **✓** | **old**, wait | **✓** (LearnBase, options, desk) | **✓ pixel** | **✓** | **old, out of sync, wait** |
-| **6** | **✓ v1.1** | **✓** | **old**, wait | **✓** (EduPath, desk) | **✓ pixel** | **✓** | **old, out of sync, wait** |
-| 7 | old | ✓ (shared) | old | old | wait (on request) | old | old (v1.1), wait |
-| 8 | old | ✓ (shared) | old | old | wait (on request) | old | old (v1.1), wait |
-| 9 to 16 | old | ✓ (shared) | old | old | wait (on request) | old | no Word documents yet |
+| Day | Tasks (sections 1 to 3) | Fields grow (section 2) | Materi synced (section 6) | Simulations (section 4) | Comics (section 13) | Case gaps (section 14) | Guided tables (section 15) | Word documents |
+|---|---|---|---|---|---|---|---|---|
+| 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | line-art (#54), ✓ | old | old | old (v1.1), wait |
+| **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **✓ pixel** | **✓** | **✓** | **old, out of sync, wait** |
+| **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **✓ pixel** | **✓** | **wait** | **old, out of sync, wait** |
+| **4** | **✓ v1.1** | **✓** | **old**, wait | **✓** (platforms, options, MotivaLearn, desk) | **✓ pixel** | **✓** | **wait** | **old, out of sync, wait** |
+| **5** | **✓ v1.1** | **✓** | **old**, wait | **✓** (LearnBase, options, desk) | **✓ pixel** | **✓** | **wait** | **old, out of sync, wait** |
+| **6** | **✓ v1.1** | **✓** | **old**, wait | **✓** (EduPath, desk) | **✓ pixel** | **✓** | **wait** | **old, out of sync, wait** |
+| 7 | old | ✓ (shared) | old | old | wait (on request) | old | old | old (v1.1), wait |
+| 8 | old | ✓ (shared) | old | old | wait (on request) | old | old | old (v1.1), wait |
+| 9 to 16 | old | ✓ (shared) | old | old | wait (on request) | old | old | no Word documents yet |
 
 **Reference for later days:** Days 4 to 6 are the reference for the `dayFree` engine (`data/day4/free.ts` is the most complete spec).  Day 3 adds the shared `components/ui/FacilitatorCard.tsx` and shows how a Level 1 task with an options block and a case study with a list-or-table pair are built (`components/day3/Task1.tsx`).
 
@@ -170,3 +171,22 @@ Written 2026-10-17 from Day 2 and applied to Days 3 to 6. The plan states a day'
 **Checks.** `npm run verify:day4` to `day6` (the engine's checks: each brief has a known box with three columns of at least three points and one card of at least three answered questions); Days 2 and 3 are read in the browser. EN and DE: the box and the card in Route 1 and Route 2 of every day, no horizontal scroll. Reference: Day 2 (`CaseBrief` and `CaseQaCard` in `components/day2/Task1.tsx`, Route 2 in `Task2.tsx`), Day 3, and `data/day4/free.ts` for the engine.
 
 **What each day settled (2026-10-17).** Day 2: LearnPro's next version, three months until the management review, "start with". Day 3: a module of EduCore, four weeks until it goes live, "beginners" means new to the subject. Day 4: the platform is MotivaLearn, two months until the review, "lasting" is judged after the two months. Day 5: the platform is LearnBase, growth so far means more registered learners, the stakeholders are management, marketing and the UX team. Day 6: the user of Block 1.2 is an EduPath learner, "the organisation" is the customer that licenses it, "after a short time" means after some lessons.
+
+## 15. The guided table: a help for learners who do not know what to write (CLAUDE.md #62 points here)
+
+Written 2026-10-17, first built on Day 2. Learners of this course are senior and critical and want the freedom of writing in their own words, so **the form stays the default**. A learner who is new to the topic, or who simply does not know how much to write or in which shape, can switch to a **guided table** with one tap on the quiet link under the field. The table is a help, never a requirement and never a different task. The idea comes from the Full Stack worksheets (a table with a worked row, named columns and a visible minimum tells a beginner what to fill in); what does not carry over is listed at the end.
+
+**Where it applies.** Every question that asks for *several items, each described by several things*: the options of Task 2 against risk, benefit and effort (or impact, effort, risk, user value, business value), the differences between two platforms (what you compare, A, B), the UX tests (what, how, what you measure), the persona and journey phases (entry, usage, drop-out). Not for a plain list of items, a decision, a reason or a strategy: those stay a form.
+
+**What the guided table has** (`FormOrTable` in `components/ui/FormOrTable.tsx` with `guide`, data in `data/dayN/tableGuides.ts`; Block 1.1 of Day 2 uses `GridTable` directly):
+- it is **a real table, like the one in a Google Docs page**: borders, a shaded header row, a row header, and cells that are text fields without a box of their own. A cell grows with what is typed and the whole row grows with it; there is no inner scrollbar. The columns share the width; on a narrow screen the table scrolls inside its own frame, never the page. Rows that the plan names are the rows of the table (option A, B, C; test 1 to 3; five differences);
+- **a hint under every column header**, in plain words ("what could go wrong or backfire");
+- **one grey example row at the top, from another company or other platforms** (LearnLoop, two other platforms), never an answer to the case; a verify check keeps it out of the mentor key;
+- **suggestions** for a scale column (`suggest`: Low, Medium, High as small taps under the cell that put "Low: " at the start of the cell, optional, replaceable by anything the learner types). A scale is a recommendation (section 2): the word alone does not count as an answer (`cellText` in `lib/day2/progress.ts`), the reason does;
+- the link in the form reads "Not sure how to fill this in? Use the guided table." and in the table "Back to one box each." Both layouts are kept; only the chosen one counts (completeness, the missing list, the export).
+
+**Export and checks.** The export prints the layout the learner chose (a table as a table, a form as text); the guide, the example row and the hints are never exported, never checked and not in the mentor key. A cell with only a tapped scale word is named in the missing list. `verify:dayN` checks for each guide: a hint for every column, a full example row, the example is not part of the model answer, and a scale-only cell is still missing.
+
+**Not taken over from the Full Stack worksheets:** a total score (/25) or any sum of ratings (the plan has no formula, #44); fixed dropdown values (the vocabulary is a suggestion); a worked row from the case itself (the example is always another company, #23); grade tiers Excellent, Fair and Poor on the page (the website does not grade; the assessment criteria are in the Trainer document, #53). A minimum count is shown as "what is asked", never as a grade.
+
+**When a day gets it.** In the same pass as its tasks (section 9, step 2): list the "item by several things" questions of the day, write one `tableGuides.ts` (EN and DE, by hand), pass `guide` to the `FormOrTable` of each. The free-form engine (`dayFree`) takes a `guide` per `assess` or `lists` field once a day needs it. Reference: Day 2.

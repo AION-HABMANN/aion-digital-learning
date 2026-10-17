@@ -1,5 +1,5 @@
 import { OPT_BY_ID, OPT_IDS, TEST_SLOTS } from "@/data/day2/case";
-import { ASSESS_KEYS, DIFFS_N, MIN_ASSESS, MIN_CELL, MIN_FRAME, MIN_LINE, TEST_KEYS, diffCount, rowGaps } from "@/lib/day2/progress";
+import { ASSESS_KEYS, DIFFS_N, MIN_ASSESS, MIN_CELL, MIN_FRAME, MIN_LINE, TEST_KEYS, cellText, diffCount, rowGaps } from "@/lib/day2/progress";
 import { participantMissing } from "@/lib/missing";
 import type { MissingEntry } from "@/lib/missing";
 import { tt } from "@/lib/lang";
@@ -69,7 +69,7 @@ export function r1Missing(p: Persisted): MissingEntry[] {
     if (r1.assessMode === "text") {
       if (!long(r1.assessText[id] ?? "", MIN_ASSESS)) e(IDS.assessOpt(id), tt(`Block 1.2: assess ${name}: its risk, benefit and effort (at least ${MIN_ASSESS} characters).`, `Block 1.2: Bewerten Sie ${name}: Risiko, Nutzen und Aufwand (mindestens ${MIN_ASSESS} Zeichen).`));
     } else {
-      const lack = ASSESS_KEYS.filter((k) => (r1.assessRows[id]?.[k] ?? "").trim().length < MIN_CELL).map(colName);
+      const lack = ASSESS_KEYS.filter((k) => cellText(r1.assessRows[id]?.[k]).length < MIN_CELL).map(colName);
       if (lack.length) e(IDS.assessOpt(id), tt(`Block 1.2: ${name} still needs its ${lack.join(", ")}.`, `Block 1.2: ${name} braucht noch: ${lack.join(", ")}.`));
     }
   }
