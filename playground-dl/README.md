@@ -42,7 +42,7 @@ store/dayTypes.ts, dayTypesStd.ts the shapes and empty values of the Day 2 and 3
 scripts/verify-day1|2|3|4|5|6.ts  data and logic checks in both languages
 ```
 
-To add the next day: copy `components/day6`, `data/day6`, `lib/day6` to `dayN`, replace the content, add a slice `dN` to `store/dayTypesStd.ts` and the store (bump `PERSIST_VERSION`,
+**Superseded (2026-10-17): a day is now built or rebuilt like Day 2, by the checklist in CLAUDE.md #59 (rules #57 and #58).** The older instruction follows for the shared engines: to add the next day: copy `components/day6`, `data/day6`, `lib/day6` to `dayN`, replace the content, add a slice `dN` to `store/dayTypesStd.ts` and the store (bump `PERSIST_VERSION`,
 extend `migratePersisted`, `mentorFill` and `resetRoute`), register the day's materials in `data/materialRegistry.ts`, add its `DayConfig` to `components/day/dayConfigs.tsx`,
 set `built: true` in `data/course.ts`, and add any new references to `data/references.ts` and terms to `data/glossaryDays456.ts` (or a new file).
 
