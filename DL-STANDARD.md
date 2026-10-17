@@ -80,7 +80,7 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 5. Sync the Materi when asked (section 6).
 6. Check (section 7). Write the README "Notes on deviations", update this file, update the memory note.
 7. Commit; push only when the user asks (pushing to `main` deploys to Vercel).
-- **Engines:** Day 2, Day 3 and Day 7 are hand-built (`components/dayN`); Days 4 to 6 share `dayStd`; Days 8 to 16 share `dayGen`. Rebuild a shared engine once, then each day's data; ask which route the user wants before starting a day that uses one.
+- **Engines:** Day 2, Day 3 and Day 7 are hand-built (`components/dayN`); **Days 4 to 6 (and any later day built to this standard) use the free-form engine `dayFree`**: write `data/dayN/free.ts` with `defineSpec`, a kit `components/dayN/Free.tsx` with the pictures and simulations as slots, register the day in `components/day/dayConfigs.tsx`, `store/dayTypesStd.ts`, `store/useStore.ts` (mentor fill) and `scripts/verify-free.ts`; Days 8 to 16 still share `dayGen` and Day 7 `dayStd` (rebuild them on `dayFree` when asked, no question needed).
 
 ## 10. What still applies from CLAUDE.md #1 to #56
 
@@ -102,6 +102,7 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 | 2026-10-17 | v1.0 | The Materi follows the tasks: no card teaches a rule or figure the tasks no longer use; own options in worked examples; plan gaps closed; cards a block draws on are Core | The A5 effort rule by cost and the old block names no longer matched the tasks | All days; Day 2 done |
 | 2026-10-17 | v1.0 | Order of work: map first, one block at a time, picture or demo in chat first, tasks before Materi, Word only on signal | The user wants it slow and visible | All days |
 | 2026-10-17 | v1.1 | Day 3 rebuilt to the standard (Blocks 1.1, 1.2, 2.1, 3.1, two facilitator cards through the shared `FacilitatorCard`, simulations of the lesson, the options and the platform) | First use of the no-validation rule | Day 3 done |
+| 2026-10-17 | v1.1 | Days 4 to 6 rebuilt on the new shared free-form engine `dayFree` (one spec file per day) | Three days in one pass; the engine makes the next days a data file and a kit | Days 4, 5, 6 done |
 | 2026-10-17 | v1.1 | A full upgrade request ("upgrade Day N like Day 2") needs no validation: no map-and-wait, no mockup-and-wait; read the standard and build | The standard exists; the user does not want to confirm each day again | Day 3 and every later day |
 | 2026-10-17 | v1.0 | This file is the living rulebook; CLAUDE.md #57 to #60 point here | One place to update and to see what changed | All days |
 
@@ -114,13 +115,13 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 | 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | old (v1.1), wait |
 | **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **old, out of sync, wait** |
 | **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **old, out of sync, wait** |
-| 4 | old | ✓ (shared) | old | old | old (v1.1), wait |
-| 5 | old | ✓ (shared) | old | old | old (v1.1), wait |
-| 6 | old | ✓ (shared, journey cells) | old | old | old (v1.1), wait |
+| **4** | **✓ v1.1** | **✓** | **old**, wait | **✓** (platforms, options, MotivaLearn, desk) | **old, out of sync, wait** |
+| **5** | **✓ v1.1** | **✓** | **old**, wait | **✓** (LearnBase, options, desk) | **old, out of sync, wait** |
+| **6** | **✓ v1.1** | **✓** | **old**, wait | **✓** (EduPath, desk) | **old, out of sync, wait** |
 | 7 | old | ✓ (shared) | old | old | old (v1.1), wait |
 | 8 | old | ✓ (shared) | old | old | old (v1.1), wait |
 | 9 to 16 | old | ✓ (shared) | old | old | no Word documents yet |
 
-**Reference for later days:** Day 3 adds the shared `components/ui/FacilitatorCard.tsx` and shows how a Level 1 task with an options block and a case study with a list-or-table pair are built (`components/day3/Task1.tsx`).
+**Reference for later days:** Days 4 to 6 are the reference for the `dayFree` engine (`data/day4/free.ts` is the most complete spec).  Day 3 adds the shared `components/ui/FacilitatorCard.tsx` and shows how a Level 1 task with an options block and a case study with a list-or-table pair are built (`components/day3/Task1.tsx`).
 
 **Open questions for the user:** whether Day 1 is converted to the standard (it has its own newer form from #55 and #56); which route to take for the days on shared engines (4 to 6, 8 to 16); when the Day 2 Word documents may be rebuilt.

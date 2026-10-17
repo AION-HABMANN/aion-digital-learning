@@ -9,9 +9,10 @@ import type { DecisionId, EvidenceId, OwnerId, RiskId } from "@/data/day1/route2
 import { KEY_D1_R1, KEY_D1_R2 } from "@/lib/day1/mentorKey";
 import { KEY_D2_R1, KEY_D2_R2 } from "@/lib/day2/mentorKey";
 import { KEY_D3_R1, KEY_D3_R2 } from "@/lib/day3/mentorKey";
-import { KEY_D4_R1, KEY_D4_R2 } from "@/lib/day4/mentorKey";
-import { KEY_D5_R1, KEY_D5_R2 } from "@/lib/day5/mentorKey";
-import { KEY_D6_R1, KEY_D6_R2 } from "@/lib/day6/mentorKey";
+import { SPEC as SPEC4 } from "@/data/day4/free";
+import { SPEC as SPEC5 } from "@/data/day5/free";
+import { SPEC as SPEC6 } from "@/data/day6/free";
+import { freeRouteKey } from "@/lib/dayFree/mentor";
 import { KEY_D7_R1, KEY_D7_R2 } from "@/lib/day7/mentorKey";
 import { emptyD2, emptyD2R1, emptyD2R2, emptyD3, emptyD3R1, emptyD3R2 } from "@/store/dayTypes";
 import { emptyD4, emptyD4R1, emptyD4R2, emptyD5, emptyD5R1, emptyD5R2, emptyD6, emptyD6R1, emptyD6R2, emptyD7, emptyD7R1, emptyD7R2 } from "@/store/dayTypesStd";
@@ -29,7 +30,7 @@ import type { RouteNo } from "@/data/course";
  * and is covered by the deep `merge` (CLAUDE.md #9).
  */
 export const STORAGE_KEY = "dl-v1";
-export const PERSIST_VERSION = 8;
+export const PERSIST_VERSION = 9;
 const HISTORY_CAP = 100;
 
 /** 0 means not chosen yet; 1 Low, 2 Mid, 3 High. */
@@ -264,7 +265,7 @@ export function mergeDefaults<T>(base: T, saved: unknown): T {
 
 /**
  * The migration of a saved blob to the current shape. Pure, so it can be tested without a browser. Version 1 held Day 1 only; version 2
- * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6); version 4 adds Day 7 (d7); version 5 adds the generic days (dg); version 6 adds Day 1 Block 2.2's `fixes`, `slotA`, `slotB` (the deep merge fills them); version 7 adds Day 2 Block 1.1's `diffMode`, `diffs` and `diffRows` and Block 1.2's `assessMode`, `assessText`, `assessRows` and `noTest` (the deep merge fills them; the old rating fields of Block 1.2 are dropped and stay harmlessly in an old blob, and the Block 1.4 sort keeps its saved placements). version 8 replaces the Day 3 task fields (CLAUDE.md #57: `problemMode`, `problems`, `problemRows`, `feel`, `improve`, the assessment, `optOrder`, `optChoice`, `optWhy`, the causes and improvements, `priority`, `justify`; Route 2 `strategy`, `measures`, `definition`, `riskText`, `logic`, `uncertain`); the deep merge keeps what still fits (`improve`, `optWhy`, `strategy`, `definition`, `uncertain`) and fills the rest, and the old fields stay harmlessly in an old blob. A blob that lacks them gets empty ones here, and the deep merge fills any single field.
+ * adds the slices of Day 2 and Day 3 (d2, d3); version 3 adds Days 4 to 6 (d4, d5, d6); version 4 adds Day 7 (d7); version 5 adds the generic days (dg); version 6 adds Day 1 Block 2.2's `fixes`, `slotA`, `slotB` (the deep merge fills them); version 7 adds Day 2 Block 1.1's `diffMode`, `diffs` and `diffRows` and Block 1.2's `assessMode`, `assessText`, `assessRows` and `noTest` (the deep merge fills them; the old rating fields of Block 1.2 are dropped and stay harmlessly in an old blob, and the Block 1.4 sort keeps its saved placements). version 8 replaces the Day 3 task fields (CLAUDE.md #57: `problemMode`, `problems`, `problemRows`, `feel`, `improve`, the assessment, `optOrder`, `optChoice`, `optWhy`, the causes and improvements, `priority`, `justify`; Route 2 `strategy`, `measures`, `definition`, `riskText`, `logic`, `uncertain`); the deep merge keeps what still fits (`improve`, `optWhy`, `strategy`, `definition`, `uncertain`) and fills the rest, and the old fields stay harmlessly in an old blob. version 9 replaces the task state of Days 4 to 6 with the free-form shape (store/dayTypesFree.ts: `text`, `modes`, `rows`, `assessText`, `assessRows`, `picks`, keyed by the field ids of the day's spec); the deep merge fills the new keys and the old fields stay harmlessly in an old blob, so earlier Day 4 to 6 task answers are not carried over. A blob that lacks them gets empty ones here, and the deep merge fills any single field.
  */
 export function migratePersisted(persisted: unknown, from: number): Persisted {
   const p = (persisted ?? {}) as Partial<Persisted>;
@@ -397,15 +398,15 @@ export const useStore = create<Persisted & Session & Actions>()(
             return { participant, d3, resetCount: s.resetCount + 1 };
           }
           if (day === 4) {
-            const d4: D4State = { r1: { ...emptyD4R1(), ...KEY_D4_R1() }, r2: { ...emptyD4R2(), ...KEY_D4_R2() } };
+            const d4: D4State = { r1: freeRouteKey(SPEC4, 1), r2: freeRouteKey(SPEC4, 2) };
             return { participant, d4, resetCount: s.resetCount + 1 };
           }
           if (day === 5) {
-            const d5: D5State = { r1: { ...emptyD5R1(), ...KEY_D5_R1() }, r2: { ...emptyD5R2(), ...KEY_D5_R2() } };
+            const d5: D5State = { r1: freeRouteKey(SPEC5, 1), r2: freeRouteKey(SPEC5, 2) };
             return { participant, d5, resetCount: s.resetCount + 1 };
           }
           if (day === 6) {
-            const d6: D6State = { r1: { ...emptyD6R1(), ...KEY_D6_R1() }, r2: { ...emptyD6R2(), ...KEY_D6_R2() } };
+            const d6: D6State = { r1: freeRouteKey(SPEC6, 1), r2: freeRouteKey(SPEC6, 2) };
             return { participant, d6, resetCount: s.resetCount + 1 };
           }
           if (day === 7) {

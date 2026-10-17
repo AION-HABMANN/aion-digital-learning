@@ -1,0 +1,156 @@
+/**
+ * Verification of the free-form days (DL-STANDARD v1.1, CLAUDE.md #10, #34, #38, #57): run with `npm run verify:day4` (or day5, day6), or `npm run verify:free`
+ * for all of them. For each day and each language it checks that the model answers empty every missing list and complete every block, that a list or an
+ * assessment counts in the layout the learner chose (a box each or a table) and only in that one, that a different but reasoned choice still exports, that no
+ * block is Optional and no cost or budget figure is printed, that the exports carry the learner's own answers, and that an old saved shape loads. It needs no browser.
+ */
+import { SPEC as SPEC4 } from "../data/day4/free";
+import { SPEC as SPEC5 } from "../data/day5/free";
+import { SPEC as SPEC6 } from "../data/day6/free";
+import { materialsOf } from "../data/materialRegistry";
+import { GLOSSARY, GLOSS_LOOKUP, GLOSS_LOOKUP_DE } from "../data/glossary";
+import { freeAnalysisBody, freeMemoBody } from "../lib/dayFree/exportDoc";
+import { freeMissing } from "../lib/dayFree/missing";
+import { guideOf, freeRouteKey } from "../lib/dayFree/mentor";
+import { blocksOf, emptyFreeRoute, fieldsOf, listLines } from "../lib/dayFree/model";
+import { freeDossier, freeTaskBlocks } from "../lib/dayFree/progress";
+import type { FreeSpec } from "../lib/dayFree/spec";
+import { MENTOR_PASSCODE } from "../lib/day1/mentorKey";
+import { setCurrentLang } from "../lib/lang";
+import { emptyD2, emptyD3 } from "../store/dayTypes";
+import { emptyD4, emptyD5, emptyD6 } from "../store/dayTypesStd";
+import { mergeDefaults, migratePersisted } from "../store/useStore";
+import type { Persisted } from "../store/useStore";
+
+const SPECS: Record<number, FreeSpec> = { 4: SPEC4, 5: SPEC5, 6: SPEC6 };
+const want = process.argv[2] ? [Number(process.argv[2])] : [4, 5, 6];
+
+let failed = 0;
+const ok = (cond: boolean, msg: string) => {
+  if (!cond) {
+    failed++;
+    console.error("FAIL  " + msg);
+  } else console.log("ok    " + msg);
+};
+
+const base = (): Persisted =>
+  ({ participant: { name: "" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: undefined, d2: emptyD2(), d3: emptyD3(), d4: emptyD4(), d5: emptyD5(), d6: emptyD6() }) as unknown as Persisted;
+type Patch = (r: ReturnType<typeof freeRouteKey>) => void;
+/** A person who has answered everything with the model, with an optional change on route 1 or route 2. */
+const withKey = (spec: FreeSpec, on1?: Patch, on2?: Patch): Persisted => {
+  const p = base() as unknown as Record<string, unknown>;
+  const r1 = freeRouteKey(spec, 1);
+  const r2 = freeRouteKey(spec, 2);
+  on1?.(r1);
+  on2?.(r2);
+  p.participant = { name: "Test Person" };
+  p[`d${spec.day}`] = { r1, r2 };
+  return p as unknown as Persisted;
+};
+const ids = (m: { id: string }[]) => m.map((x) => x.id);
+
+for (const day of want) {
+  const spec = SPECS[day];
+  for (const lang of ["en", "de"] as const) {
+    setCurrentLang(lang);
+    console.log(`\n=== DAY ${day} · ${lang.toUpperCase()} ===`);
+    const f1 = fieldsOf(spec, 1);
+    const f2 = fieldsOf(spec, 2);
+
+    // 1 · the shape: the plan's numbered questions, every block Core, nothing the plan does not print
+    ok(blocksOf(spec, 1).map((b) => b.id).join() === "1.1,1.2,2.1" && spec.block2.id === "3.1", "Route 1 has the blocks 1.1, 1.2 and 2.1; Route 2 has block 3.1");
+    ok(f2.length === 6, "Block 3.1 asks the six questions of the transfer project");
+    ok(spec.cards.length === 2 && spec.cards.every((c) => c.sections.length >= 2), "two hidden facilitator cards (coaching and feedback round)");
+    const lists = f1.concat(f2).filter((f) => f.kind === "lists");
+    ok(lists.every((f) => f.kind === "lists" && listLines(f.lists[0].model).length === f.n && f.table.model.length === f.n && f.table.model.every((r) => f.table.cols.every((c) => !!r[c.key]))), "every list holds exactly the asked number of items, in both layouts");
+    ok(f1.concat(f2).every((f) => f.kind !== "text" || (f.guide.example.length > 20 && f.guide.lookFor.length >= 2 && f.model.length >= f.min)), "every text field has a model above its minimum and a worked example");
+    ok(f1.concat(f2).filter((f) => f.kind === "pick").every((f) => f.kind === "pick" && f.options.filter((o) => o.expected).length === 1 && f.options.some((o) => o.id === f.model && o.expected)), "every pick has exactly one reference option and it is the model");
+    const alltext = JSON.stringify(spec);
+    ok(!/€\s?\d|\d\s?€/.test(alltext), "no cost or budget figure is printed (the plan prints none)");
+
+    // 2 · from empty: a named, finite missing list in each route
+    const p0 = base();
+    const m1 = freeMissing(p0, spec, 1);
+    const m2 = freeMissing(p0, spec, 2);
+    ok(m1.length > 0 && m1.every((m) => m.label.length > 12 && m.id.length > 0), `Route 1 from empty names ${m1.length} concrete items`);
+    ok(m2.filter((m) => /^Block 3\.1:/.test(m.label)).length >= 6 && m2.every((m) => m.label.length > 12), "Route 2 from empty names the items of Block 3.1");
+    ok(m1.every((m) => /^(Block (1\.1|1\.2|2\.1):)|^[A-Z]/.test(m.label)), "every Route 1 entry names one of the three blocks");
+
+    // 3 · the model answers empty every list and complete every block
+    const p1 = withKey(spec);
+    ok(freeMissing(p1, spec, 1).length === 0 && freeMissing(p1, spec, 2).length === 0, "the model answers leave nothing missing in either route");
+    ok(Object.values(freeTaskBlocks(p1, spec)).every(Boolean) && Object.keys(freeTaskBlocks(p1, spec)).length === 4, "every task block is complete after the model fill");
+    const mats = materialsOf(day);
+    ok(freeDossier(p1, spec, mats.MATERIALS, 1).total === mats.MATERIALS.filter((x) => x.block === "A" && !x.optional).length + 3 && freeDossier(p1, spec, mats.MATERIALS, 2).total === mats.MATERIALS.filter((x) => x.block === "B" && !x.optional).length + 1, "progress totals count the cards and the task blocks");
+
+    // 4 · every list and every assessment: layout by layout
+    for (const f of f1.concat(f2)) {
+      const route: 1 | 2 = f1.includes(f) ? 1 : 2;
+      const miss = (p: Persisted) => freeMissing(p, spec, route);
+      if (f.kind === "lists") {
+        const table = withKey(spec, (r) => route === 1 && (r.modes[f.id] = "table"), (r) => route === 2 && (r.modes[f.id] = "table"));
+        ok(miss(table).length === 0, `list ${f.id}: the model table leaves nothing missing in the table layout`);
+        const tableEmpty = withKey(spec, (r) => route === 1 && ((r.modes[f.id] = "table"), (r.rows[f.id] = emptyFreeRoute([f]).rows[f.id])), (r) => route === 2 && ((r.modes[f.id] = "table"), (r.rows[f.id] = emptyFreeRoute([f]).rows[f.id])));
+        ok(ids(miss(tableEmpty)).filter((x) => x.startsWith(`${f.id}-row-`)).length === f.n, `list ${f.id}: in the table layout, a full text box does not count (${f.n} rows named)`);
+        const textEmpty = withKey(spec, (r) => route === 1 && (r.text[f.lists[0].id] = ""), (r) => route === 2 && (r.text[f.lists[0].id] = ""));
+        ok(ids(miss(textEmpty)).includes(`${f.lists[0].id}-field`), `list ${f.id}: in the text layout, a full table does not count`);
+        const few = withKey(spec, (r) => route === 1 && (r.text[f.lists[0].id] = f.lists[0].model.split("\n").slice(0, f.n - 1).join("\n")), (r) => route === 2 && (r.text[f.lists[0].id] = f.lists[0].model.split("\n").slice(0, f.n - 1).join("\n")));
+        ok(miss(few).some((m) => m.id === `${f.lists[0].id}-field` && m.label.includes(String(f.n - 1))), `list ${f.id}: one item too few is named with the count`);
+        const gap = withKey(spec, (r) => route === 1 && ((r.modes[f.id] = "table"), (r.rows[f.id][0][f.table.cols[f.table.cols.length - 1].key] = "")), (r) => route === 2 && ((r.modes[f.id] = "table"), (r.rows[f.id][0][f.table.cols[f.table.cols.length - 1].key] = "")));
+        ok(miss(gap).some((m) => m.id === `${f.id}-row-0`), `list ${f.id}: a table row without its last cell is named (row 1)`);
+      } else if (f.kind === "assess") {
+        const tbl = withKey(spec, (r) => (r.modes[f.id] = "table"));
+        ok(miss(tbl).length === 0, `assessment ${f.id}: the model table leaves nothing missing in the table layout`);
+        const tblEmpty = withKey(spec, (r) => ((r.modes[f.id] = "table"), (r.assessRows[f.id] = emptyFreeRoute([f]).assessRows[f.id])));
+        ok(ids(miss(tblEmpty)).filter((x) => x.startsWith(`${f.id}-`)).length === f.items.length, `assessment ${f.id}: in the table layout, filled boxes do not count`);
+        const gap = withKey(spec, (r) => ((r.modes[f.id] = "table"), (r.assessRows[f.id][f.items[1].id][f.cols[0].key] = "")));
+        ok(miss(gap).some((m) => m.id === `${f.id}-${f.items[1].id}`), `assessment ${f.id}: a table row with an empty cell is named`);
+      } else if (f.kind === "pick") {
+        const other = f.options.find((o) => !o.expected)!;
+        const diff = withKey(spec, (r) => route === 1 && (r.picks[f.id] = other.id), (r) => route === 2 && (r.picks[f.id] = other.id));
+        ok(miss(diff).length === 0, `pick ${f.id}: a different choice with a reason still has nothing missing`);
+        ok(miss(withKey(spec, (r) => route === 1 && (r.picks[f.id] = null))).some((m) => m.id === `${f.id}-field`) || route === 2, `pick ${f.id}: no choice is named as missing`);
+      } else {
+        const short = withKey(spec, (r) => route === 1 && (r.text[f.id] = "too short"), (r) => route === 2 && (r.text[f.id] = "too short"));
+        ok(miss(short).some((m) => m.id === `${f.id}-field`), `text ${f.id}: a too-short answer is named`);
+      }
+    }
+
+    // 5 · the worked answers and the exports
+    const gids = f1.concat(f2).flatMap((f) => (f.kind === "lists" ? f.lists.map((l) => l.id) : f.kind === "pick" ? [] : [f.id]));
+    ok(gids.every((id) => !!guideOf(spec, id)?.answer && !!guideOf(spec, id)?.example && !!guideOf(spec, id)?.lookFor?.length), "every question has a worked answer with an example and a look-for list");
+    const doc = freeAnalysisBody(p1, spec);
+    const memo = freeMemoBody(p1, spec);
+    const snips = f1.flatMap((f) => (f.kind === "text" ? [f.model.slice(0, 18)] : f.kind === "lists" ? [f.lists[0].model.split("\n")[0].replace(/^\d+\.\s*/, "").slice(0, 18)] : []));
+    ok(snips.every((s) => doc.includes(s.replace(/&/g, "&amp;"))), "the UX Analysis File prints the learner's own answers");
+    const snips2 = f2.flatMap((f) => (f.kind === "text" ? [f.model.slice(0, 18)] : f.kind === "lists" ? [f.lists[0].model.split("\n")[0].replace(/^\d+\.\s*/, "").slice(0, 18)] : []));
+    ok(snips2.every((s) => memo.includes(s.replace(/&/g, "&amp;"))), "the UX Strategy Memo prints the learner's own answers");
+    ok(doc.includes("Test Person") && memo.includes("Test Person"), "both documents carry the participant's name");
+    ok(!/answer key|Musterlösung|expected/i.test(doc + memo) && !/[✓✗]/.test(doc + memo) && !/€\s?\d|\d\s?€/.test(doc + memo), "no answer key, tick, cross or cost figure in an export");
+    const tableDoc = freeAnalysisBody(withKey(spec, (r) => f1.forEach((f) => (f.kind === "lists" || f.kind === "assess") && (r.modes[f.id] = "table"))), spec);
+    ok(tableDoc.includes("<table>") && !doc.includes("<table>") === (f1.every((f) => f.kind !== "assess")) || tableDoc.includes("<th>"), "the export prints a table in the table layout");
+    ok(freeAnalysisBody(p0, spec).includes("—") && freeMemoBody(p0, spec).includes("—"), "empty documents still build");
+
+    // 6 · every glossary term has a German text
+    ok(GLOSSARY.every((g) => !!g.de && !!g.de.plain && g.de.match.length > 0), "every glossary entry has a German text");
+    ok((lang === "en" ? GLOSS_LOOKUP : GLOSS_LOOKUP_DE).size > 60, "the glossary lookup has entries in this language");
+  }
+
+  setCurrentLang("en");
+  console.log(`\n=== DAY ${day} · language-independent ===`);
+  const mats = materialsOf(day);
+  ok(mats.MATERIALS.filter((x) => x.block === "A").reduce((s, x) => s + x.minutes, 0) === 60, "Materi A cards add up to 60 minutes");
+  ok(mats.MATERIALS.filter((x) => x.block === "B").reduce((s, x) => s + x.minutes, 0) === 60, "Materi B cards add up to 60 minutes");
+  const slice = emptyFreeRoute(fieldsOf(spec, 1));
+  const merged = mergeDefaults(slice, { text: { [fieldsOf(spec, 1).find((f) => f.kind === "text")!.id]: "kept answer" }, sort: { f1: "x" }, chosen: ["m1"] });
+  ok(Object.values(merged.text).includes("kept answer") && Object.keys(merged.rows).length === Object.keys(slice.rows).length, "an old Day 4 to 6 slice keeps what fits and gets every new key from the defaults");
+  ok(mergeDefaults(slice, { text: 5 }).text !== (5 as never), "a value of the wrong type is dropped");
+}
+
+setCurrentLang("en");
+ok(MENTOR_PASSCODE === "muchson123", "the mentor passcode is unchanged");
+const migrated = migratePersisted({ participant: { name: "Old" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: { r1: {}, r2: {} } }, 1);
+ok(!!migrated.d4 && !!migrated.d5 && !!migrated.d6 && migrated.participant.name === "Old", "an old blob migrates to the current shape with its name kept");
+
+console.log(failed ? `\n${failed} check(s) FAILED` : "\nAll checks passed");
+process.exit(failed ? 1 : 0);
