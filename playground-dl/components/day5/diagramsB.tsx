@@ -4,8 +4,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Arrow, DARK, LINE, LITE, MID, Svg, Tick, Txt } from "@/components/day/mockKit";
 import { DecisionFrameFig } from "@/components/materi/figures";
-import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
-import type { StoryPlan } from "@/components/materi/kit";
+import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
 import { tt } from "@/lib/lang";
 
@@ -37,11 +36,6 @@ export function NeedChain() {
   const [sel, setSel] = useState<NeedId>("n2");
   const [shown, setShown] = useState<0 | 1 | 2 | 3>(3);
   const c = chain(sel);
-  const story = useStory([
-    { title: tt("A need on its own", "Ein Bedürfnis allein"), say: tt("Let us look at LearnLoop, where the UX lead wants money to rebuild the home screen. She tells the finance director: “Learners want to know what to do next.” That is true, but the finance director does not know what to do with it, because it names no number the company watches. The request is refused.", "Sehen wir uns LearnLoop an, wo die UX-Leiterin Geld will, um den Startbildschirm neu zu bauen. Sie sagt dem Finanzdirektor: „Lernende wollen wissen, was als Nächstes kommt.“ Das stimmt, aber der Finanzdirektor weiß damit nichts anzufangen, weil es keine Zahl nennt, die das Unternehmen beobachtet. Der Antrag wird abgelehnt."), look: tt("the first box only", "nur der erste Kasten"), apply: () => { setSel("n2"); setShown(1); } },
-    { title: tt("The same need, said in business terms", "Dasselbe Bedürfnis, in Geschäftsbegriffen gesagt"), say: tt("She tries again, in three parts: who it is, what they want to do, and what the company gets. “A learner who returns after three days wants to carry on without searching. We add a Continue card, and the share of learners who return within seven days should rise.” Now the finance director hears a figure she already tracks, and the money is approved.", "Sie versucht es noch einmal, in drei Teilen: wer es ist, was sie tun wollen und was das Unternehmen bekommt. „Eine Lernende, die nach drei Tagen zurückkehrt, will weitermachen, ohne zu suchen. Wir ergänzen eine Weitermachen-Karte, und der Anteil der Lernenden, die innerhalb von sieben Tagen zurückkehren, sollte steigen.“ Nun hört die Finanzdirektorin eine Zahl, die sie ohnehin verfolgt, und das Geld wird bewilligt."), look: tt("all three boxes, left to right", "alle drei Kästen, von links nach rechts"), apply: () => { setSel("n2"); setShown(3); } },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So UX is the bridge between what the learner needs and what the company earns from. Say every need as who, what they want to do, and what the company gets, and name the figure it moves. Choose another need yourself and watch the chain change.", "UX ist also die Brücke zwischen dem, was die Lernende braucht, und dem, womit das Unternehmen verdient. Sagen Sie jedes Bedürfnis als wer, was sie tun wollen und was das Unternehmen bekommt, und nennen Sie die Zahl, die es bewegt. Wählen Sie selbst ein anderes Bedürfnis und sehen Sie, wie sich die Kette ändert."), apply: () => { setSel("n1"); setShown(3); } },
-  ] satisfies StoryPlan[]);
   const boxes: [string, string, string][] = [
     [tt("User need", "Nutzerbedürfnis"), c.need, c.who],
     [tt("UX decision", "UX-Entscheidung"), c.decision, tt("A change to the platform that serves that need.", "Eine Änderung an der Plattform, die dieses Bedürfnis bedient.")],
@@ -51,15 +45,14 @@ export function NeedChain() {
     <Diagram label={tt("From a user need to the figure the business watches · Exploratory · Case assumption (LearnLoop)", "Von einem Nutzerbedürfnis zur Zahl, die das Unternehmen beobachtet · Explorativ · Fallannahme (LearnLoop)")}>
       <div className="space-y-3">
         <ThePoint>{tt("A user need gets funded when it is said in the company's own terms: who the user is, what they want to do, and which figure the company watches moves.", "Ein Nutzerbedürfnis wird finanziert, wenn es in den Begriffen des Unternehmens gesagt wird: wer der Nutzer ist, was er tun will und welche Zahl, die das Unternehmen beobachtet, sich bewegt.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("A user need of LearnLoop", "Ein Nutzerbedürfnis von LearnLoop")} className="grid gap-2 sm:grid-cols-2">
           {NEEDS.map((n) => (
-            <Btn key={n} on={sel === n} onClick={() => { story.leave(); setSel(n); setShown(3); }}>
+            <Btn key={n} on={sel === n} onClick={() => { setSel(n); setShown(3); }}>
               {chain(n).need}
             </Btn>
           ))}
         </div>
-        <ol className={clsx("flex flex-col gap-1.5 md:flex-row md:items-stretch md:gap-0", story.step !== null && "anim-pulse rounded-lg")}>
+        <ol className={"flex flex-col gap-1.5 md:flex-row md:items-stretch md:gap-0"}>
           {boxes.map(([tag, h, b], i) => (
             <li key={tag} className="flex flex-col items-stretch gap-1.5 md:min-w-0 md:flex-1 md:flex-row md:items-center md:gap-0">
               <div className={clsx("h-full min-w-0 flex-1 rounded-lg border-2 p-2.5", i < shown ? (i === 1 ? "border-signal/60 bg-signalSoft" : i === 2 ? "border-ash/50 bg-mist" : "border-accent/60 bg-accentSoft") : "border-dashed border-line bg-paper opacity-50")}>
@@ -103,11 +96,6 @@ const conflict = (id: ConflictId): { name: string; serves: Side[]; user: string;
 export function GoalsCircles() {
   const [sel, setSel] = useState<ConflictId>("c1");
   const c = conflict(sel);
-  const story = useStory([
-    { title: tt("One goal wins, two lose", "Ein Ziel gewinnt, zwei verlieren"), say: tt("Let us look at LearnLoop, where three groups want different things: learners want to find and finish, the business wants growth and low cost, and the engineers want a system they can keep running. The sales team asks for a new feature. It serves the business, and it costs the engineers years of upkeep and the learners a fuller screen. One goal wins, and the others pay.", "Sehen wir uns LearnLoop an, wo drei Gruppen Verschiedenes wollen: Lernende wollen finden und abschließen, das Unternehmen will Wachstum und niedrige Kosten, und die Entwickler wollen ein System, das sie am Laufen halten können. Der Vertrieb verlangt ein neues Feature. Es dient dem Unternehmen, und es kostet die Entwickler Jahre an Pflege und die Lernenden einen volleren Bildschirm. Ein Ziel gewinnt, und die anderen zahlen."), look: tt("one filled circle, two faint ones", "ein ausgefüllter Kreis, zwei blasse"), apply: () => setSel("c1") },
-    { title: tt("Two goals that agree", "Zwei Ziele, die übereinstimmen"), say: tt("A better case is simplifying the menu. Learners get a menu they can read, and the business gets fewer drop-outs later, so two goals agree. The cost is small and falls on the engineers once, plus one department that liked its entry. A good UX decision looks for such overlaps and says plainly what the one who loses gives up.", "Ein besserer Fall ist, das Menü zu vereinfachen. Lernende bekommen ein Menü, das sie lesen können, und das Unternehmen bekommt später weniger Abbrüche, zwei Ziele stimmen also überein. Die Kosten sind klein und fallen einmalig bei den Entwicklern an, dazu bei einer Abteilung, die ihren Eintrag mochte. Eine gute UX-Entscheidung sucht solche Überschneidungen und sagt offen, worauf der Verlierer verzichtet."), look: tt("the overlap of the user and business circles", "die Überschneidung des Nutzer- und Unternehmenskreises"), apply: () => setSel("c2") },
-    { title: tt("All three agree", "Alle drei stimmen überein"), say: tt("Best is a decision where all three agree: a Continue card on the home screen. Learners reach the next step in one click, the business gets more learners who finish, and the data already exists, so the engineers pay little. That centre is the aim. Select the other conflicts yourself and ask each time: who gets, who pays, and is there an overlap?", "Am besten ist eine Entscheidung, bei der alle drei übereinstimmen: eine Weitermachen-Karte auf dem Startbildschirm. Lernende erreichen den nächsten Schritt mit einem Klick, das Unternehmen bekommt mehr Lernende, die abschließen, und die Daten gibt es schon, die Entwickler zahlen also wenig. Diese Mitte ist das Ziel. Wählen Sie die anderen Konflikte selbst und fragen Sie jedes Mal: Wer bekommt, wer zahlt, und gibt es eine Überschneidung?"), look: tt("the centre, where all three circles meet", "die Mitte, in der sich alle drei Kreise treffen"), apply: () => setSel("c5") },
-  ] satisfies StoryPlan[]);
   const circles: [Side, number, number, string][] = [
     ["user", 112, 98, tt("User", "Nutzer")],
     ["business", 214, 98, tt("Business", "Unternehmen")],
@@ -123,16 +111,15 @@ export function GoalsCircles() {
     <Diagram label={tt("Three goals and five decisions: who gets and who pays · Exploratory · Case assumption (LearnLoop)", "Drei Ziele und fünf Entscheidungen: wer bekommt und wer zahlt · Explorativ · Fallannahme (LearnLoop)")}>
       <div className="space-y-3">
         <ThePoint>{tt("The user, the business and the technology want different things. A good UX decision aims for where they overlap, and when there is no overlap it says which goal wins and what the others lose.", "Der Nutzer, das Unternehmen und die Technik wollen Verschiedenes. Eine gute UX-Entscheidung zielt auf ihre Überschneidung, und wenn es keine gibt, sagt sie, welches Ziel gewinnt und was die anderen verlieren.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("A decision LearnLoop could take", "Eine Entscheidung, die LearnLoop treffen könnte")} className="grid gap-2 sm:grid-cols-2">
           {CONFLICTS.map((id) => (
-            <Btn key={id} on={sel === id} onClick={() => { story.leave(); setSel(id); }}>
+            <Btn key={id} on={sel === id} onClick={() => { setSel(id); }}>
               {conflict(id).name}
             </Btn>
           ))}
         </div>
         <div className="grid items-center gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-          <div className={clsx("mx-auto w-full max-w-[340px]", story.step !== null && "anim-pulse rounded-lg")}>
+          <div className={"mx-auto w-full max-w-[340px]"}>
             <Svg
               viewBox="0 0 326 258"
               label={tt(`Three overlapping circles for the user, the business and the technology. The decision “${c.name}” serves ${c.serves.length} of them`, `Drei überlappende Kreise für Nutzer, Unternehmen und Technik. Die Entscheidung „${c.name}“ dient ${c.serves.length} davon`)}
@@ -180,11 +167,6 @@ export function FeatureGate() {
   const open = on.problem && on.metric && on.owner;
   const missing = [!on.problem && tt("a named user problem", "ein genanntes Nutzerproblem"), !on.metric && tt("a metric", "eine Kennzahl"), !on.owner && tt("an owner", "einen Verantwortlichen")].filter(Boolean) as string[];
   const toggle = (k: keyof GateOn) => setOn((s) => ({ ...s, [k]: !s[k] }));
-  const story = useStory([
-    { title: tt("A request without a reason", "Ein Antrag ohne Begründung"), say: tt("Let us look at LearnLoop, where a manager asks for a new feature, “Live Polls”, because a competitor has one. The request names no learner problem, no figure it should move and no person who is responsible. At the gate it stops, and the manager is asked to come back with the three things.", "Sehen wir uns LearnLoop an, wo eine Managerin ein neues Feature verlangt, „Live Polls“, weil ein Wettbewerber eines hat. Der Antrag nennt kein Problem der Lernenden, keine Zahl, die es bewegen soll, und keine Person, die verantwortlich ist. Am Tor bleibt er stehen, und die Managerin wird gebeten, mit den drei Dingen wiederzukommen."), look: tt("the request on the left and the closed gate", "der Antrag links und das geschlossene Tor"), apply: () => setOn({ problem: false, metric: false, owner: false }) },
-    { title: tt("The same request with three answers", "Derselbe Antrag mit drei Antworten"), say: tt("She returns: the problem is that learners cannot tell if they understood a lesson, the metric is the share who pass the lesson check, and she herself is the owner. Now the gate opens and the request enters the roadmap, where it is ranked with everything else. The feature may still be built, but now for a reason.", "Sie kommt wieder: Das Problem ist, dass Lernende nicht erkennen, ob sie eine Lektion verstanden haben, die Kennzahl ist der Anteil, der die Lektionsprüfung besteht, und sie selbst ist die Verantwortliche. Nun öffnet sich das Tor, und der Antrag kommt auf die Roadmap, wo er mit allem anderen gereiht wird. Das Feature kann trotzdem gebaut werden, aber nun mit einem Grund."), look: tt("three ticks and an open gate", "drei Häkchen und ein offenes Tor"), apply: () => setOn({ problem: true, metric: true, owner: true }) },
-    { title: tt("A rule for every request", "Eine Regel für jeden Antrag"), say: tt("The point is that the rule is the same for everybody, the sales team and the CEO included. That is a decision architecture: it decides who decides and on what evidence, so features start from users and not from the loudest voice. Switch the three conditions on and off yourself to see which one stops a request.", "Der Punkt ist, dass die Regel für alle gleich ist, auch für den Vertrieb und die Geschäftsführung. Das ist eine Entscheidungsarchitektur: Sie entscheidet, wer entscheidet und auf welcher Grundlage, damit Features bei den Nutzern beginnen und nicht bei der lautesten Stimme. Schalten Sie die drei Bedingungen selbst ein und aus, um zu sehen, welche einen Antrag aufhält."), apply: () => setOn({ problem: true, metric: false, owner: true }) },
-  ] satisfies StoryPlan[]);
   const rows: [keyof GateOn, string, string][] = [
     ["problem", tt("A named user problem", "Ein genanntes Nutzerproblem"), tt("Which learner cannot do what?", "Welche Lernende kann was nicht?")],
     ["metric", tt("A metric it should move", "Eine Kennzahl, die es bewegen soll"), tt("How will we know it worked?", "Woran erkennen wir, dass es gewirkt hat?")],
@@ -194,16 +176,15 @@ export function FeatureGate() {
     <Diagram label={tt("The gate a feature request must pass before it enters the roadmap · Exploratory · Case assumption (LearnLoop)", "Das Tor, das ein Feature-Antrag passieren muss, bevor er in die Roadmap kommt · Explorativ · Fallannahme (LearnLoop)")}>
       <div className="space-y-3">
         <ThePoint>{tt("A decision architecture is a rule that decides who decides and on what evidence. A feature enters the roadmap only with a named user problem, a metric and an owner, the same for every request.", "Eine Entscheidungsarchitektur ist eine Regel, die entscheidet, wer entscheidet und auf welcher Grundlage. Ein Feature kommt nur mit einem genannten Nutzerproblem, einer Kennzahl und einem Verantwortlichen auf die Roadmap, für jeden Antrag gleich.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="group" aria-label={tt("The three conditions of the gate", "Die drei Bedingungen des Tors")} className="grid gap-2 sm:grid-cols-3">
           {rows.map(([k, label, sub]) => (
-            <button key={k} type="button" aria-pressed={on[k]} onClick={() => { story.leave(); toggle(k); }} className={clsx("min-h-[44px] rounded-lg border px-3 py-2 text-left text-caption", on[k] ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash")}>
+            <button key={k} type="button" aria-pressed={on[k]} onClick={() => { toggle(k); }} className={clsx("min-h-[44px] rounded-lg border px-3 py-2 text-left text-caption", on[k] ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash")}>
               <span className="font-semibold text-ink"><span aria-hidden className="mr-1.5">{on[k] ? "☑" : "☐"}</span>{label}</span>
               <span className="block pl-5 text-ash">{sub}</span>
             </button>
           ))}
         </div>
-        <div className={clsx("mx-auto w-full max-w-[460px]", story.step !== null && "anim-pulse rounded-lg")}>
+        <div className={"mx-auto w-full max-w-[460px]"}>
           <Svg
             viewBox="0 0 360 150"
             label={open ? tt("A feature request passes the open gate and enters the roadmap", "Ein Feature-Antrag passiert das offene Tor und kommt auf die Roadmap") : tt(`A feature request stops at the closed gate. Still missing: ${missing.join(", ")}`, `Ein Feature-Antrag bleibt am geschlossenen Tor stehen. Es fehlt noch: ${missing.join(", ")}`)}

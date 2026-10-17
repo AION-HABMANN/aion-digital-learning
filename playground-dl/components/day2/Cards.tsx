@@ -1,6 +1,9 @@
 "use client";
 
 import { Bul } from "@/components/materi/kit";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D2 } from "@/components/day2/comicScenes";
+import { COMICS_D2 } from "@/data/day2/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { AdaptiveLevels, AdaptiveLoop, BuildMeasureLearn, DecisionFrame, FeatureMatrix, FidelityLadder, FiveUsers, PilotControl, QualVsQuant, StagedInvestment, SuccessVsFailing, WeighExample } from "@/components/day2/diagrams";
@@ -33,6 +36,7 @@ export function CardA1() {
         tt("Engagement, completion and guidance are results and conditions, not features. Do not list “completion” as a difference between platforms; it is what the differences lead to.", "Engagement, Completion und Führung sind Ergebnisse und Bedingungen, keine Funktionen. Nennen Sie „Completion“ nicht als Unterschied zwischen Plattformen; sie ist das, wozu die Unterschiede führen."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.A1} art={ART_D2} />
       <SuccessVsFailing />
       <p>
         {tt(
@@ -76,6 +80,7 @@ export function CardA2() {
         tt("Say what a low-fidelity test cannot tell you: how the final look and speed feel. That is the next round, not a reason to skip the first.", "Sagen Sie, was ein Low-Fidelity-Test nicht sagen kann: wie sich das endgültige Aussehen und die Geschwindigkeit anfühlen. Das ist die nächste Runde, kein Grund, die erste zu überspringen."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.A2} art={ART_D2} />
       <BuildMeasureLearn />
       <FidelityLadder />
       <DataTable
@@ -118,6 +123,7 @@ export function CardA3() {
         tt("Tracking learners is personal-data processing. Say what you collect, why, and on what legal basis (DSGVO / GDPR).", "Das Tracking von Lernenden ist Verarbeitung personenbezogener Daten. Sagen Sie, was Sie erheben, warum und auf welcher Rechtsgrundlage (DSGVO / GDPR)."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.A3} art={ART_D2} />
       <FiveUsers />
       <QualVsQuant />
       <DataTable
@@ -152,6 +158,7 @@ export function CardA4() {
         tt("If the system evaluates learners or steers their learning, check the legal duties (DSGVO and the AI Act) before building.", "Wenn das System Lernende bewertet oder ihr Lernen steuert, prüfen Sie die rechtlichen Pflichten (DSGVO und AI Act), bevor Sie bauen."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.A4} art={ART_D2} />
       <AdaptiveLevels />
       <AdaptiveLoop />
       <DataTable
@@ -190,6 +197,7 @@ export function CardA5() {
         tt("To decide whether adaptive learning is worthwhile, ask three things: is there a learner problem that individual paths solve, is there enough data of good quality, and are there content variants to adapt to? Without them it is over-engineering. Start with the simplest level (a rule) and add complexity step by step. Say “yes”, “partly” or “no”, and name the first step.", "Um zu entscheiden, ob adaptives Lernen lohnt, fragen Sie drei Dinge: Gibt es ein Problem der Lernenden, das individuelle Pfade lösen, gibt es genug Daten guter Qualität, und gibt es Inhaltsvarianten, an die man anpassen kann? Ohne sie ist es Over-Engineering. Beginnen Sie mit der einfachsten Stufe (einer Regel) und fügen Sie Komplexität Schritt für Schritt hinzu. Sagen Sie „ja“, „teilweise“ oder „nein“ und nennen Sie den ersten Schritt."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.A5} art={ART_D2} />
       <WeighExample />
       <Bul
         items={[
@@ -218,6 +226,7 @@ export function CardB1() {
         tt("Check the data foundation before the technology: if the platform cannot record what an algorithm needs, the first investment is the foundation.", "Prüfen Sie die Datengrundlage vor der Technologie: Kann die Plattform nicht erfassen, was ein Algorithmus braucht, ist die erste Investition die Grundlage."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.B1} art={ART_D2} />
       <StagedInvestment />
       <p>
         {tt(
@@ -262,6 +271,7 @@ export function CardB2() {
         tt("For every personalised feature, write down how a learner sees why it was chosen and how they can change it. If you cannot, delay the feature.", "Schreiben Sie für jede personalisierte Funktion auf, wie eine Lernende sieht, warum sie gewählt wurde, und wie sie sie ändern kann. Wenn Sie das nicht können, verschieben Sie die Funktion."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.B2} art={ART_D2} />
       <FeatureMatrix />
       <DataTable
         caption={tt("Three conflicts of Day 2 and a rule for deciding each", "Drei Konflikte von Tag 2 und eine Regel zum Entscheiden jedes einzelnen")}
@@ -294,6 +304,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example the recommendation engine.", "Nichts aufzugeben heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel die Empfehlungs-Engine."),
       ]}
     >
+      <ComicButton comic={COMICS_D2.B3} art={ART_D2} />
       <PilotControl />
       <DecisionFrame />
       <Bul

@@ -51,8 +51,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 analysieren Sie eine Plattform, die Lernende „zu kompliziert“ nennen, und entscheiden, was zu ändern ist. Die drei Belastungen sagen Ihnen, welchen Teil Sie durch Gestaltung ändern können (den zweiten), welchen Sie nur ordnen können (den ersten) und wofür Sie Platz lassen wollen (den dritten).",
     ),
     picture: t(
-      "The two lesson pages are the same lesson: the overloaded page has a menu, a banner, a block of text and a chat window; the redesigned page has one heading, short parts, a diagram and a question. Select either page, or use the story, and the bar below shows how it uses the learner's working memory. The subject stays the same; the design decides how much is wasted. The numbers are illustrative. Press “Walk me through it” for a short story.",
-      "Die beiden Lektionsseiten sind dieselbe Lektion: Die überlastete Seite hat ein Menü, ein Banner, einen Textblock und ein Chat-Fenster; die neu gestaltete Seite hat eine Überschrift, kurze Teile, ein Diagramm und eine Frage. Wählen Sie eine der Seiten oder nutzen Sie die Geschichte, und der Balken darunter zeigt, wie sie das Arbeitsgedächtnis der Lernenden nutzt. Das Thema bleibt gleich; die Gestaltung entscheidet, wie viel vergeudet wird. Die Zahlen sind veranschaulichend. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The two lesson pages are the same lesson: the overloaded page has a menu, a banner, a block of text and a chat window; the redesigned page has one heading, short parts, a diagram and a question. Select either page, or use the story, and the bar below shows how it uses the learner's working memory. The subject stays the same; the design decides how much is wasted. The numbers are illustrative. Press “Read the comic” for a short story.",
+      "Die beiden Lektionsseiten sind dieselbe Lektion: Die überlastete Seite hat ein Menü, ein Banner, einen Textblock und ein Chat-Fenster; die neu gestaltete Seite hat eine Überschrift, kurze Teile, ein Diagramm und eine Frage. Wählen Sie eine der Seiten oder nutzen Sie die Geschichte, und der Balken darunter zeigt, wie sie das Arbeitsgedächtnis der Lernenden nutzt. Das Thema bleibt gleich; die Gestaltung entscheidet, wie viel vergeudet wird. Die Zahlen sind veranschaulichend. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -65,8 +65,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 entscheiden Sie, wie Sie die Belastung senken. Chunking und visuelle Hierarchie sind die zwei direktesten Werkzeuge, und die Maßnahmen der Aufgabe tragen ihre Namen.",
     ),
     picture: t(
-      "Below the story, the same start page is drawn twice: as twelve loose items and as three named groups. Switch between “Loose items” and “Three chunks” and count how many things you must hold in each case. A second picture shows the same lesson page flat, where every line looks the same, and with a visual hierarchy: a large heading, a marked key sentence, quiet body text and one main button. Press “Walk me through it” for a short story.",
-      "Unter der Geschichte ist dieselbe Startseite zweimal gezeichnet: als zwölf lose Elemente und als drei benannte Gruppen. Wechseln Sie zwischen „Lose Elemente“ und „Drei Chunks“ und zählen Sie, wie viele Dinge Sie jeweils im Kopf halten müssen. Ein zweites Bild zeigt dieselbe Lektionsseite flach, auf der jede Zeile gleich aussieht, und mit visueller Hierarchie: einer großen Überschrift, einem markierten Kernsatz, ruhigem Fließtext und einem Haupt-Button. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Below the story, the same start page is drawn twice: as twelve loose items and as three named groups. Switch between “Loose items” and “Three chunks” and count how many things you must hold in each case. A second picture shows the same lesson page flat, where every line looks the same, and with a visual hierarchy: a large heading, a marked key sentence, quiet body text and one main button. Press “Read the comic” for a short story.",
+      "Unter der Geschichte ist dieselbe Startseite zweimal gezeichnet: als zwölf lose Elemente und als drei benannte Gruppen. Wechseln Sie zwischen „Lose Elemente“ und „Drei Chunks“ und zählen Sie, wie viele Dinge Sie jeweils im Kopf halten müssen. Ein zweites Bild zeigt dieselbe Lektionsseite flach, auf der jede Zeile gleich aussieht, und mit visueller Hierarchie: einer großen Überschrift, einem markierten Kernsatz, ruhigem Fließtext und einem Haupt-Button. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -93,8 +93,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 2.2 der Aufgabe verlangt genau das unter einem Zeitlimit. Das Beispiel hier nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three ideas: a lesson cut by a third, a block of text replaced by a diagram, and one long lesson split into short modules. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine um ein Drittel gekürzte Lektion, einen Textblock, durch ein Diagramm ersetzt, und eine lange Lektion, in kurze Module geteilt. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three ideas: a lesson cut by a third, a block of text replaced by a diagram, and one long lesson split into short modules. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine um ein Drittel gekürzte Lektion, einen Textblock, durch ein Diagramm ersetzt, und eine lange Lektion, in kurze Module geteilt. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -121,8 +121,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 verlangt eine Risikoanalyse von zu einfachem gegenüber zu komplexem Inhalt. Diese Karte gibt Ihnen die beiden Seiten.",
     ),
     picture: t(
-      "The matrix places five options for a hard course by how much mental load they remove (left to right) and how much depth they keep (bottom to top). The top right is the aim: much load removed, depth kept. Select a point to read where it sits and why. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet fünf Optionen für einen schweren Kurs danach, wie viel geistige Belastung sie entfernen (von links nach rechts) und wie viel Tiefe sie behalten (von unten nach oben). Oben rechts ist das Ziel: viel Belastung entfernt, Tiefe behalten. Wählen Sie einen Punkt, um zu lesen, wo er liegt und warum. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places five options for a hard course by how much mental load they remove (left to right) and how much depth they keep (bottom to top). The top right is the aim: much load removed, depth kept. Select a point to read where it sits and why. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet fünf Optionen für einen schweren Kurs danach, wie viel geistige Belastung sie entfernen (von links nach rechts) und wie viel Tiefe sie behalten (von unten nach oben). Oben rechts ist das Ziel: viel Belastung entfernt, Tiefe behalten. Wählen Sie einen Punkt, um zu lesen, wo er liegt und warum. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {

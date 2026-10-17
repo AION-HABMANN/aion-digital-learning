@@ -52,8 +52,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Block 1.2 bewerten Sie drei Optionen für Prototyping und Testen unter Zeitdruck und mit begrenztem Budget, solange die Bedürfnisse der Nutzer noch unklar sind, und entscheiden sich. In Block 2.1 entwickeln Sie einen Prototyping-Ansatz. Diese Karte gibt Ihnen die Gründe, mit einem Low-Fidelity-Test zu beginnen.",
     ),
     picture: t(
-      "The loop shows iterative design: build a small version, measure what learners do, learn from it, and repeat. Below it, the same course-start screen is drawn four times, from a paper sketch to a polished design. Press “Move the Next button” to see what the same change costs on each, and select a picture to read what it tests. Press “Walk me through it” for a short story.",
-      "Die Schleife zeigt iteratives Design: eine kleine Version bauen, messen, was Lernende tun, daraus lernen und wiederholen. Darunter ist derselbe Kursstart-Bildschirm viermal gezeichnet, von der Papierskizze bis zum ausgearbeiteten Design. Drücken Sie „Weiter-Button verschieben“, um zu sehen, was dieselbe Änderung auf jeder Stufe kostet, und wählen Sie ein Bild, um zu lesen, was es testet. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The loop shows iterative design: build a small version, measure what learners do, learn from it, and repeat. Below it, the same course-start screen is drawn four times, from a paper sketch to a polished design. Press “Move the Next button” to see what the same change costs on each, and select a picture to read what it tests. Press “Read the comic” for a short story.",
+      "Die Schleife zeigt iteratives Design: eine kleine Version bauen, messen, was Lernende tun, daraus lernen und wiederholen. Darunter ist derselbe Kursstart-Bildschirm viermal gezeichnet, von der Papierskizze bis zum ausgearbeiteten Design. Drücken Sie „Weiter-Button verschieben“, um zu sehen, was dieselbe Änderung auf jeder Stufe kostet, und wählen Sie ein Bild, um zu lesen, was es testet. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -66,8 +66,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Block 2.1 definieren Sie drei UX-Tests für eine Plattform, auf der Lernende abbrechen und niemand weiß, warum: was Sie testen, wie und was Sie messen. Diese Karte sagt Ihnen, was jede Art von Test beantworten kann.",
     ),
     picture: t(
-      "Select a number of test users to see the share of problems found in Nielsen and Landauer's model. Below it, one picture shows five learners watched (qualitative) next to a chart of many learners counted (quantitative). Press “Walk me through it” for a short story.",
-      "Wählen Sie eine Anzahl Testnutzer, um den Anteil gefundener Probleme im Modell von Nielsen und Landauer zu sehen. Darunter zeigt ein Bild fünf beobachtete Lernende (qualitativ) neben einem Diagramm vieler gezählter Lernender (quantitativ). Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Select a number of test users to see the share of problems found in Nielsen and Landauer's model. Below it, one picture shows five learners watched (qualitative) next to a chart of many learners counted (quantitative). Press “Read the comic” for a short story.",
+      "Wählen Sie eine Anzahl Testnutzer, um den Anteil gefundener Probleme im Modell von Nielsen und Landauer zu sehen. Darunter zeigt ein Bild fünf beobachtete Lernende (qualitativ) neben einem Diagramm vieler gezählter Lernender (quantitativ). Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -80,8 +80,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Die Blöcke 2.1 und 3.1 fragen, ob adaptives Lernen lohnt. Diese Karte gibt Ihnen die Chancen und die Risiken, damit Sie „ja, nein oder teilweise“ sagen und einen Grund nennen können.",
     ),
     picture: t(
-      "The three panels show the three levels working: pick a path yourself, move the pre-test slider across 80 percent to see a rule fire, and read what a model needs. Below them, the loop shows how an adaptive system works; its last box, “and why it was suggested”, is where transparency comes in. Press “Walk me through it” for a short story.",
-      "Die drei Felder zeigen die drei Stufen in Aktion: Wählen Sie selbst einen Pfad, schieben Sie den Vortest-Regler über 80 Prozent, um eine Regel greifen zu sehen, und lesen Sie, was ein Modell braucht. Darunter zeigt die Schleife, wie ein adaptives System arbeitet; ihr letzter Kasten, „und warum er vorgeschlagen wurde“, ist der Ort der Transparenz. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The three panels show the three levels working: pick a path yourself, move the pre-test slider across 80 percent to see a rule fire, and read what a model needs. Below them, the loop shows how an adaptive system works; its last box, “and why it was suggested”, is where transparency comes in. Press “Read the comic” for a short story.",
+      "Die drei Felder zeigen die drei Stufen in Aktion: Wählen Sie selbst einen Pfad, schieben Sie den Vortest-Regler über 80 Prozent, um eine Regel greifen zu sehen, und lesen Sie, was ein Modell braucht. Darunter zeigt die Schleife, wie ein adaptives System arbeitet; ihr letzter Kasten, „und warum er vorgeschlagen wurde“, ist der Ort der Transparenz. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A5: {
@@ -94,8 +94,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 1.2 der Aufgabe verlangt, drei Optionen nach Risiko, Nutzen und Aufwand zu bewerten und sich zu entscheiden, und Block 2.1 fragt, ob adaptives Lernen lohnt. Das Beispiel hier nutzt LearnLoop und eigene Optionen, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "Three small pictures show the three options of LearnLoop. Under them, the table rates each option on benefit, effort and risk in words; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Drei kleine Bilder zeigen die drei Optionen von LearnLoop. Darunter bewertet die Tabelle jede Option nach Nutzen, Aufwand und Risiko in Worten; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Three small pictures show the three options of LearnLoop. Under them, the table rates each option on benefit, effort and risk in words; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Drei kleine Bilder zeigen die drei Optionen von LearnLoop. Darunter bewertet die Tabelle jede Option nach Nutzen, Aufwand und Risiko in Worten; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -108,8 +108,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 setzt Sie auf den Stuhl einer Chief Product Officer, deren Wettbewerber KI und adaptive Systeme nutzen, deren eigene Plattform veraltet ist, deren Budget begrenzt ist und deren Daten unvollständig sind. Sie entscheiden, ob Sie investieren, wie Sie testen und in welcher Reihenfolge.",
     ),
     picture: t(
-      "The chain runs left to right: stage 1, a gate, stage 2, a gate, stage 3. Each gate asks a question with a number. Select what happens at a gate to see what is spent and what is kept back. Press “Walk me through it” for a short story.",
-      "Die Kette läuft von links nach rechts: Stufe 1, ein Gate, Stufe 2, ein Gate, Stufe 3. Jedes Gate stellt eine Frage mit einer Zahl. Wählen Sie, was an einem Gate passiert, um zu sehen, was ausgegeben und was zurückgehalten wird. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The chain runs left to right: stage 1, a gate, stage 2, a gate, stage 3. Each gate asks a question with a number. Select what happens at a gate to see what is spent and what is kept back. Press “Read the comic” for a short story.",
+      "Die Kette läuft von links nach rechts: Stufe 1, ein Gate, Stufe 2, ein Gate, Stufe 3. Jedes Gate stellt eine Frage mit einer Zahl. Wählen Sie, was an einem Gate passiert, um zu sehen, was ausgegeben und was zurückgehalten wird. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B2: {
@@ -122,8 +122,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 3.1 verlangt, eine Roadmap zu priorisieren und in einer Risikoanalyse Technologie gegen Nutzerwert abzuwägen. Die Regeln dieser Karte sagen Ihnen, wie Sie jede Wahl begründen.",
     ),
     picture: t(
-      "The matrix places six features of a learning platform by the value they give the learner (left to right) and by the data and complexity they need (bottom to top). Select a point to read where it sits and why. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet sechs Funktionen einer Lernplattform danach, welchen Wert sie den Lernenden geben (von links nach rechts) und welche Daten und Komplexität sie brauchen (von unten nach oben). Wählen Sie einen Punkt, um zu lesen, wo er liegt und warum. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places six features of a learning platform by the value they give the learner (left to right) and by the data and complexity they need (bottom to top). Select a point to read where it sits and why. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet sechs Funktionen einer Lernplattform danach, welchen Wert sie den Lernenden geben (von links nach rechts) und welche Daten und Komplexität sie brauchen (von unten nach oben). Wählen Sie einen Punkt, um zu lesen, wo er liegt und warum. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {
@@ -136,8 +136,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 3.1 verlangt eine Entscheidung unter Unsicherheit, für eine Plattform mit unvollständigen Daten: was Sie entscheiden, was Sie nicht wissen und wann Sie die Entscheidung zurücknähmen. Die Karte zeigt auch, wie Sie benennen, worauf Sie verzichten, und wie Sie festlegen, wer künftig entscheidet.",
     ),
     picture: t(
-      "First the pilot: two groups of 100 learners, with the result moved by a slider against a gate written in advance. Below it, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes under them are the rule for future decisions. Press “Walk me through it” for a short story.",
-      "Zuerst der Pilot: zwei Gruppen zu je 100 Lernenden, das Ergebnis per Regler gegen ein vorab geschriebenes Gate bewegt. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen darunter die Regel für künftige Entscheidungen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "First the pilot: two groups of 100 learners, with the result moved by a slider against a gate written in advance. Below it, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes under them are the rule for future decisions. Press “Read the comic” for a short story.",
+      "Zuerst der Pilot: zwei Gruppen zu je 100 Lernenden, das Ergebnis per Regler gegen ein vorab geschriebenes Gate bewegt. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen darunter die Regel für künftige Entscheidungen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
 });

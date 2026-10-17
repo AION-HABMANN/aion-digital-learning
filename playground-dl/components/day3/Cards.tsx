@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { Bul } from "@/components/materi/kit";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D3 } from "@/components/day3/comicScenes";
+import { COMICS_D3 } from "@/data/day3/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { HierarchyPair, MistakesPicture } from "@/components/day3/mocks";
@@ -35,6 +38,7 @@ export function CardA1() {
         tt("Do not blame the learner's motivation before checking the screen: a screen that wastes attention also kills motivation.", "Geben Sie nicht zuerst der Motivation der Lernenden die Schuld, bevor Sie den Bildschirm geprüft haben: Ein Bildschirm, der Aufmerksamkeit vergeudet, tötet auch die Motivation."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.A1} art={ART_D3} />
       <MemoryFlow />
       <LearningLevels />
       <p>
@@ -71,6 +75,7 @@ export function CardA2() {
         tt("Keep room for germane load: a screen with nothing to think about is not learning-effective just because it is light.", "Lassen Sie Platz für lernbezogene Belastung: Ein Bildschirm, bei dem man nichts denken muss, ist nicht lerneffektiv, nur weil er leicht ist."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.A2} art={ART_D3} />
       <ThreeLoads />
       <DataTable
         caption={tt("The three kinds of load, where they come from and what a designer can do", "Die drei Arten von Belastung, woher sie kommen und was eine Gestalterin tun kann")}
@@ -106,6 +111,7 @@ export function CardA3() {
         tt("Remove what does not help the goal of the screen before you add anything.", "Entfernen Sie, was dem Ziel des Bildschirms nicht hilft, bevor Sie etwas hinzufügen."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.A3} art={ART_D3} />
       <Chunking />
       <HierarchyPair />
       <Bul
@@ -136,6 +142,7 @@ export function CardA4() {
         tt("Do not call something a mistake only because it looks plain: ask what it does to the learner.", "Nennen Sie etwas nicht einen Fehler, nur weil es schlicht aussieht: Fragen Sie, was es mit der Lernenden macht."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.A4} art={ART_D3} />
       <MistakesPicture />
       <DataTable
         caption={tt("Four typical UX mistakes, what they do in the learner's head, and a way to reduce each", "Vier typische UX-Fehler, was sie im Kopf der Lernenden bewirken, und ein Weg, jeden zu verringern")}
@@ -169,6 +176,7 @@ export function CardA5() {
         tt("Say which measure has the greatest effect and why, and name the information you lack (for example, whether learners are overloaded by amount or by wording).", "Sagen Sie, welche Maßnahme die größte Wirkung hat und warum, und nennen Sie die Information, die Ihnen fehlt (zum Beispiel, ob Lernende durch Menge oder durch Formulierung überlastet sind)."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.A5} art={ART_D3} />
       <WeighExample />
       <Bul
         items={[
@@ -196,6 +204,7 @@ export function CardB1() {
         tt("A drop-out rate is a symptom. Use it to find where to look, then use a test to find the cause.", "Eine Abbruchquote ist ein Symptom. Nutzen Sie sie, um zu finden, wo Sie hinschauen sollen, dann einen Test, um die Ursache zu finden."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.B1} art={ART_D3} />
       <EffectivenessChain />
       <p>
         {tt(
@@ -233,6 +242,7 @@ export function CardB2() {
         tt("To tell the two risks apart you need both a completion measure and a measure of what learners can do afterwards.", "Um die beiden Risiken zu unterscheiden, brauchen Sie sowohl ein Maß für die Completion als auch eines dafür, was Lernende danach können."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.B2} art={ART_D3} />
       <LoadVsDepth />
       <DataTable
         caption={tt("Too simple against too complex", "Zu einfach gegen zu komplex")}
@@ -266,6 +276,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone.", "Nichts aufzugeben heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben."),
       ]}
     >
+      <ComicButton comic={COMICS_D3.B3} art={ART_D3} />
       <DecisionFrame />
       <Bul
         items={[

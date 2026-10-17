@@ -8,14 +8,13 @@ import { CourseStartMock, PlatformMock } from "@/components/day2/mocks";
 import type { Fidelity } from "@/components/day2/mocks";
 import { ChainFig, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
 import type { MatrixPoint } from "@/components/materi/figures";
-import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
-import type { StoryPlan } from "@/components/materi/kit";
+import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
 import { euro, tt } from "@/lib/lang";
 
 /**
- * Day 2 · the teaching diagrams. Static ones (A1, the loops, the data kinds, B3) need no story; the interactive ones (the fidelity ladder, the
- * five-user curve, the LearnLoop weighing grid, the staged investment, the feature matrix) carry "The point", "Walk me through it" and an
+ * Day 2 · the teaching diagrams. The story of each card is its pixel comic (data/day2/comics.ts); the interactive ones (the fidelity ladder, the
+ * five-user curve, the LearnLoop weighing grid, the staged investment, the feature matrix) carry "The point" and an
  * always-visible "What this shows" (CLAUDE.md #20, #36, #51). Example companies: LearnLoop (an online-course provider); never LearnPro, so no
  * task is answered here.
  */
@@ -119,28 +118,21 @@ export function FidelityLadder() {
     { id: "click", name: tt("Clickable prototype", "Klickbarer Prototyp"), time: tt("days", "Tage"), changeLabel: tt("a few hours: move the box and relink the screens", "einige Stunden: den Kasten verschieben und die Bildschirme neu verknüpfen"), changePct: 50, tests: tt("tasks from start to end, by clicking through the boxes", "Aufgaben von Anfang bis Ende, durch Klicken durch die Kästen"), talk: tt("whether they can finish a task, and where they hesitate", "ob sie eine Aufgabe abschließen können und wo sie zögern") },
     { id: "hifi", name: tt("High-fidelity design", "High-Fidelity-Design"), time: tt("weeks", "Wochen"), changeLabel: tt("one to two days: redo layout, colours and states", "ein bis zwei Tage: Layout, Farben und Zustände neu machen"), changePct: 100, tests: tt("the look and small details, once the structure is settled", "das Aussehen und kleine Details, wenn die Struktur steht"), talk: tt("colours, spacing and small details", "Farben, Abstände und kleine Details") },
   ];
-  const story = useStory([
-    { title: tt("Sofia's idea", "Sofias Idee"), say: tt("Let us follow Sofia, a product designer at LearnLoop, an online-course provider. She has an idea for a new “course start” screen that shows the learning path with a Next button, and her team could build it as a polished design in six weeks. She is not sure that learners will notice the button, and a mistake found after six weeks of building would be expensive to fix.", "Begleiten wir Sofia, Produktdesignerin bei LearnLoop, einem Anbieter von Online-Kursen. Sie hat eine Idee für einen neuen Bildschirm „Kursstart“, der den Lernpfad mit einem Weiter-Button zeigt, und ihr Team könnte ihn in sechs Wochen als ausgearbeitetes Design bauen. Sie ist nicht sicher, ob Lernende den Button bemerken, und ein Fehler, der nach sechs Wochen Bauen auffällt, wäre teuer zu beheben."), look: tt("the polished design on the right: weeks of work", "das ausgearbeitete Design rechts: Wochen Arbeit"), apply: () => { setSel(3); setMoved(false); } },
-    { title: tt("A paper test in one afternoon", "Ein Papiertest an einem Nachmittag"), say: tt("Instead of building, Sofia draws the screen on paper and asks five learners to “find your next lesson”. Four of the five do not see the Next button, because it sits in the top corner where nobody looks. This took one afternoon and cost almost nothing, and it already answered her question.", "Statt zu bauen, zeichnet Sofia den Bildschirm auf Papier und bittet fünf Lernende, „Ihre nächste Lektion zu finden“. Vier von fünf sehen den Weiter-Button nicht, weil er in der oberen Ecke sitzt, wohin niemand schaut. Das dauerte einen Nachmittag, kostete fast nichts und beantwortete ihre Frage schon."), look: tt("the paper sketch on the left, with the button in the top corner", "die Papierskizze links, mit dem Button in der oberen Ecke"), apply: () => { setSel(0); setMoved(false); } },
-    { title: tt("Change it, and compare the cost", "Ändern, und die Kosten vergleichen"), say: tt("Sofia moves the button below the lesson list. On paper she redraws one card in about ten minutes, and four of five new testers find it at once. Look at the bars under each picture: the same change would have cost half an hour in the wireframe, a few hours in the clickable prototype and one to two days in the polished design.", "Sofia verschiebt den Button unter die Lektionsliste. Auf Papier zeichnet sie eine Karte in etwa zehn Minuten neu, und vier von fünf neuen Testpersonen finden ihn sofort. Sehen Sie auf die Balken unter jedem Bild: Dieselbe Änderung hätte im Wireframe eine halbe Stunde gekostet, im klickbaren Prototyp einige Stunden und im ausgearbeiteten Design ein bis zwei Tage."), look: tt("the bars under each picture", "die Balken unter jedem Bild"), apply: () => { setSel(0); setMoved(true); } },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So prototyping is risk reduction, not design play: it lets you be wrong cheaply. Climb the ladder only as far as the question needs. A question about order and wording needs paper or grey boxes; a question about the exact look needs a polished version, and only later. Use the button above the pictures to move the Next button yourself, and select a picture to read what it tests.", "Prototyping ist also Risikominderung, kein Gestaltungsspiel: Es lässt Sie günstig falschliegen. Steigen Sie auf der Leiter nur so weit, wie die Frage es braucht. Eine Frage zu Reihenfolge und Wortlaut braucht Papier oder graue Kästen; eine Frage zum genauen Aussehen braucht eine ausgearbeitete Version, und erst später. Verschieben Sie mit der Schaltfläche über den Bildern selbst den Weiter-Button und wählen Sie ein Bild, um zu lesen, was es testet."), apply: () => { setSel(null); setMoved(true); } },
-  ] satisfies StoryPlan[]);
   const cur = sel === null ? null : rungs[sel];
   const pick = (i: number) => {
-    story.leave();
+    
     setSel(sel === i ? null : i);
   };
   return (
     <Diagram label={tt("The fidelity ladder: the same screen at four levels of finish · Exploratory", "Die Fidelity-Leiter: derselbe Bildschirm in vier Fertigstellungsgraden · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("The rougher a prototype, the faster and cheaper it is to change. Climb the ladder only as far as the question you want answered needs.", "Je gröber ein Prototyp, desto schneller und billiger lässt er sich ändern. Steigen Sie auf der Leiter nur so weit, wie die Frage, die Sie beantwortet haben wollen, es braucht.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
             aria-pressed={moved}
             onClick={() => {
-              story.leave();
+              
               setMoved((m) => !m);
             }}
             className={clsx("btn btn-sm min-h-[40px] border", moved ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ink hover:border-ash")}
@@ -156,7 +148,7 @@ export function FidelityLadder() {
                 type="button"
                 aria-pressed={sel === i}
                 onClick={() => pick(i)}
-                className={clsx("flex h-full w-full flex-col items-stretch gap-1.5 rounded-lg border-2 p-2 text-left transition-colors", sel === i ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash", story.step !== null && sel === i && "anim-pulse")}
+                className={clsx("flex h-full w-full flex-col items-stretch gap-1.5 rounded-lg border-2 p-2 text-left transition-colors", sel === i ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash")}
               >
                 <span className="smallcaps text-ash">{tt(`Rung ${i + 1}`, `Stufe ${i + 1}`)}</span>
                 <span className="block overflow-hidden rounded-md border border-line bg-canvas">
@@ -202,21 +194,15 @@ const FIVE_USERS = [
 
 export function FiveUsers() {
   const [sel, setSel] = useState<number>(5);
-  const story = useStory([
-    { title: tt("One test user", "Eine Testperson"), say: tt("Let us follow Ana, a UX researcher at LearnLoop, who wants to find what is wrong with the course start screen. She starts with one learner, who stumbles over the Next button and the quiz message. In Nielsen and Landauer's model, one user already finds about 31 percent of the problems, so even the first test teaches a lot.", "Begleiten wir Ana, UX-Researcherin bei LearnLoop, die herausfinden will, was am Kursstart-Bildschirm nicht stimmt. Sie beginnt mit einer Lernenden, die über den Weiter-Button und die Quizmeldung stolpert. Im Modell von Nielsen und Landauer findet schon eine Testperson etwa 31 Prozent der Probleme, schon der erste Test lehrt also viel."), look: tt("the first bar: about 31%", "der erste Balken: etwa 31 %"), apply: () => setSel(1) },
-    { title: tt("Three and five users", "Drei und fünf Testpersonen"), say: tt("Ana tests with two more learners, and they mostly repeat what the first one found, so three users reach about 65 percent. With five users she is at about 85 percent. Each new user adds less, because most of the problems have already been seen.", "Ana testet mit zwei weiteren Lernenden, und sie wiederholen meist, was die erste gefunden hat, drei Testpersonen erreichen also etwa 65 Prozent. Mit fünf Testpersonen ist sie bei etwa 85 Prozent. Jede neue Person bringt weniger, weil die meisten Probleme schon gesehen wurden."), look: tt("the second and third bars: 65% and 85%", "der zweite und dritte Balken: 65 % und 85 %"), apply: () => setSel(5) },
-    { title: tt("Fifteen users, and the point", "Fünfzehn Testpersonen, und die Hauptsache"), say: tt("Fifteen users would find nearly everything, but at three times the cost of five, and by then the first problems could have been fixed. Nielsen's advice is therefore to run several small tests with about five users each, fixing what you find in between, rather than one large test. The model has limits, so use it to plan, not as a guarantee, and plan about five for each user group.", "Fünfzehn Testpersonen würden fast alles finden, aber zum Dreifachen der Kosten von fünf, und bis dahin hätten sich die ersten Probleme schon beheben lassen. Nielsens Rat lautet deshalb, mehrere kleine Tests mit je etwa fünf Testpersonen zu fahren und dazwischen zu beheben, was man findet, statt eines großen Tests. Das Modell hat Grenzen, nutzen Sie es also zum Planen, nicht als Garantie, und planen Sie für jede Nutzergruppe etwa fünf ein."), look: tt("the last bar, then the buttons to try other numbers", "der letzte Balken, dann die Schaltflächen für andere Zahlen"), apply: () => setSel(15) },
-  ] satisfies StoryPlan[]);
   const cur = FIVE_USERS.find((x) => x.n === sel)!;
   const pick = (n: number) => {
-    story.leave();
+    
     setSel(n);
   };
   return (
     <Diagram label={tt("How many test users? Nielsen and Landauer's model · Exploratory", "Wie viele Testpersonen? Das Modell von Nielsen und Landauer · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("A few test users already show most of the problems, because later users mostly repeat what earlier ones found. Run several small tests with about five users each, instead of one large test.", "Wenige Testpersonen zeigen schon die meisten Probleme, weil spätere meist wiederholen, was frühere gefunden haben. Fahren Sie mehrere kleine Tests mit je etwa fünf Testpersonen statt eines großen Tests.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("Number of test users", "Anzahl der Testpersonen")} className="flex flex-wrap gap-2">
           {FIVE_USERS.map((x) => (
             <button key={x.n} type="button" aria-pressed={sel === x.n} onClick={() => pick(x.n)} className={clsx("btn btn-sm min-h-[40px] border", sel === x.n ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
@@ -333,11 +319,6 @@ type Pick3 = "basics" | "standard" | "advanced";
 export function AdaptiveLevels() {
   const [choice, setChoice] = useState<Pick3 | null>(null);
   const [score, setScore] = useState(65);
-  const story = useStory([
-    { title: tt("Level 1: the learner chooses", "Stufe 1: Die Lernende wählt"), say: tt("Let us follow Lena, a new learner at LearnLoop, an online-course provider. At the start of a course, the platform shows her three paths and lets her pick one: Basics, Standard or Advanced. Lena picks Standard. Nothing here is adaptive in a technical sense: the learner decides, and she may choose badly or not at all.", "Begleiten wir Lena, eine neue Lernende bei LearnLoop, einem Anbieter von Online-Kursen. Zu Beginn eines Kurses zeigt die Plattform ihr drei Pfade und lässt sie einen wählen: Grundlagen, Standard oder Fortgeschritten. Lena wählt Standard. Nichts davon ist im technischen Sinn adaptiv: Die Lernende entscheidet, und sie kann schlecht oder gar nicht wählen."), look: tt("the first panel: the three path buttons", "das erste Feld: die drei Pfad-Schaltflächen"), apply: () => setChoice("standard") },
-    { title: tt("Level 2: a rule decides", "Stufe 2: Eine Regel entscheidet"), say: tt("Now LearnLoop adds one rule: if the pre-test score is at least 80 percent, skip unit 1. Lena scores 85, so the platform starts her at unit 2 without asking. A learner with 65 would start at unit 1. This is adaptive learning at its simplest: it needs only a pre-test and a few rules, and it is easy to explain.", "Nun fügt LearnLoop eine Regel hinzu: Erreicht der Vortest mindestens 80 Prozent, wird Einheit 1 übersprungen. Lena erreicht 85, die Plattform startet sie also ohne Nachfrage bei Einheit 2. Eine Lernende mit 65 würde bei Einheit 1 beginnen. Das ist adaptives Lernen in seiner einfachsten Form: Es braucht nur einen Vortest und ein paar Regeln und lässt sich leicht erklären."), look: tt("the middle panel: move the slider across 80", "das mittlere Feld: den Regler über 80 schieben"), apply: () => setScore(85) },
-    { title: tt("Level 3: a model decides", "Stufe 3: Ein Modell entscheidet"), say: tt("At the third level a model trained on the data of many learners picks the next step for each person, and it can show why: “learners like you finished this”. It needs many learners, good data and content in several variants, and it brings the risks of a cold start, a black box and legal duties. So start with the simplest level that answers the problem, and add complexity step by step.", "Auf der dritten Stufe wählt ein mit den Daten vieler Lernender trainiertes Modell für jede Person den nächsten Schritt, und es kann zeigen, warum: „Lernende wie Sie haben dies abgeschlossen“. Es braucht viele Lernende, gute Daten und Inhalte in mehreren Varianten, und es bringt die Risiken von Cold Start, Black Box und rechtlichen Pflichten. Beginnen Sie deshalb mit der einfachsten Stufe, die das Problem beantwortet, und fügen Sie Komplexität Schritt für Schritt hinzu."), look: tt("the last panel: what a model needs", "das letzte Feld: was ein Modell braucht"), apply: () => undefined },
-  ] satisfies StoryPlan[]);
   const skip = score >= 80;
   const paths: [Pick3, string][] = [["basics", tt("Basics", "Grundlagen")], ["standard", tt("Standard", "Standard")], ["advanced", tt("Advanced", "Fortgeschritten")]];
   const units = [tt("Unit 1", "Einheit 1"), tt("Unit 2", "Einheit 2"), tt("Unit 3", "Einheit 3")];
@@ -345,14 +326,13 @@ export function AdaptiveLevels() {
     <Diagram label={tt("Three levels of adaptive learning, working · Exploratory", "Drei Stufen adaptiven Lernens, in Aktion · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Adaptive learning ranges from the learner choosing, through a simple rule, to a model trained on data. Each step adds power and also data needs and risks, so start with the simplest level that answers the problem.", "Adaptives Lernen reicht von der Wahl der Lernenden über eine einfache Regel bis zu einem mit Daten trainierten Modell. Jede Stufe bringt mehr Kraft und auch mehr Datenbedarf und Risiken, beginnen Sie also mit der einfachsten Stufe, die das Problem beantwortet.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div className="grid gap-3 md:grid-cols-3">
-          <section aria-label={tt("Level 1 · Learner choice", "Stufe 1 · Wahl der Lernenden")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3", story.step === 0 && "anim-pulse border-gold")}>
+          <section aria-label={tt("Level 1 · Learner choice", "Stufe 1 · Wahl der Lernenden")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3")}>
             <p className="smallcaps text-ash">{tt("Level 1 · Learner choice", "Stufe 1 · Wahl der Lernenden")}</p>
             <p className="text-caption text-ink">{tt("Pick your path:", "Wählen Sie Ihren Pfad:")}</p>
             <div className="grid gap-1.5" role="radiogroup" aria-label={tt("Paths", "Pfade")}>
               {paths.map(([id, label]) => (
-                <button key={id} type="button" aria-pressed={choice === id} onClick={() => { story.leave(); setChoice(id); }} className={clsx("min-h-[40px] rounded-md border-2 px-3 text-left text-caption font-semibold", choice === id ? "border-ink bg-mist text-ink" : "border-line bg-paper text-ink hover:border-ash")}>
+                <button key={id} type="button" aria-pressed={choice === id} onClick={() => { setChoice(id); }} className={clsx("min-h-[40px] rounded-md border-2 px-3 text-left text-caption font-semibold", choice === id ? "border-ink bg-mist text-ink" : "border-line bg-paper text-ink hover:border-ash")}>
                   {label}
                 </button>
               ))}
@@ -361,12 +341,12 @@ export function AdaptiveLevels() {
               {choice ? tt(`You start on the ${paths.find((p) => p[0] === choice)![1]} path.`, `Sie beginnen auf dem Pfad ${paths.find((p) => p[0] === choice)![1]}.`) : tt("The platform waits for you to choose.", "Die Plattform wartet auf Ihre Wahl.")}
             </p>
           </section>
-          <section aria-label={tt("Level 2 · Rules", "Stufe 2 · Regeln")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3", story.step === 1 && "anim-pulse border-gold")}>
+          <section aria-label={tt("Level 2 · Rules", "Stufe 2 · Regeln")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3")}>
             <p className="smallcaps text-ash">{tt("Level 2 · Rules", "Stufe 2 · Regeln")}</p>
             <label htmlFor="pretest" className="block text-caption text-ink">
               {tt("Pre-test score:", "Ergebnis des Vortests:")} <span className="tnum font-bold">{score}%</span>
             </label>
-            <input id="pretest" type="range" min={0} max={100} step={5} value={score} onChange={(e) => { story.leave(); setScore(Number(e.target.value)); }} className="h-10 w-full" aria-describedby="rule-note" />
+            <input id="pretest" type="range" min={0} max={100} step={5} value={score} onChange={(e) => { setScore(Number(e.target.value)); }} className="h-10 w-full" aria-describedby="rule-note" />
             <p id="rule-note" className="text-micro normal-case tracking-normal text-ash">{tt("Rule: if the score is at least 80%, skip unit 1.", "Regel: Ist das Ergebnis mindestens 80 %, Einheit 1 überspringen.")}</p>
             <div className="flex items-center gap-1" aria-hidden>
               {units.map((u, i) => (
@@ -379,7 +359,7 @@ export function AdaptiveLevels() {
               {skip ? tt("The rule fires: the learner starts at unit 2.", "Die Regel greift: Die Lernende beginnt bei Einheit 2.") : tt("The rule does not fire: the learner starts at unit 1.", "Die Regel greift nicht: Die Lernende beginnt bei Einheit 1.")}
             </p>
           </section>
-          <section aria-label={tt("Level 3 · Algorithms", "Stufe 3 · Algorithmen")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3", story.step === 2 && "anim-pulse border-gold")}>
+          <section aria-label={tt("Level 3 · Algorithms", "Stufe 3 · Algorithmen")} className={clsx("space-y-2 rounded-lg border-2 border-line bg-paper p-3")}>
             <p className="smallcaps text-ash">{tt("Level 3 · Algorithms", "Stufe 3 · Algorithmen")}</p>
             <div className="flex items-center gap-1.5 text-micro font-semibold text-ink" aria-hidden>
               <span className="grid flex-1 grid-cols-6 gap-0.5 rounded border border-ash/50 bg-mist p-1.5">
@@ -473,12 +453,6 @@ function OptionPics() {
 
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
-  const story = useStory([
-    { title: tt("Option B: sketch the first week and ask five learners", "Option B: die erste Woche skizzieren und fünf Lernende fragen"), say: tt("Let us look at LearnLoop, an online-course provider. It has a problem: many new learners leave in the first week, and it does not yet know why. It has a limited budget and one quarter, and three options are on the table. We rate each on benefit (what we learn or gain), effort (how much work and time it takes) and risk (what could go wrong if our idea of the learners is wrong). Option B, to sketch the first week and ask five learners, takes a sketch and five short sessions, so its effort is Low.", "Sehen wir uns LearnLoop an, einen Anbieter von Online-Kursen. Es hat ein Problem: Viele neue Lernende gehen in der ersten Woche, und es weiß noch nicht, warum. Es hat ein begrenztes Budget und ein Quartal, und drei Optionen liegen auf dem Tisch. Wir bewerten jede nach Nutzen (was wir lernen oder gewinnen), Aufwand (wie viel Arbeit und Zeit es braucht) und Risiko (was schiefgehen kann, wenn unsere Vorstellung von den Lernenden falsch ist). Option B, die erste Woche zu skizzieren und fünf Lernende zu fragen, braucht eine Skizze und fünf kurze Sitzungen, ihr Aufwand ist also Niedrig."), look: tt("the middle row, effort", "die mittlere Zeile, Aufwand"), apply: () => setSel("x2.effort") },
-    { title: tt("Why B is a good bet", "Warum B eine gute Wette ist"), say: tt("The benefit of option B is High, because within days LearnLoop sees where learners get lost, and why. The risk is Low: little is spent and nothing is locked in. What B does not give is a finished course, so the build still comes afterwards, but it then rests on evidence.", "Der Nutzen von Option B ist Hoch, weil LearnLoop innerhalb weniger Tage sieht, wo Lernende sich verlaufen, und warum. Das Risiko ist Niedrig: Es wird wenig ausgegeben, und nichts wird festgelegt. Was B nicht gibt, ist ein fertiger Kurs, der Bau kommt also noch danach, beruht dann aber auf Belegen."), look: tt("the middle row, benefit and risk", "die mittlere Zeile, Nutzen und Risiko"), apply: () => setSel("x2.risk") },
-    { title: tt("Options A and C", "Optionen A und C"), say: tt("Option A, a full onboarding course now, is High effort and High risk: twelve videos are made before any learner has seen one, so if the idea is wrong most of the work is lost, and its benefit is only Mid. Option C, to wait for next quarter's numbers, needs no effort, but the numbers say how many learners leave, not why, so its benefit is Low, and its risk is Mid because another quarter of learners leaves while LearnLoop waits.", "Option A, jetzt ein kompletter Onboarding-Kurs, hat hohen Aufwand und hohes Risiko: Zwölf Videos entstehen, bevor eine Lernende eines gesehen hat, ist die Idee also falsch, geht der größte Teil der Arbeit verloren, und der Nutzen ist nur Mittel. Option C, auf die Zahlen des nächsten Quartals zu warten, braucht keinen Aufwand, aber die Zahlen sagen, wie viele Lernende gehen, nicht warum, der Nutzen ist also Niedrig, und das Risiko ist Mittel, weil ein weiteres Quartal Lernender geht, während LearnLoop wartet."), look: tt("the top row and the bottom row", "die obere und die untere Zeile"), apply: () => setSel("x1.risk") },
-    { title: tt("Decide, and say what you do not know", "Entscheiden, und sagen, was man nicht weiß"), say: tt("So LearnLoop chooses B and says what it still does not know: whether learners leave because the start is confusing or because the course is too long. A decision with a stated gap is stronger than one that pretends there is none. Select any cell in the table to read the reason for its rating.", "LearnLoop wählt also B und sagt, was es noch nicht weiß: ob Lernende gehen, weil der Start verwirrend oder der Kurs zu lang ist. Eine Entscheidung mit einer genannten Lücke ist stärker als eine, die so tut, als gäbe es keine. Wählen Sie eine Zelle in der Tabelle, um den Grund ihrer Bewertung zu lesen."), apply: () => setSel("x2.impact") },
-  ] satisfies StoryPlan[]);
   const rows: GridRow[] = [
     { id: "x1", name: tt("A · Build a full onboarding course now", "A · Jetzt einen kompletten Onboarding-Kurs bauen"), cells: {
       impact: { level: 2, reason: tt("A complete programme, but nobody knows yet whether it is what learners need.", "Ein vollständiges Programm, aber noch weiß niemand, ob es das ist, was Lernende brauchen.") },
@@ -505,9 +479,8 @@ export function WeighExample() {
     <Diagram label={tt("A worked example: LearnLoop weighs three options · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Optionen ab · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("When user needs are unclear and time is short, the cheapest step that gives real evidence usually beats both building at once and doing nothing. Rate every option on benefit, effort and risk, then decide.", "Wenn die Nutzerbedürfnisse unklar sind und die Zeit knapp ist, schlägt der günstigste Schritt, der echte Belege liefert, meist sowohl das sofortige Bauen als auch das Nichtstun. Bewerten Sie jede Option nach Nutzen, Aufwand und Risiko, dann entscheiden Sie.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <OptionPics />
-        <OptionGrid label={tt("LearnLoop · a limited budget, one quarter", "LearnLoop · ein begrenztes Budget, ein Quartal")} caption={tt("Three options for LearnLoop (Case assumption, example company)", "Drei Optionen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { story.leave(); setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · a limited budget, one quarter", "LearnLoop · ein begrenztes Budget, ein Quartal")} caption={tt("Three options for LearnLoop (Case assumption, example company)", "Drei Optionen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
         <p className="rounded-md border border-line bg-canvas px-3 py-2 text-caption text-ink">
           <span className="smallcaps mr-1.5">{tt("Still unknown", "Noch unbekannt")}</span>
           <Gloss>{tt("Whether learners leave in week one because the start is confusing or because the course is too long. LearnLoop would ask five learners who left before it commits more.", "Ob Lernende in der ersten Woche gehen, weil der Start verwirrend oder der Kurs zu lang ist. LearnLoop würde fünf Ausgestiegene befragen, bevor es mehr bindet.")}</Gloss>
@@ -524,12 +497,6 @@ const STAGE_COST = [8000, 40000, 120000];
 
 export function StagedInvestment() {
   const [sc, setSc] = useState<Scenario>("all");
-  const story = useStory([
-    { title: tt("One big bet", "Eine große Wette"), say: tt("Let us look at LearnLoop, which wants to add adaptive learning because its competitors have it. A single decision would put €168,000 into the whole system at once, and if learners do not use it, all of that money is gone. So LearnLoop splits the plan into three stages: a small test, a pilot, and only then the full roll-out.", "Sehen wir uns LearnLoop an, das adaptives Lernen einführen will, weil seine Wettbewerber es haben. Eine einzige Entscheidung würde 168.000 € auf einmal in das ganze System stecken, und wenn Lernende es nicht nutzen, ist all das Geld weg. LearnLoop teilt den Plan deshalb in drei Stufen: einen kleinen Test, einen Pilot und erst dann die volle Einführung."), look: tt("the whole chain from left to right", "die ganze Kette von links nach rechts"), apply: () => setSc("all") },
-    { title: tt("Gate 1 is missed", "Gate 1 wird verfehlt"), say: tt("Stage 1 costs €8,000: a paper test with five learners. Gate 1 was written down in advance: at least four of five learners must complete the task. Suppose only three do. LearnLoop changes the design and tests again, having spent €8,000 and not €168,000, and the pilot and the roll-out stay unfunded.", "Stufe 1 kostet 8.000 €: ein Papiertest mit fünf Lernenden. Gate 1 wurde vorab aufgeschrieben: Mindestens vier von fünf Lernenden müssen die Aufgabe schaffen. Angenommen, nur drei tun es. LearnLoop ändert das Design und testet erneut, hat 8.000 € ausgegeben und nicht 168.000 €, und Pilot und Einführung bleiben unfinanziert."), look: tt("gate 1 and the dashed boxes after it", "Gate 1 und die gestrichelten Kästen danach"), apply: () => setSc("gate1") },
-    { title: tt("Gate 2 is missed", "Gate 2 wird verfehlt"), say: tt("Now suppose the design passed gate 1, and the pilot ran in one course for €40,000. Gate 2 asks: is completion at least five points above the control group after eight weeks? If it is not, LearnLoop stops before the roll-out. It has spent €48,000 and keeps €120,000, and it has learned that the idea does not move completion.", "Nun angenommen, das Design bestand Gate 1, und der Pilot lief in einem Kurs für 40.000 €. Gate 2 fragt: Liegt die Completion nach acht Wochen mindestens fünf Punkte über der Kontrollgruppe? Wenn nicht, stoppt LearnLoop vor der Einführung. Es hat 48.000 € ausgegeben und behält 120.000 €, und es hat gelernt, dass die Idee die Completion nicht bewegt."), look: tt("gate 2 and the kept-back amount", "Gate 2 und der zurückgehaltene Betrag"), apply: () => setSc("gate2") },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So spend a little to learn, and let the evidence decide the next amount. Every gate carries a figure and a date written down before the stage starts, and a stage that misses its gate is changed or stopped, not extended by default. That is also why “partly” is often the right answer to “do we invest in adaptive learning?”. Select a scenario yourself to see what is spent and what is kept.", "Geben Sie also wenig aus, um zu lernen, und lassen Sie die Belege über den nächsten Betrag entscheiden. Jedes Gate trägt eine Zahl und ein Datum, die vor Beginn der Stufe aufgeschrieben wurden, und eine Stufe, die ihr Gate verfehlt, wird geändert oder gestoppt, nicht standardmäßig verlängert. Deshalb ist „teilweise“ oft die richtige Antwort auf „Investieren wir in adaptives Lernen?“. Wählen Sie selbst ein Szenario, um zu sehen, was ausgegeben und was zurückgehalten wird."), apply: () => setSc("all") },
-  ] satisfies StoryPlan[]);
   const reached = sc === "all" ? 3 : sc === "gate2" ? 2 : 1;
   const spent = STAGE_COST.slice(0, reached).reduce((s, v) => s + v, 0);
   const total = STAGE_COST.reduce((s, v) => s + v, 0);
@@ -550,14 +517,13 @@ export function StagedInvestment() {
     <Diagram label={tt("Stage the investment: money follows evidence · Exploratory", "Die Investition stufen: Geld folgt Belegen · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Spend a little to learn, and let the evidence decide the next amount. A gate carries a figure and a date written down before the stage starts, and a stage that misses its gate is changed or stopped.", "Geben Sie wenig aus, um zu lernen, und lassen Sie die Belege über den nächsten Betrag entscheiden. Ein Gate trägt eine Zahl und ein Datum, die vor Beginn der Stufe aufgeschrieben wurden, und eine Stufe, die ihr Gate verfehlt, wird geändert oder gestoppt.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("What happens at the gates", "Was an den Gates passiert")} className="flex flex-wrap gap-2">
           {([
             ["all", tt("Both gates passed", "Beide Gates bestanden")],
             ["gate1", tt("Gate 1 missed", "Gate 1 verfehlt")],
             ["gate2", tt("Gate 2 missed", "Gate 2 verfehlt")],
           ] as [Scenario, string][]).map(([id, label]) => (
-            <button key={id} type="button" aria-pressed={sc === id} onClick={() => { story.leave(); setSc(id); }} className={clsx("btn btn-sm min-h-[40px] border", sc === id ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
+            <button key={id} type="button" aria-pressed={sc === id} onClick={() => { setSc(id); }} className={clsx("btn btn-sm min-h-[40px] border", sc === id ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
               {label}
             </button>
           ))}
@@ -567,7 +533,7 @@ export function StagedInvestment() {
             const st = state(b);
             return (
               <li key={b.key} className="flex flex-col items-stretch gap-1.5 md:min-w-0 md:flex-1 md:flex-row md:items-center md:gap-0">
-                <div className={clsx("h-full min-w-0 flex-1 rounded-lg border-2 p-2.5", st === "done" && "border-signal/60 bg-signalSoft", st === "passed" && "border-signal/60 bg-paper", st === "missed" && "border-dashed border-rust bg-rustSoft", st === "off" && "border-dashed border-ash/50 bg-mist/60 opacity-80", story.step !== null && b.i === (missedGate || 3) && b.kind === "gate" && "anim-pulse")}>
+                <div className={clsx("h-full min-w-0 flex-1 rounded-lg border-2 p-2.5", st === "done" && "border-signal/60 bg-signalSoft", st === "passed" && "border-signal/60 bg-paper", st === "missed" && "border-dashed border-rust bg-rustSoft", st === "off" && "border-dashed border-ash/50 bg-mist/60 opacity-80")}>
                   <p className="smallcaps text-ash">
                     {b.kind === "gate" ? (st === "missed" ? tt("Gate · missed: change or stop", "Gate · verfehlt: ändern oder stoppen") : st === "passed" ? tt("Gate · passed", "Gate · bestanden") : tt("Gate · not reached", "Gate · nicht erreicht")) : st === "done" ? tt("Funded", "Finanziert") : tt("Not funded", "Nicht finanziert")}
                   </p>
@@ -616,16 +582,10 @@ export function FeatureMatrix() {
     { id: "e", letter: "E", x: 0.72, y: 0.7, name: tt("Adaptive difficulty", "Adaptiver Schwierigkeitsgrad"), reading: tt("The value could be high, but it needs plenty of data and content in several variants.", "Der Wert könnte hoch sein, aber es braucht viele Daten und Inhalte in mehreren Varianten.") },
     { id: "f", letter: "F", x: 0.6, y: 0.84, name: tt("Full AI tutor", "Vollständiger KI-Tutor"), reading: tt("It needs the most data and complexity, with an uncertain value, and it brings the cold start and transparency problems.", "Er braucht die meisten Daten und die meiste Komplexität bei unsicherem Wert, und er bringt die Probleme von Cold Start und Transparenz.") },
   ];
-  const story = useStory([
-    { title: tt("What gives most for least", "Was am meisten für am wenigsten gibt"), say: tt("Let us look at LearnLoop, which is deciding what to build next. The team lists six features and places each by how much it helps the learner and by how much data and complexity it needs. Start with feature C, a short test that lets learners skip what they already know. It gives high value, and it needs a pre-test and a few rules, not an algorithm, so it sits in “Start here”.", "Sehen wir uns LearnLoop an, das entscheidet, was als Nächstes gebaut wird. Das Team listet sechs Funktionen und ordnet jede danach ein, wie sehr sie der Lernenden hilft und wie viele Daten und wie viel Komplexität sie braucht. Beginnen Sie mit Funktion C, einem kurzen Test, mit dem Lernende überspringen, was sie schon wissen. Sie gibt hohen Wert und braucht einen Vortest und ein paar Regeln, keinen Algorithmus, sie liegt also in „Start here“."), look: tt("point C, bottom right", "Punkt C, unten rechts"), apply: () => { setSel("c"); setSpot("c"); } },
-    { title: tt("What can wait", "Was warten kann"), say: tt("Now compare feature F, a full AI tutor. It sits at the top: the value for the learner could be high, but it needs the most data and complexity, and LearnLoop has little data. Features like this are for later, after small steps have produced evidence. Feature D, a recommendation list, is a different trap: it needs data on many learners, and at first it gives modest value.", "Vergleichen Sie nun Funktion F, einen vollständigen KI-Tutor. Er liegt oben: Der Wert für die Lernende könnte hoch sein, aber er braucht die meisten Daten und die meiste Komplexität, und LearnLoop hat wenig Daten. Funktionen wie diese sind für später, nachdem kleine Schritte Belege geliefert haben. Funktion D, eine Empfehlungsliste, ist eine andere Falle: Sie braucht Daten über viele Lernende und gibt zunächst bescheidenen Wert."), look: tt("points F and D, top half", "Punkte F und D, obere Hälfte"), apply: () => { setSel("f"); setSpot("f"); } },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So place a feature by two questions: how much does it help the learner, and how much data and complexity does it need? Start with what gives most for least, and let the data-hungry features wait for their gate. Select any point yourself to read where it sits and why, and remember that the positions are a reading of this example, not a score.", "Ordnen Sie eine Funktion also mit zwei Fragen ein: Wie sehr hilft sie der Lernenden, und wie viele Daten und wie viel Komplexität braucht sie? Beginnen Sie mit dem, was am meisten für am wenigsten gibt, und lassen Sie die datenhungrigen Funktionen auf ihr Gate warten. Wählen Sie selbst einen Punkt, um zu lesen, wo er liegt und warum, und bedenken Sie, dass die Positionen eine Lesart dieses Beispiels sind, keine Note."), apply: () => { setSel(null); setSpot(null); } },
-  ] satisfies StoryPlan[]);
   return (
     <Diagram label={tt("A worked example: LearnLoop places six features · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop ordnet sechs Funktionen ein · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Place a feature by two questions: how much does it help the learner, and how much data and complexity does it need? Start with what gives most for least, and let the data-hungry features wait.", "Ordnen Sie eine Funktion mit zwei Fragen ein: Wie sehr hilft sie der Lernenden, und wie viele Daten und wie viel Komplexität braucht sie? Beginnen Sie mit dem, was am meisten für am wenigsten gibt, und lassen Sie die datenhungrigen Funktionen warten.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <MatrixFig
           title={tt("LearnLoop: where six features sit by value to the learner and by the data and complexity they need", "LearnLoop: wo sechs Funktionen nach Wert für die Lernende und nach benötigten Daten und Komplexität liegen")}
           xLabel={tt("Value to the learner", "Wert für die Lernende")}
@@ -634,7 +594,7 @@ export function FeatureMatrix() {
           points={pts}
           selected={sel}
           onSelect={(id) => {
-            story.leave();
+            
             setSpot(null);
             setSel(id);
           }}
@@ -653,11 +613,6 @@ const GATE_POINTS = 5;
 
 export function PilotControl() {
   const [diff, setDiff] = useState(0);
-  const story = useStory([
-    { title: tt("Two groups of learners", "Zwei Gruppen von Lernenden"), say: tt("Let us look at LearnLoop, which wants to test a rule-based step: a pre-test that lets learners skip what they know. It does not give it to everyone. It splits 200 new learners at random into two groups of 100. The pilot group gets the new step, and the control group gets the course as it is today. Both groups run for eight weeks, and each dot below is one learner.", "Sehen wir uns LearnLoop an, das einen regelbasierten Schritt testen will: einen Vortest, mit dem Lernende überspringen, was sie schon wissen. Es gibt ihn nicht allen. Es teilt 200 neue Lernende zufällig in zwei Gruppen zu je 100. Die Pilotgruppe bekommt den neuen Schritt, die Kontrollgruppe den Kurs, wie er heute ist. Beide Gruppen laufen acht Wochen, und jeder Punkt unten ist eine Lernende."), look: tt("the two groups of dots", "die zwei Gruppen von Punkten"), apply: () => setDiff(0) },
-    { title: tt("The gate is missed", "Das Gate wird verfehlt"), say: tt("The gate was written down before the pilot: completion must be at least five points above the control group. After eight weeks, 60 percent of the control group finished, and the pilot group is only two points higher. The gate is missed, so LearnLoop reverses the step or changes it, and it has spent a pilot, not a platform.", "Das Gate wurde vor dem Pilot aufgeschrieben: Die Completion muss mindestens fünf Punkte über der Kontrollgruppe liegen. Nach acht Wochen haben 60 Prozent der Kontrollgruppe abgeschlossen, und die Pilotgruppe liegt nur zwei Punkte höher. Das Gate ist verfehlt, LearnLoop nimmt den Schritt also zurück oder ändert ihn und hat einen Pilot ausgegeben, keine Plattform."), look: tt("the verdict line and the gate marker", "die Urteilszeile und die Gate-Markierung"), apply: () => setDiff(2) },
-    { title: tt("The gate is met", "Das Gate wird erreicht"), say: tt("Now suppose the pilot group finishes seven points above the control group. The gate is met, so LearnLoop keeps the step and plans the next stage. The control group is what makes this a result: without it, LearnLoop would not know whether the rise came from the new step or from something else. Move the slider yourself to see where the gate flips.", "Nun angenommen, die Pilotgruppe schließt sieben Punkte über der Kontrollgruppe ab. Das Gate ist erreicht, LearnLoop behält den Schritt also und plant die nächste Stufe. Die Kontrollgruppe macht daraus erst ein Ergebnis: Ohne sie wüsste LearnLoop nicht, ob der Anstieg vom neuen Schritt oder von etwas anderem kam. Bewegen Sie den Regler selbst, um zu sehen, wo das Gate kippt."), look: tt("the second group: more filled dots", "die zweite Gruppe: mehr gefüllte Punkte"), apply: () => setDiff(7) },
-  ] satisfies StoryPlan[]);
   const control = Math.round((GROUP * BASE) / 100);
   const pilot = Math.round((GROUP * (BASE + diff)) / 100);
   const met = diff >= GATE_POINTS;
@@ -675,16 +630,15 @@ export function PilotControl() {
     <Diagram label={tt("A pilot against a control group, and a gate written in advance · Exploratory", "Ein Pilot gegen eine Kontrollgruppe und ein vorab geschriebenes Gate · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("A pilot with a control group turns an unknown into evidence. Write the gate, a figure and a time, before the pilot starts, and the result tells you to keep, change or reverse.", "Ein Pilot mit Kontrollgruppe macht aus einer Unbekannten einen Beleg. Schreiben Sie das Gate, eine Zahl und eine Zeit, bevor der Pilot beginnt, und das Ergebnis sagt Ihnen, ob Sie behalten, ändern oder zurücknehmen.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div className="grid gap-3 sm:grid-cols-2">
           {dots(control, tt(`Control group: today's course · ${BASE}% finished`, `Kontrollgruppe: Kurs wie heute · ${BASE} % abgeschlossen`))}
-          <div className={clsx(story.step !== null && story.step > 0 && "anim-pulse rounded-lg")}>{dots(pilot, tt(`Pilot group: with the skip rule · ${BASE + diff}% finished`, `Pilotgruppe: mit der Überspringen-Regel · ${BASE + diff} % abgeschlossen`))}</div>
+          <div >{dots(pilot, tt(`Pilot group: with the skip rule · ${BASE + diff}% finished`, `Pilotgruppe: mit der Überspringen-Regel · ${BASE + diff} % abgeschlossen`))}</div>
         </div>
         <div className="space-y-1">
           <label htmlFor="pilot-diff" className="block text-caption text-ink">
             {tt("Pilot result: points above the control group", "Pilot-Ergebnis: Punkte über der Kontrollgruppe")} <span className="tnum font-bold">+{diff}</span>
           </label>
-          <input id="pilot-diff" type="range" min={0} max={10} step={1} value={diff} onChange={(e) => { story.leave(); setDiff(Number(e.target.value)); }} className="h-10 w-full max-w-md" />
+          <input id="pilot-diff" type="range" min={0} max={10} step={1} value={diff} onChange={(e) => { setDiff(Number(e.target.value)); }} className="h-10 w-full max-w-md" />
           <p className="text-micro normal-case tracking-normal text-ash">{tt(`Gate written in advance: at least +${GATE_POINTS} points after 8 weeks. Figures are a Case assumption (LearnLoop).`, `Vorab geschriebenes Gate: mindestens +${GATE_POINTS} Punkte nach 8 Wochen. Die Zahlen sind eine Fallannahme (LearnLoop).`)}</p>
         </div>
         <p className={clsx("rounded-md border-2 px-3 py-2 text-caption font-semibold text-ink", met ? "border-signal/60 bg-signalSoft" : "border-dashed border-rust bg-rustSoft")} aria-live="polite">

@@ -7,14 +7,13 @@ import type { GridRow } from "@/components/day1/diagrams";
 import { CostBands, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
 import { LevelsPicture, LoadPages, MemoryPicture, ThreeIdeas, TwoLensesPicture } from "@/components/day3/mocks";
 import type { MatrixPoint } from "@/components/materi/figures";
-import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
-import type { StoryPlan } from "@/components/materi/kit";
+import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
 import { euro, tt } from "@/lib/lang";
 
 /**
  * Day 3 · the teaching diagrams. Static ones (the memory flow, the levels of learning, the chain of effectiveness, the decision frame) need no story; the
- * interactive ones (the three loads, chunking, the LearnLoop weighing grid, the load-against-depth matrix) carry "The point", "Walk me through it" and an
+ * interactive ones (the three loads, chunking, the LearnLoop weighing grid, the load-against-depth matrix) carry "The point" and an
  * always-visible "What this shows" (CLAUDE.md #20, #36, #51). Example companies: LearnLoop (an online-course provider); never EduCore, so no task is answered here.
  */
 
@@ -35,12 +34,6 @@ const LOAD = { over: { intrinsic: 38, extraneous: 52, germane: 10 }, redesigned:
 
 export function ThreeLoads() {
   const [mode, setMode] = useState<LoadMode>("over");
-  const story = useStory([
-    { title: tt("Daniel opens a hard lesson", "Daniel öffnet eine schwere Lektion"), say: tt("Let us follow Daniel, who works in procurement and is studying contract basics on a platform. The lesson he opens is hard, because contracts are hard: this effort comes from the subject, and no design can remove it. In the bar, it is the grey part, and it takes 38 percent of Daniel's working memory whatever the screen looks like.", "Begleiten wir Daniel, der im Einkauf arbeitet und auf einer Plattform Vertragsgrundlagen lernt. Die Lektion, die er öffnet, ist schwer, weil Verträge schwer sind: Diese Anstrengung kommt vom Thema, und keine Gestaltung kann sie entfernen. Im Balken ist es der graue Teil, und er nimmt 38 Prozent von Daniels Arbeitsgedächtnis ein, egal wie der Bildschirm aussieht."), look: tt("the grey part: the same in both bars", "der graue Teil: in beiden Balken gleich"), apply: () => setMode("over") },
-    { title: tt("The page adds waste", "Die Seite fügt Vergeudung hinzu"), say: tt("The page also shows a news banner, a chat window and a menu with nine entries, and the text is one block without headings. Daniel has to ignore all of that while trying to understand a clause, and this effort teaches him nothing about contracts. In the bar it is the rust part: 52 percent is wasted, and only 10 percent is left for making sense of the clause.", "Die Seite zeigt außerdem ein News-Banner, ein Chat-Fenster und ein Menü mit neun Einträgen, und der Text ist ein Block ohne Überschriften. Daniel muss das alles ausblenden, während er versucht, eine Klausel zu verstehen, und diese Anstrengung lehrt ihn nichts über Verträge. Im Balken ist es der rostfarbene Teil: 52 Prozent sind vergeudet, und nur 10 Prozent bleiben, um die Klausel zu verstehen."), look: tt("the rust part, and the small teal part", "der rostfarbene Teil und der kleine türkise Teil"), apply: () => setMode("over") },
-    { title: tt("The same lesson, redesigned", "Dieselbe Lektion, neu gestaltet"), say: tt("In the redesigned version the page shows one heading, three short paragraphs, one diagram of the clause and a question at the end. The subject is exactly as hard as before, so the grey part stays at 38 percent, but the waste falls to 12 percent and half of Daniel's capacity now goes into the clause itself. That is the effort the lesson was meant to ask for.", "In der neu gestalteten Version zeigt die Seite eine Überschrift, drei kurze Absätze, ein Diagramm der Klausel und am Ende eine Frage. Das Thema ist genauso schwer wie zuvor, der graue Teil bleibt also bei 38 Prozent, aber die Vergeudung sinkt auf 12 Prozent, und die Hälfte von Daniels Kapazität fließt nun in die Klausel selbst. Das ist die Anstrengung, die die Lektion verlangen sollte."), look: tt("the teal part: from 10% to 50%", "der türkise Teil: von 10 % auf 50 %"), apply: () => setMode("redesigned") },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So when learners call a platform “too complicated”, ask which part of the bar is the problem. If it is the subject, you can only order it; if it is how the screen is built, you should cut it. Never cut the subject itself to make the bar look better, and leave room for the teal part. Switch between the two bars yourself to compare.", "Wenn Lernende eine Plattform „zu kompliziert“ nennen, fragen Sie also, welcher Teil des Balkens das Problem ist. Ist es das Thema, können Sie es nur ordnen; ist es, wie der Bildschirm gebaut ist, sollten Sie es kürzen. Kürzen Sie nie das Thema selbst, damit der Balken besser aussieht, und lassen Sie Platz für den türkisen Teil. Wechseln Sie selbst zwischen den beiden Balken, um zu vergleichen."), apply: () => setMode("redesigned") },
-  ] satisfies StoryPlan[]);
   const v = LOAD[mode];
   const part = (cls: string, label: string, pct: number) => (
     <div className={clsx("flex min-h-[3.5rem] items-center justify-center border-r-2 border-paper px-1 text-center text-caption font-bold text-paper", cls)} style={{ width: `${pct}%` }}>
@@ -51,9 +44,8 @@ export function ThreeLoads() {
     <Diagram label={tt("The three loads in one learner's working memory · Exploratory", "Die drei Belastungen im Arbeitsgedächtnis einer Lernenden · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("The subject sets part of the mental effort, and design decides how much of the rest is wasted. Cut the waste, and keep room for understanding.", "Das Thema legt einen Teil der geistigen Anstrengung fest, und die Gestaltung entscheidet, wie viel vom Rest vergeudet wird. Kürzen Sie die Vergeudung, und lassen Sie Platz fürs Verstehen.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
-        <LoadPages mode={mode} onPick={(m) => { story.leave(); setMode(m); }} />
-        <div className={clsx("overflow-hidden rounded-lg border-2 border-ink", story.step !== null && "anim-pulse")} role="img" aria-label={tt(`Working memory: subject ${v.intrinsic}%, waste ${v.extraneous}%, making sense ${v.germane}%`, `Arbeitsgedächtnis: Thema ${v.intrinsic} %, Vergeudung ${v.extraneous} %, Verstehen ${v.germane} %`)}>
+        <LoadPages mode={mode} onPick={(m) => { setMode(m); }} />
+        <div className={clsx("overflow-hidden rounded-lg border-2 border-ink")} role="img" aria-label={tt(`Working memory: subject ${v.intrinsic}%, waste ${v.extraneous}%, making sense ${v.germane}%`, `Arbeitsgedächtnis: Thema ${v.intrinsic} %, Vergeudung ${v.extraneous} %, Verstehen ${v.germane} %`)}>
           <div className="flex w-full">
             {part("bg-ash", tt("Subject", "Thema"), v.intrinsic)}
             {part("bg-rust", tt("Waste", "Vergeudung"), v.extraneous)}
@@ -93,27 +85,21 @@ export function Chunking() {
     { name: tt("Progress", "Fortschritt"), items: [tt("badge", "Badge"), tt("certificate", "Zertifikat"), tt("report", "Bericht")] },
     { name: tt("Talk", "Austausch"), items: [tt("forum", "Forum"), tt("chat", "Chat"), tt("news", "News")] },
   ];
-  const story = useStory([
-    { title: tt("Mira meets twelve things", "Mira trifft auf zwölf Dinge"), say: tt("Let us follow Mira, a team leader who opens the start page of LearnLoop, an online-course provider, to find her next quiz. The page shows twelve separate things: a login, a profile, a deadline, a badge, a forum, two quizzes, the news, a certificate, a reading, a chat and a report. Working memory holds only about four new things at once, so Mira cannot keep them all in mind.", "Begleiten wir Mira, eine Teamleiterin, die die Startseite von LearnLoop, einem Anbieter von Online-Kursen, öffnet, um ihr nächstes Quiz zu finden. Die Seite zeigt zwölf einzelne Dinge: eine Anmeldung, ein Profil, eine Frist, ein Badge, ein Forum, zwei Quizze, die News, ein Zertifikat, einen Lesestoff, einen Chat und einen Bericht. Das Arbeitsgedächtnis hält nur etwa vier neue Dinge gleichzeitig, Mira kann sie also nicht alle im Kopf behalten."), look: tt("the twelve loose items", "die zwölf losen Elemente"), apply: () => setMode("loose") },
-    { title: tt("The same items in three groups", "Dieselben Elemente in drei Gruppen"), say: tt("Now LearnLoop groups the same twelve items into three chunks and gives each one a name: Learn, Progress and Talk. Mira has nothing less to look at, but she now has to hold only three things, and each name tells her what is inside. She goes straight to Learn and finds her quiz.", "Nun gruppiert LearnLoop dieselben zwölf Elemente in drei Chunks und gibt jedem einen Namen: Lernen, Fortschritt und Austausch. Mira hat nicht weniger anzusehen, aber sie muss nur noch drei Dinge im Kopf halten, und jeder Name sagt ihr, was darin ist. Sie geht direkt zu Lernen und findet ihr Quiz."), look: tt("the three named groups", "die drei benannten Gruppen"), apply: () => setMode("chunked") },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So chunking turns twelve things to hold into three, without removing anything. The second tool does the same job for the eye: a visual hierarchy, using size, colour, contrast and position, shows what to look at first. Whenever a screen shows more than about four separate things that a learner must handle, group them or hide some. Switch between the two views yourself to count.", "Chunking macht also aus zwölf Dingen, die man halten muss, drei, ohne etwas zu entfernen. Das zweite Werkzeug leistet dasselbe für das Auge: eine visuelle Hierarchie, mit Größe, Farbe, Kontrast und Position, zeigt, worauf man zuerst schauen soll. Wann immer ein Bildschirm mehr als etwa vier einzelne Dinge zeigt, die eine Lernende bewältigen muss, gruppieren Sie sie oder blenden Sie einige aus. Wechseln Sie selbst zwischen den beiden Ansichten, um zu zählen."), apply: () => setMode("chunked") },
-  ] satisfies StoryPlan[]);
   return (
     <Diagram label={tt("Chunking: the same twelve items, loose and in three groups · Exploratory", "Chunking: dieselben zwölf Elemente, lose und in drei Gruppen · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Working memory holds only a few new things at once. Grouping items into named chunks gives the learner fewer things to hold, and nothing is removed.", "Das Arbeitsgedächtnis hält nur wenige neue Dinge gleichzeitig. Elemente in benannte Chunks zu gruppieren, gibt der Lernenden weniger zu halten, und nichts wird entfernt.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("View", "Ansicht")} className="flex flex-wrap gap-2">
           {([
             ["loose", tt("Loose items", "Lose Elemente")],
             ["chunked", tt("Three chunks", "Drei Chunks")],
           ] as [ChunkMode, string][]).map(([id, label]) => (
-            <button key={id} type="button" aria-pressed={mode === id} onClick={() => { story.leave(); setMode(id); }} className={clsx("btn btn-sm min-h-[40px] border", mode === id ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
+            <button key={id} type="button" aria-pressed={mode === id} onClick={() => { setMode(id); }} className={clsx("btn btn-sm min-h-[40px] border", mode === id ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
               {label}
             </button>
           ))}
         </div>
-        <div className={clsx("rounded-xl border-2 border-ash bg-paper p-3", story.step !== null && "anim-pulse")} aria-label={tt("A drawn start page", "Eine gezeichnete Startseite")}>
+        <div className={clsx("rounded-xl border-2 border-ash bg-paper p-3")} aria-label={tt("A drawn start page", "Eine gezeichnete Startseite")}>
           {mode === "loose" ? (
             <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4">
               {items.map((x, i) => (
@@ -153,12 +139,6 @@ export function Chunking() {
 
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
-  const story = useStory([
-    { title: tt("The setting", "Die Ausgangslage"), say: tt("Let us look at LearnLoop again. A course for beginners on a technical subject is rated “too complicated”, the content has to stay, and the team has four weeks and €30,000. Three ideas are on the table, and we rate each on learning impact (how much it helps learners understand), effort (money and time) and risk (what could go wrong). The rule for effort is: under €8,000 is Low, up to €15,000 is Mid, above that is High.", "Sehen wir uns LearnLoop noch einmal an. Ein Kurs für Einsteiger zu einem technischen Thema wird als „zu kompliziert“ bewertet, der Inhalt muss bleiben, und das Team hat vier Wochen und 30.000 €. Drei Ideen liegen auf dem Tisch, und wir bewerten jede nach Lernwirkung (wie sehr sie Lernenden beim Verstehen hilft), Aufwand (Geld und Zeit) und Risiko (was schiefgehen kann). Die Regel für den Aufwand lautet: unter 8.000 € ist Niedrig, bis 15.000 € Mittel, darüber Hoch."), look: tt("the three bars and the effort bands", "die drei Balken und die Aufwandsbänder"), apply: () => setSel(null) },
-    { title: tt("Shorten the content a lot", "Den Inhalt stark kürzen"), say: tt("The first idea, shortening the content a lot, costs €6,000, so its effort is Low. But the content is professionally necessary, so cutting a lot removes things the learners need. The risk is therefore High, and the learning impact is Low, because what is left may no longer teach the subject.", "Die erste Idee, den Inhalt stark zu kürzen, kostet 6.000 €, ihr Aufwand ist also Niedrig. Aber der Inhalt ist fachlich nötig, wer viel kürzt, entfernt also, was die Lernenden brauchen. Das Risiko ist deshalb Hoch und die Lernwirkung Niedrig, denn was bleibt, lehrt das Thema vielleicht nicht mehr."), look: tt("the top row, risk and impact", "die obere Zeile, Risiko und Wirkung"), apply: () => setSel("y1.risk") },
-    { title: tt("Diagrams, then modules", "Diagramme, dann Module"), say: tt("The second idea, adding diagrams and graphics, costs €16,000, which is above €15,000, so its effort is High. A good diagram helps where a structure or a flow is described, so the impact is Mid, but it uses all four weeks, so the risk is Mid. The third idea, splitting the content into small modules, costs €12,000, so its effort is Mid. Chunking reduces what the learner holds at once without deleting content, so its impact is High, and its risk is Low because the split can be adjusted.", "Die zweite Idee, Diagramme und Grafiken hinzuzufügen, kostet 16.000 €, das ist über 15.000 €, ihr Aufwand ist also Hoch. Ein gutes Diagramm hilft dort, wo eine Struktur oder ein Ablauf beschrieben wird, die Wirkung ist also Mittel, aber es braucht alle vier Wochen, das Risiko ist also Mittel. Die dritte Idee, den Inhalt in kleine Module aufzuteilen, kostet 12.000 €, ihr Aufwand ist also Mittel. Chunking verringert, was die Lernende auf einmal hält, ohne Inhalt zu löschen, die Wirkung ist also Hoch, und das Risiko ist Niedrig, weil sich die Aufteilung anpassen lässt."), look: tt("the middle and the bottom row", "die mittlere und die untere Zeile"), apply: () => setSel("y3.impact") },
-    { title: tt("Say which has the greatest effect", "Sagen, welche die größte Wirkung hat"), say: tt("So the module split has the greatest effect on learning, even though it is not the cheapest. Cheap and direct usually beats big and slow, but a measure that makes the screen lighter without making the learning better has a low impact. LearnLoop also names what it does not know: whether learners are overloaded by the amount or by the wording. Select any cell in the table to read its reason.", "Die Modulaufteilung hat also die größte Wirkung auf das Lernen, obwohl sie nicht die günstigste ist. Günstig und direkt schlägt meist groß und langsam, aber eine Maßnahme, die den Bildschirm leichter macht, ohne das Lernen zu verbessern, hat eine geringe Wirkung. LearnLoop nennt auch, was es nicht weiß: ob Lernende durch die Menge oder durch die Formulierung überlastet sind. Wählen Sie eine Zelle in der Tabelle, um ihren Grund zu lesen."), apply: () => setSel("y3.effort") },
-  ] satisfies StoryPlan[]);
   const rows: GridRow[] = [
     { id: "y1", name: tt("Shorten the content a lot", "Den Inhalt stark kürzen"), sub: euro(6000), cells: {
       impact: { level: 1, reason: tt("Beginners need the content; cutting it removes what they came for.", "Einsteiger brauchen den Inhalt; ihn zu kürzen entfernt, wofür sie gekommen sind.") },
@@ -185,7 +165,6 @@ export function WeighExample() {
     <Diagram label={tt("A worked example: LearnLoop weighs three load-reducing measures · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Maßnahmen zur Lastsenkung ab · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Rate each measure on how much it helps learning, what it costs and what could go wrong. Cheap and direct usually beats big and slow when time is short, but a measure that only makes the screen lighter does not help learning.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dem Lernen hilft, was sie kostet und was schiefgehen kann. Günstig und direkt schlägt bei knapper Zeit meist groß und langsam, aber eine Maßnahme, die den Bildschirm nur leichter macht, hilft dem Lernen nicht.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <ThreeIdeas />
         <CostBands
           title={tt("LearnLoop, three measures: cost against the effort rule and the €30,000 budget", "LearnLoop, drei Maßnahmen: Kosten gegen die Aufwandsregel und das Budget von 30.000 €")}
@@ -201,7 +180,7 @@ export function WeighExample() {
             { to: null, label: tt("High", "Hoch") },
           ]}
         />
-        <OptionGrid label={tt("LearnLoop · budget €30,000, four weeks", "LearnLoop · Budget 30.000 €, vier Wochen")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { story.leave(); setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · budget €30,000, four weeks", "LearnLoop · Budget 30.000 €, vier Wochen")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
         <p className="rounded-md border border-line bg-canvas px-3 py-2 text-caption text-ink">
           <span className="smallcaps mr-1.5">{tt("Still unknown", "Noch unbekannt")}</span>
           <Gloss>{tt("Whether learners are overloaded by the amount of content or by its wording. LearnLoop would ask six beginners to explain the key point of one lesson before it commits the whole budget.", "Ob Lernende durch die Menge des Inhalts oder durch seine Formulierung überlastet sind. LearnLoop würde sechs Einsteiger bitten, den Kerngedanken einer Lektion zu erklären, bevor es das ganze Budget bindet.")}</Gloss>
@@ -229,16 +208,10 @@ export function LoadVsDepth() {
     { id: "d", letter: "D", x: 0.82, y: 0.3, name: tt("Summary button only", "Nur ein Zusammenfassungs-Button"), reading: tt("It makes the lesson feel light, but a summary on demand drops the examples and practice that carry the depth.", "Es lässt die Lektion leicht wirken, aber eine Zusammenfassung auf Abruf lässt die Beispiele und Übungen weg, die die Tiefe tragen.") },
     { id: "e", letter: "E", x: 0.12, y: 0.88, name: tt("Keep as it is", "So lassen, wie es ist"), reading: tt("It keeps all the depth and removes no load, so learners stay overloaded and many leave.", "Es behält die ganze Tiefe und entfernt keine Belastung, die Lernenden bleiben also überlastet, und viele gehen.") },
   ];
-  const story = useStory([
-    { title: tt("Lighter is not always better", "Leichter ist nicht immer besser"), say: tt("Let us look at LearnLoop, which has a hard course for beginners and five options for it. Option A cuts the content by half. It removes a lot of mental load, so it sits far to the right, but it also removes most of the depth, so it sits low: the corner “Light but shallow”. Learners will finish, and then find they cannot apply what is left.", "Sehen wir uns LearnLoop an, das einen schweren Kurs für Einsteiger und fünf Optionen dafür hat. Option A kürzt den Inhalt um die Hälfte. Sie entfernt viel geistige Belastung und liegt deshalb weit rechts, entfernt aber auch den größten Teil der Tiefe und liegt deshalb unten: in der Ecke „Light but shallow“. Lernende werden abschließen und dann merken, dass sie das Übrige nicht anwenden können."), look: tt("point A, bottom right", "Punkt A, unten rechts"), apply: () => { setSel("a"); setSpot("a"); } },
-    { title: tt("Too complex is also a risk", "Zu komplex ist auch ein Risiko"), say: tt("Option E keeps the course as it is. It keeps all the depth, so it sits high, but it removes no load, so it sits far to the left: the corner “Deep but heavy”. The learners stay lost, and many of them leave. So there are two risks, content that is too simple and content that is too complex, and a plan that names only one has not weighed the conflict.", "Option E lässt den Kurs, wie er ist. Sie behält die ganze Tiefe und liegt deshalb oben, entfernt aber keine Belastung und liegt deshalb weit links: in der Ecke „Deep but heavy“. Die Lernenden bleiben verloren, und viele gehen. Es gibt also zwei Risiken, zu einfachen und zu komplexen Inhalt, und ein Plan, der nur eines nennt, hat den Konflikt nicht abgewogen."), look: tt("point E, top left", "Punkt E, oben links"), apply: () => { setSel("e"); setSpot("e"); } },
-    { title: tt("The aim, and what to take from it", "Das Ziel, und was Sie mitnehmen"), say: tt("Option B splits the course into modules with one goal each. It removes a good share of the load, and it keeps the content, so it sits near the top right: the corner “Aim here”. So remove extraneous load first, keep the difficulty the course exists to teach, and support it. Select any point yourself to read where it sits, and remember that the positions are a reading of this example, not a score.", "Option B teilt den Kurs in Module mit je einem Ziel. Sie entfernt einen guten Teil der Belastung und behält den Inhalt, liegt also nahe oben rechts: in der Ecke „Aim here“. Entfernen Sie also zuerst die extrinsische Belastung, behalten Sie die Schwierigkeit, die der Kurs lehren soll, und unterstützen Sie sie. Wählen Sie selbst einen Punkt, um zu lesen, wo er liegt, und bedenken Sie, dass die Positionen eine Lesart dieses Beispiels sind, keine Note."), look: tt("point B, top right", "Punkt B, oben rechts"), apply: () => { setSel("b"); setSpot("b"); } },
-  ] satisfies StoryPlan[]);
   return (
     <Diagram label={tt("A worked example: LearnLoop's five options for a hard course · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoops fünf Optionen für einen schweren Kurs · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Lighter is not always better. Efficiency and depth pull against each other, so name what each option keeps and what it loses, and aim for much load removed with the depth kept.", "Leichter ist nicht immer besser. Effizienz und Tiefe ziehen gegeneinander, benennen Sie also, was jede Option behält und was sie verliert, und streben Sie viel entfernte Belastung bei erhaltener Tiefe an.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <MatrixFig
           title={tt("LearnLoop: five options for a hard course by mental load removed and depth kept", "LearnLoop: fünf Optionen für einen schweren Kurs nach entfernter geistiger Belastung und erhaltener Tiefe")}
           xLabel={tt("Mental load removed", "Entfernte geistige Belastung")}
@@ -247,7 +220,7 @@ export function LoadVsDepth() {
           points={pts}
           selected={sel}
           onSelect={(id) => {
-            story.leave();
+            
             setSpot(null);
             setSel(id);
           }}

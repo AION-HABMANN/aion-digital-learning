@@ -27,6 +27,8 @@ export type ComicPanel = {
 };
 export type Comic = {
   id: string;
+  /** Pixel-art look (DL-STANDARD.md section 13): square speech boxes, a black frame around the picture, square dots. */
+  pixel?: boolean;
   title: string;
   /** One sentence under the title on the card's row. */
   teaser: string;
@@ -142,13 +144,13 @@ function ComicDialog({ comic, art, onClose }: { comic: Comic; art: Record<string
         <div ref={bodyRef} className="min-h-0 flex-1 overflow-y-auto px-3.5 py-3 sm:px-5">
           <p className="text-caption italic text-ash">{p.scene}</p>
 
-          <div className="mt-2 rounded-lg border border-line bg-canvas p-1.5 [&_svg]:max-h-[34vh]">{art[p.art]}</div>
+          <div className={clsx("mt-2 [&_svg]:max-h-[34vh]", comic.pixel ? "overflow-hidden rounded-sm border-2 border-[#1B1B1F] bg-[#1B1B1F] leading-[0]" : "rounded-lg border border-line bg-canvas p-1.5")}>{art[p.art]}</div>
 
           <ul className="mt-3 space-y-2" aria-label={tt("What is said", "Was gesagt wird")}>
             {p.speech.map((s, k) => (
               <li key={k} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                <span className="smallcaps w-24 shrink-0 text-ash">{comic.names[s.by] ?? s.by}</span>
-                <span className={clsx("min-w-0 flex-1 rounded-xl border px-3 py-1.5 text-body text-ink", s.think ? "border-dashed border-ash bg-mist italic" : "border-ink bg-paper")}>
+                <span className="smallcaps w-32 max-w-full shrink-0 break-words text-ash">{comic.names[s.by] ?? s.by}</span>
+                <span className={clsx("min-w-0 flex-1 border px-3 py-1.5 text-body text-ink", comic.pixel ? "rounded-sm border-2 border-[#1B1B1F]" : "rounded-xl", s.think ? "border-dashed border-ash bg-mist italic" : comic.pixel ? "bg-paper" : "border-ink bg-paper")}>
                   {s.think ? `(${s.text})` : `${tt("“", "„")}${s.text}${tt("”", "“")}`}
                 </span>
               </li>
@@ -156,7 +158,7 @@ function ComicDialog({ comic, art, onClose }: { comic: Comic; art: Record<string
           </ul>
 
           <div className="mt-3">
-            <span className={clsx("inline-block rounded-full px-3 py-1 text-caption font-semibold", TAG_CLS[p.tag.tone])}>{p.tag.text}</span>
+            <span className={clsx("inline-block px-3 py-1 text-caption font-semibold", comic.pixel ? "rounded-sm" : "rounded-full", TAG_CLS[p.tag.tone])}>{p.tag.text}</span>
           </div>
 
           <div aria-live="polite" className="insight mt-3 space-y-1">
@@ -185,7 +187,7 @@ function ComicDialog({ comic, art, onClose }: { comic: Comic; art: Record<string
           <div className="ml-auto flex items-center gap-1" role="group" aria-label={tt("Jump to a panel", "Zu einem Bild springen")}>
             {comic.panels.map((_, k) => (
               <button key={k} type="button" onClick={() => go(k)} aria-label={`${tt("Panel", "Bild")} ${k + 1}`} aria-current={k === i} className="flex h-10 w-6 items-center justify-center">
-                <span className={clsx("block h-2.5 w-2.5 rounded-full border", k === i ? "border-ink bg-ink" : k < i ? "border-signal bg-signal" : "border-ash bg-paper")} />
+                <span className={clsx("block h-2.5 w-2.5 border", comic.pixel ? "rounded-none" : "rounded-full", k === i ? "border-ink bg-ink" : k < i ? "border-signal bg-signal" : "border-ash bg-paper")} />
               </button>
             ))}
           </div>

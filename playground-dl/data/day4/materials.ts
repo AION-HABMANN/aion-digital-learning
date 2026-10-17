@@ -37,8 +37,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 vergleichen Sie zwei Plattformen und wählen Maßnahmen, um das Engagement zu steigern. Sie müssen sagen, ob eine Maßnahme die Motivation einer Lernenden stützt oder sie nur schmückt.",
     ),
     picture: t(
-      "The first picture follows Tom, who likes quizzes: choose “Before points”, “With points” or “Points ended” to see how many quizzes he does each week, and what the screen looks like. The second picture draws the three needs of Self-Determination Theory as overlapping circles, each with an example from a learning platform. Press “Walk me through it” for a short story.",
-      "Das erste Bild begleitet Tom, der gern Quizze macht: Wählen Sie „Vor den Punkten“, „Mit Punkten“ oder „Punkte beendet“, um zu sehen, wie viele Quizze er pro Woche macht und wie der Bildschirm aussieht. Das zweite Bild zeichnet die drei Bedürfnisse der Selbstbestimmungstheorie als überlappende Kreise, jeweils mit einem Beispiel von einer Lernplattform. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The first picture follows Tom, who likes quizzes: choose “Before points”, “With points” or “Points ended” to see how many quizzes he does each week, and what the screen looks like. The second picture draws the three needs of Self-Determination Theory as overlapping circles, each with an example from a learning platform. Press “Read the comic” for a short story.",
+      "Das erste Bild begleitet Tom, der gern Quizze macht: Wählen Sie „Vor den Punkten“, „Mit Punkten“ oder „Punkte beendet“, um zu sehen, wie viele Quizze er pro Woche macht und wie der Bildschirm aussieht. Das zweite Bild zeichnet die drei Bedürfnisse der Selbstbestimmungstheorie als überlappende Kreise, jeweils mit einem Beispiel von einer Lernplattform. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A2: {
@@ -51,8 +51,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 sortieren Sie, was sich zwischen zwei Plattformen unterscheidet, in diese Prinzipien und wählen dann Maßnahmen, die sie liefern. Das Modell des Plans baut seine Maßnahmen auf genau diesen Ideen auf.",
     ),
     picture: t(
-      "The lesson screen below starts as a long page of reading. Switch on one principle at a time (a goal sentence, a task, feedback, a progress bar, a work example) and watch the same screen gain the element that delivers it. The table afterwards keeps only what a picture cannot show. Press “Walk me through it” for a short story.",
-      "Der Lektionsbildschirm unten beginnt als lange Lesetextseite. Schalten Sie ein Prinzip nach dem anderen ein (einen Zielsatz, eine Aufgabe, Feedback, einen Fortschrittsbalken, ein Praxisbeispiel) und sehen Sie, wie derselbe Bildschirm das Element bekommt, das es liefert. Die Tabelle danach behält nur, was ein Bild nicht zeigen kann. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The lesson screen below starts as a long page of reading. Switch on one principle at a time (a goal sentence, a task, feedback, a progress bar, a work example) and watch the same screen gain the element that delivers it. The table afterwards keeps only what a picture cannot show. Press “Read the comic” for a short story.",
+      "Der Lektionsbildschirm unten beginnt als lange Lesetextseite. Schalten Sie ein Prinzip nach dem anderen ein (einen Zielsatz, eine Aufgabe, Feedback, einen Fortschrittsbalken, ein Praxisbeispiel) und sehen Sie, wie derselbe Bildschirm das Element bekommt, das es liefert. Die Tabelle danach behält nur, was ein Bild nicht zeigen kann. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -93,8 +93,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 1.2 und Block 2.2 der Aufgabe verlangen genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three ideas: a weekly leaderboard, a progress and next-step display, and short practice tasks. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine wöchentliche Rangliste, eine Fortschritts- und Nächster-Schritt-Anzeige und kurze Übungsaufgaben. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three ideas: a weekly leaderboard, a progress and next-step display, and short practice tasks. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine wöchentliche Rangliste, eine Fortschritts- und Nächster-Schritt-Anzeige und kurze Übungsaufgaben. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -107,8 +107,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 setzt Sie auf den Stuhl einer Chief Experience Officer, deren Plattform eine niedrige Retention hat, deren Wettbewerber motivierender wirken und deren Daten unvollständig sind. Sie müssen eine Strategie wählen und sagen, woran Sie erkennen, dass sie wirkt.",
     ),
     picture: t(
-      "The chart shows Fogg's model: motivation upwards, ability to the right, and a curve. Move the two sliders and switch the prompt on or off: only a learner above the curve, with a prompt, does the next lesson. Below the chart, a table says which measure works on which condition. Press “Walk me through it” for a short story.",
-      "Das Diagramm zeigt Foggs Modell: Motivation nach oben, Können nach rechts und eine Kurve. Bewegen Sie die beiden Regler und schalten Sie den Impuls ein oder aus: Nur eine Lernende über der Kurve und mit einem Impuls macht die nächste Lektion. Unter dem Diagramm sagt eine Tabelle, welche Maßnahme auf welche Bedingung wirkt. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The chart shows Fogg's model: motivation upwards, ability to the right, and a curve. Move the two sliders and switch the prompt on or off: only a learner above the curve, with a prompt, does the next lesson. Below the chart, a table says which measure works on which condition. Press “Read the comic” for a short story.",
+      "Das Diagramm zeigt Foggs Modell: Motivation nach oben, Können nach rechts und eine Kurve. Bewegen Sie die beiden Regler und schalten Sie den Impuls ein oder aus: Nur eine Lernende über der Kurve und mit einem Impuls macht die nächste Lektion. Unter dem Diagramm sagt eine Tabelle, welche Maßnahme auf welche Bedingung wirkt. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B2: {
@@ -121,8 +121,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 verlangt eine Risikoanalyse von Fehlanreizen und falscher Motivation und eine Motivationsstrategie, die auf der richtigen Seite der Manipulation bleibt.",
     ),
     picture: t(
-      "The matrix places seven measures by the lasting motivation they support (left to right) and the pressure they put on the learner (bottom to top). The bottom right is the aim. Select a point to read where it sits and why; the position is a reading of the example, not a score. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet sieben Maßnahmen danach, wie viel dauerhafte Motivation sie stützen (von links nach rechts) und wie viel Druck sie auf die Lernende ausüben (von unten nach oben). Unten rechts ist das Ziel. Wählen Sie einen Punkt, um zu lesen, wo er liegt und warum; die Position ist eine Lesart des Beispiels, keine Note. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places seven measures by the lasting motivation they support (left to right) and the pressure they put on the learner (bottom to top). The bottom right is the aim. Select a point to read where it sits and why; the position is a reading of the example, not a score. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet sieben Maßnahmen danach, wie viel dauerhafte Motivation sie stützen (von links nach rechts) und wie viel Druck sie auf die Lernende ausüben (von unten nach oben). Unten rechts ist das Ziel. Wählen Sie einen Punkt, um zu lesen, wo er liegt und warum; die Position ist eine Lesart des Beispiels, keine Note. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {
@@ -135,8 +135,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 3.1 und 3.2 verlangen eine Evaluationsstrategie, eine Risikoanalyse, eine Entscheidungsarchitektur und eine Entscheidung unter Unsicherheit.",
     ),
     picture: t(
-      "The line chart follows the seven-day return rate of LearnLoop for six weeks. Switch the control group on and off: without it, the rise could be the season; with it, the gap between the two lines is what the change did. Below, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes at the bottom are the rule for future decisions. Press “Walk me through it” for a short story.",
-      "Das Liniendiagramm folgt der Rückkehrrate nach sieben Tagen von LearnLoop über sechs Wochen. Schalten Sie die Kontrollgruppe ein und aus: Ohne sie könnte der Anstieg die Jahreszeit sein; mit ihr ist der Abstand zwischen den beiden Linien das, was die Änderung bewirkt hat. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen unten sind die Regel für künftige Entscheidungen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The line chart follows the seven-day return rate of LearnLoop for six weeks. Switch the control group on and off: without it, the rise could be the season; with it, the gap between the two lines is what the change did. Below, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes at the bottom are the rule for future decisions. Press “Read the comic” for a short story.",
+      "Das Liniendiagramm folgt der Rückkehrrate nach sieben Tagen von LearnLoop über sechs Wochen. Schalten Sie die Kontrollgruppe ein und aus: Ohne sie könnte der Anstieg die Jahreszeit sein; mit ihr ist der Abstand zwischen den beiden Linien das, was die Änderung bewirkt hat. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen unten sind die Regel für künftige Entscheidungen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
 });

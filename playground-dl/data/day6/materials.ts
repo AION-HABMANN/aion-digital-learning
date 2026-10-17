@@ -37,8 +37,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 sortieren Sie Recherchenotizen in die Persona-Felder und schreiben dann eine Persona. Diese Karte zeigt, was die Felder bedeuten und wie eine brauchbare Persona aussieht.",
     ),
     picture: t(
-      "The card is one example persona for LearnLoop. Read the three fields from left to right: goal, problems and frustrations, context of use. Below them, one line says what the persona is built from. Switch between “A persona nobody can use” and “A persona a team can decide with” and press “Walk me through it” for a short story.",
-      "Die Karte ist eine Beispiel-Persona für LearnLoop. Lesen Sie die drei Felder von links nach rechts: Ziel, Probleme und Frustrationen, Nutzungskontext. Darunter sagt eine Zeile, woraus die Persona gebaut ist. Wechseln Sie zwischen „Eine Persona, die niemand nutzen kann“ und „Eine Persona, mit der ein Team entscheiden kann“ und drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The card is one example persona for LearnLoop. Read the three fields from left to right: goal, problems and frustrations, context of use. Below them, one line says what the persona is built from. Switch between “A persona nobody can use” and “A persona a team can decide with” and press “Read the comic” for a short story.",
+      "Die Karte ist eine Beispiel-Persona für LearnLoop. Lesen Sie die drei Felder von links nach rechts: Ziel, Probleme und Frustrationen, Nutzungskontext. Darunter sagt eine Zeile, woraus die Persona gebaut ist. Wechseln Sie zwischen „Eine Persona, die niemand nutzen kann“ und „Eine Persona, mit der ein Team entscheiden kann“ und drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A2: {
@@ -51,8 +51,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In Task 1 und Task 2 schreiben und wählen Sie Personas. Diese Karte ist die Qualitätsprüfung für das, was Sie schreiben.",
     ),
     picture: t(
-      "Two persona cards sit side by side: a weak one built from clichés and a useful one built from data. Select a mistake on the weak card to see what it replaces on the useful one. Below, the sources of data are listed, and the table sets behaviour against demographics. Press “Walk me through it” for a short story.",
-      "Zwei Persona-Karten stehen nebeneinander: eine schwache aus Klischees und eine brauchbare aus Daten. Wählen Sie einen Fehler auf der schwachen Karte, um zu sehen, was er auf der brauchbaren ersetzt. Darunter sind die Datenquellen aufgelistet, und die Tabelle stellt Verhalten gegen Demografie. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Two persona cards sit side by side: a weak one built from clichés and a useful one built from data. Select a mistake on the weak card to see what it replaces on the useful one. Below, the sources of data are listed, and the table sets behaviour against demographics. Press “Read the comic” for a short story.",
+      "Zwei Persona-Karten stehen nebeneinander: eine schwache aus Klischees und eine brauchbare aus Daten. Wählen Sie einen Fehler auf der schwachen Karte, um zu sehen, was er auf der brauchbaren ersetzt. Darunter sind die Datenquellen aufgelistet, und die Tabelle stellt Verhalten gegen Demografie. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -65,8 +65,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 1 verlangt, Journeys abzubilden, den Pain Point zu nennen, den jede Maßnahme beantwortet, und zu sagen, welche Phase kritisch ist. Diese Karte gibt Ihnen das Raster und die Leseregeln.",
     ),
     picture: t(
-      "The journey map follows one persona through three phases. The line is the emotion curve: low points are frustration, high points motivation. Select a phase to read what the person does and where it breaks. Change the emotion of a phase with the buttons and see where the critical point moves. Press “Walk me through it” for a short story.",
-      "Die Journey Map folgt einer Persona durch drei Phasen. Die Linie ist die Emotionskurve: Tiefpunkte sind Frustration, Hochpunkte Motivation. Wählen Sie eine Phase, um zu lesen, was die Person tut und wo es bricht. Ändern Sie die Emotion einer Phase mit den Schaltflächen und sehen Sie, wohin der kritische Punkt wandert. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The journey map follows one persona through three phases. The line is the emotion curve: low points are frustration, high points motivation. Select a phase to read what the person does and where it breaks. Change the emotion of a phase with the buttons and see where the critical point moves. Press “Read the comic” for a short story.",
+      "Die Journey Map folgt einer Persona durch drei Phasen. Die Linie ist die Emotionskurve: Tiefpunkte sind Frustration, Hochpunkte Motivation. Wählen Sie eine Phase, um zu lesen, was die Person tut und wo es bricht. Ändern Sie die Emotion einer Phase mit den Schaltflächen und sehen Sie, wohin der kritische Punkt wandert. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -93,8 +93,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 2.2 der Aufgabe verlangt genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three measures: a resume button, five-minute learning formats and a new course editor. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each measure; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Maßnahmen: einen Fortsetzen-Button, Fünf-Minuten-Lernformate und einen neuen Kurseditor. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Maßnahme; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three measures: a resume button, five-minute learning formats and a new course editor. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each measure; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Maßnahmen: einen Fortsetzen-Button, Fünf-Minuten-Lernformate und einen neuen Kurseditor. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Maßnahme; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -107,8 +107,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 verlangt, zwei oder drei strategische Personas zu wählen, die wichtigste Zielgruppe auszuwählen und ihre drei größten Probleme zu nennen. Diese Karte gibt Ihnen das Raster.",
     ),
     picture: t(
-      "The matrix places five segments of LearnLoop by their size (left to right) and by their business value (bottom to top). Select a segment to read where it sits and why. The position is a reading of the example, not a score. A small segment high up is small but critical. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet fünf Segmente von LearnLoop nach ihrer Größe (von links nach rechts) und nach ihrem Geschäftswert (von unten nach oben). Wählen Sie ein Segment, um zu lesen, wo es liegt und warum. Die Position ist eine Lesart des Beispiels, keine Note. Ein kleines Segment weit oben ist klein, aber kritisch. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places five segments of LearnLoop by their size (left to right) and by their business value (bottom to top). Select a segment to read where it sits and why. The position is a reading of the example, not a score. A small segment high up is small but critical. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet fünf Segmente von LearnLoop nach ihrer Größe (von links nach rechts) und nach ihrem Geschäftswert (von unten nach oben). Wählen Sie ein Segment, um zu lesen, wo es liegt und warum. Die Position ist eine Lesart des Beispiels, keine Note. Ein kleines Segment weit oben ist klein, aber kritisch. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B2: {
@@ -121,8 +121,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 verlangt, die wichtigste Zielgruppe auszuwählen und eine Optimierungsstrategie zu priorisieren. Diese Karte gibt Ihnen das Argument.",
     ),
     picture: t(
-      "Two segments of LearnLoop are drawn as two screens that want different things. Switch between “Design for everyone”, “Primary first” and “Share what is common” to see what each choice gives to each side and what it costs. A table below lists four typical conflicts with a rule for each. Press “Walk me through it” for a short story.",
-      "Zwei Segmente von LearnLoop sind als zwei Bildschirme gezeichnet, die Verschiedenes wollen. Wechseln Sie zwischen „Für alle gestalten“, „Primäres zuerst“ und „Das Gemeinsame teilen“, um zu sehen, was jede Wahl jeder Seite gibt und was sie kostet. Eine Tabelle darunter listet vier typische Konflikte mit je einer Regel. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Two segments of LearnLoop are drawn as two screens that want different things. Switch between “Design for everyone”, “Primary first” and “Share what is common” to see what each choice gives to each side and what it costs. A table below lists four typical conflicts with a rule for each. Press “Read the comic” for a short story.",
+      "Zwei Segmente von LearnLoop sind als zwei Bildschirme gezeichnet, die Verschiedenes wollen. Wechseln Sie zwischen „Für alle gestalten“, „Primäres zuerst“ und „Das Gemeinsame teilen“, um zu sehen, was jede Wahl jeder Seite gibt und was sie kostet. Eine Tabelle darunter listet vier typische Konflikte mit je einer Regel. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {
@@ -135,8 +135,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 3.2 verlangt genau das, für eine Plattform mit begrenzten Daten.",
     ),
     picture: t(
-      "A strip shows how much evidence three personas rest on, and the switch “Review in two quarters” shows what a reversible priority looks like against a rebuilt platform. Below, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes at the bottom are the rule for future decisions. Press “Walk me through it” for a short story.",
-      "Ein Streifen zeigt, auf wie viel Belegen drei Personas beruhen, und der Schalter „In zwei Quartalen prüfen“ zeigt, wie sich eine umkehrbare Priorität gegenüber einer umgebauten Plattform darstellt. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen unten sind die Regel für künftige Entscheidungen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "A strip shows how much evidence three personas rest on, and the switch “Review in two quarters” shows what a reversible priority looks like against a rebuilt platform. Below, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes at the bottom are the rule for future decisions. Press “Read the comic” for a short story.",
+      "Ein Streifen zeigt, auf wie viel Belegen drei Personas beruhen, und der Schalter „In zwei Quartalen prüfen“ zeigt, wie sich eine umkehrbare Priorität gegenüber einer umgebauten Plattform darstellt. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen unten sind die Regel für künftige Entscheidungen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
 });

@@ -6,8 +6,7 @@ import { SideScreen } from "@/components/day6/mocks";
 import { Arrow, DARK, LINE, MID, Svg, Txt } from "@/components/day/mockKit";
 import { DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
 import type { MatrixPoint } from "@/components/materi/figures";
-import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
-import type { StoryPlan } from "@/components/materi/kit";
+import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
 import { tt } from "@/lib/lang";
 
@@ -35,16 +34,10 @@ export function SegmentMatrix() {
     { id: "d", letter: "D", x: 0.08, y: 0.94, name: tt("Training managers", "Weiterbildungsleiter"), reading: tt("Sixty people who renew licences for 5,000 learners. The smallest group and the highest value: they decide more of the business than all the learners together.", "Sechzig Menschen, die Lizenzen für 5.000 Lernende verlängern. Die kleinste Gruppe und der höchste Wert: Sie entscheiden mehr vom Geschäft als alle Lernenden zusammen.") },
     { id: "e", letter: "E", x: 0.58, y: 0.1, name: tt("Casual browsers", "Gelegenheitsbesucher"), reading: tt("A fair share of sign-ups that rarely finish a course and have no payment link. No decision would change because of this group.", "Ein beachtlicher Teil der Anmeldungen, der selten einen Kurs abschließt und keine Zahlungsverbindung hat. Keine Entscheidung würde sich wegen dieser Gruppe ändern.") },
   ];
-  const story = useStory([
-    { title: tt("The biggest is not always the most important", "Die größte ist nicht immer die wichtigste"), say: tt("Let us look at LearnLoop, an online-course provider with five user segments. The time-poor learners are by far the largest, about 5,000, so most people would start there. They are a strong candidate, because their journey breaks when they return after a break, and that is where a fix pays off.", "Sehen wir uns LearnLoop an, einen Anbieter von Online-Kursen mit fünf Nutzersegmenten. Die Lernenden mit wenig Zeit sind mit Abstand die größte, etwa 5.000, die meisten würden also dort beginnen. Sie sind ein starker Kandidat, weil ihre Journey bei der Rückkehr nach einer Pause bricht, und dort lohnt sich eine Lösung."), look: tt("point A, the largest", "Punkt A, der größte"), apply: () => { setSel("a"); setSpot("a"); } },
-    { title: tt("Small but critical", "Klein, aber kritisch"), say: tt("But sixty training managers renew the licences for those 5,000 learners, and the teachers supply every course. They are tiny groups, and they sit at the top of the picture, because losing them costs more than losing a thousand learners. A group like this can be the most critical.", "Aber sechzig Weiterbildungsleiter verlängern die Lizenzen für diese 5.000 Lernenden, und die Lehrenden liefern jeden Kurs. Das sind winzige Gruppen, und sie stehen ganz oben im Bild, weil ihr Verlust mehr kostet als der von tausend Lernenden. Eine solche Gruppe kann die kritischste sein."), look: tt("points C and D, left and high up", "Punkte C und D, links und weit oben"), apply: () => { setSel("d"); setSpot("d"); } },
-    { title: tt("Three tests", "Drei Tests"), say: tt("So choose strategic personas by three tests: how large the segment is, what it is worth to the business, and where its journey breaks. Say which test decided. Select any point yourself, and remember that the positions are a reading of this example, not a score.", "Wählen Sie strategische Personas also nach drei Tests: wie groß das Segment ist, was es dem Unternehmen wert ist und wo seine Journey bricht. Sagen Sie, welcher Test entschieden hat. Wählen Sie selbst einen Punkt, und bedenken Sie, dass die Positionen eine Lesart dieses Beispiels sind, keine Note."), look: tt("the corner “Small but critical”", "die Ecke „Klein, aber kritisch“"), apply: () => { setSel("c"); setSpot("c"); } },
-  ] satisfies StoryPlan[]);
   return (
     <Diagram label={tt("A worked example: LearnLoop's five segments by size and business value · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoops fünf Segmente nach Größe und Geschäftswert · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Prioritise a persona by the size of its segment, its value to the business, and how badly its journey breaks. A small segment can be the most critical.", "Priorisieren Sie eine Persona nach der Größe ihres Segments, ihrem Wert für das Unternehmen und danach, wie stark ihre Journey bricht. Ein kleines Segment kann das kritischste sein.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <MatrixFig
           title={tt("Five segments of LearnLoop by size (to the right) and business value (upwards)", "Fünf Segmente von LearnLoop nach Größe (nach rechts) und Geschäftswert (nach oben)")}
           xLabel={tt("Size of the segment", "Größe des Segments")}
@@ -53,7 +46,7 @@ export function SegmentMatrix() {
           points={pts}
           selected={sel}
           onSelect={(id) => {
-            story.leave();
+            
             setSpot(null);
             setSel(id);
           }}
@@ -69,11 +62,6 @@ export function SegmentMatrix() {
 type Mode = "everyone" | "primary" | "share";
 export function ConflictScreens() {
   const [mode, setMode] = useState<Mode>("everyone");
-  const story = useStory([
-    { title: tt("Design for everyone", "Für alle gestalten"), say: tt("Let us look at LearnLoop, where learners and teachers want different things. The first plan is to satisfy both completely on one screen, so the screen carries a resume card, nine editor tabs and a badge wall at once. It is crowded and slow, and neither group gets what it came for: designing for everyone has served no one.", "Sehen wir uns LearnLoop an, wo Lernende und Lehrende Verschiedenes wollen. Der erste Plan ist, beide auf einem Bildschirm vollständig zu bedienen, also trägt der Bildschirm eine Fortsetzen-Karte, neun Editor-Reiter und eine Badge-Wand auf einmal. Er ist voll und langsam, und keine der beiden Gruppen bekommt, wofür sie kam: Für alle zu gestalten hat niemanden bedient."), look: tt("the one crowded screen", "der eine volle Bildschirm"), apply: () => setMode("everyone") },
-    { title: tt("A primary segment, and a date for the other", "Ein primäres Segment und ein Datum für das andere"), say: tt("The second plan names the learners as the primary segment and fixes their journey first. The teachers are not forgotten: they are told they get their turn in the third quarter. Now the learners have a clean screen, and the teachers know when to expect theirs, which keeps their trust.", "Der zweite Plan nennt die Lernenden als primäres Segment und behebt zuerst ihre Journey. Die Lehrenden sind nicht vergessen: Ihnen wird gesagt, dass sie im dritten Quartal an die Reihe kommen. Nun haben die Lernenden einen sauberen Bildschirm, und die Lehrenden wissen, wann sie ihren erwarten können, was ihr Vertrauen erhält."), look: tt("the full learner screen and the faded teacher screen", "der volle Lernenden-Bildschirm und der verblasste Lehrenden-Bildschirm"), apply: () => setMode("primary") },
-    { title: tt("Share what is common", "Das Gemeinsame teilen"), say: tt("The best plan shares what is common, one clear course outline that both groups see, and separates only what truly differs, the home screen and the tools. One outline serves both groups, and each still gets a screen that fits. Press the three buttons yourself to compare what each plan gives and costs.", "Der beste Plan teilt das Gemeinsame, eine klare Kursgliederung, die beide Gruppen sehen, und trennt nur, was wirklich verschieden ist, den Startbildschirm und die Werkzeuge. Eine Gliederung bedient beide Gruppen, und jede bekommt weiterhin einen passenden Bildschirm. Drücken Sie die drei Schaltflächen selbst, um zu vergleichen, was jeder Plan gibt und kostet."), look: tt("the shared outline between the two screens", "die gemeinsame Gliederung zwischen den beiden Bildschirmen"), apply: () => setMode("share") },
-  ] satisfies StoryPlan[]);
   const opts: [Mode, string][] = [
     ["everyone", tt("Design for everyone", "Für alle gestalten")],
     ["primary", tt("Primary first", "Primäres zuerst")],
@@ -83,13 +71,12 @@ export function ConflictScreens() {
     <Diagram label={tt("One platform for two segments: three ways to design it · Exploratory · Case assumption (LearnLoop)", "Eine Plattform für zwei Segmente: drei Wege, sie zu gestalten · Explorativ · Fallannahme (LearnLoop)")}>
       <div className="space-y-3">
         <ThePoint>{tt("“Design for everyone” serves no one. When segments conflict, name the primary one, share what is common, and say what the others get and when.", "„Für alle gestalten“ bedient niemanden. Wenn Segmente kollidieren, nennen Sie das primäre, teilen Sie das Gemeinsame und sagen Sie, was die anderen bekommen und wann.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("How the platform is designed", "Wie die Plattform gestaltet ist")} className="flex flex-wrap gap-2">
           {opts.map(([id, label]) => (
-            <Btn key={id} on={mode === id} onClick={() => { story.leave(); setMode(id); }}>{label}</Btn>
+            <Btn key={id} on={mode === id} onClick={() => { setMode(id); }}>{label}</Btn>
           ))}
         </div>
-        <div className={clsx("mx-auto grid max-w-[640px] items-start gap-3 sm:grid-cols-2", story.step !== null && "anim-pulse rounded-lg")}>
+        <div className={"mx-auto grid max-w-[640px] items-start gap-3 sm:grid-cols-2"}>
           {mode === "everyone" && (
             <>
               <div className="sm:col-span-2 sm:mx-auto sm:max-w-[320px]">
@@ -148,21 +135,15 @@ export function EvidenceStrip() {
     [tt("Sven (teacher)", "Sven (Lehrender)"), 4, tt("4 interviews", "4 Interviews")],
     [tt("Petra (training manager)", "Petra (Weiterbildungsleiterin)"), 2, tt("2 conversations", "2 Gespräche")],
   ];
-  const story = useStory([
-    { title: tt("Personas are hypotheses", "Personas sind Hypothesen"), say: tt("Let us look at LearnLoop, which must choose a priority although its data is thin. Mia rests on twelve interviews and the usage logs, Sven on four interviews, Petra on two conversations. The less evidence a persona has, the more it is a hypothesis, so each persona is labelled with how much it rests on, and what would change it.", "Sehen wir uns LearnLoop an, das eine Priorität wählen muss, obwohl seine Daten dünn sind. Mia beruht auf zwölf Interviews und den Nutzungslogs, Sven auf vier Interviews, Petra auf zwei Gesprächen. Je weniger Belege eine Persona hat, desto mehr ist sie eine Hypothese, jede Persona wird also damit beschriftet, auf wie viel sie beruht und was sie ändern würde."), look: tt("the three bars of evidence", "die drei Belegbalken"), apply: () => setRev(true) },
-    { title: tt("A priority you can review", "Eine Priorität, die sich prüfen lässt"), say: tt("LearnLoop prioritises Mia for two quarters, then looks at the figures again. If it is wrong, the cost is two quarters of work, and the other segments know their turn is coming. This is a reversible priority, and it keeps the decision open while the evidence grows.", "LearnLoop priorisiert Mia für zwei Quartale und sieht sich dann die Zahlen noch einmal an. Liegt es falsch, kostet das zwei Quartale Arbeit, und die anderen Segmente wissen, dass ihre Reihe kommt. Das ist eine umkehrbare Priorität, und sie hält die Entscheidung offen, während die Belege wachsen."), look: tt("the review marker after two quarters", "die Prüfmarke nach zwei Quartalen"), apply: () => setRev(true) },
-    { title: tt("A platform rebuilt around one persona", "Eine um eine Persona umgebaute Plattform"), say: tt("The alternative is to rebuild the whole platform around Mia now. That is hard to undo, and if the persona turns out wrong, the money is gone. So with thin data choose the step you can test, write down what would change your mind, and keep the personas as hypotheses. Switch between the two plans yourself.", "Die Alternative ist, die ganze Plattform jetzt um Mia herum umzubauen. Das ist schwer rückgängig zu machen, und wenn sich die Persona als falsch erweist, ist das Geld weg. Wählen Sie bei dünnen Daten also den Schritt, den Sie testen können, schreiben Sie auf, was Sie umstimmen würde, und behandeln Sie die Personas als Hypothesen. Wechseln Sie selbst zwischen den beiden Plänen."), look: tt("the long bar with no review marker", "der lange Balken ohne Prüfmarke"), apply: () => setRev(false) },
-  ] satisfies StoryPlan[]);
   return (
     <Diagram label={tt("How much evidence a persona rests on, and a reversible priority against a rebuilt platform · Exploratory · Case assumption (LearnLoop)", "Auf wie viel Belegen eine Persona beruht, und eine umkehrbare Priorität gegen eine umgebaute Plattform · Explorativ · Fallannahme (LearnLoop)")}>
       <div className="space-y-3">
         <ThePoint>{tt("When the data is thin, treat personas as hypotheses, choose a priority you can review, and write down what would make you reverse it and by when.", "Wenn die Daten dünn sind, behandeln Sie Personas als Hypothesen, wählen Sie eine Priorität, die sich prüfen lässt, und schreiben Sie auf, was Sie zum Rückgängigmachen bringen würde und bis wann.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("The plan", "Der Plan")} className="flex flex-wrap gap-2">
-          <Btn on={rev} onClick={() => { story.leave(); setRev(true); }}>{tt("Review in two quarters", "In zwei Quartalen prüfen")}</Btn>
-          <Btn on={!rev} onClick={() => { story.leave(); setRev(false); }}>{tt("Rebuild around one persona", "Um eine Persona umbauen")}</Btn>
+          <Btn on={rev} onClick={() => { setRev(true); }}>{tt("Review in two quarters", "In zwei Quartalen prüfen")}</Btn>
+          <Btn on={!rev} onClick={() => { setRev(false); }}>{tt("Rebuild around one persona", "Um eine Persona umbauen")}</Btn>
         </div>
-        <div className={clsx("mx-auto w-full max-w-[560px]", story.step !== null && "anim-pulse rounded-lg")}>
+        <div className={"mx-auto w-full max-w-[560px]"}>
           <Svg
             viewBox="0 0 400 230"
             label={tt(`Evidence behind three personas, and a plan that ${rev ? "has a review after two quarters" : "rebuilds the platform with no review point"}`, `Belege hinter drei Personas und ein Plan, der ${rev ? "nach zwei Quartalen geprüft wird" : "die Plattform ohne Prüfpunkt umbaut"}`)}

@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { Bul } from "@/components/materi/kit";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D5 } from "@/components/day5/comicScenes";
+import { COMICS_D5 } from "@/data/day5/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { ContextScenes, FeatureVsUser, KanoPicture, MethodsMatrix, MistakeBuilder, WeighExample } from "@/components/day5/diagrams";
@@ -35,6 +38,7 @@ export function CardA1() {
         tt("UX is the bridge between what learners need and what the business earns from: a platform that serves learners well also serves the company, only less obviously.", "UX ist die Brücke zwischen dem, was Lernende brauchen, und dem, womit das Unternehmen verdient: Eine Plattform, die Lernende gut bedient, bedient auch das Unternehmen, nur weniger offensichtlich."),
       ]}
     >
+      <ComicButton comic={COMICS_D5.A1} art={ART_D5} />
       <FeatureVsUser />
       <KanoPicture />
       <Callout label={tt("Case assumption", "Fallannahme")}>
@@ -62,6 +66,7 @@ export function CardA2() {
         tt("Say what people do as well as what they say: observation in their own setting finds things that interviews miss.", "Sagen Sie, was Menschen tun, nicht nur, was sie sagen: Beobachtung in der eigenen Umgebung findet Dinge, die Interviews verpassen."),
       ]}
     >
+      <ComicButton comic={COMICS_D5.A2} art={ART_D5} />
       <ContextScenes />
       <DataTable
         caption={tt("The three user groups of a learning platform", "Die drei Nutzergruppen einer Lernplattform")}
@@ -96,6 +101,7 @@ export function CardA3() {
         tt("A repair removes one mistake without adding another: renaming a menu does not fix a menu of twenty entries.", "Eine Reparatur beseitigt einen Fehler, ohne einen anderen hinzuzufügen: Ein Menü umzubenennen behebt kein Menü mit zwanzig Einträgen."),
       ]}
     >
+      <ComicButton comic={COMICS_D5.A3} art={ART_D5} />
       <MistakeBuilder />
       <DataTable
         caption={tt("The three mistakes, the question that tests each, and what the learner meets", "Die drei Fehler, die Frage, die jeden prüft, und was die Lernende trifft")}
@@ -130,6 +136,7 @@ export function CardA4() {
         tt("Iterative design repeats test, learn, change; each round starts from what the last one found.", "Iteratives Design wiederholt Testen, Lernen, Ändern; jede Runde beginnt bei dem, was die letzte fand."),
       ]}
     >
+      <ComicButton comic={COMICS_D5.A4} art={ART_D5} />
       <MethodsMatrix />
       <Bul
         items={[
@@ -161,6 +168,7 @@ export function CardA5() {
         tt("Name what you do not know: which information is missing to be sure?", "Nennen Sie, was Sie nicht wissen: Welche Information fehlt, um sicher zu sein?"),
       ]}
     >
+      <ComicButton comic={COMICS_D5.A5} art={ART_D5} />
       <WeighExample />
       <Bul
         items={[
@@ -189,6 +197,7 @@ export function CardB1() {
         tt("One score is not a strategy: a satisfaction number such as NPS shows how people feel, not why, so pair it with a reason.", "Eine Zahl ist keine Strategie: Eine Zufriedenheitszahl wie der NPS zeigt, wie Menschen sich fühlen, nicht warum; koppeln Sie sie also mit einem Grund."),
       ]}
     >
+      <ComicButton comic={COMICS_D5.B1} art={ART_D5} />
       <NeedChain />
       <Bul
         items={[
@@ -218,6 +227,7 @@ export function CardB2() {
         tt("Imagine the plan has failed in a year and ask why; the most likely reason is the biggest risk (Klein 2007).", "Stellen Sie sich vor, der Plan sei in einem Jahr gescheitert, und fragen Sie, warum; der wahrscheinlichste Grund ist das größte Risiko (Klein 2007)."),
       ]}
     >
+      <ComicButton comic={COMICS_D5.B2} art={ART_D5} />
       <GoalsCircles />
       <DataTable
         caption={tt("The three goals, what each wants, and what it fears", "Die drei Ziele, was jedes will und was es fürchtet")}
@@ -249,6 +259,7 @@ export function CardB3() {
         tt("Choose the kinds of evidence a decision needs: what users do (a test, usage data) and what they say (interviews) count more than a request from a loud voice or the opinion of the most senior person.", "Wählen Sie die Arten von Belegen, die eine Entscheidung braucht: Was Nutzer tun (ein Test, Nutzungsdaten) und was sie sagen (Interviews) zählt mehr als die Anfrage einer lauten Stimme oder die Meinung der ranghöchsten Person."),
       ]}
     >
+      <ComicButton comic={COMICS_D5.B3} art={ART_D5} />
       <FeatureGate />
       <DecisionFrame />
       <Callout label={tt("Case assumption", "Fallannahme")}>

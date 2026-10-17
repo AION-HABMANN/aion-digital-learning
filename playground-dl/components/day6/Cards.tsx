@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { Bul } from "@/components/materi/kit";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D6 } from "@/components/day6/comicScenes";
+import { COMICS_D6 } from "@/data/day6/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { GoodVsWeak, JourneyExplorer, PersonaToggle, TwoPerspectives, WeighExample } from "@/components/day6/diagrams";
@@ -36,6 +39,7 @@ export function CardA1() {
         tt("Sort a research note by what it says: a reason in a life is a goal; a situation where something goes wrong is a problem; when, where, on which device or why (voluntary or required) is the context of use.", "Ordnen Sie eine Recherchenotiz danach, was sie sagt: Ein Grund im Leben ist ein Ziel; eine Situation, in der etwas schiefgeht, ist ein Problem; wann, wo, auf welchem Gerät oder warum (freiwillig oder verpflichtend) ist der Nutzungskontext."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.A1} art={ART_D6} />
       <PersonaToggle />
       <DataTable
         caption={tt("The three fields of a persona, and what each is not", "Die drei Felder einer Persona, und was jedes nicht ist")}
@@ -71,6 +75,7 @@ export function CardA2() {
         tt("Prefer behaviour to demographics: “studies twenty minutes on a phone in the evening” tells the platform what to allow; “women aged 30 to 45” does not.", "Bevorzugen Sie Verhalten vor Demografie: „lernt abends zwanzig Minuten auf dem Handy“ sagt der Plattform, was sie erlauben muss; „Frauen zwischen 30 und 45“ nicht."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.A2} art={ART_D6} />
       <GoodVsWeak />
       <DataTable
         caption={tt("Where the data comes from, and why behaviour beats demographics", "Woher die Daten kommen, und warum Verhalten Demografie schlägt")}
@@ -108,6 +113,7 @@ export function CardA3() {
         tt("Rate the emotion on a scale from 1 (very frustrated) to 5 (very motivated), one number per phase.", "Bewerten Sie die Emotion auf einer Skala von 1 (sehr frustriert) bis 5 (sehr motiviert), eine Zahl pro Phase."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.A3} art={ART_D6} />
       <JourneyExplorer />
       <DataTable
         caption={tt("The elements of a journey map", "Die Elemente einer Journey Map")}
@@ -144,6 +150,7 @@ export function CardA4() {
         tt("Look for a measure that helps both, such as a clear course structure that both can see.", "Suchen Sie eine Maßnahme, die beiden hilft, etwa eine klare Kursstruktur, die beide sehen."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.A4} art={ART_D6} />
       <TwoPerspectives />
       <Extra id="A4">
         <p>{tt("The third user: the organisation that buys the courses (a training manager, an HR department) has goals of its own: visible completion, cost control, simple reporting. In Materi B the training manager appears as a segment that is small and business-critical.", "Der dritte Nutzer: Die Organisation, die die Kurse kauft (eine Weiterbildungsleiterin, eine Personalabteilung), hat eigene Ziele: sichtbarer Abschluss, Kostenkontrolle, einfaches Reporting. In Materi B erscheint die Weiterbildungsleiterin als ein Segment, das klein und geschäftskritisch ist.")}</p>
@@ -166,6 +173,7 @@ export function CardA5() {
         tt("Name the central pain point each of your chosen measures answers and the phase it sits in.", "Nennen Sie den zentralen Pain Point, den jede Ihrer gewählten Maßnahmen beantwortet, und die Phase, in der er liegt."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.A5} art={ART_D6} />
       <WeighExample />
       <Bul
         items={[
@@ -194,6 +202,7 @@ export function CardB1() {
         tt("Name the three biggest problems of the target group, each as a situation in a phase of its journey.", "Nennen Sie die drei größten Probleme der Zielgruppe, jedes als Situation in einer Phase ihrer Journey."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.B1} art={ART_D6} />
       <SegmentMatrix />
       <DataTable
         caption={tt("Three questions, what each tells you, and typical evidence", "Drei Fragen, was jede Ihnen sagt, und typische Belege")}
@@ -229,6 +238,7 @@ export function CardB2() {
         tt("Order the decisions by what the primary segment needs first, and by what the others depend on.", "Ordnen Sie die Entscheidungen danach, was das primäre Segment zuerst braucht und wovon die anderen abhängen."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.B2} art={ART_D6} />
       <ConflictScreens />
       <DataTable
         caption={tt("Four conflicts between segments, what each side gets, and a rule for deciding", "Vier Konflikte zwischen Segmenten, was jede Seite bekommt, und eine Regel zum Entscheiden")}
@@ -262,6 +272,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name which segment waits and until when.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, welches Segment wartet und bis wann."),
       ]}
     >
+      <ComicButton comic={COMICS_D6.B3} art={ART_D6} />
       <EvidenceStrip />
       <DecisionFrame />
       <Bul

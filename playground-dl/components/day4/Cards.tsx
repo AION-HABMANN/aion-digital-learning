@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { Bul } from "@/components/materi/kit";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D4 } from "@/components/day4/comicScenes";
+import { COMICS_D4 } from "@/data/day4/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { FeedbackPicture, LoyaltyPicture, MetricsPicture, RewardsPicture, SdtVenn, ScreenBuilder, TomQuizzes, WeighExample } from "@/components/day4/diagrams";
@@ -35,6 +38,7 @@ export function CardA1() {
         tt("Motivation is not the same as gamification: a platform can motivate without any game elements, and a game layer can leave motivation unchanged.", "Motivation ist nicht dasselbe wie Gamification: Eine Plattform kann ohne jedes Spielelement motivieren, und eine Spielschicht kann die Motivation unverändert lassen."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.A1} art={ART_D4} />
       <TomQuizzes />
       <SdtVenn />
       <p>
@@ -76,6 +80,7 @@ export function CardA2() {
         tt("Activation is not the same as more clicking: the learner must do something that relates to the goal.", "Aktivierung ist nicht dasselbe wie mehr Klicken: Die Lernende muss etwas tun, das zum Ziel gehört."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.A2} art={ART_D4} />
       <ScreenBuilder />
       <DataTable
         caption={tt("What the learner meets if a principle is missing", "Was die Lernende trifft, wenn ein Prinzip fehlt")}
@@ -112,6 +117,7 @@ export function CardA3() {
         tt("A measure that adds rewards but leaves a platform without goals, activation and feedback treats the symptom and not the cause.", "Eine Maßnahme, die Belohnungen hinzufügt, aber eine Plattform ohne Ziele, Aktivierung und Feedback lässt, behandelt das Symptom und nicht die Ursache."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.A3} art={ART_D4} />
       <FeedbackPicture />
       <RewardsPicture />
       <LoyaltyPicture />
@@ -143,6 +149,7 @@ export function CardA4() {
         tt("With enough learners, use a control group (an A/B test) so that you know the change, not the season, caused the result.", "Nutzen Sie bei genug Lernenden eine Kontrollgruppe (einen A/B-Test), damit Sie wissen, dass die Änderung und nicht die Jahreszeit das Ergebnis verursacht hat."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.A4} art={ART_D4} />
       <MetricsPicture />
       <p>
         {tt(
@@ -172,6 +179,7 @@ export function CardA5() {
         tt("Name what you do not know, for example whether learners leave for lack of progress or lack of time.", "Nennen Sie, was Sie nicht wissen, zum Beispiel ob Lernende wegen fehlenden Fortschritts oder fehlender Zeit gehen."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.A5} art={ART_D4} />
       <WeighExample />
       <Bul
         items={[
@@ -199,6 +207,7 @@ export function CardB1() {
         tt("Link every measure to a business figure: retention (return rate), completion, and what it costs.", "Verknüpfen Sie jede Maßnahme mit einer Geschäftszahl: Retention (Rückkehrrate), Completion und was sie kostet."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.B1} art={ART_D4} />
       <FoggChart />
       <DataTable
         caption={tt("The three conditions, a typical barrier on a learning platform, and a measure that works on it", "Die drei Bedingungen, eine typische Hürde auf einer Lernplattform und eine Maßnahme, die darauf wirkt")}
@@ -236,6 +245,7 @@ export function CardB2() {
         tt("Judge short-term and long-term effect separately, and say which one your strategy aims at.", "Beurteilen Sie kurzfristige und langfristige Wirkung getrennt und sagen Sie, auf welche Ihre Strategie zielt."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.B2} art={ART_D4} />
       <MotivationMatrix />
       <DataTable
         caption={tt("Four conflicts, what each side gets, and a rule for deciding", "Vier Konflikte, was jede Seite bekommt, und eine Regel zum Entscheiden")}
@@ -270,6 +280,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben."),
       ]}
     >
+      <ComicButton comic={COMICS_D4.B3} art={ART_D4} />
       <ControlGroupChart />
       <DecisionFrame />
       <Bul

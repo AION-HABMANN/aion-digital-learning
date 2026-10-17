@@ -2,7 +2,7 @@
 
 **This is the living rulebook for the DL course.** It holds the current standard, the history of every change, and which day already follows which version. When a day is adjusted and the change should apply elsewhere, it is changed **here first**, a line is added to the changelog, and the status matrix shows which days still need it.
 
-- **Current version: v1.1** (2026-10-17), first written from the rebuild of Day 2.
+- **Current version: v1.2** (2026-10-17), first written from the rebuild of Day 2; v1.2 adds the pixel story comics (section 13).
 - **Reference implementation: Day 2** (`playground-dl/`, commits `dafc57f`, `f008ac4`, `3555e6b`, `ff322a3`).
 - **Read this file first for any DL task.** `CLAUDE.md` (#1 to #56) still holds the older rules; where they differ for a task, this file wins (section 10).
 - **Scope: the website only.** The Word documents follow their own rule (CLAUDE.md #53) and are touched only on the user's signal.
@@ -10,7 +10,7 @@
 ## How this file is kept up to date
 
 1. A change is decided in a session (the user adjusts something on a day, or asks for a rule).
-2. The rule is edited **in section 1 to 9 of this file**, never only in a code comment or in chat.
+2. The rule is edited **in section 1 to 9 or 13 of this file**, never only in a code comment or in chat.
 3. A line goes into the **changelog (section 11)**: date, what changed, why, and which days it applies to (`all days`, `from Day N`, `Day N only`).
 4. The **status matrix (section 12)** is updated: the day that got the change is marked, the others stay open.
 5. The version number goes up (v1.1, v1.2, …) when a rule changes meaning; a wording fix does not bump it.
@@ -87,7 +87,7 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 | Still applies in full | Missing lists and jump links (#1, #2, #34); never-disabled buttons (#3); no hard locks (#6); the mentor bar, fill and answer keys (#7, #23); field help under the label (#8); the stack (#9); verification (#10); glossary (#19); page map (#28); home intro (#27); style and the Ocean palette (#15); the DL adaptation (#49); plan fidelity (#50); writing to explain (#51); real pictures (#52); Word rule (#53); two routes per day (#30); EN and DE (#32); export (#16) |
 | **Overridden by this file for the tasks of a day built to it** | check-on-demand with a clue (#4), undo and redo on placement (#5), triage and a shared grid (#13, #14), Core and Optional split and ceiling (#35), Core never depends on Optional (#40, no Optional exists), the Core choice of #44, the prioritisation block (#45), the decision frame (#47), the measure block and sentence (#55 sections 2 and 3), the Level 3 live panel (#56) |
 | Not used for DL | the Friday capstone (#29), the Day 13 to 16 form (#48), CS calculations (#21 to #26, #43) unless the plan asks for one |
-| Cards, later | story comics on cards (#54): added when the user asks |
+| Story comics | story comics on cards (#54): Days 2 to 6 carry the pixel comics of section 13 (they replace "Walk me through it"); Day 1 keeps its line-art comics; Days 7 to 16 get them when the user asks |
 
 ## 11. Changelog
 
@@ -105,23 +105,47 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 | 2026-10-17 | v1.1 | Days 4 to 6 rebuilt on the new shared free-form engine `dayFree` (one spec file per day) | Three days in one pass; the engine makes the next days a data file and a kit | Days 4, 5, 6 done |
 | 2026-10-17 | v1.1 | A full upgrade request ("upgrade Day N like Day 2") needs no validation: no map-and-wait, no mockup-and-wait; read the standard and build | The standard exists; the user does not want to confirm each day again | Day 3 and every later day |
 | 2026-10-17 | v1.0 | This file is the living rulebook; CLAUDE.md #57 to #60 point here | One place to update and to see what changed | All days |
+| 2026-10-17 | v1.2 | Story comics in pixel art on every study card of Days 2 to 6 ("Read the comic"), replacing the "Walk me through it" story; style, kit, German labels and checks recorded in section 13; CLAUDE.md #54 points here | The user approved the pixel style (a chat mockup of Day 2) and asked for Days 2 to 6 | Days 2 to 6 done; later days on request |
 
 ## 12. Status matrix: which version each day follows
 
 `✓` done · `old` still the previous form · `wait` waiting for the user's signal · `n/a`
 
-| Day | Tasks (sections 1 to 3) | Fields grow (section 2) | Materi synced (section 6) | Simulations (section 4) | Word documents |
-|---|---|---|---|---|---|
-| 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | old (v1.1), wait |
-| **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **old, out of sync, wait** |
-| **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **old, out of sync, wait** |
-| **4** | **✓ v1.1** | **✓** | **old**, wait | **✓** (platforms, options, MotivaLearn, desk) | **old, out of sync, wait** |
-| **5** | **✓ v1.1** | **✓** | **old**, wait | **✓** (LearnBase, options, desk) | **old, out of sync, wait** |
-| **6** | **✓ v1.1** | **✓** | **old**, wait | **✓** (EduPath, desk) | **old, out of sync, wait** |
-| 7 | old | ✓ (shared) | old | old | old (v1.1), wait |
-| 8 | old | ✓ (shared) | old | old | old (v1.1), wait |
-| 9 to 16 | old | ✓ (shared) | old | old | no Word documents yet |
+| Day | Tasks (sections 1 to 3) | Fields grow (section 2) | Materi synced (section 6) | Simulations (section 4) | Comics (section 13) | Word documents |
+|---|---|---|---|---|---|---|
+| 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | line-art (#54), ✓ | old (v1.1), wait |
+| **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **✓ pixel** | **old, out of sync, wait** |
+| **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **✓ pixel** | **old, out of sync, wait** |
+| **4** | **✓ v1.1** | **✓** | **old**, wait | **✓** (platforms, options, MotivaLearn, desk) | **✓ pixel** | **old, out of sync, wait** |
+| **5** | **✓ v1.1** | **✓** | **old**, wait | **✓** (LearnBase, options, desk) | **✓ pixel** | **old, out of sync, wait** |
+| **6** | **✓ v1.1** | **✓** | **old**, wait | **✓** (EduPath, desk) | **✓ pixel** | **old, out of sync, wait** |
+| 7 | old | ✓ (shared) | old | old | wait (on request) | old (v1.1), wait |
+| 8 | old | ✓ (shared) | old | old | wait (on request) | old (v1.1), wait |
+| 9 to 16 | old | ✓ (shared) | old | old | wait (on request) | no Word documents yet |
 
 **Reference for later days:** Days 4 to 6 are the reference for the `dayFree` engine (`data/day4/free.ts` is the most complete spec).  Day 3 adds the shared `components/ui/FacilitatorCard.tsx` and shows how a Level 1 task with an options block and a case study with a list-or-table pair are built (`components/day3/Task1.tsx`).
 
 **Open questions for the user:** whether Day 1 is converted to the standard (it has its own newer form from #55 and #56); which route to take for the days on shared engines (4 to 6, 8 to 16); when the Day 2 Word documents may be rebuilt.
+
+## 13. Story comics in pixel art (CLAUDE.md #54 points here)
+
+Written 2026-10-17 from Days 2 to 6. A rule about the **website only** (Word keeps its own detail, #52, #53). Every study card carries one comic, a quiet row at the top of the card ("▶ Read the comic · title · teaser · n panels"), opening a dialog. **It replaces the card's "Walk me through it" story** (the `useStory` plan, the `<Story>` row, the spotlight classes and the "Press “Walk me through it”" sentence are removed; the sentence now says “Read the comic”). The diagram's own controls, "The point" and "What this shows" stay.
+
+**Not a new story: the card's own material in pictures.** The people and the example company are the card's own (Day 2: Sofia, Ana, Lena, Tom, LearnLoop's Chief Product Officer; Day 3: Daniel, Mira, Priya; Day 4: Tom, Anna, Maya, Dana, Priya; Day 5: Mia, Priya, Dana, the finance director; Day 6: Mia, Sven, Petra, Priya, Dana, Sandra), the figures are the card's, and anything invented is labelled "Case assumption" in the comic's note. A card with no story (a static diagram) gets one told from its idea and its picture.
+
+**Shape.** Four panels: the situation, the problem, the fix, and a last panel `THE RULE` that states the card's rule in one sentence and **names the task block that uses it** (a real block of the day: 1.1, 1.2, 2.1 or 3.1; there are no Optional blocks). A card that needs one more step has five (never more). Every panel has: the drawing, a scene line, speech (HTML), a tag that names what the panel shows (`tone` plain, teal or ink; the words carry the meaning, never the colour), an always-visible "What this panel means" (through `glossify`, #19) and optionally a "Look at:" line. Both languages are written by hand (#32).
+
+**The style (approved by the user from a chat mockup).**
+- A 160 by 90 grid in an SVG with `shapeRendering="crispEdges"`: chunky sprites with a **one-pixel outline in #1B1B1F**, flat colours, big heads, a face made from a few pixels, original characters (never someone else's). A pale-blue sky and a wooden floor (`Stage`), a table, a monitor, a board as props. No gradients, no shadows, no photo.
+- **Speech is never drawn**: it is HTML beside the picture and wraps in both languages. Inside the drawing only numerals and short capital labels (`Txt`, a monospace face).
+- The dialog looks like the drawings: a dark letterbox (`bg-[#1B1B1F]`) around the picture, a black frame, square speech boxes and square step dots (`pixel: true` on the comic); the header and the footer stay fixed so Next is always visible (check 390 px and a 450 px-high pane).
+- A rating in a drawing is the same rating the card's diagram prints (Low, Mid, High as three squares), a chart uses the card's own numbers, money is the card's own. Text in a board stays inside the board: keep a rating board 56 high and its rows at 38, 46 and 54.
+
+**Kit and files.**
+- `components/comic/PixelKit.tsx`: `Stage` (backgrounds office, class, outside, plain, night), `Person` (a cast entry in `LOOK`, a face `neutral|worried|happy|sad|think|surprised`, a pose `down|up|point`, `flip`), `Kid`, `Table`, `Board`, `Mon`, `Lines`, `Bar`, `Chip`, `Paper`, `Calendar`, `Cloud`, `Door`, `Tree`, `Coins`, `Icon` (check, cross, up, down, clock, warn, ask, idea, eye, lock, chart, book, heart, gear, play, pencil), `Mark` (sweat, ask, bang, zzz), `Tick`, `Cross`, `Arrow`, `Bits` (a small bitmap), `Txt`.
+- `components/dayN/comicScenes.tsx`: `ART_DN`, one entry per panel (`a1-1` to `b3-4`), plus the day's own helpers (a chart, a matrix, a persona card) and its cast: `LOOK.name = { hair, shirt, skin?, long?, glasses? }`. `data/dayN/comics.ts`: `COMICS_DN = bi({ A1: { id, pixel: true, title, teaser, note, names, panels: [...] }, ... }) as Record<MaterialId, Comic>`. `components/dayN/Cards.tsx`: `<ComicButton comic={COMICS_DN.A1} art={ART_DN} />` as the first child of each `MaterialCard`. Dialog: `components/comic/ComicModal.tsx`.
+- **German labels in the drawings:** every string label goes through `components/comic/pixelLabels.ts` (`pixelLabel`, called by `Txt`): one hand-written German entry per English label; common UX terms stay English (Feedback, Persona, Usability-Test, Analytics, Roll-out); numbers are written in German form (40.000, 8.000 €, 60 %). A label with no entry is logged to the console in German mode (`[pixel label without German]`), so a gap is found while testing. A label that reads the same in both languages still has an entry.
+
+**How to add a day.** Read each card (its "In plain words", picture text, story, data) and write the panels from it; list the cast and its look; draw the scenes with the kit and the day's helpers; write `comics.ts`; add the `ComicButton` to every card; remove the card's story from `diagrams.tsx` (and `diagramsB.tsx`) and change the "How to read the picture" sentence; add every new label to `pixelLabels.ts`; then run the checks below.
+
+**Checks before a day ships.** `npx tsc --noEmit`. In the browser, EN and DE: open every comic of Route 1 (open the Optional card too) and Route 2 and look at every panel (a gallery of all panels is the quickest way): nothing overflows a board or a bar, no sprite covers a label, the figures equal the card's; no console warning `[pixel label without German]`; no dialog element wider than the dialog; ← → and Escape work; 390 px has no horizontal scroll and Next stays visible; no card still says “Walk me through it”. Reference: Days 2 to 6 (Day 2 is the first, `components/day2/comicScenes.tsx`).

@@ -8,14 +8,13 @@ import { IterateLoop, LessonBuilderMock, LoyaltyCard, MeasureThumb, MetricMini, 
 import type { PointsPhase, Principles5 } from "@/components/day4/mocks";
 import { Svg, Txt } from "@/components/day/mockKit";
 import { CostBands } from "@/components/materi/figures";
-import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
-import type { StoryPlan } from "@/components/materi/kit";
+import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
 import { tt } from "@/lib/lang";
 
 /**
  * Day 4 · the teaching diagrams of Materi A. Interactive ones (Tom's quizzes with and without points, the lesson screen that gains a principle at a time,
- * the LearnLoop weighing grid) carry "The point", "Walk me through it" and an always-visible "What this shows" (CLAUDE.md #20, #36, #51). The static ones are
+ * the LearnLoop weighing grid) carry "The point" and an always-visible "What this shows" (CLAUDE.md #20, #36, #51). The static ones are
  * drawn pictures (#52). Example companies: LearnLoop (an online-course provider) and the made-up Tom and Anna; never MotivaLearn, so no task is answered here.
  */
 
@@ -28,12 +27,6 @@ export function TomQuizzes() {
   const [phase, setPhase] = useState<PointsPhase>("before");
   const weeks = PHASE_ORDER.slice(0, PHASE_ORDER.indexOf(phase) + 1).flatMap((p) => QUIZ_WEEKS[p].map((v) => ({ v, p })));
   const avg = (p: PointsPhase) => Math.round((QUIZ_WEEKS[p].reduce((a, b) => a + b, 0) / QUIZ_WEEKS[p].length) * 10) / 10;
-  const story = useStory([
-    { title: tt("Tom enjoys the quizzes", "Tom macht die Quizze gern"), say: tt(`Let us follow Tom, who works in procurement and uses his company's learning platform. He likes the quizzes, because he enjoys seeing that he knows the answer, so he does about ${avg("before")} a week without anyone asking him to. In other words, his reason is inside the activity.`, `Begleiten wir Tom, der im Einkauf arbeitet und die Lernplattform seines Unternehmens nutzt. Er macht die Quizze gern, weil er es mag zu sehen, dass er die Antwort weiß, und macht deshalb etwa ${avg("before")} pro Woche, ohne dass ihn jemand dazu auffordert. Sein Grund liegt also in der Tätigkeit selbst.`), look: tt("the first four bars, and the quiz screen without points", "die ersten vier Balken und der Quizbildschirm ohne Punkte"), apply: () => setPhase("before") },
-    { title: tt("The platform adds points", "Die Plattform fügt Punkte hinzu"), say: tt(`Now the platform adds points for every quiz. For a few weeks Tom does more, about ${avg("points")} a week, because a reward from outside has been added to his own reason. This is what the designers hoped for, and it looks like a success.`, `Nun fügt die Plattform Punkte für jedes Quiz hinzu. Einige Wochen lang macht Tom mehr, etwa ${avg("points")} pro Woche, weil zu seinem eigenen Grund eine Belohnung von außen hinzugekommen ist. Das haben sich die Gestalter erhofft, und es sieht nach einem Erfolg aus.`), look: tt("the next four bars and the points banner on the screen", "die nächsten vier Balken und das Punktebanner auf dem Bildschirm"), apply: () => setPhase("points") },
-    { title: tt("The points programme ends", "Das Punkteprogramm endet"), say: tt(`Then the programme ends. Tom now does only about ${avg("ended")} quizzes a week, fewer than the ${avg("before")} he did before any points. In his head the quiz had become a way to collect points, so when the points stop, the reason stops too. Researchers call this the overjustification effect.`, `Dann endet das Programm. Tom macht nun nur noch etwa ${avg("ended")} Quizze pro Woche, weniger als die ${avg("before")} vor allen Punkten. In seinem Kopf war das Quiz zu einem Weg geworden, Punkte zu sammeln, und als die Punkte aufhören, hört auch der Grund auf. Forschende nennen das den Overjustification-Effekt.`), look: tt("the last four bars, lower than the first four", "die letzten vier Balken, niedriger als die ersten vier"), apply: () => setPhase("ended") },
-    { title: tt("What to take from it", "Was Sie mitnehmen"), say: tt("So an extrinsic reward can start behaviour, but it may not keep it, and a reward for something a person already enjoys can lower their interest. Before you add points, ask whether the learner already has a reason of their own, and whether the reward would replace it. Press the three buttons yourself to compare.", "Eine extrinsische Belohnung kann also ein Verhalten anstoßen, es aber vielleicht nicht halten, und eine Belohnung für etwas, das eine Person schon gern tut, kann ihr Interesse senken. Fragen Sie vor Punkten, ob die Lernende schon einen eigenen Grund hat und ob die Belohnung ihn ersetzen würde. Drücken Sie die drei Schaltflächen selbst, um zu vergleichen."), apply: () => setPhase("ended") },
-  ] satisfies StoryPlan[]);
   const btns: [PointsPhase, string][] = [
     ["before", tt("Before points", "Vor den Punkten")],
     ["points", tt("With points", "Mit Punkten")],
@@ -43,15 +36,14 @@ export function TomQuizzes() {
     <Diagram label={tt("Tom's quizzes, with and without points · Exploratory · Case assumption", "Toms Quizze, mit und ohne Punkte · Explorativ · Fallannahme")}>
       <div className="space-y-3">
         <ThePoint>{tt("A reward from outside can start a behaviour, but it can replace the learner's own reason, and then the behaviour fades when the reward stops.", "Eine Belohnung von außen kann ein Verhalten anstoßen, aber sie kann den eigenen Grund der Lernenden ersetzen, und dann verfliegt das Verhalten, wenn die Belohnung aufhört.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("The platform", "Die Plattform")} className="flex flex-wrap gap-2">
           {btns.map(([id, label]) => (
-            <button key={id} type="button" aria-pressed={phase === id} onClick={() => { story.leave(); setPhase(id); }} className={clsx("btn btn-sm min-h-[40px] border", phase === id ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
+            <button key={id} type="button" aria-pressed={phase === id} onClick={() => { setPhase(id); }} className={clsx("btn btn-sm min-h-[40px] border", phase === id ? "border-accent bg-accentSoft text-ink" : "border-line bg-paper text-ash hover:border-ash")}>
               {label}
             </button>
           ))}
         </div>
-        <div className={clsx("grid items-end gap-3 sm:grid-cols-2", story.step !== null && "anim-pulse rounded-lg")}>
+        <div className={"grid items-end gap-3 sm:grid-cols-2"}>
           <div className="mx-auto w-full max-w-[300px]">
             <QuizMock phase={phase} />
           </div>
@@ -124,12 +116,6 @@ export function ScreenBuilder() {
   const [on, setOn] = useState<Principles5>(NONE5);
   const count = Object.values(on).filter(Boolean).length;
   const toggle = (k: keyof Principles5) => setOn((s) => ({ ...s, [k]: !s[k] }));
-  const story = useStory([
-    { title: tt("Anna meets a long page", "Anna trifft auf eine lange Seite"), say: tt("Let us follow Anna, a sales manager who takes a negotiation course on LearnLoop, an online-course provider. The first version of the course opens with a long page of reading. She does not know what she will be able to do at the end, nothing asks her to try anything, nothing tells her how she is doing, and the page does not show how far she has come. After two pages she closes it.", "Begleiten wir Anna, eine Vertriebsleiterin, die bei LearnLoop, einem Anbieter von Online-Kursen, einen Verhandlungskurs belegt. Die erste Version des Kurses beginnt mit einer langen Lesetextseite. Sie weiß nicht, was sie am Ende können wird, nichts fordert sie auf, etwas auszuprobieren, nichts sagt ihr, wie sie dasteht, und die Seite zeigt nicht, wie weit sie gekommen ist. Nach zwei Seiten schließt sie sie."), look: tt("the screen: only lines of text", "der Bildschirm: nur Textzeilen"), apply: () => setOn(NONE5) },
-    { title: tt("The unit says what it is for", "Die Einheit sagt, wofür sie da ist"), say: tt("In the second version the unit starts with “After this unit you can write a counter-offer”, which is the principle of clarity, and a short work example follows, which gives it relevance. Anna now knows what the page is for and why it matters in her job, so she reads on with a purpose.", "In der zweiten Version beginnt die Einheit mit „Nach dieser Einheit können Sie ein Gegenangebot schreiben“, das ist das Prinzip der Klarheit, und danach folgt ein kurzes Praxisbeispiel, das ihr Relevanz gibt. Anna weiß nun, wofür die Seite da ist und warum sie in ihrem Beruf zählt, und liest mit einem Ziel weiter."), look: tt("the goal sentence and the example box", "der Zielsatz und das Beispielfeld"), apply: () => setOn({ ...NONE5, goal: true, example: true }) },
-    { title: tt("She does something and gets an answer", "Sie tut etwas und bekommt eine Antwort"), say: tt("Then comes a three-minute task: Anna types her counter-offer, which is activation. A message follows: “Your offer names a price but no condition. Next: task 4”. That is feedback with a next step, so she knows how she did and what to do next, and she does not have to guess.", "Dann kommt eine Dreiminutenaufgabe: Anna tippt ihr Gegenangebot, das ist Aktivierung. Eine Meldung folgt: „Ihr Angebot nennt einen Preis, aber keine Bedingung. Weiter: Aufgabe 4“. Das ist Feedback mit einem nächsten Schritt, sie weiß also, wie sie es gemacht hat und was als Nächstes kommt, und muss nicht raten."), look: tt("the task box and the message under it", "das Aufgabenfeld und die Meldung darunter"), apply: () => setOn({ goal: true, example: true, task: true, feedback: true, progress: false }) },
-    { title: tt("The page shows her progress", "Die Seite zeigt ihren Fortschritt"), say: tt("At the top a bar shows 40 percent, which is progression: Anna can see her learning move forward. Nothing about the content changed. What changed is that each of the five principles is visible on the screen, so Anna can feel that she is getting somewhere. Switch the five principles on and off yourself to see which element delivers which.", "Oben zeigt ein Balken 40 Prozent, das ist Progression: Anna sieht, wie ihr Lernen vorankommt. Am Inhalt hat sich nichts geändert. Geändert hat sich, dass jedes der fünf Prinzipien auf dem Bildschirm sichtbar ist, sodass Anna spüren kann, dass sie vorankommt. Schalten Sie die fünf Prinzipien selbst ein und aus, um zu sehen, welches Element welches liefert."), look: tt("the bar at the top, and the whole screen", "der Balken oben und der ganze Bildschirm"), apply: () => setOn(ALL5) },
-  ] satisfies StoryPlan[]);
   const sw: [keyof Principles5, string, string][] = [
     ["goal", tt("Clarity: a goal sentence", "Klarheit: ein Zielsatz"), tt("the learner knows what this is for", "die Lernende weiß, wofür das da ist")],
     ["task", tt("Activation: a task", "Aktivierung: eine Aufgabe"), tt("the learner does something", "die Lernende tut etwas")],
@@ -141,17 +127,16 @@ export function ScreenBuilder() {
     <Diagram label={tt("One lesson screen that gains the five design principles, one at a time · Exploratory · Case assumption", "Ein Lektionsbildschirm, der die fünf Gestaltungsprinzipien bekommt, eines nach dem anderen · Explorativ · Fallannahme")}>
       <div className="space-y-3">
         <ThePoint>{tt("The same content can motivate or not, depending on whether five things are visible on the screen: a goal, something to do, a result, a sign of progress and a reason.", "Derselbe Inhalt kann motivieren oder nicht, je nachdem, ob fünf Dinge auf dem Bildschirm sichtbar sind: ein Ziel, etwas zu tun, ein Ergebnis, ein Zeichen von Fortschritt und ein Grund.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:items-start">
           <div role="group" aria-label={tt("The five principles", "Die fünf Prinzipien")} className="grid gap-2">
             {sw.map(([k, label, sub]) => (
-              <button key={k} type="button" aria-pressed={on[k]} onClick={() => { story.leave(); toggle(k); }} className={clsx("min-h-[44px] rounded-lg border px-3 py-2 text-left text-caption transition-colors", on[k] ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash")}>
+              <button key={k} type="button" aria-pressed={on[k]} onClick={() => { toggle(k); }} className={clsx("min-h-[44px] rounded-lg border px-3 py-2 text-left text-caption transition-colors", on[k] ? "border-accent bg-accentSoft ring-2 ring-gold" : "border-line bg-paper hover:border-ash")}>
                 <span className="font-semibold text-ink"><span aria-hidden className="mr-1.5">{on[k] ? "☑" : "☐"}</span>{label}</span>
                 <span className="block pl-5 text-ash">{sub}</span>
               </button>
             ))}
           </div>
-          <div className={clsx("mx-auto w-full max-w-[420px]", story.step !== null && "anim-pulse rounded-lg")}>
+          <div className={"mx-auto w-full max-w-[420px]"}>
             <LessonBuilderMock on={on} />
           </div>
         </div>
@@ -284,12 +269,6 @@ export function MetricsPicture() {
 
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
-  const story = useStory([
-    { title: tt("The setting", "Die Ausgangslage"), say: tt("Let us look at LearnLoop again. Learners drop out early, the budget is €40,000 and the time limit is two months, so the team has to choose carefully. Three ideas are on the table, and we rate each on motivation impact (how much it supports lasting motivation), effort (money and time) and risk (how it can backfire). The rule for effort is: under €10,000 is Low, up to €20,000 is Mid, above that is High.", "Sehen wir uns LearnLoop noch einmal an. Lernende brechen früh ab, das Budget beträgt 40.000 € und das Zeitlimit zwei Monate, das Team muss also sorgfältig wählen. Drei Ideen liegen auf dem Tisch, und wir bewerten jede nach Motivationswirkung (wie sehr sie dauerhafte Motivation stützt), Aufwand (Geld und Zeit) und Risiko (wie sie nach hinten losgehen kann). Die Regel für den Aufwand lautet: unter 10.000 € ist Niedrig, bis 20.000 € Mittel, darüber Hoch."), look: tt("the three pictures and the three bars", "die drei Bilder und die drei Balken"), apply: () => setSel(null) },
-    { title: tt("A weekly leaderboard", "Eine wöchentliche Rangliste"), say: tt("The first idea, a weekly leaderboard, costs €14,000, so its effort is Mid. It sounds motivating, but a ranking rewards the learners who are already active and can discourage those at the bottom. So the motivation impact is Low for the learners LearnLoop wants to keep, and the risk is High, because of pressure and social comparison.", "Die erste Idee, eine wöchentliche Rangliste, kostet 14.000 €, ihr Aufwand ist also Mittel. Sie klingt motivierend, aber eine Rangliste belohnt die Lernenden, die schon aktiv sind, und kann die am unteren Ende entmutigen. Die Motivationswirkung ist deshalb für die Lernenden, die LearnLoop halten will, Niedrig, und das Risiko ist Hoch, wegen Druck und sozialem Vergleich."), look: tt("the top row, impact and risk", "die obere Zeile, Wirkung und Risiko"), apply: () => setSel("w1.risk") },
-    { title: tt("A progress display, then practice tasks", "Eine Fortschrittsanzeige, dann Übungsaufgaben"), say: tt("The second idea, a progress and next-step display, costs €8,000, so its effort is Low. It shows the learner how far they have come and what to do next, so its impact is High, and its risk is Low because it adds information and takes nothing away. The third idea, short practice tasks, costs €26,000, so its effort is High, and it takes seven of the eight weeks. It makes learners active, so its impact is High and lasting, and its risk is Mid, because the schedule is tight and weak tasks would feel like homework.", "Die zweite Idee, eine Fortschritts- und Nächster-Schritt-Anzeige, kostet 8.000 €, ihr Aufwand ist also Niedrig. Sie zeigt der Lernenden, wie weit sie gekommen ist und was sie als Nächstes tun soll, die Wirkung ist also Hoch, und das Risiko ist Niedrig, weil sie Information hinzufügt und nichts wegnimmt. Die dritte Idee, kurze Übungsaufgaben, kostet 26.000 €, ihr Aufwand ist also Hoch, und sie braucht sieben der acht Wochen. Sie macht Lernende aktiv, die Wirkung ist also Hoch und dauerhaft, und das Risiko ist Mittel, weil der Zeitplan eng ist und schwache Aufgaben sich wie Hausaufgaben anfühlen würden."), look: tt("the middle and the bottom row", "die mittlere und die untere Zeile"), apply: () => setSel("w2.impact") },
-    { title: tt("Which has a lasting effect", "Welche wirkt nachhaltig"), say: tt("So the progress display has the lasting effect, even though the leaderboard sounds more exciting, because it stays useful after any reward would stop. Ask the same question of any measure: what remains when the reward is gone? LearnLoop also names what it does not know: whether learners leave for lack of progress or lack of time. Select any cell in the table to read its reason.", "Die Fortschrittsanzeige wirkt also nachhaltig, obwohl die Rangliste aufregender klingt, weil sie auch dann nützlich bleibt, wenn jede Belohnung wegfiele. Stellen Sie dieselbe Frage jeder Maßnahme: Was bleibt, wenn die Belohnung weg ist? LearnLoop nennt auch, was es nicht weiß: ob Lernende wegen fehlenden Fortschritts oder fehlender Zeit gehen. Wählen Sie eine Zelle in der Tabelle, um ihren Grund zu lesen."), apply: () => setSel("w2.effort") },
-  ] satisfies StoryPlan[]);
   const rows: GridRow[] = [
     { id: "w1", name: tt("Weekly leaderboard", "Wöchentliche Rangliste"), sub: tt("€14,000", "14.000 €"), cells: {
       impact: { level: 1, reason: tt("It rewards the already active; it does not help the learner who is lost.", "Sie belohnt die schon Aktiven; sie hilft der Lernenden nicht, die verloren ist.") },
@@ -316,7 +295,6 @@ export function WeighExample() {
     <Diagram label={tt("A worked example: LearnLoop weighs three engagement measures · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Engagement-Maßnahmen ab · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Rate each measure on how much it supports lasting motivation, what it costs and how it can backfire. Pressure and rewards carry the highest risk, and the measure whose value stays when a reward stops is the one with a lasting effect.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dauerhafte Motivation stützt, was sie kostet und wie sie nach hinten losgehen kann. Druck und Belohnungen tragen das höchste Risiko, und die Maßnahme, deren Wert bleibt, wenn eine Belohnung endet, ist die mit nachhaltiger Wirkung.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div className="mx-auto grid max-w-[560px] grid-cols-3 gap-2">
           {([["leaderboard", tt("A · Weekly leaderboard", "A · Wöchentliche Rangliste")], ["progress", tt("B · Progress and next step", "B · Fortschritt und nächster Schritt")], ["tasks", tt("C · Short practice tasks", "C · Kurze Übungsaufgaben")]] as const).map(([k, name]) => (
             <div key={k}>
@@ -339,7 +317,7 @@ export function WeighExample() {
             { to: null, label: tt("High", "Hoch") },
           ]}
         />
-        <OptionGrid label={tt("LearnLoop · budget €40,000, two months", "LearnLoop · Budget 40.000 €, zwei Monate")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { story.leave(); setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · budget €40,000, two months", "LearnLoop · Budget 40.000 €, zwei Monate")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
         <p className="rounded-md border border-line bg-canvas px-3 py-2 text-caption text-ink">
           <span className="smallcaps mr-1.5">{tt("Still unknown", "Noch unbekannt")}</span>
           <Gloss>{tt("Whether learners leave for lack of progress or for lack of time. LearnLoop would interview six learners who dropped out before it commits the whole budget.", "Ob Lernende wegen fehlenden Fortschritts oder fehlender Zeit gehen. LearnLoop würde sechs Lernende interviewen, die abgebrochen haben, bevor es das ganze Budget bindet.")}</Gloss>

@@ -2212,8 +2212,10 @@ The user's standing instruction (2026-10-13), after the written feedback of Habm
 ## 54. Story comics on the study cards: a "Read the comic" row replaces "Walk me through it" (reference: Day 1)
 
 The user's standing request (2026-10-15, first built on Day 1, after the same idea worked for the CS course, `aion-cs` rule #49): a card's material is easier to understand as a short
-picture story than as a diagram plus a walk-through. **It is now the standing standard for the DL course (user decision 2026-10-15):** every new DL day ships a comic on every study card from the start, and Days 2 to 16 get theirs when the user
-asks (until then they keep "Walk me through it"). **Day 1 is the reference** (`playground-dl/components/comic/`, `components/day1/comicScenes.tsx`, `data/day1/comics.ts`); copy from it, never from memory. It is a rule about the **website only** (#52); the Word documents keep their own detail.
+picture story than as a diagram plus a walk-through. **It is now the standing standard for the DL course (user decision 2026-10-15):** every new DL day ships a comic on every study card from the start, and the other days get theirs when the user
+asks (until then they keep "Walk me through it"). **Day 1 is the reference for the line-art form** (`playground-dl/components/comic/ComicKit.tsx`, `components/day1/comicScenes.tsx`, `data/day1/comics.ts`).
+**From Day 2 the comics are drawn in pixel art (user decision 2026-10-17, approved from a chat mockup): Days 2 to 6 are done in it, and the style, the kit (`components/comic/PixelKit.tsx`), the German labels in the drawings
+(`pixelLabels.ts`), how to add a day and the checks are recorded in `DL-STANDARD.md` section 13, which wins over the "Drawings" bullet below.** Copy from the reference, never from memory. It is a rule about the **website only** (#52); the Word documents keep their own detail.
 
 - **Not a new story: the card's own material told in pictures.** Each comic uses the people and the example company the card already uses (Day 1: Mia, Daniel, Lena, LearnLoop's managing
   director) and the card's own figures, rules and words. Where the card had a "Walk me through it" story, the comic is that story drawn; where it had none (a static diagram, two tables), the comic tells
@@ -2225,7 +2227,7 @@ asks (until then they keep "Walk me through it"). **Day 1 is the reference** (`p
   HTML (wraps in both languages), a tag that names what the panel shows (labels carry the meaning, never colour alone), an always-visible "What this panel means" through `glossify` (#19), and an optional "Look at:" line.
   Next / Back, step dots, ← → and Escape; focus moves in and back; the header and footer stay fixed so Next is always visible (check 390 px and a 450 px-high pane). The glossary panel (z 45) sits above the modal (z 44).
 - **Order of a comic:** the situation, the problem, the fix, and a last panel that states the card's rule in one sentence and names the task block that uses it (never an Optional block from a Core card, #40).
-- **Drawings:** pure SVG from `ComicKit.tsx` (`Person`, `Screen` mock windows, `Dots` for Low / Mid / High, `Check`, `Cross`), a 320 × 190 frame, hardcoded neutral greys with the site's blue only where the point needs it (#52, honest
+- **Drawings (Day 1, line art; Days 2 and later are pixel art, see `DL-STANDARD.md` section 13):** pure SVG from `ComicKit.tsx` (`Person`, `Screen` mock windows, `Dots` for Low / Mid / High, `Check`, `Cross`), a 320 × 190 frame, hardcoded neutral greys with the site's blue only where the point needs it (#52, honest
   drawings), one-string `<title>` and `aria-label` (#10), no sentences inside the SVG (only numerals, names and one-word labels through `tt`, with German money as `12.000 €`). A rating in a drawing is the same rating the card's diagram
   prints (computed from, or copied once from, the same data).
 - **Data:** `data/dayN/comics.ts`, `bi({...}) as Record<MaterialId, Comic>`, both languages written by hand (#32); one `ART_DN` record mapping each panel's `art` key to its drawing.

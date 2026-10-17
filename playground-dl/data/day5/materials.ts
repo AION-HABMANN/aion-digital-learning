@@ -37,8 +37,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 1 beschreibt eine Plattform mit vielen Funktionen und wenig Nutzung. Sie betrachten sie mit den Augen der Lernenden und brauchen Worte, um zu sagen, was daran falsch ist, nach Features zu entscheiden.",
     ),
     picture: t(
-      "The first picture shows the same platform home screen decided in two ways: switch between “Decided by features” and “Decided by learner tasks” to see the menu change, and press “Walk me through it” for a short story. The second picture draws the three kinds of quality of the Kano model as three curves, so you can see why extra features do not rescue a weak basic.",
-      "Das erste Bild zeigt denselben Startbildschirm einer Plattform, auf zwei Arten entschieden: Wechseln Sie zwischen „Nach Features entschieden“ und „Nach Aufgaben der Lernenden entschieden“, um das Menü sich ändern zu sehen, und drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte. Das zweite Bild zeichnet die drei Qualitätsarten des Kano-Modells als drei Kurven, damit Sie sehen, warum zusätzliche Features ein schwaches Fundament nicht retten.",
+      "The first picture shows the same platform home screen decided in two ways: switch between “Decided by features” and “Decided by learner tasks” to see the menu change, and press “Read the comic” for a short story. The second picture draws the three kinds of quality of the Kano model as three curves, so you can see why extra features do not rescue a weak basic.",
+      "Das erste Bild zeigt denselben Startbildschirm einer Plattform, auf zwei Arten entschieden: Wechseln Sie zwischen „Nach Features entschieden“ und „Nach Aufgaben der Lernenden entschieden“, um das Menü sich ändern zu sehen, und drücken Sie „Comic lesen“ für eine kurze Geschichte. Das zweite Bild zeichnet die drei Qualitätsarten des Kano-Modells als drei Kurven, damit Sie sehen, warum zusätzliche Features ein schwaches Fundament nicht retten.",
     ),
   },
   A2: {
@@ -65,8 +65,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Das sind die drei Bereiche, in die Block 1.1 die Fakten sortiert. Jeder Fakt der Aufgabe ist einer dieser Fehler.",
     ),
     picture: t(
-      "The home screen below is Mia's platform. Switch the three mistakes on and off: software names or learner words, many things or few, no orientation or a continue entry and a path. Watch the same screen turn from hard to use into easy to use. Press “Walk me through it” for a short story.",
-      "Der Startbildschirm unten ist Mias Plattform. Schalten Sie die drei Fehler ein und aus: Softwarenamen oder Worte der Lernenden, viele Dinge oder wenige, keine Orientierung oder ein Weiter-Eintrag und ein Pfad. Sehen Sie, wie derselbe Bildschirm von schwer nutzbar zu leicht nutzbar wird. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The home screen below is Mia's platform. Switch the three mistakes on and off: software names or learner words, many things or few, no orientation or a continue entry and a path. Watch the same screen turn from hard to use into easy to use. Press “Read the comic” for a short story.",
+      "Der Startbildschirm unten ist Mias Plattform. Schalten Sie die drei Fehler ein und aus: Softwarenamen oder Worte der Lernenden, viele Dinge oder wenige, keine Orientierung oder ein Weiter-Eintrag und ein Pfad. Sehen Sie, wie derselbe Bildschirm von schwer nutzbar zu leicht nutzbar wird. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -79,8 +79,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "In der Level-3-Aufgabe des Plans entscheiden Sie ohne vollständige Nutzerdaten, Sie müssen also wissen, welche Methode welche Lücke schließen würde.",
     ),
     picture: t(
-      "The matrix places five methods by what they tell you about (what people say against what they do, left to right) and the number of people involved (few to many, bottom to top). Select a method to read where it sits and which gap it closes; the position is a reading, not a ranking. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet fünf Methoden danach, worüber sie Auskunft geben (was Menschen sagen gegen was sie tun, von links nach rechts) und wie viele Menschen beteiligt sind (wenige bis viele, von unten nach oben). Wählen Sie eine Methode, um zu lesen, wo sie liegt und welche Lücke sie schließt; die Position ist eine Lesart, keine Rangfolge. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places five methods by what they tell you about (what people say against what they do, left to right) and the number of people involved (few to many, bottom to top). Select a method to read where it sits and which gap it closes; the position is a reading, not a ranking. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet fünf Methoden danach, worüber sie Auskunft geben (was Menschen sagen gegen was sie tun, von links nach rechts) und wie viele Menschen beteiligt sind (wenige bis viele, von unten nach oben). Wählen Sie eine Methode, um zu lesen, wo sie liegt und welche Lücke sie schließt; die Position ist eine Lesart, keine Rangfolge. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A5: {
@@ -93,8 +93,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 1.2 und Block 2.2 der Aufgabe verlangen das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three ideas: a chat feature, a menu rebuilt around tasks, and ten new courses. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: ein Chat-Feature, ein um Aufgaben herum neu gebautes Menü und zehn neue Kurse. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three ideas: a chat feature, a menu rebuilt around tasks, and ten new courses. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: ein Chat-Feature, ein um Aufgaben herum neu gebautes Menü und zehn neue Kurse. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -107,8 +107,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 verlangt, die zentralen Nutzerbedürfnisse zu definieren und Nutzer gegen Unternehmen konfliktanalytisch zu betrachten. Dazu müssen Sie jedes Bedürfnis in Geschäftsbegriffen sagen können.",
     ),
     picture: t(
-      "The chain runs from a user need, through the UX decision that serves it, to the business figure that moves. Select one of the four needs and the whole chain lights up for it. Below, a short list says why companies often fail to act user-centred. Press “Walk me through it” for a short story.",
-      "Die Kette läuft von einem Nutzerbedürfnis über die UX-Entscheidung, die es bedient, zur Geschäftszahl, die sich bewegt. Wählen Sie eines der vier Bedürfnisse, und die ganze Kette leuchtet dafür auf. Darunter sagt eine kurze Liste, warum Unternehmen oft nicht nutzerzentriert handeln. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The chain runs from a user need, through the UX decision that serves it, to the business figure that moves. Select one of the four needs and the whole chain lights up for it. Below, a short list says why companies often fail to act user-centred. Press “Read the comic” for a short story.",
+      "Die Kette läuft von einem Nutzerbedürfnis über die UX-Entscheidung, die es bedient, zur Geschäftszahl, die sich bewegt. Wählen Sie eines der vier Bedürfnisse, und die ganze Kette leuchtet dafür auf. Darunter sagt eine kurze Liste, warum Unternehmen oft nicht nutzerzentriert handeln. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B2: {
@@ -121,8 +121,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Task 2 verlangt eine Konfliktanalyse (Nutzer gegen Unternehmen) und eine priorisierte Roadmap. Die Regeln dieser Karte sagen Ihnen, wie Sie jede Wahl begründen.",
     ),
     picture: t(
-      "Three circles are the three goals: the user, the business and the technology. Select one of four typical conflicts and the circles it serves light up, with what each side gets or loses written beside them. The centre, where all three meet, is the aim. Press “Walk me through it” for a short story.",
-      "Drei Kreise sind die drei Ziele: der Nutzer, das Unternehmen und die Technik. Wählen Sie einen von vier typischen Konflikten, und die Kreise, die er bedient, leuchten auf, mit dem, was jede Seite bekommt oder verliert, daneben. Die Mitte, wo sich alle drei treffen, ist das Ziel. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Three circles are the three goals: the user, the business and the technology. Select one of four typical conflicts and the circles it serves light up, with what each side gets or loses written beside them. The centre, where all three meet, is the aim. Press “Read the comic” for a short story.",
+      "Drei Kreise sind die drei Ziele: der Nutzer, das Unternehmen und die Technik. Wählen Sie einen von vier typischen Konflikten, und die Kreise, die er bedient, leuchten auf, mit dem, was jede Seite bekommt oder verliert, daneben. Die Mitte, wo sich alle drei treffen, ist das Ziel. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {
@@ -135,8 +135,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Block 3.2 verlangt genau das und eine Regel, die für jedes künftige Feature gilt.",
     ),
     picture: t(
-      "The gate shows a feature request on its way to the roadmap: switch on a named user problem, a metric and an owner, and see when the request may enter. Below, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes at the bottom are the rule for future decisions. Press “Walk me through it” for a short story.",
-      "Das Tor zeigt eine Feature-Anfrage auf dem Weg zur Roadmap: Schalten Sie ein genanntes Nutzerproblem, eine Kennzahl und einen Verantwortlichen ein und sehen Sie, wann die Anfrage eintreten darf. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen unten sind die Regel für künftige Entscheidungen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The gate shows a feature request on its way to the roadmap: switch on a named user problem, a metric and an owner, and see when the request may enter. Below, the four boxes are the parts of the decision, filled in for LearnLoop, and the two boxes at the bottom are the rule for future decisions. Press “Read the comic” for a short story.",
+      "Das Tor zeigt eine Feature-Anfrage auf dem Weg zur Roadmap: Schalten Sie ein genanntes Nutzerproblem, eine Kennzahl und einen Verantwortlichen ein und sehen Sie, wann die Anfrage eintreten darf. Darunter sind die vier Kästen die Teile der Entscheidung, für LearnLoop ausgefüllt, und die zwei Kästen unten sind die Regel für künftige Entscheidungen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
 });
