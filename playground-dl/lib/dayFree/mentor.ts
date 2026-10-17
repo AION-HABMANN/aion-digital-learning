@@ -12,8 +12,10 @@ import type { FreeRoute } from "@/store/dayTypesFree";
 export function freeRouteKey(spec: FreeSpec, route: 1 | 2): FreeRoute {
   const r = emptyFreeRoute(fieldsOf(spec, route));
   for (const f of fieldsOf(spec, route)) {
-    if (f.kind === "text") r.text[f.id] = f.model;
-    else if (f.kind === "lists") {
+    if (f.kind === "text") {
+      r.text[f.id] = f.model;
+      if (f.table) r.rows[f.id] = f.table.model.map((m) => ({ ...m }));
+    } else if (f.kind === "lists") {
       f.lists.forEach((l) => (r.text[l.id] = l.model));
       r.rows[f.id] = f.table.model.map((m) => ({ ...m }));
     } else if (f.kind === "assess") {

@@ -12,6 +12,12 @@ import type { Persisted } from "@/store/useStore";
  */
 const empty = `<p class="muted">—</p>`;
 
+/** A guided table of Route 2 as the learner filled it: a row of fixed parts keeps its label; the cells print as written. Nothing is printed for an untouched table. */
+function partsTable(head: string[], names: string[], rows: Record<string, string>[], keys: string[]): string {
+  if (!rows.some((r) => keys.some((k) => (r[k] ?? "").trim()))) return empty;
+  return `<table><thead><tr>${head.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${names.map((n, i) => `<tr><td><strong>${esc(n)}</strong></td>${keys.map((k) => `<td>${cell(rows[i]?.[k] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
 /** A list of items, one per line in the text layout. */
 const list = (text: string) => {
   const items = listLines(text);
@@ -89,11 +95,11 @@ export function memoBody(p: Persisted): string {
 </dl>
 ${quoted}
 <h2>${esc(tt("1 · Strategy for reducing cognitive load", "1 · Strategie zur Senkung der kognitiven Belastung"))}</h2>${para(r2.strategy)}
-<h2>${esc(tt("2 · Three prioritised UX measures", "2 · Drei priorisierte UX-Maßnahmen"))}</h2>${list(r2.measures)}
+<h2>${esc(tt("2 · Three prioritised UX measures", "2 · Drei priorisierte UX-Maßnahmen"))}</h2>${r2.measureMode === "table" ? partsTable([tt("Priority", "Priorität"), tt("Measure", "Maßnahme"), tt("Why in this place", "Warum an dieser Stelle")], ["1", "2", "3"], r2.measureRows, ["measure", "why"]) : list(r2.measures)}
 <h2>${esc(tt("3 · Definition of “learning-effective UX”", "3 · Definition von „lerneffektivem UX“"))}</h2>${para(r2.definition)}
-<h2>${esc(tt("4 · Risk analysis: content that is too simple against content that is too complex", "4 · Risikoanalyse: zu einfacher gegen zu komplexen Inhalt"))}</h2>${para(r2.riskText)}
-<h2>${esc(tt("5 · Decision logic for future content", "5 · Entscheidungslogik für künftige Inhalte"))}</h2>${para(r2.logic)}
-<h2>${esc(tt("6 · One decision under uncertainty", "6 · Eine Entscheidung unter Unsicherheit"))}</h2>${para(r2.uncertain)}
+<h2>${esc(tt("4 · Risk analysis: content that is too simple against content that is too complex", "4 · Risikoanalyse: zu einfacher gegen zu komplexen Inhalt"))}</h2>${r2.riskMode === "table" ? partsTable([tt("Side", "Seite"), tt("What goes wrong", "Was schiefgeht"), tt("What we do about it", "Was wir dagegen tun")], [tt("Content too simple", "Zu einfacher Inhalt"), tt("Content too complex", "Zu komplexer Inhalt")], r2.riskRows, ["goes", "action"]) : para(r2.riskText)}
+<h2>${esc(tt("5 · Decision logic for future content", "5 · Entscheidungslogik für künftige Inhalte"))}</h2>${r2.logicMode === "table" ? partsTable([tt("Part", "Teil"), tt("Your answer", "Ihre Antwort")], [tt("The checks every new lesson passes", "Die Prüfungen jeder neuen Lektion"), tt("Who decides", "Wer entscheidet"), tt("A lesson that fails", "Eine Lektion, die durchfällt")], r2.logicRows, ["text"]) : para(r2.logic)}
+<h2>${esc(tt("6 · One decision under uncertainty", "6 · Eine Entscheidung unter Unsicherheit"))}</h2>${r2.uncMode === "table" ? partsTable([tt("Part", "Teil"), tt("Your answer", "Ihre Antwort")], [tt("What I decide", "Was ich entscheide"), tt("What I do not know", "Was ich nicht weiß"), tt("When I would reverse it", "Wann ich sie zurücknähme")], r2.uncRows, ["text"]) : para(r2.uncertain)}
 
 <div class="foot">${esc(tt(`Generated ${dateLabel()}.`, `Erstellt am ${dateLabel()}.`))}</div>`;
 }

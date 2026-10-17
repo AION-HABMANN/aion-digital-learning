@@ -7,6 +7,55 @@ import { Field } from "@/components/ui/Field";
 import { tt } from "@/lib/lang";
 
 /**
+ * A guided table with fixed, labelled rows (DL-STANDARD section 15), for a decision in parts (what you decide, what you do not know, when you would
+ * reverse it) or a set of named things (the three phases of a journey). One or more columns; the rows are the plan's, so there is no add button.
+ */
+export function FrameTable({
+  id,
+  label,
+  help,
+  head,
+  rows,
+  cols,
+  values,
+  onCell,
+  rowId,
+  guide,
+  children,
+}: {
+  id: string;
+  label: ReactNode;
+  help: ReactNode;
+  head: string;
+  rows: { key: string; label: string }[];
+  cols: FTCol[];
+  values: Record<string, string>[];
+  onCell: (row: number, key: string, v: string) => void;
+  rowId: (i: number) => string;
+  guide: TableGuide;
+  children?: ReactNode;
+}) {
+  return (
+    <Field id={id} label={label} help={help}>
+      <div className="space-y-2">
+        <GridTable
+          head={[head, ...cols.map((c) => c.label)]}
+          hints={[guide.hints.first, ...cols.map((c) => guide.hints[c.key])]}
+          example={[guide.example.first, ...cols.map((c) => guide.example.cells[c.key])]}
+          exampleLabel={guide.exampleLabel}
+          rows={rows.map((rw, i) => ({
+            id: rowId(i),
+            label: rw.label,
+            cells: cols.map((c) => <CellField key={c.key} value={values[i]?.[c.key] ?? ""} onChange={(v) => onCell(i, c.key, v)} label={`${rw.label}: ${c.label}`} />),
+          }))}
+        />
+        {children}
+      </div>
+    </Field>
+  );
+}
+
+/**
  * A guided table whose rows the learner adds (DL-STANDARD section 15), for a question that asks for "a list of things, each described by several
  * things" and does not fix how many: the data you need, a roadmap, the risks. It starts with a few rows, a quiet button adds one more (up to
  * `max`) and removes an empty last row. Same look as every guided table: a real table, a hint under each column header, one grey example row,

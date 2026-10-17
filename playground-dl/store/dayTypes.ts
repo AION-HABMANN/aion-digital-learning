@@ -147,10 +147,19 @@ export type D3R1 = {
 export type D3R2 = {
   strategy: string;
   measures: string;
+  /** The guided-table layouts (DL-STANDARD section 15): three prioritised measures, two sides of the risk, the decision logic and the decision under uncertainty in three parts. */
+  measureMode: "text" | "table";
+  measureRows: { measure: string; why: string }[];
   definition: string;
   riskText: string;
+  riskMode: "text" | "table";
+  riskRows: { goes: string; action: string }[];
   logic: string;
+  logicMode: "text" | "table";
+  logicRows: { text: string }[];
   uncertain: string;
+  uncMode: "text" | "table";
+  uncRows: { text: string }[];
 };
 
 export type D3State = { r1: D3R1; r2: D3R2 };
@@ -180,10 +189,18 @@ export const emptyD3R1 = (): D3R1 => ({
 export const emptyD3R2 = (): D3R2 => ({
   strategy: "",
   measures: "",
+  measureMode: "text",
+  measureRows: Array.from({ length: 3 }, () => ({ measure: "", why: "" })),
   definition: "",
   riskText: "",
+  riskMode: "text",
+  riskRows: Array.from({ length: 2 }, () => ({ goes: "", action: "" })),
   logic: "",
+  logicMode: "text",
+  logicRows: Array.from({ length: 3 }, () => ({ text: "" })),
   uncertain: "",
+  uncMode: "text",
+  uncRows: Array.from({ length: 3 }, () => ({ text: "" })),
 });
 
 export const emptyD3 = (): D3State => ({ r1: emptyD3R1(), r2: emptyD3R2() });

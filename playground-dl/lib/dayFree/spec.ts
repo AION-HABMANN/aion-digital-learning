@@ -15,6 +15,50 @@ export type Raw<T> = T extends string ? string | Tx : T extends readonly (infer 
  */
 
 export type Guide = { example: string; why: string; lookFor: string[]; pitfalls?: string[] };
+
+/**
+ * The guidance of a guided table (DL-STANDARD section 15): a hint for every column (`first` for the row header), one grey example row from another company
+ * (never the case's answer) and optional suggestions per column. The engine adds the title and the label of the example in both languages.
+ */
+export type GuideSpec = {
+  hints: Record<string, string>;
+  example: { first?: string; cells: Record<string, string> };
+  suggest?: Record<string, { values: { id: string; label: string }[]; note: string }>;
+};
+type Col = { key: string; label: string; /** a column that holds a short answer by design ("Yes", "Users"): two characters count */ short?: boolean };
+
+/**
+ * A text field that can also be answered as a guided table (section 15): `rows` is a list of items the learner adds to (the data you need, a roadmap,
+ * the risks), `frame` is a decision in fixed parts (what you decide, what you do not know, when you would reverse it). The text stays the default;
+ * both layouts are kept and only the chosen one counts and is exported.
+ */
+export type TextTable =
+  | {
+      kind: "rows";
+      help: string;
+      cols: Col[];
+      numbered?: boolean;
+      orderHead?: string;
+      guide: GuideSpec;
+      model: Record<string, string>[];
+      /** "name the data you need in at least two complete rows": what is missing when fewer than two rows are complete */
+      missing: string;
+      /** "data row": the name of a row in "finish data row 3 or clear it" */
+      rowWord: string;
+    }
+  | {
+      kind: "frame";
+      help: string;
+      head: string;
+      cols: Col[];
+      rows: { key: string; label: string }[];
+      guide: GuideSpec;
+      /** one record per row, in the order of `rows` */
+      model: Record<string, string>[];
+      /** the shortest cell that counts (a sentence: 20) */
+      minCell: number;
+      missing: string;
+    };
 export type Ref = { label: string; value: string; target: string; card?: MaterialId };
 
 type Base = {
@@ -41,6 +85,8 @@ export type TextField = Base & {
   guide: Guide;
   /** The heading of this answer in the export. */
   doc?: string;
+  /** The guided table offered through the quiet link (section 15). */
+  table?: TextTable;
 };
 
 /** A list of N items, one text box by default (one item per line) or a table through a quiet link; both layouts are kept and only the chosen one counts. */
@@ -48,7 +94,7 @@ export type ListsField = Base & {
   kind: "lists";
   n: number;
   lists: { id: string; label: string; help: string; placeholder?: string; missing: string; model: string; guide: Guide; doc: string }[];
-  table: { help: string; cols: { key: string; label: string }[]; model: Record<string, string>[]; doc?: string };
+  table: { help: string; cols: { key: string; label: string }[]; model: Record<string, string>[]; doc?: string; guide?: GuideSpec };
 };
 
 /** One answer per item (an option) on the same terms, as a box each or a table row. */
@@ -61,6 +107,8 @@ export type AssessField = Base & {
   items: { id: string; label: string }[];
   cols: { key: string; label: string }[];
   minText: number;
+  /** the hints, the example row and the suggestions of the table layout (section 15) */
+  tableGuide?: GuideSpec;
   missing: string;
   modelText: Record<string, string>;
   modelRows: Record<string, Record<string, string>>;

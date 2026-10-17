@@ -5,6 +5,8 @@ import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { BlockMissing } from "@/components/ui/BlockMissing";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
+import { FrameTable } from "@/components/ui/RowsTable";
+import { LayoutLink } from "@/components/ui/FormOrTable";
 import { TextBox } from "@/components/ui/Inputs";
 import { CaseKnown } from "@/components/ui/CaseKnown";
 import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
@@ -13,12 +15,13 @@ import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
 import { WritingHelp } from "@/components/ui/WritingHelp";
 import { OPTS } from "@/data/day3/case";
+import { LOGIC_GUIDE, MEASURES_GUIDE, RISK_GUIDE, UNC_GUIDE } from "@/data/day3/tableGuides";
 import { routeHref } from "@/data/course";
 import { DOC_CSS } from "@/lib/exportDoc";
 import { memoBody } from "@/lib/day3/exportDoc";
 import { definitionGuide, logicGuide, measuresGuide, riskTextGuide, strategyGuide, uncertainGuide } from "@/lib/day3/guides";
 import { IDS, r2Missing } from "@/lib/day3/missing";
-import { BLOCK_MINUTES, CORE2_MINUTES, MEASURES_N, MIN_FRAME, MIN_LINE, listLines } from "@/lib/day3/progress";
+import { BLOCK_MINUTES, CORE2_MINUTES, MEASURES_N, MIN_FRAME, MIN_LINE, measureCount } from "@/lib/day3/progress";
 import type { MissingEntry } from "@/lib/missing";
 import { useJumpTo } from "@/lib/useJumpTo";
 import { tt } from "@/lib/lang";
@@ -150,7 +153,47 @@ function useR2() {
 export function Block31({ missing }: { missing: MissingEntry[] }) {
   const { r, patch, mentor } = useR2();
   const b = (id: string) => () => showCardPart(id as "B1", "rules");
-  const nM = listLines(r.measures).length;
+  const nM = measureCount(r);
+  const measuresHelp = (
+          <WritingHelp
+            id="measures-kit"
+            refs={[{ label: tt("Learning effectiveness and cognitive efficiency (Materi B1)", "Lerneffektivität und kognitive Effizienz (Materi B1)"), value: tt("the two yardsticks", "die beiden Maßstäbe"), target: "mat-B1", before: b("B1") }]}
+            steps={[
+              tt("Choose measures that act on the load, not on the look, and that you could start on now.", "Wählen Sie Maßnahmen, die auf die Belastung wirken, nicht auf das Aussehen, und mit denen Sie jetzt beginnen könnten."),
+              tt("Put first the one that helps learning most for the effort, and say in a few words why.", "Setzen Sie die an die erste Stelle, die fürs Lernen im Verhältnis zum Aufwand am meisten bringt, und sagen Sie in wenigen Worten warum."),
+            ]}
+          />
+  );
+  const riskHelp = (
+          <WritingHelp
+            id="risktext-kit"
+            refs={[{ label: tt("Efficiency against deep learning (Materi B2)", "Effizienz gegen tiefes Lernen (Materi B2)"), value: tt("conflicting goals", "Zielkonflikte"), target: "mat-B2", before: b("B2") }]}
+            steps={[
+              tt("Write what goes wrong if the content becomes too simple, and what goes wrong if it stays too complex.", "Schreiben Sie, was schiefgeht, wenn der Inhalt zu einfach wird, und was, wenn er zu komplex bleibt."),
+              tt("Pick the bigger risk and say what your plan does about it and what you would notice.", "Wählen Sie das größere Risiko und sagen Sie, was Ihr Plan dagegen tut und was Sie bemerken würden."),
+            ]}
+          />
+  );
+  const logicHelp = (
+          <WritingHelp
+            id="logic-kit"
+            refs={[{ label: tt("A rule for content (Materi B3)", "Eine Regel für Inhalte (Materi B3)"), value: tt("checks · who decides", "Prüfungen · wer entscheidet"), target: "mat-B3", before: b("B3") }]}
+            steps={[
+              tt("List the questions every new lesson must pass before it goes live.", "Listen Sie die Fragen auf, die jede neue Lektion vor der Freigabe bestehen muss."),
+              tt("Say who decides, and what happens to a lesson that fails.", "Sagen Sie, wer entscheidet und was mit einer Lektion geschieht, die durchfällt."),
+            ]}
+          />
+  );
+  const uncHelp = (
+          <WritingHelp
+            id="uncertain-kit"
+            refs={[{ label: tt("Deciding without user data (Materi B3)", "Entscheiden ohne Nutzerdaten (Materi B3)"), value: tt("assume · test · reverse", "annehmen · testen · zurücknehmen"), target: "mat-B3", before: b("B3") }]}
+            steps={[
+              tt("Write the decision in one sentence: what you will do now.", "Schreiben Sie die Entscheidung in einem Satz: was Sie jetzt tun."),
+              tt("Name what you do not know, and the sign and the time at which you would reverse it.", "Nennen Sie, was Sie nicht wissen, und das Zeichen und den Zeitpunkt, zu dem Sie sie zurücknähmen."),
+            ]}
+          />
+  );
   return (
     <AnswerBlock
       id="block-3-1"
@@ -185,24 +228,35 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       {mentor && <MentorGuide guide={strategyGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 2 of 6", "Frage 2 von 6")}</p>
-      <TextBox
-        id={IDS.measures}
-        label={tt(`${MEASURES_N} prioritised UX measures`, `${MEASURES_N} priorisierte UX-Maßnahmen`)}
-        help={tt(`Write them as a list, one measure per line, the first priority first. You have ${nM} of ${MEASURES_N}.`, `Schreiben Sie sie als Liste, eine Maßnahme pro Zeile, die erste Priorität zuerst. Sie haben ${nM} von ${MEASURES_N}.`)}
-        value={r.measures}
-        onChange={(v) => patch({ measures: v })}
-        rows={5}
-        placeholder={tt("1. …\n2. …\n3. …", "1. …\n2. …\n3. …")}
-      >
-        <WritingHelp
-          id="measures-kit"
-          refs={[{ label: tt("Learning effectiveness and cognitive efficiency (Materi B1)", "Lerneffektivität und kognitive Effizienz (Materi B1)"), value: tt("the two yardsticks", "die beiden Maßstäbe"), target: "mat-B1", before: b("B1") }]}
-          steps={[
-            tt("Choose measures that act on the load, not on the look, and that you could start on now.", "Wählen Sie Maßnahmen, die auf die Belastung wirken, nicht auf das Aussehen, und mit denen Sie jetzt beginnen könnten."),
-            tt("Put first the one that helps learning most for the effort, and say in a few words why.", "Setzen Sie die an die erste Stelle, die fürs Lernen im Verhältnis zum Aufwand am meisten bringt, und sagen Sie in wenigen Worten warum."),
-          ]}
-        />
-      </TextBox>
+      {r.measureMode === "text" ? (
+        <TextBox
+          id={IDS.measures}
+          label={tt(`${MEASURES_N} prioritised UX measures`, `${MEASURES_N} priorisierte UX-Maßnahmen`)}
+          help={tt(`Write them as a list, one measure per line, the first priority first. You have ${nM} of ${MEASURES_N}.`, `Schreiben Sie sie als Liste, eine Maßnahme pro Zeile, die erste Priorität zuerst. Sie haben ${nM} von ${MEASURES_N}.`)}
+          value={r.measures}
+          onChange={(v) => patch({ measures: v })}
+          rows={5}
+          placeholder={tt("1. …\n2. …\n3. …", "1. …\n2. …\n3. …")}
+        >
+          {measuresHelp}
+        </TextBox>
+      ) : (
+        <FrameTable
+          id={IDS.measures}
+          label={tt(`${MEASURES_N} prioritised UX measures`, `${MEASURES_N} priorisierte UX-Maßnahmen`)}
+          help={tt(`Three rows, the first priority first: the measure, and why it has this place. You have ${nM} of ${MEASURES_N}.`, `Drei Zeilen, die erste Priorität zuerst: die Maßnahme und warum sie diesen Platz hat. Sie haben ${nM} von ${MEASURES_N}.`)}
+          head={tt("Priority", "Priorität")}
+          rows={[1, 2, 3].map((n) => ({ key: `p${n}`, label: tt(`Priority ${n}`, `Priorität ${n}`) }))}
+          cols={[{ key: "measure", label: tt("Measure", "Maßnahme") }, { key: "why", label: tt("Why in this place", "Warum an dieser Stelle") }]}
+          values={r.measureRows}
+          onCell={(i, k, v) => patch((st) => ({ measureRows: st.measureRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+          rowId={IDS.measureRow}
+          guide={MEASURES_GUIDE}
+        >
+          {measuresHelp}
+        </FrameTable>
+      )}
+      <LayoutLink mode={r.measureMode} onMode={(m) => patch({ measureMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="measures-example" guide={measuresGuide()} />
       {mentor && <MentorGuide guide={measuresGuide()} />}
 
@@ -229,68 +283,101 @@ export function Block31({ missing }: { missing: MissingEntry[] }) {
       {mentor && <MentorGuide guide={definitionGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 4 of 6", "Frage 4 von 6")}</p>
-      <TextBox
-        id={IDS.riskText}
-        label={tt("Risk analysis: content that is too simple against content that is too complex", "Risikoanalyse: zu einfacher gegen zu komplexen Inhalt")}
-        help={tt(`Name the risk on each side and say what you do about the bigger one. At least ${MIN_LINE} characters.`, `Nennen Sie das Risiko auf jeder Seite und sagen Sie, was Sie gegen das größere tun. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.riskText}
-        onChange={(v) => patch({ riskText: v })}
-        min={MIN_LINE}
-        rows={4}
-      >
-        <WritingHelp
-          id="risktext-kit"
-          refs={[{ label: tt("Efficiency against deep learning (Materi B2)", "Effizienz gegen tiefes Lernen (Materi B2)"), value: tt("conflicting goals", "Zielkonflikte"), target: "mat-B2", before: b("B2") }]}
-          steps={[
-            tt("Write what goes wrong if the content becomes too simple, and what goes wrong if it stays too complex.", "Schreiben Sie, was schiefgeht, wenn der Inhalt zu einfach wird, und was, wenn er zu komplex bleibt."),
-            tt("Pick the bigger risk and say what your plan does about it and what you would notice.", "Wählen Sie das größere Risiko und sagen Sie, was Ihr Plan dagegen tut und was Sie bemerken würden."),
-          ]}
-        />
-      </TextBox>
+      {r.riskMode === "text" ? (
+        <TextBox
+          id={IDS.riskText}
+          label={tt("Risk analysis: content that is too simple against content that is too complex", "Risikoanalyse: zu einfacher gegen zu komplexen Inhalt")}
+          help={tt(`Name the risk on each side and say what you do about the bigger one. At least ${MIN_LINE} characters.`, `Nennen Sie das Risiko auf jeder Seite und sagen Sie, was Sie gegen das größere tun. Mindestens ${MIN_LINE} Zeichen.`)}
+          value={r.riskText}
+          onChange={(v) => patch({ riskText: v })}
+          min={MIN_LINE}
+          rows={4}
+        >
+          {riskHelp}
+        </TextBox>
+      ) : (
+        <FrameTable
+          id={IDS.riskText}
+          label={tt("Risk analysis: content that is too simple against content that is too complex", "Risikoanalyse: zu einfacher gegen zu komplexen Inhalt")}
+          help={tt("One row per side: what goes wrong, and what you do about it and what you would notice.", "Eine Zeile pro Seite: was schiefgeht und was Sie dagegen tun und was Sie bemerken würden.")}
+          head={tt("Side", "Seite")}
+          rows={[{ key: "simple", label: tt("Content too simple", "Zu einfacher Inhalt") }, { key: "complex", label: tt("Content too complex", "Zu komplexer Inhalt") }]}
+          cols={[{ key: "goes", label: tt("What goes wrong", "Was schiefgeht") }, { key: "action", label: tt("What you do about it", "Was Sie dagegen tun") }]}
+          values={r.riskRows}
+          onCell={(i, k, v) => patch((st) => ({ riskRows: st.riskRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+          rowId={IDS.riskRow}
+          guide={RISK_GUIDE}
+        >
+          {riskHelp}
+        </FrameTable>
+      )}
+      <LayoutLink mode={r.riskMode} onMode={(m) => patch({ riskMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="risktext-example" guide={riskTextGuide()} />
       {mentor && <MentorGuide guide={riskTextGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 5 of 6", "Frage 5 von 6")}</p>
-      <TextBox
-        id={IDS.logic}
-        label={tt("A decision logic for future content", "Eine Entscheidungslogik für künftige Inhalte")}
-        help={tt(`A rule you can apply to every new lesson, and who decides. At least ${MIN_LINE} characters.`, `Eine Regel, die Sie auf jede neue Lektion anwenden können, und wer entscheidet. Mindestens ${MIN_LINE} Zeichen.`)}
-        value={r.logic}
-        onChange={(v) => patch({ logic: v })}
-        min={MIN_LINE}
-        rows={4}
-      >
-        <WritingHelp
-          id="logic-kit"
-          refs={[{ label: tt("A rule for content (Materi B3)", "Eine Regel für Inhalte (Materi B3)"), value: tt("checks · who decides", "Prüfungen · wer entscheidet"), target: "mat-B3", before: b("B3") }]}
-          steps={[
-            tt("List the questions every new lesson must pass before it goes live.", "Listen Sie die Fragen auf, die jede neue Lektion vor der Freigabe bestehen muss."),
-            tt("Say who decides, and what happens to a lesson that fails.", "Sagen Sie, wer entscheidet und was mit einer Lektion geschieht, die durchfällt."),
-          ]}
-        />
-      </TextBox>
+      {r.logicMode === "text" ? (
+        <TextBox
+          id={IDS.logic}
+          label={tt("A decision logic for future content", "Eine Entscheidungslogik für künftige Inhalte")}
+          help={tt(`A rule you can apply to every new lesson, and who decides. At least ${MIN_LINE} characters.`, `Eine Regel, die Sie auf jede neue Lektion anwenden können, und wer entscheidet. Mindestens ${MIN_LINE} Zeichen.`)}
+          value={r.logic}
+          onChange={(v) => patch({ logic: v })}
+          min={MIN_LINE}
+          rows={4}
+        >
+          {logicHelp}
+        </TextBox>
+      ) : (
+        <FrameTable
+          id={IDS.logic}
+          label={tt("A decision logic for future content", "Eine Entscheidungslogik für künftige Inhalte")}
+          help={tt("Three parts, one row each: the checks every new lesson passes, who decides, and what happens to a lesson that fails.", "Drei Teile, je eine Zeile: die Prüfungen jeder neuen Lektion, wer entscheidet und was mit einer durchgefallenen Lektion geschieht.")}
+          head={tt("Part", "Teil")}
+          rows={[{ key: "checks", label: tt("The checks every new lesson passes", "Die Prüfungen jeder neuen Lektion") }, { key: "who", label: tt("Who decides", "Wer entscheidet") }, { key: "fails", label: tt("A lesson that fails", "Eine Lektion, die durchfällt") }]}
+          cols={[{ key: "text", label: tt("Your answer", "Ihre Antwort") }]}
+          values={r.logicRows}
+          onCell={(i, k, v) => patch((st) => ({ logicRows: st.logicRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+          rowId={IDS.logicRow}
+          guide={LOGIC_GUIDE}
+        >
+          {logicHelp}
+        </FrameTable>
+      )}
+      <LayoutLink mode={r.logicMode} onMode={(m) => patch({ logicMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="logic-example" guide={logicGuide()} />
       {mentor && <MentorGuide guide={logicGuide()} />}
 
       <p className="smallcaps text-ash">{tt("Question 6 of 6", "Frage 6 von 6")}</p>
-      <TextBox
-        id={IDS.uncertain}
-        label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
-        help={tt(`Say what you decide, what you do not know, and when you would reverse it. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie die Entscheidung zurücknähmen. Mindestens ${MIN_FRAME} Zeichen.`)}
-        value={r.uncertain}
-        onChange={(v) => patch({ uncertain: v })}
-        min={MIN_FRAME}
-        rows={4}
-      >
-        <WritingHelp
-          id="uncertain-kit"
-          refs={[{ label: tt("Deciding without user data (Materi B3)", "Entscheiden ohne Nutzerdaten (Materi B3)"), value: tt("assume · test · reverse", "annehmen · testen · zurücknehmen"), target: "mat-B3", before: b("B3") }]}
-          steps={[
-            tt("Write the decision in one sentence: what you will do now.", "Schreiben Sie die Entscheidung in einem Satz: was Sie jetzt tun."),
-            tt("Name what you do not know, and the sign and the time at which you would reverse it.", "Nennen Sie, was Sie nicht wissen, und das Zeichen und den Zeitpunkt, zu dem Sie sie zurücknähmen."),
-          ]}
-        />
-      </TextBox>
+      {r.uncMode === "text" ? (
+        <TextBox
+          id={IDS.uncertain}
+          label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
+          help={tt(`Say what you decide, what you do not know, and when you would reverse it. At least ${MIN_FRAME} characters.`, `Sagen Sie, was Sie entscheiden, was Sie nicht wissen und wann Sie die Entscheidung zurücknähmen. Mindestens ${MIN_FRAME} Zeichen.`)}
+          value={r.uncertain}
+          onChange={(v) => patch({ uncertain: v })}
+          min={MIN_FRAME}
+          rows={4}
+        >
+          {uncHelp}
+        </TextBox>
+      ) : (
+        <FrameTable
+          id={IDS.uncertain}
+          label={tt("Make one decision under uncertainty, on purpose", "Treffen Sie bewusst eine Entscheidung unter Unsicherheit")}
+          help={tt("Three parts, one row each: what you decide, what you do not know, when you would reverse it.", "Drei Teile, je eine Zeile: was Sie entscheiden, was Sie nicht wissen, wann Sie die Entscheidung zurücknähmen.")}
+          head={tt("Part", "Teil")}
+          rows={[{ key: "decide", label: tt("What I decide", "Was ich entscheide") }, { key: "unknown", label: tt("What I do not know", "Was ich nicht weiß") }, { key: "reverse", label: tt("When I would reverse it", "Wann ich sie zurücknähme") }]}
+          cols={[{ key: "text", label: tt("Your answer", "Ihre Antwort") }]}
+          values={r.uncRows}
+          onCell={(i, k, v) => patch((st) => ({ uncRows: st.uncRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+          rowId={IDS.uncRow}
+          guide={UNC_GUIDE}
+        >
+          {uncHelp}
+        </FrameTable>
+      )}
+      <LayoutLink mode={r.uncMode} onMode={(m) => patch({ uncMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="uncertain-example" guide={uncertainGuide()} />
       {mentor && <MentorGuide guide={uncertainGuide()} />}
       <BlockMissing block="3.1" missing={missing} />

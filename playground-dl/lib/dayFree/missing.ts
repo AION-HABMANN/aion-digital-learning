@@ -1,4 +1,5 @@
-import { MIN_CELL, assessItemsMissing, blocksOf, len, listCount, sliceOf } from "@/lib/dayFree/model";
+import { MIN_CELL, MIN_ROWS, assessItemsMissing, blocksOf, frameGaps, len, listCount, rowsFullCount, rowsPartialIdx, sliceOf, tableMode } from "@/lib/dayFree/model";
+import type { TextField, TextTable } from "@/lib/dayFree/spec";
 import type { FreeSpec } from "@/lib/dayFree/spec";
 import { participantMissing } from "@/lib/missing";
 import type { MissingEntry } from "@/lib/missing";
@@ -26,7 +27,16 @@ export function freeMissing(p: Persisted, spec: FreeSpec, route: 1 | 2): Missing
     const pre = `Block ${b.id}: `;
     for (const f of b.fields) {
       if (f.kind === "text") {
-        if (len(r.text[f.id]) < f.min) e(fieldDomId(f.id), `${pre}${f.missing} (${atLeast(f.min)}).`);
+        if (tableMode(f, r) && f.table) {
+          if (f.table.kind === "rows") {
+            const tf = f as TextField & { table: Extract<TextTable, { kind: "rows" }> };
+            if (rowsFullCount(tf, r) < MIN_ROWS) e(fieldDomId(f.id), `${pre}${f.table.missing} (${tt("at least", "mindestens")} ${MIN_ROWS} ${tt("complete rows", "vollständige Zeilen")}).`);
+            for (const i of rowsPartialIdx(tf, r)) e(rowDomId(f.id, i), `${pre}${tt("finish", "vervollständigen Sie")} ${tf.table.rowWord} ${i + 1} ${tt("or clear it.", "oder leeren Sie sie.")}`);
+          } else {
+            const tf = f as TextField & { table: Extract<TextTable, { kind: "frame" }> };
+            for (const i of frameGaps(tf, r)) e(rowDomId(f.id, i), `${pre}${tf.table.missing}: ${tf.table.rows[i].label.toLowerCase()} (${tt("at least", "mindestens")} ${tf.table.minCell} ${tt("characters", "Zeichen")}).`);
+          }
+        } else if (len(r.text[f.id]) < f.min) e(fieldDomId(f.id), `${pre}${f.missing} (${atLeast(f.min)}).`);
       } else if (f.kind === "pick") {
         if (!r.picks[f.id]) e(fieldDomId(f.id), `${pre}${f.missing}`);
       } else if (f.kind === "lists") {

@@ -11,7 +11,9 @@ import { ExportBar } from "@/components/ui/ExportBar";
 import { CaseKnown } from "@/components/ui/CaseKnown";
 import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
 import { Field } from "@/components/ui/Field";
-import { FormOrTable } from "@/components/ui/FormOrTable";
+import { FormOrTable, GridTable, CellField, LayoutLink } from "@/components/ui/FormOrTable";
+import type { TableGuide } from "@/components/ui/FormOrTable";
+import { FrameTable, RowsTable } from "@/components/ui/RowsTable";
 import { OptionList, TextBox } from "@/components/ui/Inputs";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
@@ -23,7 +25,7 @@ import { freeAnalysisBody, freeMemoBody } from "@/lib/dayFree/exportDoc";
 import { guideOf, pickKey } from "@/lib/dayFree/mentor";
 import { blocksOf, listCount, sliceOf } from "@/lib/dayFree/model";
 import { route1Minutes, route2Minutes } from "@/lib/dayFree/progress";
-import type { BlockSpec, Brief, FreeField, FreeKit, FreeSpec, ListsField } from "@/lib/dayFree/spec";
+import type { BlockSpec, Brief, FreeField, FreeKit, FreeSpec, GuideSpec, ListsField } from "@/lib/dayFree/spec";
 import { DOC_CSS } from "@/lib/exportDoc";
 import type { MissingEntry } from "@/lib/missing";
 import { Gloss } from "@/lib/glossify";
@@ -139,16 +141,21 @@ function PartHeading({ id, n, title, level }: { id: string; n: number; title: st
   );
 }
 
-/** The quiet link under a list or an assessment that switches between boxes and a table; both layouts are kept (CLAUDE.md #57). */
-function ModeLink({ mode, onMode }: { mode: "text" | "table"; onMode: (m: "text" | "table") => void }) {
-  return (
-    <p className="px-1 text-caption text-ash">
-      <button type="button" onClick={() => onMode(mode === "text" ? "table" : "text")} className="underline decoration-dotted underline-offset-2 hover:text-ink">
-        {mode === "text" ? tt("Prefer a table? Fill in rows instead.", "Lieber eine Tabelle? Dann in Zeilen ausfüllen.") : tt("Back to text boxes.", "Zurück zu Textfeldern.")}
-      </button>{" "}
-      {tt("Your answer in the other layout is kept.", "Ihre Antwort im anderen Layout bleibt erhalten.")}
-    </p>
-  );
+/** The guide of a table as the shared table component wants it: the spec's hints and example plus the course-wide title and example label (section 15). */
+function guideOf2(g: GuideSpec | undefined): TableGuide | undefined {
+  if (!g) return undefined;
+  return {
+    title: tt("How to fill this table", "So füllen Sie diese Tabelle aus"),
+    exampleLabel: tt("Example from another company, not this case", "Beispiel aus einem anderen Unternehmen, nicht aus diesem Fall"),
+    hints: { first: "", ...g.hints },
+    example: { first: g.example.first ?? "", cells: g.example.cells },
+    suggest: g.suggest,
+  };
+}
+
+/** The quiet link under a list, an assessment or a text that switches between boxes and a table; both layouts are kept (CLAUDE.md #57, section 15). */
+function ModeLink({ mode, onMode, guided, back }: { mode: "text" | "table"; onMode: (m: "text" | "table") => void; guided: boolean; back?: string }) {
+  return <LayoutLink mode={mode} onMode={onMode} guided={guided} backText={back ?? tt("Back to text boxes.", "Zurück zu Textfeldern.")} />;
 }
 
 /* ------------------------------------------------------------------ one field */
@@ -168,21 +175,63 @@ function FieldView({ ctx, f }: { ctx: Ctx; f: FreeField }) {
 
   if (f.kind === "text") {
     const g = guideOf(spec, f.id)!;
+    const t = f.table;
+    const mode = r.modes[f.id] ?? "text";
+    const kit = <WritingHelp id={`${f.id}-kit`} refs={refsOf(f)} steps={f.steps} />;
+    const setRows = (fn: (rows: Record<string, string>[]) => Record<string, string>[]) => patch((s) => ({ rows: { ...s.rows, [f.id]: fn(s.rows[f.id] ?? []) } }));
+    const setCell = (i: number, k: string, v: string) => setRows((rows) => rows.map((x, j) => (j === i ? { ...x, [k]: v } : x)));
     return (
       <>
         {head}
-        <TextBox
-          id={fieldDomId(f.id)}
-          label={f.label}
-          help={f.help}
-          value={r.text[f.id] ?? ""}
-          onChange={(v) => patch((s) => ({ text: { ...s.text, [f.id]: v } }))}
-          min={f.min}
-          rows={f.rows}
-          placeholder={f.placeholder}
-        >
-          <WritingHelp id={`${f.id}-kit`} refs={refsOf(f)} steps={f.steps} />
-        </TextBox>
+        {t && mode === "table" ? (
+          t.kind === "rows" ? (
+            <RowsTable
+              id={fieldDomId(f.id)}
+              label={f.label}
+              help={t.help}
+              cols={t.cols}
+              rows={r.rows[f.id] ?? []}
+              onCell={setCell}
+              onAdd={() => setRows((rows) => [...rows, Object.fromEntries(t.cols.map((c) => [c.key, ""]))])}
+              onRemoveLast={() => setRows((rows) => rows.slice(0, -1))}
+              rowId={(i) => rowDomId(f.id, i)}
+              guide={guideOf2(t.guide)!}
+              numbered={t.numbered}
+              orderHead={t.orderHead}
+            >
+              {kit}
+            </RowsTable>
+          ) : (
+            <FrameTable
+              id={fieldDomId(f.id)}
+              label={f.label}
+              help={t.help}
+              head={t.head}
+              rows={t.rows}
+              cols={t.cols}
+              values={r.rows[f.id] ?? []}
+              onCell={setCell}
+              rowId={(i) => rowDomId(f.id, i)}
+              guide={guideOf2(t.guide)!}
+            >
+              {kit}
+            </FrameTable>
+          )
+        ) : (
+          <TextBox
+            id={fieldDomId(f.id)}
+            label={f.label}
+            help={f.help}
+            value={r.text[f.id] ?? ""}
+            onChange={(v) => patch((s) => ({ text: { ...s.text, [f.id]: v } }))}
+            min={f.min}
+            rows={f.rows}
+            placeholder={f.placeholder}
+          >
+            {kit}
+          </TextBox>
+        )}
+        {t && <ModeLink mode={mode} onMode={setMode} guided back={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />}
         <ExampleAnswer id={`${f.id}-example`} guide={g} />
         {mentor && <MentorGuide guide={g} />}
       </>
@@ -227,6 +276,7 @@ function FieldView({ ctx, f }: { ctx: Ctx; f: FreeField }) {
           onCell={(id, k, v) => patch((s) => ({ assessRows: { ...s.assessRows, [f.id]: { ...s.assessRows[f.id], [id]: { ...s.assessRows[f.id]?.[id], [k]: v } } } }))}
           rowId={(id) => itemDomId(f.id, id)}
           firstCol={f.firstCol}
+          guide={guideOf2(f.tableGuide)}
         >
           <WritingHelp id={`${f.id}-kit`} refs={refsOf(f)} steps={f.steps} />
         </FormOrTable>
@@ -272,30 +322,23 @@ function ListsView({ ctx, f, r, patch, mentor, head, setMode }: { ctx: Ctx; f: L
         <div className="space-y-3">
           <Field id={fieldDomId(f.id)} label={f.label} help={f.table.help}>
             <div className="space-y-2">
-              <div className="smallcaps hidden gap-2 px-1 text-ash md:grid" style={{ gridTemplateColumns: `repeat(${f.table.cols.length}, minmax(0, 1fr))` }} aria-hidden>
-                {f.table.cols.map((c) => (
-                  <span key={c.key}>{c.label}</span>
-                ))}
-              </div>
-              {(r.rows[f.id] ?? []).map((row, i) => (
-                <div key={i} id={rowDomId(f.id, i)} className="grid gap-2 rounded-lg border border-line bg-canvas p-2 md:items-start md:border-0 md:bg-transparent md:p-0" style={{ gridTemplateColumns: `repeat(${f.table.cols.length}, minmax(0, 1fr))` }}>
-                  {f.table.cols.map((c) => (
-                    <label key={c.key} className="block">
-                      <span className="smallcaps text-ash md:sr-only">{`${i + 1} · ${c.label}`}</span>
-                      <AutoTextarea
-                        className="mt-1 md:mt-0"
-                        minRows={1}
-                        value={row[c.key] ?? ""}
-                        onChange={(e) => {
-                          const v = e.target.value;
-                          patch((s) => ({ rows: { ...s.rows, [f.id]: s.rows[f.id].map((x, j) => (j === i ? { ...x, [c.key]: v } : x)) } }));
-                        }}
-                        aria-label={`${i + 1}: ${c.label}`}
-                      />
-                    </label>
-                  ))}
-                </div>
-              ))}
+              <GridTable
+                head={f.table.cols.map((c) => c.label)}
+                hints={f.table.guide ? f.table.cols.map((c) => f.table.guide!.hints[c.key]) : undefined}
+                example={f.table.guide ? f.table.cols.map((c) => f.table.guide!.example.cells[c.key]) : undefined}
+                exampleLabel={tt("Example from another company, not this case", "Beispiel aus einem anderen Unternehmen, nicht aus diesem Fall")}
+                rows={(r.rows[f.id] ?? []).map((row, i) => ({
+                  id: rowDomId(f.id, i),
+                  cells: f.table.cols.map((c) => (
+                    <CellField
+                      key={c.key}
+                      value={row[c.key] ?? ""}
+                      onChange={(v) => patch((s) => ({ rows: { ...s.rows, [f.id]: s.rows[f.id].map((x, j) => (j === i ? { ...x, [c.key]: v } : x)) } }))}
+                      label={`${i + 1}: ${c.label}`}
+                    />
+                  )),
+                }))}
+              />
               {help}
             </div>
           </Field>
@@ -310,7 +353,7 @@ function ListsView({ ctx, f, r, patch, mentor, head, setMode }: { ctx: Ctx; f: L
           })}
         </div>
       )}
-      <ModeLink mode={mode} onMode={setMode} />
+      <ModeLink mode={mode} onMode={setMode} guided={!!f.table.guide} />
     </>
   );
 }

@@ -25,6 +25,11 @@ export const CAUSES_N = 4;
 export const IMPROVEMENTS_N = 4;
 export const MEASURES_N = 3;
 
+/** A table cell without the scale word a learner may tap in ("Medium: "): the scale alone is not an answer, the reason is. */
+export const cellText = (v: string | undefined) => (v ?? "").replace(/^\s*(Low|Medium|High|Niedrig|Mittel|Hoch):\s*/i, "").trim();
+/** A part of a decision written as a table (the risk, the decision logic, the decision under uncertainty) counts from this many characters: a sentence. */
+export const FRAME_CELL = 20;
+
 export const listLines = (t: string) => t.split(/\r?\n/).map((x) => x.replace(/^\s*(?:\d+[.):]|[-*•])\s*/, "").trim()).filter((x) => x.length >= MIN_LIST_LINE);
 
 export type ProblemRow = { problem: string; side: string };
@@ -45,9 +50,27 @@ export const improvementCount = (r1: { causeMode: "table" | "text"; improvements
 export const ASSESS_KEYS = ["impact", "effort", "risk"] as const;
 type Mode = "text" | "table";
 
+/* Route 2, questions 2 and 4 to 6: a text box (or a list), or a guided table. Only the chosen layout counts. */
+export const MEASURE_KEYS = ["measure", "why"] as const;
+export const RISK_KEYS = ["goes", "action"] as const;
+type Cells = Record<string, string>;
+export const measureGaps = (r: Cells): ("measure" | "why")[] => MEASURE_KEYS.filter((k) => cellText(r[k]).length < MIN_CELL);
+/** The rows of a frame table (fixed parts) whose cells are still too short, by index. */
+export const frameGaps = (rows: Cells[], keys: readonly string[]) => rows.map((r, i) => (keys.some((k) => (r[k] ?? "").trim().length < FRAME_CELL) ? i : -1)).filter((i) => i >= 0);
+type R2Like = {
+  measures: string; measureMode: Mode; measureRows: Cells[];
+  riskText: string; riskMode: Mode; riskRows: Cells[];
+  logic: string; logicMode: Mode; logicRows: Cells[];
+  uncertain: string; uncMode: Mode; uncRows: Cells[];
+};
+export const measureCount = (r: Pick<R2Like, "measures" | "measureMode" | "measureRows">) => (r.measureMode === "table" ? r.measureRows.filter((x) => measureGaps(x).length === 0).length : listLines(r.measures).length);
+export const riskOk = (r: R2Like) => (r.riskMode === "table" ? frameGaps(r.riskRows, RISK_KEYS).length === 0 : r.riskText.trim().length >= MIN_LINE);
+export const logicOk = (r: R2Like) => (r.logicMode === "table" ? frameGaps(r.logicRows, ["text"]).length === 0 : r.logic.trim().length >= MIN_LINE);
+export const uncOk = (r: R2Like) => (r.uncMode === "table" ? frameGaps(r.uncRows, ["text"]).length === 0 : r.uncertain.trim().length >= MIN_FRAME);
+
 /** Block 1.2 question 1: each option is assessed, as one box per option or as a table row. */
 export const assessMissing = (r1: { assessMode: Mode; assessText: Record<string, string>; assessRows: Record<string, Record<string, string>> }) =>
-  OPT_IDS.filter((id) => (r1.assessMode === "table" ? ASSESS_KEYS.some((k) => (r1.assessRows[id]?.[k] ?? "").trim().length < MIN_CELL) : (r1.assessText[id] ?? "").trim().length < MIN_ASSESS));
+  OPT_IDS.filter((id) => (r1.assessMode === "table" ? ASSESS_KEYS.some((k) => cellText(r1.assessRows[id]?.[k]).length < MIN_CELL) : (r1.assessText[id] ?? "").trim().length < MIN_ASSESS));
 export const assessDone = (r1: Parameters<typeof assessMissing>[0]) => assessMissing(r1).length === 0;
 
 /** No Optional blocks on this day (#57). Kept as an empty list so the page map and the ring read it the same way as the other days. */
@@ -71,7 +94,7 @@ export function taskBlocks(p: Persisted): Record<TaskBlockId, boolean> {
     b11: problemCount(r1) >= PROBLEMS_N && len(r1.feel) >= MIN_LINE && len(r1.improve) >= MIN_LINE,
     b12: assessDone(r1) && len(r1.optOrder) >= MIN_ASSESS && !!r1.optChoice && len(r1.optWhy) >= MIN_LINE,
     b21: causeCount(r1) >= CAUSES_N && improvementCount(r1) >= IMPROVEMENTS_N && len(r1.priority) >= MIN_LINE && len(r1.justify) >= MIN_LINE,
-    b31: len(r2.strategy) >= MIN_LINE && listLines(r2.measures).length >= MEASURES_N && len(r2.definition) >= MIN_LINE && len(r2.riskText) >= MIN_LINE && len(r2.logic) >= MIN_LINE && len(r2.uncertain) >= MIN_FRAME,
+    b31: len(r2.strategy) >= MIN_LINE && measureCount(r2) >= MEASURES_N && len(r2.definition) >= MIN_LINE && riskOk(r2) && logicOk(r2) && uncOk(r2),
   };
 }
 

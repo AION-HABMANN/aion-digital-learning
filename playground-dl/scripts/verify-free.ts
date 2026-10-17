@@ -14,7 +14,7 @@ import { freeMissing } from "../lib/dayFree/missing";
 import { guideOf, freeRouteKey } from "../lib/dayFree/mentor";
 import { blocksOf, emptyFreeRoute, fieldsOf, listLines } from "../lib/dayFree/model";
 import { freeDossier, freeTaskBlocks } from "../lib/dayFree/progress";
-import type { FreeSpec } from "../lib/dayFree/spec";
+import type { FreeField, FreeSpec, GuideSpec } from "../lib/dayFree/spec";
 import { MENTOR_PASSCODE } from "../lib/day1/mentorKey";
 import { setCurrentLang } from "../lib/lang";
 import { emptyD2, emptyD3 } from "../store/dayTypes";
@@ -48,6 +48,15 @@ const withKey = (spec: FreeSpec, on1?: Patch, on2?: Patch): Persisted => {
   return p as unknown as Persisted;
 };
 const ids = (m: { id: string }[]) => m.map((x) => x.id);
+/** The export of the table layout of one text field holds a table and its first model cell. */
+const tableDocHas = (spec: FreeSpec, id: string, route: 1 | 2) => {
+  const p = withKey(spec, (r) => (r.modes[id] = "table"), (r) => (r.modes[id] = "table"));
+  const html = route === 1 ? freeAnalysisBody(p, spec) : freeMemoBody(p, spec);
+  const f = fieldsOf(spec, route).find((x) => x.id === id);
+  if (!f || f.kind !== "text" || !f.table) return false;
+  const first = Object.values(f.table.model[0])[0].slice(0, 14).replace(/&/g, "&amp;");
+  return html.includes("<table>") && html.includes(first);
+};
 
 for (const day of want) {
   const spec = SPECS[day];
@@ -121,6 +130,47 @@ for (const day of want) {
         const short = withKey(spec, (r) => route === 1 && (r.text[f.id] = "too short"), (r) => route === 2 && (r.text[f.id] = "too short"));
         ok(miss(short).some((m) => m.id === `${f.id}-field`), `text ${f.id}: a too-short answer is named`);
       }
+    }
+
+    // 4b · the guided tables (DL-STANDARD section 15): hints for every column, one example row that is not an answer, the layout counts alone
+    type G = { f: FreeField; route: 1 | 2; guide: GuideSpec | undefined; cols: string[]; first: boolean; model: Record<string, string>[] };
+    const guided = f1.concat(f2).flatMap((f): G[] => {
+      const route: 1 | 2 = f1.includes(f) ? 1 : 2;
+      if (f.kind === "lists") return [{ f, route, guide: f.table.guide, cols: f.table.cols.map((c) => c.key), first: false, model: f.table.model }];
+      if (f.kind === "assess") return [{ f, route, guide: f.tableGuide, cols: f.cols.map((c) => c.key), first: true, model: [] as Record<string, string>[] }];
+      if (f.kind === "text" && f.table) return [{ f, route, guide: f.table.guide, cols: f.table.cols.map((c) => c.key), first: f.table.kind === "frame" || !!(f.table.kind === "rows" && f.table.numbered), model: f.table.model }];
+      return [];
+    });
+    ok(guided.length >= 8, `${guided.length} questions offer a guided table`);
+    for (const g of guided) {
+      if (!g.guide) { console.log("   no guide:", g.f.id); continue; }
+      for (const k of g.cols) if (!((g.guide.hints[k] ?? "").length > 8 && (g.guide.example.cells[k] ?? "").length > 8)) console.log("   weak column", g.f.id, k);
+      if (g.first && !(g.guide.hints.first && g.guide.example.first)) console.log("   no first", g.f.id);
+    }
+    ok(guided.every((g) => !!g.guide && g.cols.every((k) => (g.guide!.hints[k] ?? "").length > 8 && (g.guide!.example.cells[k] ?? "").length > 8) && (!g.first || (!!g.guide!.hints.first && !!g.guide!.example.first))), "every guided table has a hint and an example cell for every column (and for the row header where there is one)");
+    ok(guided.every((g) => g.model.every((row) => g.cols.every((k) => (row[k] ?? "") !== g.guide!.example.cells[k]))), "the grey example row is never a model answer");
+    ok(guided.every((g) => !g.guide!.suggest || Object.keys(g.guide!.suggest).every((k) => g.cols.includes(k) && g.guide!.suggest![k].values.length >= 3)), "suggestions belong to a column of the table and offer at least three values");
+    for (const f of f1.concat(f2)) {
+      if (f.kind !== "text" || !f.table) continue;
+      const route: 1 | 2 = f1.includes(f) ? 1 : 2;
+      const T = f.table;
+      const miss = (p: Persisted) => freeMissing(p, spec, route);
+      const mode = (r: ReturnType<typeof freeRouteKey>) => (r.modes[f.id] = "table");
+      const only = (fn: (r: ReturnType<typeof freeRouteKey>) => void) => withKey(spec, route === 1 ? fn : undefined, route === 2 ? fn : undefined);
+      ok(miss(only(mode)).length === 0, `text ${f.id}: the model table leaves nothing missing in the table layout`);
+      ok(miss(only((r) => { mode(r); r.text[f.id] = ""; })).length === 0, `text ${f.id}: in the table layout, an empty text box does not matter`);
+      ok(miss(only((r) => { r.text[f.id] = ""; })).some((m) => m.id === `${f.id}-field`), `text ${f.id}: in the text layout, a full table does not count`);
+      const wipe = (r: ReturnType<typeof freeRouteKey>) => { mode(r); r.rows[f.id] = r.rows[f.id].map((row) => Object.fromEntries(Object.keys(row).map((k) => [k, ""]))); };
+      ok(miss(only(wipe)).length > 0, `text ${f.id}: in the table layout, a full text box does not count`);
+      const lastKey = T.cols[T.cols.length - 1].key;
+      ok(miss(only((r) => { mode(r); r.rows[f.id][0][lastKey] = ""; })).some((m) => m.id === `${f.id}-row-0`), `text ${f.id}: a row or part with an empty cell is named`);
+      ok(miss(only((r) => { mode(r); r.rows[f.id][0][lastKey] = "Low: "; })).some((m) => m.id === `${f.id}-row-0`), `text ${f.id}: a scale word alone does not count as an answer`);
+      if (T.kind === "rows") {
+        ok(T.model.length >= 2 && T.model.length <= 8, `text ${f.id}: the model fills two to eight rows`);
+        ok(miss(only((r) => { mode(r); r.rows[f.id] = r.rows[f.id].slice(0, 2).concat([Object.fromEntries(T.cols.map((c) => [c.key, ""]))]); })).length === 0, `text ${f.id}: two complete rows and an empty one count`);
+        ok(miss(only((r) => { mode(r); r.rows[f.id] = r.rows[f.id].slice(0, 1); })).some((m) => m.id === `${f.id}-field`), `text ${f.id}: one complete row is not enough`);
+      } else ok(T.model.length === T.rows.length, `text ${f.id}: the model fills every fixed row`);
+      ok(tableDocHas(spec, f.id, route), `text ${f.id}: the export prints the chosen table`);
     }
 
     // 5 · the worked answers and the exports

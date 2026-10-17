@@ -91,6 +91,11 @@ export function KEY_D3_R2(): Partial<D3R2> {
       "1. Chunk the ten most-used lessons into short units with one goal each.\n2. Set a content standard for every lesson: one goal, a marked key sentence, terms explained where they appear.\n3. Test every new module with five beginners before it is released.",
       "1. Die zehn meistgenutzten Lektionen in kurze Einheiten mit je einem Ziel teilen.\n2. Einen Inhaltsstandard für jede Lektion setzen: ein Ziel, ein markierter Kernsatz, Begriffe dort erklärt, wo sie vorkommen.\n3. Jedes neue Modul vor der Freigabe mit fünf Einsteigern testen.",
     ),
+    measureRows: [
+      { measure: tt("Chunk the ten most-used lessons into short units with one goal each", "Die zehn meistgenutzten Lektionen in kurze Einheiten mit je einem Ziel teilen"), why: tt("It removes the biggest load, the 500-word block, for every learner without deleting content.", "Es entfernt die größte Belastung, den Block von 500 Wörtern, für jede Lernende, ohne Inhalt zu löschen.") },
+      { measure: tt("Set a content standard for every lesson: one goal, a marked key sentence, terms explained where they appear", "Einen Inhaltsstandard für jede Lektion setzen: ein Ziel, ein markierter Kernsatz, Begriffe dort erklärt, wo sie vorkommen"), why: tt("It keeps every new lesson from bringing the load back.", "Er verhindert, dass jede neue Lektion die Belastung zurückbringt.") },
+      { measure: tt("Test every new module with five beginners before it is released", "Jedes neue Modul vor der Freigabe mit fünf Einsteigern testen"), why: tt("Without user data, this shows early whether the load has really gone down.", "Ohne Nutzerdaten zeigt das früh, ob die Belastung wirklich gesunken ist.") },
+    ],
     definition: tt(
       "A learning-effective UX is one in which a beginner can reach the stated learning goal of a lesson with as little unnecessary effort as possible, shown by being able to explain the key point in their own words afterwards.",
       "Ein lerneffektives UX ist eines, in dem eine Einsteigerin das genannte Lernziel einer Lektion mit möglichst wenig unnötiger Anstrengung erreichen kann, gezeigt dadurch, dass sie danach den Kerngedanken in eigenen Worten erklären kann.",
@@ -99,13 +104,27 @@ export function KEY_D3_R2(): Partial<D3R2> {
       "Too simple: if we cut and simplify too far, learners finish but cannot apply what they learned, and the professional content loses its value. Too complex: if we only restructure, some learners still leave because the topic is hard. I keep the content, change its form, and add a short check at the end of each lesson, so that we measure what learners can do and not only completion.",
       "Zu einfach: Wenn wir zu weit kürzen und vereinfachen, schließen Lernende ab, können das Gelernte aber nicht anwenden, und der fachliche Inhalt verliert seinen Wert. Zu komplex: Wenn wir nur umstrukturieren, gehen manche Lernende weiter, weil das Thema schwer ist. Ich behalte den Inhalt, ändere seine Form und füge am Ende jeder Lektion eine kurze Prüfung hinzu, damit wir messen, was Lernende können, und nicht nur die Completion.",
     ),
+    riskRows: [
+      { goes: tt("Too simple: if we cut and simplify too far, learners finish but cannot apply what they learned, and the professional content loses its value.", "Zu einfach: Wenn wir zu weit kürzen und vereinfachen, schließen Lernende ab, können das Gelernte aber nicht anwenden, und der fachliche Inhalt verliert seinen Wert."), action: tt("Keep the content and change only its form; add a short check at the end of each lesson, and watch what learners can do, not only completion.", "Den Inhalt behalten und nur seine Form ändern; am Ende jeder Lektion eine kurze Prüfung einfügen und beobachten, was Lernende können, nicht nur die Completion.") },
+      { goes: tt("Too complex: if we only restructure, some learners still leave because the topic itself is hard.", "Zu komplex: Wenn wir nur umstrukturieren, gehen manche Lernende weiter, weil das Thema selbst schwer ist."), action: tt("Offer the hard parts in small steps, and watch where beginners stop in the first tests.", "Die schweren Teile in kleinen Schritten anbieten und beobachten, wo Einsteiger in den ersten Tests aufhören.") },
+    ],
     logic: tt(
       "Every new lesson passes a short check before it goes live: it states one learning goal, its size fits the learner's time, the key sentence is marked, technical terms are explained where they appear, and it ends with a short task. The head of learning decides together with the content lead; a lesson that fails a check goes back to the author.",
       "Jede neue Lektion besteht vor der Freigabe eine kurze Prüfung: Sie nennt ein Lernziel, ihre Größe passt zur Zeit der Lernenden, der Kernsatz ist markiert, Fachbegriffe sind dort erklärt, wo sie vorkommen, und sie endet mit einer kurzen Aufgabe. Die Leiterin Lernen entscheidet gemeinsam mit dem Content Lead; eine Lektion, die eine Prüfung nicht besteht, geht an die Autorin zurück.",
     ),
+    logicRows: [
+      { text: tt("Every new lesson states one learning goal, its size fits the learner's time, the key sentence is marked, technical terms are explained where they appear, and it ends with a short task.", "Jede neue Lektion nennt ein Lernziel, ihre Größe passt zur Zeit der Lernenden, der Kernsatz ist markiert, Fachbegriffe sind dort erklärt, wo sie vorkommen, und sie endet mit einer kurzen Aufgabe.") },
+      { text: tt("The head of learning decides together with the content lead, before the lesson goes live.", "Die Leiterin Lernen entscheidet gemeinsam mit dem Content Lead, bevor die Lektion live geht.") },
+      { text: tt("A lesson that fails a check goes back to the author, with the failed check named.", "Eine Lektion, die eine Prüfung nicht besteht, geht an die Autorin zurück, mit der genannten Prüfung.") },
+    ],
     uncertain: tt(
       "I decide to rebuild one course in small modules and test it with five beginners. I do not know whether learners are overloaded by the amount or by the wording. I will reverse it if fewer than four of five beginners can explain the key point after a lesson.",
       "Ich entscheide, einen Kurs in kleinen Modulen neu zu bauen und mit fünf Einsteigern zu testen. Ich weiß nicht, ob Lernende durch die Menge oder durch die Formulierung überlastet sind. Ich nehme es zurück, wenn weniger als vier von fünf Einsteigern nach einer Lektion den Kerngedanken erklären können.",
     ),
+    uncRows: [
+      { text: tt("I decide to rebuild one course in small modules and test it with five beginners.", "Ich entscheide, einen Kurs in kleinen Modulen neu zu bauen und mit fünf Einsteigern zu testen.") },
+      { text: tt("I do not know whether learners are overloaded by the amount of content or by its wording.", "Ich weiß nicht, ob Lernende durch die Menge des Inhalts oder durch seine Formulierung überlastet sind.") },
+      { text: tt("I will reverse it if fewer than four of five beginners can explain the key point after a lesson.", "Ich nehme es zurück, wenn weniger als vier von fünf Einsteigern nach einer Lektion den Kerngedanken erklären können.") },
+    ],
   };
 }

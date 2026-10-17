@@ -1,4 +1,4 @@
-import { blocksOf, listLines, sliceOf } from "@/lib/dayFree/model";
+import { blocksOf, listLines, sliceOf, tableMode } from "@/lib/dayFree/model";
 import type { FreeField, FreeSpec } from "@/lib/dayFree/spec";
 import { cell, docHeader, dateLabel, para } from "@/lib/exportDoc";
 import { tt } from "@/lib/lang";
@@ -19,7 +19,20 @@ const list = (text: string) => {
 
 function fieldHtml(f: FreeField, r: FreeRoute, level: "h3" | "h2", n?: number): string {
   const H = (s: string) => (level === "h2" ? `<h2>${n ? `${n} · ` : ""}${esc(s)}</h2>` : `<h3>${esc(s)}</h3>`);
-  if (f.kind === "text") return `${H(f.doc ?? f.label)}${para(r.text[f.id] ?? "")}`;
+  if (f.kind === "text") {
+    if (f.table && tableMode(f, r)) {
+      const t = f.table;
+      const rows = r.rows[f.id] ?? [];
+      if (t.kind === "rows") {
+        const filled = rows.filter((row) => t.cols.some((c) => (row[c.key] ?? "").trim()));
+        if (!filled.length) return `${H(f.doc ?? f.label)}${empty}`;
+        return `${H(f.doc ?? f.label)}<table><thead><tr>${t.numbered ? "<th>#</th>" : ""}${t.cols.map((c) => `<th>${esc(c.label)}</th>`).join("")}</tr></thead><tbody>${filled.map((row, i) => `<tr>${t.numbered ? `<td class="id">${i + 1}</td>` : ""}${t.cols.map((c) => `<td>${cell(row[c.key] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+      }
+      if (!rows.some((row) => t.cols.some((c) => (row[c.key] ?? "").trim()))) return `${H(f.doc ?? f.label)}${empty}`;
+      return `${H(f.doc ?? f.label)}<table><thead><tr><th>${esc(t.head)}</th>${t.cols.map((c) => `<th>${esc(c.label)}</th>`).join("")}</tr></thead><tbody>${t.rows.map((pt, i) => `<tr><td><strong>${esc(pt.label)}</strong></td>${t.cols.map((c) => `<td>${cell(rows[i]?.[c.key] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    }
+    return `${H(f.doc ?? f.label)}${para(r.text[f.id] ?? "")}`;
+  }
   if (f.kind === "pick") {
     const o = f.options.find((x) => x.id === r.picks[f.id]);
     return `${H(f.doc)}<p><strong>${esc(o ? o.label : "—")}</strong></p>`;

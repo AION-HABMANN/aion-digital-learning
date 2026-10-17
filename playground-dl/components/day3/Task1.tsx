@@ -9,14 +9,13 @@ import { EduCoreSim, LessonReadingSim, OptionSim } from "@/components/day3/sims"
 import { SimButton } from "@/components/sim/SimFrame";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AnswerKey } from "@/components/ui/AnswerKey";
-import { AutoTextarea } from "@/components/ui/AutoTextarea";
 import { BlockMissing } from "@/components/ui/BlockMissing";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { CaseKnown } from "@/components/ui/CaseKnown";
 import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
 import { Field } from "@/components/ui/Field";
-import { FormOrTable } from "@/components/ui/FormOrTable";
+import { CellField, FormOrTable, GridTable, LayoutLink } from "@/components/ui/FormOrTable";
 import { OptionList, TextBox } from "@/components/ui/Inputs";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
@@ -24,6 +23,7 @@ import { MentorGuide } from "@/components/ui/MentorGuide";
 import { RevealHint } from "@/components/ui/RevealHint";
 import { WritingHelp } from "@/components/ui/WritingHelp";
 import { FACTS, OPTS, WEEKS_LIMIT } from "@/data/day3/case";
+import { ASSESS_GUIDE, CAUSES_GUIDE, PROBLEMS_GUIDE } from "@/data/day3/tableGuides";
 import type { OptId } from "@/data/day3/case";
 import { routeHref } from "@/data/course";
 import { optKey } from "@/lib/day3/answerKey";
@@ -143,18 +143,6 @@ function useR1() {
   return { r: useStore((s) => s.d3.r1), patch: useStore((s) => s.patchD3R1), mentor: useStore((s) => s.mentorUnlocked) };
 }
 
-/** The quiet link under a list that switches between one text box and a table; both layouts are kept (CLAUDE.md #57). */
-function ModeLink({ mode, onMode }: { mode: "text" | "table"; onMode: (m: "text" | "table") => void }) {
-  return (
-    <p className="px-1 text-caption text-ash">
-      <button type="button" onClick={() => onMode(mode === "text" ? "table" : "text")} className="underline decoration-dotted underline-offset-2 hover:text-ink">
-        {mode === "text" ? tt("Prefer a table? Fill in rows instead.", "Lieber eine Tabelle? Dann in Zeilen ausfüllen.") : tt("Back to one text box.", "Zurück zu einem Textfeld.")}
-      </button>{" "}
-      {tt("Your answer in the other layout is kept.", "Ihre Antwort im anderen Layout bleibt erhalten.")}
-    </p>
-  );
-}
-
 /* ------------------------------------------------------------------ Block 1.1 (UE2, Level 1) */
 
 function ProblemsHelp() {
@@ -219,37 +207,31 @@ export function Block11({ missing }: { missing: MissingEntry[] }) {
       ) : (
         <Field id={IDS.problems} label={tt(`Describe ${PROBLEMS_N} problems spontaneously, from the user's perspective`, `Beschreiben Sie spontan ${PROBLEMS_N} Probleme aus Sicht der Nutzer`)} help={tt(`One row per problem: the problem, and how it is for the learner. You have ${n} of ${PROBLEMS_N} rows complete.`, `Eine Zeile pro Problem: das Problem und wie es für die Lernende ist. Sie haben ${n} von ${PROBLEMS_N} Zeilen vollständig.`)}>
           <div className="space-y-2">
-            <div className="smallcaps hidden grid-cols-2 gap-2 px-1 text-ash md:grid" aria-hidden>
-              <span>{tt("The problem", "Das Problem")}</span>
-              <span>{tt("How it is for the learner", "Wie es für die Lernende ist")}</span>
-            </div>
-            {r.problemRows.map((row, i) => (
-              <div key={i} id={IDS.problemRow(i)} className="grid gap-2 rounded-lg border border-line bg-canvas p-2 md:grid-cols-2 md:items-start md:border-0 md:bg-transparent md:p-0">
-                {(["problem", "side"] as const).map((k) => {
+            <GridTable
+              head={[tt("The problem", "Das Problem"), tt("How it is for the learner", "Wie es für die Lernende ist")]}
+              hints={[PROBLEMS_GUIDE.hints.first, PROBLEMS_GUIDE.hints.side]}
+              example={[PROBLEMS_GUIDE.example.first, PROBLEMS_GUIDE.example.cells.side]}
+              exampleLabel={PROBLEMS_GUIDE.exampleLabel}
+              rows={r.problemRows.map((row, i) => ({
+                id: IDS.problemRow(i),
+                cells: (["problem", "side"] as const).map((k) => {
                   const col = k === "problem" ? tt("The problem", "Das Problem") : tt("How it is for the learner", "Wie es für die Lernende ist");
                   return (
-                    <label key={k} className="block">
-                      <span className="smallcaps text-ash md:sr-only">{`${i + 1} · ${col}`}</span>
-                      <AutoTextarea
-                        className="mt-1 md:mt-0"
-                        minRows={1}
-                        value={row[k]}
-                        onChange={(e) => {
-                          const v = e.target.value;
-                          patch((st) => ({ problemRows: st.problemRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }));
-                        }}
-                        aria-label={tt(`Problem ${i + 1}: ${col}`, `Problem ${i + 1}: ${col}`)}
-                      />
-                    </label>
+                    <CellField
+                      key={k}
+                      value={row[k]}
+                      onChange={(v) => patch((st) => ({ problemRows: st.problemRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+                      label={tt(`Problem ${i + 1}: ${col}`, `Problem ${i + 1}: ${col}`)}
+                    />
                   );
-                })}
-              </div>
-            ))}
+                }),
+              }))}
+            />
             <ProblemsHelp />
           </div>
         </Field>
       )}
-      <ModeLink mode={r.problemMode} onMode={(m) => patch({ problemMode: m })} />
+      <LayoutLink mode={r.problemMode} onMode={(m) => patch({ problemMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
       <ExampleAnswer id="problems-example" guide={problemsGuide()} />
       {mentor && <MentorGuide guide={problemsGuide()} />}
 
@@ -415,6 +397,7 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
         onCell={(id, k, v) => patch((st) => ({ assessRows: { ...st.assessRows, [id]: { ...st.assessRows[id], [k]: v } } }))}
         rowId={IDS.assessOpt}
         firstCol={tt("Option", "Option")}
+        guide={ASSESS_GUIDE}
       >
         <AssessHelp />
       </FormOrTable>
@@ -689,32 +672,26 @@ export function Block21({ missing }: { missing: MissingEntry[] }) {
           <p className="smallcaps text-ash">{tt("Questions 1 and 2 of 4", "Fragen 1 und 2 von 4")}</p>
           <Field id={IDS.causes} label={tt(`Identify ${CAUSES_N} causes of cognitive overload and develop ${IMPROVEMENTS_N} UX improvements`, `Identifizieren Sie ${CAUSES_N} Ursachen kognitiver Überlastung und entwickeln Sie ${IMPROVEMENTS_N} UX-Verbesserungen`)} help={tt(`One row per cause, with the improvement that answers it. You have ${nC} causes and ${nI} improvements.`, `Eine Zeile pro Ursache, mit der Verbesserung, die sie beantwortet. Sie haben ${nC} Ursachen und ${nI} Verbesserungen.`)}>
             <div className="space-y-2">
-              <div className="smallcaps hidden grid-cols-2 gap-2 px-1 text-ash md:grid" aria-hidden>
-                <span>{tt("Cause of the overload", "Ursache der Überlastung")}</span>
-                <span>{tt("UX improvement", "UX-Verbesserung")}</span>
-              </div>
-              {r.causeRows.map((row, i) => (
-                <div key={i} id={IDS.causeRow(i)} className="grid gap-2 rounded-lg border border-line bg-canvas p-2 md:grid-cols-2 md:items-start md:border-0 md:bg-transparent md:p-0">
-                  {(["cause", "improvement"] as const).map((k) => {
+              <GridTable
+                head={[tt("Cause of the overload", "Ursache der Überlastung"), tt("UX improvement", "UX-Verbesserung")]}
+                hints={[CAUSES_GUIDE.hints.first, CAUSES_GUIDE.hints.improvement]}
+                example={[CAUSES_GUIDE.example.first, CAUSES_GUIDE.example.cells.improvement]}
+                exampleLabel={CAUSES_GUIDE.exampleLabel}
+                rows={r.causeRows.map((row, i) => ({
+                  id: IDS.causeRow(i),
+                  cells: (["cause", "improvement"] as const).map((k) => {
                     const col = k === "cause" ? tt("Cause of the overload", "Ursache der Überlastung") : tt("UX improvement", "UX-Verbesserung");
                     return (
-                      <label key={k} className="block">
-                        <span className="smallcaps text-ash md:sr-only">{`${i + 1} · ${col}`}</span>
-                        <AutoTextarea
-                          className="mt-1 md:mt-0"
-                          minRows={1}
-                          value={row[k]}
-                          onChange={(e) => {
-                            const v = e.target.value;
-                            patch((st) => ({ causeRows: st.causeRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }));
-                          }}
-                          aria-label={`${i + 1}: ${col}`}
-                        />
-                      </label>
+                      <CellField
+                        key={k}
+                        value={row[k]}
+                        onChange={(v) => patch((st) => ({ causeRows: st.causeRows.map((x, j) => (j === i ? { ...x, [k]: v } : x)) }))}
+                        label={`${i + 1}: ${col}`}
+                      />
                     );
-                  })}
-                </div>
-              ))}
+                  }),
+                }))}
+              />
               <CausesHelp />
             </div>
           </Field>
@@ -724,7 +701,7 @@ export function Block21({ missing }: { missing: MissingEntry[] }) {
           {mentor && <MentorGuide guide={improvementsGuide()} />}
         </>
       )}
-      <ModeLink mode={r.causeMode} onMode={(m) => patch({ causeMode: m })} />
+      <LayoutLink mode={r.causeMode} onMode={(m) => patch({ causeMode: m })} backText={tt("Back to one text box.", "Zurück zu einem Textfeld.")} />
 
       <p className="smallcaps text-ash">{tt("Question 3 of 4", "Frage 3 von 4")}</p>
       <TextBox

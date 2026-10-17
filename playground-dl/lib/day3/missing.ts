@@ -1,5 +1,5 @@
 import { OPT_BY_ID, OPT_IDS } from "@/data/day3/case";
-import { ASSESS_KEYS, CAUSES_N, IMPROVEMENTS_N, MEASURES_N, MIN_ASSESS, MIN_CELL, MIN_FRAME, MIN_LINE, PROBLEMS_N, causeCount, causeGaps, improvementCount, listLines, problemCount, problemGaps } from "@/lib/day3/progress";
+import { ASSESS_KEYS, CAUSES_N, FRAME_CELL, IMPROVEMENTS_N, MEASURES_N, MIN_ASSESS, MIN_CELL, MIN_FRAME, MIN_LINE, PROBLEMS_N, RISK_KEYS, causeCount, causeGaps, cellText, frameGaps, improvementCount, measureCount, measureGaps, problemCount, problemGaps } from "@/lib/day3/progress";
 import { participantMissing } from "@/lib/missing";
 import type { MissingEntry } from "@/lib/missing";
 import { tt } from "@/lib/lang";
@@ -32,10 +32,14 @@ export const IDS = {
   riskText: "risktext-field",
   logic: "logic-field",
   uncertain: "uncertain-field",
+  measureRow: (i: number) => `measures-row-${i}`,
+  riskRow: (i: number) => `risktext-row-${i}`,
+  logicRow: (i: number) => `logic-row-${i}`,
+  uncRow: (i: number) => `uncertain-row-${i}`,
 } as const;
 
 const colName = (k: string) =>
-  k === "impact" ? tt("learning impact", "Lernwirkung") : k === "effort" ? tt("effort", "Aufwand") : k === "risk" ? tt("risk", "Risiko") : k === "problem" ? tt("the problem", "das Problem") : k === "side" ? tt("how it is for the learner", "wie es für die Lernende ist") : k === "cause" ? tt("the cause", "die Ursache") : tt("the improvement", "die Verbesserung");
+  k === "impact" ? tt("learning impact", "Lernwirkung") : k === "effort" ? tt("effort", "Aufwand") : k === "risk" ? tt("risk", "Risiko") : k === "measure" ? tt("the measure", "die Maßnahme") : k === "why" ? tt("why it has this place", "warum sie diesen Platz hat") : k === "problem" ? tt("the problem", "das Problem") : k === "side" ? tt("how it is for the learner", "wie es für die Lernende ist") : k === "cause" ? tt("the cause", "die Ursache") : tt("the improvement", "die Verbesserung");
 
 export function r1Missing(p: Persisted): MissingEntry[] {
   const out = participantMissing(p);
@@ -62,7 +66,7 @@ export function r1Missing(p: Persisted): MissingEntry[] {
     if (r1.assessMode === "text") {
       if (!long(r1.assessText[id] ?? "", MIN_ASSESS)) e(IDS.assessOpt(id), tt(`Block 1.2: assess ${name}: its learning impact, effort and risk (at least ${MIN_ASSESS} characters).`, `Block 1.2: Bewerten Sie ${name}: Lernwirkung, Aufwand und Risiko (mindestens ${MIN_ASSESS} Zeichen).`));
     } else {
-      const lack = ASSESS_KEYS.filter((k) => (r1.assessRows[id]?.[k] ?? "").trim().length < MIN_CELL).map(colName);
+      const lack = ASSESS_KEYS.filter((k) => cellText(r1.assessRows[id]?.[k]).length < MIN_CELL).map(colName);
       if (lack.length) e(IDS.assessOpt(id), tt(`Block 1.2: ${name} still needs its ${lack.join(", ")}.`, `Block 1.2: ${name} braucht noch: ${lack.join(", ")}.`));
     }
   }
@@ -95,11 +99,25 @@ export function r2Missing(p: Persisted): MissingEntry[] {
 
   // Block 3.1: the plan's transfer project, five items and the decision under uncertainty
   if (!long(r2.strategy, MIN_LINE)) e(IDS.strategy, tt(`Block 3.1: write your strategy for reducing cognitive load (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Strategie zur Senkung der kognitiven Belastung (mindestens ${MIN_LINE} Zeichen).`));
-  const nMeasures = listLines(r2.measures).length;
-  if (nMeasures < MEASURES_N) e(IDS.measures, tt(`Block 3.1: write ${MEASURES_N} prioritised UX measures, the first priority first, one per line (you have ${nMeasures} of ${MEASURES_N}).`, `Block 3.1: Schreiben Sie ${MEASURES_N} priorisierte UX-Maßnahmen, die erste Priorität zuerst, eine pro Zeile (Sie haben ${nMeasures} von ${MEASURES_N}).`));
+  const nMeasures = measureCount(r2);
+  if (r2.measureMode === "table") {
+    r2.measureRows.forEach((row, i) => {
+      const gaps = measureGaps(row);
+      if (gaps.length) e(IDS.measureRow(i), tt(`Block 3.1: priority ${i + 1} still needs ${gaps.map(colName).join(", ")}.`, `Block 3.1: Priorität ${i + 1} braucht noch: ${gaps.map(colName).join(", ")}.`));
+    });
+  } else if (nMeasures < MEASURES_N) e(IDS.measures, tt(`Block 3.1: write ${MEASURES_N} prioritised UX measures, the first priority first, one per line (you have ${nMeasures} of ${MEASURES_N}).`, `Block 3.1: Schreiben Sie ${MEASURES_N} priorisierte UX-Maßnahmen, die erste Priorität zuerst, eine pro Zeile (Sie haben ${nMeasures} von ${MEASURES_N}).`));
   if (!long(r2.definition, MIN_LINE)) e(IDS.definition, tt(`Block 3.1: define “learning-effective UX” (at least ${MIN_LINE} characters).`, `Block 3.1: Definieren Sie „lerneffektives UX“ (mindestens ${MIN_LINE} Zeichen).`));
-  if (!long(r2.riskText, MIN_LINE)) e(IDS.riskText, tt(`Block 3.1: write your risk analysis: content that is too simple against content that is too complex (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Risikoanalyse: zu einfacher Inhalt gegen zu komplexen Inhalt (mindestens ${MIN_LINE} Zeichen).`));
-  if (!long(r2.logic, MIN_LINE)) e(IDS.logic, tt(`Block 3.1: write your decision logic for future content (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Entscheidungslogik für künftige Inhalte (mindestens ${MIN_LINE} Zeichen).`));
-  if (!long(r2.uncertain, MIN_FRAME)) e(IDS.uncertain, tt(`Block 3.1: write the decision you make under uncertainty: what you decide, what you do not know, when you would reverse it (at least ${MIN_FRAME} characters).`, `Block 3.1: Schreiben Sie die Entscheidung unter Unsicherheit: was Sie entscheiden, was Sie nicht wissen, wann Sie sie zurücknähmen (mindestens ${MIN_FRAME} Zeichen).`));
+  if (r2.riskMode === "table") {
+    const sides = [tt("content that is too simple", "zu einfacher Inhalt"), tt("content that is too complex", "zu komplexer Inhalt")];
+    for (const i of frameGaps(r2.riskRows, RISK_KEYS)) e(IDS.riskRow(i), tt(`Block 3.1: risk analysis, ${sides[i]}: say what goes wrong and what you do about it (at least ${FRAME_CELL} characters each).`, `Block 3.1: Risikoanalyse, ${sides[i]}: Sagen Sie, was schiefgeht und was Sie dagegen tun (jeweils mindestens ${FRAME_CELL} Zeichen).`));
+  } else if (!long(r2.riskText, MIN_LINE)) e(IDS.riskText, tt(`Block 3.1: write your risk analysis: content that is too simple against content that is too complex (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Risikoanalyse: zu einfacher Inhalt gegen zu komplexen Inhalt (mindestens ${MIN_LINE} Zeichen).`));
+  if (r2.logicMode === "table") {
+    const parts = [tt("the checks", "die Prüfungen"), tt("who decides", "wer entscheidet"), tt("a lesson that fails", "eine Lektion, die durchfällt")];
+    for (const i of frameGaps(r2.logicRows, ["text"])) e(IDS.logicRow(i), tt(`Block 3.1: decision logic, ${parts[i]} (at least ${FRAME_CELL} characters).`, `Block 3.1: Entscheidungslogik, ${parts[i]} (mindestens ${FRAME_CELL} Zeichen).`));
+  } else if (!long(r2.logic, MIN_LINE)) e(IDS.logic, tt(`Block 3.1: write your decision logic for future content (at least ${MIN_LINE} characters).`, `Block 3.1: Schreiben Sie Ihre Entscheidungslogik für künftige Inhalte (mindestens ${MIN_LINE} Zeichen).`));
+  if (r2.uncMode === "table") {
+    const parts = [tt("what you decide", "was Sie entscheiden"), tt("what you do not know", "was Sie nicht wissen"), tt("when you would reverse it", "wann Sie sie zurücknähmen")];
+    for (const i of frameGaps(r2.uncRows, ["text"])) e(IDS.uncRow(i), tt(`Block 3.1: decision under uncertainty, ${parts[i]} (at least ${FRAME_CELL} characters).`, `Block 3.1: Entscheidung unter Unsicherheit, ${parts[i]} (mindestens ${FRAME_CELL} Zeichen).`));
+  } else if (!long(r2.uncertain, MIN_FRAME)) e(IDS.uncertain, tt(`Block 3.1: write the decision you make under uncertainty: what you decide, what you do not know, when you would reverse it (at least ${MIN_FRAME} characters).`, `Block 3.1: Schreiben Sie die Entscheidung unter Unsicherheit: was Sie entscheiden, was Sie nicht wissen, wann Sie sie zurücknähmen (mindestens ${MIN_FRAME} Zeichen).`));
   return out;
 }

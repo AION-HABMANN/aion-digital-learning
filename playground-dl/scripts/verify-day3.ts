@@ -11,8 +11,9 @@ import { MATERIALS, MATERIAL_PLAIN } from "../data/day3/materials";
 import { GLOSSARY, GLOSS_LOOKUP, GLOSS_LOOKUP_DE } from "../data/glossary";
 import { r1Missing, r2Missing } from "../lib/day3/missing";
 import { KEY_D3_R1, KEY_D3_R2 } from "../lib/day3/mentorKey";
-import { BLOCK_MINUTES, CAUSES_N, CORE_UNITS, IMPROVEMENTS_N, MEASURES_N, OPTIONAL_BLOCKS, PROBLEMS_N, causeCount, dossierProgress, improvementCount, listLines, problemCount, taskBlocks } from "../lib/day3/progress";
+import { BLOCK_MINUTES, CAUSES_N, CORE_UNITS, FRAME_CELL, IMPROVEMENTS_N, MEASURES_N, OPTIONAL_BLOCKS, PROBLEMS_N, causeCount, cellText, dossierProgress, improvementCount, listLines, measureCount, problemCount, taskBlocks } from "../lib/day3/progress";
 import { analysisBody, memoBody } from "../lib/day3/exportDoc";
+import { ASSESS_GUIDE, CAUSES_GUIDE, LOGIC_GUIDE, MEASURES_GUIDE, PROBLEMS_GUIDE, RISK_GUIDE, UNC_GUIDE } from "../data/day3/tableGuides";
 import { MENTOR_PASSCODE } from "../lib/day1/mentorKey";
 import { setCurrentLang } from "../lib/lang";
 import { emptyD3, emptyD3R1, emptyD3R2, emptyD2 } from "../store/dayTypes";
@@ -107,6 +108,39 @@ for (const lang of ["en", "de"] as const) {
   const memo = memoBody(p1);
   ok([KEY_D3_R2().strategy!.slice(0, 20), KEY_D3_R2().riskText!.slice(0, 20), KEY_D3_R2().logic!.slice(0, 20), KEY_D3_R2().definition!.slice(0, 20)].every((x) => memo.includes(x)), "the memo prints the answers");
 
+  // 7b · the guided tables (DL-STANDARD section 15): a hint per column, one example row that is not an answer, the layout counts alone
+  const guides = [
+    { name: "problems", g: PROBLEMS_GUIDE, keys: ["first", "side"], model: [KEY_D3_R1().problemRows![0].problem, KEY_D3_R1().problemRows![0].side] },
+    { name: "assessment", g: ASSESS_GUIDE, keys: ["first", "impact", "effort", "risk"], model: Object.values(KEY_D3_R1().assessRows!.C) },
+    { name: "causes", g: CAUSES_GUIDE, keys: ["first", "improvement"], model: [KEY_D3_R1().causeRows![0].cause, KEY_D3_R1().causeRows![0].improvement] },
+    { name: "measures", g: MEASURES_GUIDE, keys: ["first", "measure", "why"], model: [] as string[] },
+    { name: "risk", g: RISK_GUIDE, keys: ["first", "goes", "action"], model: [] as string[] },
+    { name: "logic", g: LOGIC_GUIDE, keys: ["first", "text"], model: [] as string[] },
+    { name: "uncertainty", g: UNC_GUIDE, keys: ["first", "text"], model: [] as string[] },
+  ];
+  ok(guides.every((x) => x.keys.every((k) => (x.g.hints[k] ?? "").length > 8) && Object.values(x.g.example.cells).every((c) => c.length > 8) && x.g.example.first.length >= 1), "every guided table has a hint for every column and a filled example row");
+  ok(guides.every((x) => x.model.every((m) => !Object.values(x.g.example.cells).includes(m) && m !== x.g.example.first)), "the grey example row is never a model answer");
+  ok(Object.keys(ASSESS_GUIDE.suggest ?? {}).join() === "impact,effort,risk" && ASSESS_GUIDE.suggest!.impact.values.length === 3, "the assessment offers a Low, Medium, High scale on its three columns, and no other table does");
+  ok(cellText("Medium: ") === "" && cellText("Medium: it costs little") === "it costs little", "a scale word alone is not an answer");
+  const r2 = KEY_D3_R2();
+  ok((r2.measureRows ?? []).length === 3 && (r2.riskRows ?? []).length === 2 && (r2.logicRows ?? []).length === 3 && (r2.uncRows ?? []).length === 3, "the model fills every fixed row of the four Route 2 tables");
+  const tblAll = { measureMode: "table" as const, riskMode: "table" as const, logicMode: "table" as const, uncMode: "table" as const };
+  const wipe = { measures: "", riskText: "", logic: "", uncertain: "" };
+  const t2 = withKey(p0, {}, { ...tblAll, ...wipe });
+  ok(r2Missing(t2).length === 0 && taskBlocks(t2).b31 && measureCount(t2.d3.r2) === MEASURES_N, "the model tables leave nothing missing in the table layout, with every text box empty");
+  const text2 = withKey(p0, {}, { measureRows: emptyD3R2().measureRows, riskRows: emptyD3R2().riskRows, logicRows: emptyD3R2().logicRows, uncRows: emptyD3R2().uncRows });
+  ok(r2Missing(text2).length === 0, "in the text layout, empty tables do not matter");
+  ok(ids(r2Missing(withKey(p0, {}, { ...tblAll, measureRows: emptyD3R2().measureRows, riskRows: emptyD3R2().riskRows, logicRows: emptyD3R2().logicRows, uncRows: emptyD3R2().uncRows })), /-row-/).length === 3 + 2 + 3 + 3, "in the table layout, full text boxes do not count: every row is named");
+  const part = withKey(p0, {}, { ...tblAll, ...wipe, measureRows: KEY_D3_R2().measureRows!.map((x, i) => (i === 1 ? { ...x, why: "" } : x)) });
+  ok(r2Missing(part).some((m) => m.id === "measures-row-1" && /2/.test(m.label)) && measureCount(part.d3.r2) === 2 && !taskBlocks(part).b31, "a measure row without its reason is named (priority 2) and does not count");
+  const scaleOnly = withKey(p0, { assessMode: "table" as const, assessRows: { ...KEY_D3_R1().assessRows!, A: { impact: "Medium: ", effort: "Low", risk: "High: a short reason" } } });
+  ok(r1Missing(scaleOnly).some((m) => m.id === "assess-A") && !r1Missing(scaleOnly).some((m) => m.id === "assess-B"), "an assessment cell with only a scale word is named; the next option still counts");
+  const shortFrame = withKey(p0, {}, { ...tblAll, ...wipe, uncRows: [{ text: "Too short." }, ...KEY_D3_R2().uncRows!.slice(1)] });
+  ok(r2Missing(shortFrame).some((m) => m.id === "uncertain-row-0") && (KEY_D3_R2().uncRows ?? []).every((x) => x.text.length >= FRAME_CELL), "a part of the decision under uncertainty shorter than a sentence is named");
+  const tmemo = memoBody(t2);
+  ok(tmemo.includes("<table>") && tmemo.includes(KEY_D3_R2().measureRows![0].measure.slice(0, 20)) && tmemo.includes(KEY_D3_R2().uncRows![1].text.slice(0, 20)) && !memoBody(withKey(p0)).includes("<table>"), "the memo prints a table in the table layout and none in the text layout");
+  ok(!memoBody(withKey(p0, {}, { ...tblAll, measureRows: emptyD3R2().measureRows, riskRows: emptyD3R2().riskRows, logicRows: emptyD3R2().logicRows, uncRows: emptyD3R2().uncRows })).includes("<tbody>"), "an untouched table prints no empty table");
+
   // 8 · the export bodies are built, in this language, and never print a key or a verdict
   ok(doc.includes("Test Person") && memo.includes("Test Person"), "both documents carry the participant's name");
   ok(!/answer key|Musterlösung|expected/i.test(doc + memo), "no answer key text in an export");
@@ -134,6 +168,8 @@ ok(!!migrated.d2 && !!migrated.d3 && migrated.participant.name === "Old", "an ol
 const before57 = mergeDefaults(emptyD3R1(), { improve: "kept answer about improvements", optWhy: "kept", sort: { f1: "amount" }, worst: "f1", chosen: ["m1"], causes: ["c1"] });
 ok(before57.improve === "kept answer about improvements" && before57.optWhy === "kept" && before57.problemMode === "text" && before57.problemRows.length === 5 && before57.assessMode === "text" && before57.causeMode === "text" && before57.causeRows.length === 4 && before57.priority === "", "a Day 3 slice from before the rebuild keeps its answers and gets the new fields from the defaults");
 ok(mergeDefaults(emptyD3R2(), { strategy: "kept strategy", picks: ["d1"] }).strategy === "kept strategy" && mergeDefaults(emptyD3R2(), { measures: 5 }).measures === "", "Route 2 keeps what fits, and a value of the wrong type is dropped");
+const oldR2 = mergeDefaults(emptyD3R2(), { strategy: "kept", measures: "1. kept measure here" });
+ok(oldR2.measureMode === "text" && oldR2.measureRows.length === 3 && oldR2.riskRows.length === 2 && oldR2.logicRows.length === 3 && oldR2.uncRows.length === 3 && oldR2.measures === "1. kept measure here", "an old Route 2 slice gets the table layouts from the defaults and keeps its answers");
 
 console.log(failed ? `\n${failed} check(s) FAILED` : "\nAll checks passed");
 process.exit(failed ? 1 : 0);
