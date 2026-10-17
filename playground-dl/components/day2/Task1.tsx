@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CourseStartMock, LiveStartMock } from "@/components/day2/mocks";
+import { GuidedCourseSim, HifiPrototypeSim, LongPageSim, PaperPrototypeSim } from "@/components/day2/sims";
+import { SimButton } from "@/components/sim/SimFrame";
 import { PlatformScreens } from "@/components/day2/Screens";
 import { AnswerBlock } from "@/components/ui/AnswerBlock";
 import { AutoTextarea } from "@/components/ui/AutoTextarea";
@@ -141,6 +143,25 @@ export function Block11({ missing }: { missing: MissingEntry[] }) {
       </p>
       <div id={IDS.pictures}>
         <PlatformScreens />
+      </div>
+      <div className="grid gap-2 sm:grid-cols-2">
+        <SimButton
+          label={tt("Open Platform A and try it", "Plattform A öffnen und ausprobieren")}
+          sub={tt("Use it as a learner: follow the path, do a unit and its quiz.", "Nutzen Sie sie als Lernende: dem Pfad folgen, eine Einheit und ihr Quiz machen.")}
+          url="learn-a.example/course/project-basics"
+          title={tt("Simulation: Platform A", "Simulation: Plattform A")}
+        >
+          {() => <GuidedCourseSim />}
+        </SimButton>
+        <SimButton
+          label={tt("Open Platform B (LearnPro today) and try it", "Plattform B (LearnPro heute) öffnen und ausprobieren")}
+          sub={tt("Use it as a learner: read the course and finish it.", "Nutzen Sie sie als Lernende: den Kurs lesen und abschließen.")}
+          url="learnpro.example/course/project-basics"
+          title={tt("Simulation: Platform B, LearnPro today", "Simulation: Plattform B, LearnPro heute")}
+          note={tt("Simulation · Case assumption: the course is made up and shortened; on LearnPro it is one page of about 40 minutes of reading · nothing here is marked right or wrong.", "Simulation · Fallannahme: der Kurs ist erfunden und gekürzt; bei LearnPro ist er eine Seite mit etwa 40 Minuten Lesestoff · hier wird nichts als richtig oder falsch markiert.")}
+        >
+          {() => <LongPageSim />}
+        </SimButton>
       </div>
       <RevealHint id="platform-facts" label={tt("Show what is at each number", "Zeigen, was an jeder Nummer steht")} title={tt("What is at each number in the pictures", "Was an jeder Nummer in den Bildern steht")}>
         <ul className="space-y-1.5 text-caption text-ink">
@@ -322,6 +343,15 @@ function OptionCards() {
           <p className="font-semibold">{tt("Option", "Option")} {look} · {info[look].name}</p>
           <p>{info[look].text}</p>
           <p className="text-ash">{tt("This only says what it is. Whether it is the right choice is for you to say.", "Das sagt nur, was es ist. Ob es die richtige Wahl ist, sagen Sie.")}</p>
+          <SimButton
+            key={look}
+            label={tt(`Open option ${look} and try it`, `Option ${look} öffnen und ausprobieren`)}
+            sub={look === "A" ? tt("Click through the prototype as a learner would.", "Klicken Sie sich wie eine Lernende durch den Prototyp.") : look === "B" ? tt("Page through the sketches as in a paper test.", "Blättern Sie die Skizzen durch wie in einem Papiertest.") : tt("Use the product that every learner now has.", "Nutzen Sie das Produkt, das jetzt alle Lernenden haben.")}
+            url={look === "A" ? "prototype.design-tool.example/learnpro-course" : look === "B" ? tt("paper prototype · on the table", "Papierprototyp · auf dem Tisch") : "learnpro.example/course/project-basics"}
+            title={tt(`Simulation: option ${look}`, `Simulation: Option ${look}`)}
+          >
+            {() => (look === "A" ? <HifiPrototypeSim /> : look === "B" ? <PaperPrototypeSim /> : <GuidedCourseSim live />)}
+          </SimButton>
         </div>
       </div>
     </div>
@@ -528,6 +558,15 @@ export function Block21({ missing }: { missing: MissingEntry[] }) {
             {tt("See the pictures", "Bilder ansehen")}
           </button>
         </p>
+        <SimButton
+          label={tt("Open LearnPro today and try it", "LearnPro heute öffnen und ausprobieren")}
+          sub={tt("Use the platform as one of its learners does.", "Nutzen Sie die Plattform so, wie eine ihrer Lernenden es tut.")}
+          url="learnpro.example/course/project-basics"
+          title={tt("Simulation: LearnPro today", "Simulation: LearnPro heute")}
+          note={tt("Simulation · Case assumption: the course is made up and shortened; on LearnPro it is one page of about 40 minutes of reading · nothing here is marked right or wrong.", "Simulation · Fallannahme: der Kurs ist erfunden und gekürzt; bei LearnPro ist er eine Seite mit etwa 40 Minuten Lesestoff · hier wird nichts als richtig oder falsch markiert.")}
+        >
+          {() => <LongPageSim />}
+        </SimButton>
       </div>
 
       <p className="smallcaps text-ash">{tt("Question 1 of 4", "Frage 1 von 4")}</p>

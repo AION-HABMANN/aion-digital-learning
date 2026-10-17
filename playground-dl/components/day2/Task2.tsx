@@ -12,6 +12,8 @@ import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
 import { WritingHelp } from "@/components/ui/WritingHelp";
+import { CpoDeskSim } from "@/components/day2/sims";
+import { SimButton } from "@/components/sim/SimFrame";
 import { VERDICTS } from "@/data/day2/case";
 import type { Verdict } from "@/data/day2/case";
 import { routeHref } from "@/data/course";
@@ -78,6 +80,15 @@ function CaseBrief() {
           tt("Route 1 is not needed for this route. If you have done it, your answers are quoted in the memo.", "Route 1 ist für diese Route nicht nötig. Wenn Sie sie gemacht haben, werden Ihre Antworten im Memo zitiert.")
         )}
       </p>
+      <SimButton
+        label={tt("Open your desk and read what is waiting", "Ihren Schreibtisch öffnen und lesen, was wartet")}
+        sub={tt("The note from management, the competitor news, what the platform records, and LearnPro today.", "Die Nachricht der Geschäftsführung, die Meldungen der Wettbewerber, was die Plattform erfasst, und LearnPro heute.")}
+        url="mail.learnpro.example/inbox"
+        title={tt("Simulation: the Chief Product Officer's desk", "Simulation: der Schreibtisch der Chief Product Officer")}
+        note={tt("Simulation · Case assumption: the messages and the data table are made up from the brief · nothing here is marked right or wrong.", "Simulation · Fallannahme: die Nachrichten und die Datentabelle sind aus dem Auftrag erfunden · hier wird nichts als richtig oder falsch markiert.")}
+      >
+        {() => <CpoDeskSim />}
+      </SimButton>
       <Callout label={tt("Case assumption", "Fallannahme")}>
         <p>{tt("The brief says: competitors use AI and adaptive systems, an outdated platform, a limited budget, incomplete data. It prints no figure, so none is used here.", "Der Auftrag sagt: Wettbewerber nutzen KI und adaptive Systeme, eine veraltete Plattform, ein begrenztes Budget, unvollständige Daten. Er nennt keine Zahl, daher wird hier keine verwendet.")}</p>
       </Callout>

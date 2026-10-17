@@ -54,12 +54,12 @@ export const DAY2: DayConfig = {
       ? {
           kicker: tt("Day 2 · Route 1 · Levels 1 and 2 · Knowledge and application", "Tag 2 · Route 1 · Level 1 und 2 · Wissen und Anwendung"),
           h1: tt("Successful platforms, prototyping and testing: compare two platforms, then plan the prototype and the tests", "Erfolgreiche Plattformen, Prototyping und Testing: zwei Plattformen vergleichen, dann Prototyp und Tests planen"),
-          order: tt("Materi A (all five cards, four are core) → the UX Analysis task, one case in two parts (compare platforms, plan prototypes and tests), with two core blocks. Every section stays open, so you can start anywhere.", "Materi A (alle fünf Karten, vier sind Kern) → die Aufgabe UX Analysis, ein Fall in zwei Teilen (Plattformen vergleichen, Prototypen und Tests planen), mit zwei Kernblöcken. Jeder Abschnitt bleibt offen, Sie können überall beginnen."),
+          order: tt("Materi A (five cards) → the UX Analysis task: Block 1.1 and Block 1.2 (Level 1), then the case study, Block 2.1 (Level 2). Every platform and option can be opened and tried. Every section stays open, so you can start anywhere.", "Materi A (fünf Karten) → die Aufgabe UX Analysis: Block 1.1 und Block 1.2 (Level 1), dann die Fallstudie, Block 2.1 (Level 2). Jede Plattform und jede Option lässt sich öffnen und ausprobieren. Jeder Abschnitt bleibt offen, Sie können überall beginnen."),
         }
       : {
           kicker: tt("Day 2 · Route 2 · Level 3 · Management decision", "Tag 2 · Route 2 · Level 3 · Managemententscheidung"),
-          h1: tt("Innovation as a strategic decision: adaptive learning, a testing strategy, three investments, the risk, and what you give up", "Innovation als strategische Entscheidung: adaptives Lernen, eine Teststrategie, drei Investitionen, das Risiko und worauf Sie verzichten"),
-          order: tt("Materi B (three cards) → the UX Strategy task, one frame with two core blocks and a memo that builds below. Route 1 is a good start but not needed; every section stays open.", "Materi B (drei Karten) → die Aufgabe UX Strategy, ein Rahmen mit zwei Kernblöcken und einem Memo, das darunter entsteht. Route 1 ist ein guter Einstieg, aber nicht nötig; jeder Abschnitt bleibt offen."),
+          h1: tt("A future strategy for the platform: adaptive learning, prototyping and testing, a roadmap, the risk, and one decision under uncertainty", "Eine Zukunftsstrategie für die Plattform: adaptives Lernen, Prototyping und Testen, eine Roadmap, das Risiko und eine Entscheidung unter Unsicherheit"),
+          order: tt("Materi B (three cards) → the UX Strategy task: one block with six questions and a memo that builds below. Your desk can be opened and read. Route 1 is a good start but not needed; every section stays open.", "Materi B (drei Karten) → die Aufgabe UX Strategy: ein Block mit sechs Fragen und ein Memo, das darunter entsteht. Ihr Schreibtisch lässt sich öffnen und lesen. Route 1 ist ein guter Einstieg, aber nicht nötig; jeder Abschnitt bleibt offen."),
         },
 };
 
