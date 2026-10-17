@@ -13,6 +13,7 @@ import { AutoTextarea } from "@/components/ui/AutoTextarea";
 import { BlockMissing } from "@/components/ui/BlockMissing";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
+import { CaseKnown } from "@/components/ui/CaseKnown";
 import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
 import { Field } from "@/components/ui/Field";
 import { FormOrTable } from "@/components/ui/FormOrTable";
@@ -66,7 +67,7 @@ function CaseBrief() {
         <div className="rounded-lg border border-line bg-canvas p-3 text-caption">
           <p className="smallcaps">{tt("The conditions", "Die Rahmenbedingungen")}</p>
           <ul className="mt-1 list-disc space-y-1 pl-4 text-ink">
-            <li>{tt(`Time for the module: ${WEEKS_LIMIT} weeks`, `Zeit für das Modul: ${WEEKS_LIMIT} Wochen`)}</li>
+            <li>{tt(`Time for the module: ${WEEKS_LIMIT} weeks, until the module goes live`, `Zeit für das Modul: ${WEEKS_LIMIT} Wochen, bis das Modul live geht`)}</li>
             <li>{tt("The content is complex (a specialist subject)", "Der Inhalt ist komplex (ein Fachthema)")}</li>
             <li>{tt("The target group is beginners", "Die Zielgruppe sind Einsteiger")}</li>
           </ul>
@@ -80,11 +81,47 @@ function CaseBrief() {
           </ol>
         </div>
       </div>
+      <CaseKnown
+        id="case-known"
+        title={tt("What is known and what is open", "Was bekannt ist und was offen ist")}
+        columns={[
+          {
+            title: tt("In the brief", "Im Auftrag"),
+            items: [
+              tt("Users do not understand the content.", "Nutzer verstehen den Inhalt nicht."),
+              tt("Many learners drop out.", "Viele Lernende brechen ab."),
+              tt("The content is called “too complicated”.", "Der Inhalt wird „zu kompliziert“ genannt."),
+              tt("A first look at the screens: too much information at once, no visual structure, no recognisable learning logic.", "Ein erster Blick auf die Bildschirme: zu viel Information auf einmal, keine visuelle Struktur, keine erkennbare Lernlogik."),
+            ],
+          },
+          {
+            title: tt("Clear · Case assumption", "Klar · Fallannahme"),
+            items: [
+              tt("EduCore is live and has a list of lessons.", "EduCore ist live und hat eine Liste von Lektionen."),
+              tt("The platform records which lessons each learner opens and which quizzes they finish.", "Die Plattform erfasst, welche Lektionen jede Lernende öffnet und welche Quizze sie beendet."),
+              tt("“Too complicated” comes from comments in the feedback form.", "„Zu kompliziert“ stammt aus Kommentaren im Feedback-Formular."),
+              tt(`The ${WEEKS_LIMIT} weeks are for the module you improve, until it goes live.`, `Die ${WEEKS_LIMIT} Wochen gelten für das Modul, das Sie verbessern, bis es live geht.`),
+              tt("“Beginners” means new to the subject, not new to learning online.", "„Einsteiger“ heißt neu im Thema, nicht neu im Online-Lernen."),
+              tt("The module in Block 1.2 is a module of EduCore.", "Das Modul in Block 1.2 ist ein Modul von EduCore."),
+            ],
+          },
+          {
+            title: tt("Open · on purpose", "Offen · mit Absicht"),
+            items: [
+              tt("How many learners drop out, and where in a lesson they leave: no figure is given.", "Wie viele Lernende abbrechen und wo in einer Lektion sie gehen: Es ist keine Zahl angegeben."),
+              tt("What “too complicated” means to the learners: the three observations come from a first look at the screens, not from the learners.", "Was „zu kompliziert“ für die Lernenden bedeutet: Die drei Beobachtungen stammen aus einem ersten Blick auf die Bildschirme, nicht von den Lernenden."),
+              tt("Nobody has tested the lessons with real beginners yet.", "Bisher hat niemand die Lektionen mit echten Einsteigern getestet."),
+              tt("How much money there is: it is not set; effort means the work and time an option needs.", "Wie viel Geld es gibt: Es ist nicht festgelegt; Aufwand heißt die Arbeit und Zeit, die eine Option braucht."),
+            ],
+          },
+        ]}
+        note={tt("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.")}
+      />
       <Callout label={tt("Case assumption", "Fallannahme")}>
         <p>
           {tt(
-            "The brief says: users do not understand the content, a high drop-out rate, content “too complicated”, too much information at once, no visual structure, no recognisable learning logic, a long continuous text of 500 words with no paragraphs, unexplained technical terms and no visualisation, a time limit of 4 weeks, complex content and beginners. It prints no cost or budget, so none is used here. Everything else is made up for this exercise: the screens, the 28 lessons, the 12 quiz questions and the text of the lesson.",
-            "Der Auftrag sagt: Nutzer verstehen den Inhalt nicht, eine hohe Abbruchquote, Inhalt „zu kompliziert“, zu viel Information auf einmal, keine visuelle Struktur, keine erkennbare Lernlogik, ein langer durchgehender Text von 500 Wörtern ohne Absätze, mit unerklärten Fachbegriffen und ohne Visualisierung, ein Zeitlimit von 4 Wochen, komplexer Inhalt und Einsteiger. Er nennt keine Kosten und kein Budget, daher wird hier keines verwendet. Alles andere ist für diese Übung erfunden: die Bildschirme, die 28 Lektionen, die 12 Quizfragen und der Text der Lektion.",
+            "The brief says: users do not understand the content, a high drop-out rate, content “too complicated”, too much information at once, no visual structure, no recognisable learning logic, a long continuous text of 500 words with no paragraphs, unexplained technical terms and no visualisation, a time limit of 4 weeks, complex content and beginners. It prints no cost or budget, so none is used here. Everything else is made up for this exercise: the screens, the 28 lessons, the 12 quiz questions, the text of the lesson and the facts marked “Clear”.",
+            "Der Auftrag sagt: Nutzer verstehen den Inhalt nicht, eine hohe Abbruchquote, Inhalt „zu kompliziert“, zu viel Information auf einmal, keine visuelle Struktur, keine erkennbare Lernlogik, ein langer durchgehender Text von 500 Wörtern ohne Absätze, mit unerklärten Fachbegriffen und ohne Visualisierung, ein Zeitlimit von 4 Wochen, komplexer Inhalt und Einsteiger. Er nennt keine Kosten und kein Budget, daher wird hier keines verwendet. Alles andere ist für diese Übung erfunden: die Bildschirme, die 28 Lektionen, die 12 Quizfragen, der Text der Lektion und die als „Klar“ markierten Fakten.",
           )}
         </p>
       </Callout>
@@ -353,12 +390,13 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
     >
       <MaterialRefs refs={["A5", "A2"]} />
       <div id="block-1-2-brief" className="space-y-2 rounded-lg border border-line bg-canvas p-3 text-caption text-ink">
-        <p>{tt("You are to improve a learning module. Three options are on the table. The framework conditions are:", "Sie sollen ein Lernmodul verbessern. Drei Optionen stehen zur Wahl. Die Rahmenbedingungen sind:")}</p>
+        <p>{tt("You are to improve a learning module of EduCore. Three options are on the table. The framework conditions are:", "Sie sollen ein Lernmodul von EduCore verbessern. Drei Optionen stehen zur Wahl. Die Rahmenbedingungen sind:")}</p>
         <ul className="list-disc space-y-0.5 pl-5">
-          <li>{tt(`time: ${WEEKS_LIMIT} weeks`, `Zeit: ${WEEKS_LIMIT} Wochen`)}</li>
+          <li>{tt(`time: ${WEEKS_LIMIT} weeks, until the module goes live`, `Zeit: ${WEEKS_LIMIT} Wochen, bis das Modul live geht`)}</li>
           <li>{tt("the content is complex (a specialist subject)", "der Inhalt ist komplex (ein Fachthema)")}</li>
-          <li>{tt("the target group is beginners", "die Zielgruppe sind Einsteiger")}</li>
+          <li>{tt("the target group is beginners (new to the subject)", "die Zielgruppe sind Einsteiger (neu im Thema)")}</li>
         </ul>
+        <p className="text-ash">{tt("As in most projects, the amount of money is not set and not everything about the learners is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist die Höhe des Geldes nicht festgelegt, und nicht alles über die Lernenden ist bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.")}</p>
       </div>
       <OptionCards />
 
@@ -425,6 +463,7 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
           steps={[
             tt("Name the option and say what the learner holds, finds or understands more easily with it.", "Nennen Sie die Option und sagen Sie, was die Lernende damit leichter hält, findet oder versteht."),
             tt("Say why the other two have less effect, in the same terms.", "Sagen Sie, warum die anderen beiden weniger wirken, in denselben Begriffen."),
+            tt("Say in one sentence what you assume about what is not known (the money, or how many learners leave).", "Sagen Sie in einem Satz, was Sie über das Unbekannte annehmen (das Geld oder wie viele Lernende gehen)."),
           ]}
         />
       </TextBox>
@@ -437,6 +476,57 @@ export function Block12({ missing }: { missing: MissingEntry[] }) {
 }
 
 /* ------------------------------------------------------------------ the UE4 coaching and the UE7 feedback round: hidden facilitator cards */
+
+/** The standard answers to the questions a participant with experience asks about the case (DL-STANDARD section 14). Hidden behind the mentor passcode. */
+function CaseQaCard() {
+  return (
+    <FacilitatorCard
+      id="case-qa-card"
+      ariaLabel={tt("Case questions for the facilitator", "Fall-Fragen für die Moderation")}
+      openLabel={tt("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen")}
+      hideLabel={tt("Hide the case questions", "Die Fall-Fragen ausblenden")}
+      sections={[
+        {
+          kicker: tt("If a participant asks …", "Wenn Teilnehmende fragen …"),
+          qa: [
+            {
+              q: tt("Which module is it?", "Welches Modul ist es?"),
+              a: tt("A module of EduCore. The lesson of Block 1.1 is a typical page of it.", "Ein Modul von EduCore. Die Lektion in Block 1.1 ist eine typische Seite davon."),
+            },
+            {
+              q: tt("Four weeks for what?", "Vier Wochen wofür?"),
+              a: tt("Until the improved module goes live. Not for the whole platform.", "Bis das verbesserte Modul live geht. Nicht für die ganze Plattform."),
+            },
+            {
+              q: tt("What is the budget?", "Wie hoch ist das Budget?"),
+              a: tt("It is not set. Effort here means the work and time an option needs. Ask the participant to say what they assume.", "Es ist nicht festgelegt. Aufwand heißt hier die Arbeit und Zeit, die eine Option braucht. Bitten Sie die Teilnehmenden zu sagen, was sie annehmen."),
+            },
+            {
+              q: tt("Can I combine the options?", "Darf ich die Optionen kombinieren?"),
+              a: tt("Block 1.2 asks for an order, so combining is what the order does: say what comes first and what follows.", "Block 1.2 verlangt eine Reihenfolge, Kombinieren ist also das, was die Reihenfolge tut: Sagen Sie, was zuerst kommt und was folgt."),
+            },
+            {
+              q: tt("Shortening is risky with complex content. Is it allowed?", "Kürzen ist bei komplexem Inhalt riskant. Ist es erlaubt?"),
+              a: tt("Yes, it is one of the three options. The risk of cutting what the subject needs is exactly what the participant assesses.", "Ja, es ist eine der drei Optionen. Das Risiko, zu kürzen, was das Thema braucht, ist genau das, was die Teilnehmenden bewerten."),
+            },
+            {
+              q: tt("What does “beginners” mean?", "Was heißt „Einsteiger“?"),
+              a: tt("New to the subject, not new to learning online.", "Neu im Thema, nicht neu im Online-Lernen."),
+            },
+            {
+              q: tt("What data do we have?", "Welche Daten haben wir?"),
+              a: tt("See “What is known and what is open” in the case brief: lesson opens and quiz finishes are recorded; nobody has tested the lessons with beginners.", "Siehe „Was bekannt ist und was offen ist“ im Fall-Auftrag: Öffnen von Lektionen und Abschluss von Quizzen werden erfasst; niemand hat die Lektionen mit Einsteigern getestet."),
+            },
+            {
+              q: tt("How many learners drop out?", "Wie viele Lernende brechen ab?"),
+              a: tt("The brief gives no figure and the site prints none. The drop-out is a fact; its size is not given. Do not invent a number: the decision does not depend on it.", "Der Auftrag nennt keine Zahl, und die Seite druckt keine. Der Abbruch ist ein Fakt; seine Größe ist nicht angegeben. Erfinden Sie keine Zahl: Die Entscheidung hängt nicht davon ab."),
+            },
+          ],
+        },
+      ]}
+    />
+  );
+}
 
 function CoachingCard() {
   return (
@@ -697,6 +787,7 @@ export function Task1() {
         <h2 id="task1-h">{tt("UX Analysis File: recognise the overload, decide on the measures", "UX Analysis File: die Überlastung erkennen, über die Maßnahmen entscheiden")}</h2>
       </header>
       <CaseBrief />
+      <CaseQaCard />
       <PartHeading id="part-1" n={1} title={tt("Recognise the overload and decide", "Die Überlastung erkennen und entscheiden")} level={tt("Level 1 · Knowledge", "Level 1 · Wissen")} />
       <Block11 missing={missing} />
       <Block12 missing={missing} />

@@ -101,12 +101,12 @@ export type BlockSpec = {
 
 export type FacilitatorSpec = {
   id: string;
-  /** Rendered after the block with this id. */
+  /** Rendered after the block with this id, or right after the case brief when it is "brief". */
   after: string;
   ariaLabel: string;
   openLabel: string;
   hideLabel: string;
-  sections: { kicker: string; items: string[] }[];
+  sections: { kicker: string; items?: string[]; qa?: { q: string; a: string }[] }[];
 };
 
 export type Brief = {
@@ -117,6 +117,8 @@ export type Brief = {
   conditions: { title: string; items: string[] };
   runTitle: string;
   run: string[];
+  /** "What is known and what is open" (DL-STANDARD section 14): the plan's facts, what is clear (a Case assumption) and what is open on purpose. */
+  known?: { title: string; columns: { title: string; items: string[] }[]; note: string };
   assumption: string;
 };
 

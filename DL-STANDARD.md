@@ -2,7 +2,7 @@
 
 **This is the living rulebook for the DL course.** It holds the current standard, the history of every change, and which day already follows which version. When a day is adjusted and the change should apply elsewhere, it is changed **here first**, a line is added to the changelog, and the status matrix shows which days still need it.
 
-- **Current version: v1.2** (2026-10-17), first written from the rebuild of Day 2; v1.2 adds the pixel story comics (section 13).
+- **Current version: v1.3** (2026-10-17), first written from the rebuild of Day 2; v1.2 added the pixel story comics (section 13), v1.3 the gap audit of the case (section 14).
 - **Reference implementation: Day 2** (`playground-dl/`, commits `dafc57f`, `f008ac4`, `3555e6b`, `ff322a3`).
 - **Read this file first for any DL task.** `CLAUDE.md` (#1 to #56) still holds the older rules; where they differ for a task, this file wins (section 10).
 - **Scope: the website only.** The Word documents follow their own rule (CLAUDE.md #53) and are touched only on the user's signal.
@@ -10,7 +10,7 @@
 ## How this file is kept up to date
 
 1. A change is decided in a session (the user adjusts something on a day, or asks for a rule).
-2. The rule is edited **in section 1 to 9 or 13 of this file**, never only in a code comment or in chat.
+2. The rule is edited **in section 1 to 9, 13 or 14 of this file**, never only in a code comment or in chat.
 3. A line goes into the **changelog (section 11)**: date, what changed, why, and which days it applies to (`all days`, `from Day N`, `Day N only`).
 4. The **status matrix (section 12)** is updated: the day that got the change is marked, the others stay open.
 5. The version number goes up (v1.1, v1.2, …) when a rule changes meaning; a wording fix does not bump it.
@@ -22,7 +22,7 @@
 - **Free answers.** Open questions of the plan are text, never a pick from a list, a sort board, a rating grid or a live panel. The only fixed choices are the ones the plan itself offers (platform A or B; yes, no or partly; option A, B or C).
 - **Every block is Core.** There are no Optional blocks. A block either is a plan item or it does not exist. An old instrument that matches no plan item is removed.
 - **No figure the plan does not print.** No cost, weeks, budget, score or threshold is invented. What the case needs beyond the plan stays minimal and is labelled "Case assumption".
-- **Case detail closes gaps, never answers.** Where the plan says only "limited" or "unclear", experienced participants ask what it means. The case brief may add **qualitative** facts, each marked "Case assumption", that settle what the participant needs to read the case (what exists, what is recorded, what the time is for, which platform it is) and a box that lists **what is known and what is open on purpose**. It never adds a figure, never contradicts the plan, never names the cause the model solution finds, and never anchors a deliberately open condition (a budget stays unset; the answer must hold at any budget, and the learner says what they assume). A hidden facilitator card ("if a participant asks") holds the standard answers, so every group hears the same. Reference: Day 2 (`CaseBrief`, `CaseQaCard`, Block 1.2).
+- **Case detail closes gaps, never answers.** Where the plan says only "limited" or "unclear", the case brief adds qualitative Case assumptions and a "known and open" box, never a figure; the audit and its checks are section 14.
 - **Checks are completeness only**: an empty field, a list with too few items, a text that is too short, each as a named item. A choice that differs from the model is never missing. Nothing is marked right or wrong.
 
 ## 2. Fields: form by default, table as a quiet extra, fields that grow
@@ -75,7 +75,7 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 ## 9. Order of work for a day (the checklist)
 
 1. Read the day's plan column and **write the map first**: UE row to block, with the number of questions; a row with no deliverable becomes a facilitator card. **On a full upgrade request ("upgrade Day N like Day 2") do not wait for a yes: write the map in the README and build (v1.1).** Only a decision this standard does not settle is asked.
-2. Build each block from the plan's words (sections 1 and 2), one block at a time, slowly.
+2. Build each block from the plan's words (sections 1 and 2), one block at a time, slowly. **Audit the case for logic gaps (section 14) and close them in the same pass.**
 3. Pictures and simulations are built straight from the plan's clues (v1.1); show a mockup or demo in chat first only when the user asks to see it before it is built.
 4. Saved state, missing list, mentor key and guides (EN and DE), answer key only for fixed picks, export, `verify:dayN`.
 5. Sync the Materi when asked (section 6).
@@ -107,23 +107,24 @@ Only on the user's signal (CLAUDE.md #53, #31). Order: the `_source` Markdown (M
 | 2026-10-17 | v1.1 | A full upgrade request ("upgrade Day N like Day 2") needs no validation: no map-and-wait, no mockup-and-wait; read the standard and build | The standard exists; the user does not want to confirm each day again | Day 3 and every later day |
 | 2026-10-17 | v1.0 | This file is the living rulebook; CLAUDE.md #57 to #60 point here | One place to update and to see what changed | All days |
 | 2026-10-17 | v1.2 | Case detail closes gaps in the plan's case without a figure: a "known and open" box, assumption sentences in the brief, a facilitator "if a participant asks" card (section 1); Day 2 Block 1.2 reworded (start with, LearnPro's next version, the three months for a management review) | Experienced participants asked what "limited" and "unclear" mean, and the plan's Task 2 ("a new platform") and case study (LearnPro) had been merged without saying so | Day 2 done; other days when the user asks |
+| 2026-10-17 | v1.3 | The gap audit of the case is a rule (section 14): one company across the tasks, every condition says what it is for, every vague word is settled qualitatively or listed as open on purpose, a "known and open" box in every case brief (Route 1 and Route 2), the sentence "As in most projects…" and a help step to state the assumption in the options block, and a hidden "if a participant asks" card with the standard answers; `CaseKnown`, `FacilitatorCard` with questions and answers, `brief.known` in the free-form engine, checked in `verify-free` | Experienced participants ask what "limited", "unclear" and "a short time" mean, and the plan's Task 2, case study and Level 3 project are three scenarios that had been merged without saying so | Days 2 to 6 done (Day 2 on 2026-10-17, Days 3 to 6 and Day 2 Route 2 the same day); later days when they are built |
 | 2026-10-17 | v1.2 | Story comics in pixel art on every study card of Days 2 to 6 ("Read the comic"), replacing the "Walk me through it" story; style, kit, German labels and checks recorded in section 13; CLAUDE.md #54 points here | The user approved the pixel style (a chat mockup of Day 2) and asked for Days 2 to 6 | Days 2 to 6 done; later days on request |
 
 ## 12. Status matrix: which version each day follows
 
 `✓` done · `old` still the previous form · `wait` waiting for the user's signal · `n/a`
 
-| Day | Tasks (sections 1 to 3) | Fields grow (section 2) | Materi synced (section 6) | Simulations (section 4) | Comics (section 13) | Word documents |
-|---|---|---|---|---|---|---|
-| 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | line-art (#54), ✓ | old (v1.1), wait |
-| **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **✓ pixel** | **old, out of sync, wait** |
-| **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **✓ pixel** | **old, out of sync, wait** |
-| **4** | **✓ v1.1** | **✓** | **old**, wait | **✓** (platforms, options, MotivaLearn, desk) | **✓ pixel** | **old, out of sync, wait** |
-| **5** | **✓ v1.1** | **✓** | **old**, wait | **✓** (LearnBase, options, desk) | **✓ pixel** | **old, out of sync, wait** |
-| **6** | **✓ v1.1** | **✓** | **old**, wait | **✓** (EduPath, desk) | **✓ pixel** | **old, out of sync, wait** |
-| 7 | old | ✓ (shared) | old | old | wait (on request) | old (v1.1), wait |
-| 8 | old | ✓ (shared) | old | old | wait (on request) | old (v1.1), wait |
-| 9 to 16 | old | ✓ (shared) | old | old | wait (on request) | no Word documents yet |
+| Day | Tasks (sections 1 to 3) | Fields grow (section 2) | Materi synced (section 6) | Simulations (section 4) | Comics (section 13) | Case gaps (section 14) | Word documents |
+|---|---|---|---|---|---|---|---|
+| 1 | old (#55, #56 form) | ✓ (shared field, slot field) | old | old | line-art (#54), ✓ | old | old (v1.1), wait |
+| **2** | **✓ v1.0** | **✓** | **✓** | **✓** | **✓ pixel** | **✓** | **old, out of sync, wait** |
+| **3** | **✓ v1.1** | **✓** | **old** (A5, B3 still name Blocks 2.2 and 3.2), wait | **✓** (lesson, options, platform) | **✓ pixel** | **✓** | **old, out of sync, wait** |
+| **4** | **✓ v1.1** | **✓** | **old**, wait | **✓** (platforms, options, MotivaLearn, desk) | **✓ pixel** | **✓** | **old, out of sync, wait** |
+| **5** | **✓ v1.1** | **✓** | **old**, wait | **✓** (LearnBase, options, desk) | **✓ pixel** | **✓** | **old, out of sync, wait** |
+| **6** | **✓ v1.1** | **✓** | **old**, wait | **✓** (EduPath, desk) | **✓ pixel** | **✓** | **old, out of sync, wait** |
+| 7 | old | ✓ (shared) | old | old | wait (on request) | old | old (v1.1), wait |
+| 8 | old | ✓ (shared) | old | old | wait (on request) | old | old (v1.1), wait |
+| 9 to 16 | old | ✓ (shared) | old | old | wait (on request) | old | no Word documents yet |
 
 **Reference for later days:** Days 4 to 6 are the reference for the `dayFree` engine (`data/day4/free.ts` is the most complete spec).  Day 3 adds the shared `components/ui/FacilitatorCard.tsx` and shows how a Level 1 task with an options block and a case study with a list-or-table pair are built (`components/day3/Task1.tsx`).
 
@@ -151,3 +152,21 @@ Written 2026-10-17 from Days 2 to 6. A rule about the **website only** (Word kee
 **How to add a day.** Read each card (its "In plain words", picture text, story, data) and write the panels from it; list the cast and its look; draw the scenes with the kit and the day's helpers; write `comics.ts`; add the `ComicButton` to every card; remove the card's story from `diagrams.tsx` (and `diagramsB.tsx`) and change the "How to read the picture" sentence; add every new label to `pixelLabels.ts`; then run the checks below.
 
 **Checks before a day ships.** `npx tsc --noEmit`. In the browser, EN and DE: open every comic of Route 1 (open the Optional card too) and Route 2 and look at every panel (a gallery of all panels is the quickest way): nothing overflows a board or a bar, no sprite covers a label, the figures equal the card's; no console warning `[pixel label without German]`; no dialog element wider than the dialog; ← → and Escape work; 390 px has no horizontal scroll and Next stays visible; no card still says “Walk me through it”. Reference: Days 2 to 6 (Day 2 is the first, `components/day2/comicScenes.tsx`).
+
+## 14. Gap audit of the case: close the logic holes without adding a figure (CLAUDE.md #61 points here)
+
+Written 2026-10-17 from Day 2 and applied to Days 3 to 6. The plan states a day's case in a few lines. Participants with years of experience in digital learning read them critically and ask the facilitator what "limited", "unclear" or "a short time" mean, and the plan's Task 2 ("you are developing a new learning platform"), its case study (a named platform) and its Level 3 project (a role at an EdTech company) are three scenarios that the site presents as one case. A gap is **not** an error in the plan: a vague word is often the point (a decision must hold at any budget). The audit decides which words stay open on purpose, says so on the page, and settles the rest.
+
+**The audit, once per day, before it ships (write the result under "Notes on deviations" in the README):**
+1. **One company.** Every task names the same platform. The plan's "a new learning platform" becomes the case company's next version (a Case assumption), and a scenario about "a user" becomes a user of that platform.
+2. **A condition says what it is for.** "Three months" is until the next management review, "four weeks" until the module goes live, "2 months" until the next review. No condition is left as a bare number of weeks.
+3. **Every vague word is settled or listed as open.** Words such as limited, unclear, low, declining, growing, quickly, a short time, lasting, beginners get one of two treatments: a **qualitative Case assumption** (what exists, what is recorded, who says it, what the word means), or an entry under **open on purpose**. A figure, or an anchor that rules an option in or out ("not enough for a full build"), is never added: the answer must hold at any budget, and the learner says what they assume.
+4. **Options say what is asked.** A question that asks to "choose" says what: the one you **start with**. A question that asks for an order says so; combining is what the order does.
+5. **A "known and open" box in every case brief, Route 1 and Route 2** (`components/ui/CaseKnown.tsx`; in the free-form engine `brief1.known` and `brief2.known`): three columns, *In the brief* (the plan's own facts), *Clear · Case assumption*, *Open · on purpose*, and the sentence "As in most projects, not everything is known. Decide anyway, and say what you assume." The Case assumption callout says the facts marked "Clear" are made up.
+6. **In the options block:** the platform's name, what the time is for, the sentence "As in most projects, the amount of the budget is not set … Decide anyway, and say what you assume.", and one step in the help of the justification field: "Say in one sentence what you assume about what is not known."
+7. **A hidden facilitator card "Case questions · if a participant asks"** after each case brief (`FacilitatorCard` with `qa`; in the engine a card with `after: "brief1"` or `"brief2"`): the standard answers, so every group hears the same. It always holds the budget question (not set, on purpose; does the choice change at twice or half the budget), one on "which platform is this", one on "can I combine the options", one on "what data do we have" and one on "how many" (no figure is given, do not invent one). Nothing shows without the mentor passcode; it is not in the missing list, the ring, the page map or the export.
+8. **Limits, always:** nothing contradicts the plan; nothing names the cause the model solution finds (the plan's Musterlösung); a Clear item is qualitative and consistent with the day's simulations (Day 2: what the desk table records); an Open item is a real question a test, an interview or a decision would answer.
+
+**Checks.** `npm run verify:day4` to `day6` (the engine's checks: each brief has a known box with three columns of at least three points and one card of at least three answered questions); Days 2 and 3 are read in the browser. EN and DE: the box and the card in Route 1 and Route 2 of every day, no horizontal scroll. Reference: Day 2 (`CaseBrief` and `CaseQaCard` in `components/day2/Task1.tsx`, Route 2 in `Task2.tsx`), Day 3, and `data/day4/free.ts` for the engine.
+
+**What each day settled (2026-10-17).** Day 2: LearnPro's next version, three months until the management review, "start with". Day 3: a module of EduCore, four weeks until it goes live, "beginners" means new to the subject. Day 4: the platform is MotivaLearn, two months until the review, "lasting" is judged after the two months. Day 5: the platform is LearnBase, growth so far means more registered learners, the stakeholders are management, marketing and the UX team. Day 6: the user of Block 1.2 is an EduPath learner, "the organisation" is the customer that licenses it, "after a short time" means after some lessons.

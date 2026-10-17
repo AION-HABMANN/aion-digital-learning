@@ -2,7 +2,7 @@
 
 > **For any Digital Learning (DL) task, read [`DL-STANDARD.md`](DL-STANDARD.md) first.** It is the living rulebook: the current standard, the changelog of every
 > change and a status matrix of which day follows which version. Where it differs from #1 to #56 below for the tasks of a day, **it wins** (its section 10 lists what
-> is overridden). Rules #57 to #60 below are short pointers to it. Change rules there, not here.
+> is overridden). Rules #57 to #61 below are short pointers to it. Change rules there, not here.
 
 This directory is the shared parent for a series of independent `dayN` projects
 (`day1`, `day2`, `day3`, ...). Each is its own Next.js app, but they are one continuous
@@ -2314,3 +2314,7 @@ Write the map and build without waiting for a yes (v1.1: a full upgrade request 
 ## 60. Every platform, option and case artefact in a task is a working simulation (2026-10-17) → see DL-STANDARD.md section 4
 
 "Open … and try it" opens a simulation in a browser frame (`components/sim/SimFrame.tsx`), built one to one from the plan's clues, nothing added that changes the answer, session-only, never exported.
+
+## 61. Gap audit of the case: close the logic holes of a day's case without adding a figure (2026-10-17) → see DL-STANDARD.md section 14
+
+Experienced participants ask what "limited", "unclear" or "a short time" mean, and the plan's Task 2, case study and Level 3 project are three scenarios the site merged into one case. Audit each day once: one company across the tasks; every condition says what it is for; every vague word is settled qualitatively (a Case assumption) or listed as open on purpose, never given a figure or an anchor that rules an option out; options say what is asked ("start with", or an order); a "What is known and what is open" box in every case brief, Route 1 and Route 2 (`components/ui/CaseKnown.tsx`, `brief.known`); one sentence "As in most projects…" and a help step to state the assumption; a hidden facilitator card "if a participant asks" with the standard answers. Never contradict the plan, never name the cause the model solution finds. Reference: Day 2; applied to Days 3 to 6.

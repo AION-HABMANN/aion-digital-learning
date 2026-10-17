@@ -8,6 +8,7 @@ import { AutoTextarea } from "@/components/ui/AutoTextarea";
 import { BlockMissing } from "@/components/ui/BlockMissing";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
+import { CaseKnown } from "@/components/ui/CaseKnown";
 import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
 import { Field } from "@/components/ui/Field";
 import { FormOrTable } from "@/components/ui/FormOrTable";
@@ -107,10 +108,24 @@ function CaseBrief({ spec, route }: { spec: FreeSpec; route: 1 | 2 }) {
           )}
         </p>
       )}
+      {b.known && <CaseKnown id={route === 1 ? "case-known" : "case-known-2"} title={b.known.title} columns={b.known.columns} note={b.known.note} />}
       <Callout label={tt("Case assumption", "Fallannahme")}>
         <p>{b.assumption}</p>
       </Callout>
     </section>
+  );
+}
+
+/** The hidden facilitator cards that sit right after a case brief (the "if a participant asks" card; DL-STANDARD section 14). */
+function CaseCards({ spec, after }: { spec: FreeSpec; after: "brief1" | "brief2" }) {
+  return (
+    <>
+      {spec.cards
+        .filter((c) => c.after === after)
+        .map((c) => (
+          <FacilitatorCard key={c.id} id={c.id} ariaLabel={c.ariaLabel} openLabel={c.openLabel} hideLabel={c.hideLabel} sections={c.sections} />
+        ))}
+    </>
   );
 }
 
@@ -335,6 +350,7 @@ export function FreeTask1({ spec, kit }: { spec: FreeSpec; kit: FreeKit }) {
         <h2 id="task1-h">{spec.route1.title}</h2>
       </header>
       <CaseBrief spec={spec} route={1} />
+      <CaseCards spec={spec} after="brief1" />
       <PartHeading id="part-1" n={1} title={spec.route1.part1.title} level={spec.route1.part1.level} />
       {blocksOf(spec, 1).map((b) => (
         <div key={b.id} className="space-y-6">
@@ -406,6 +422,7 @@ export function FreeTask2({ spec, kit }: { spec: FreeSpec; kit: FreeKit }) {
         <h2>{spec.route2.title}</h2>
       </header>
       <CaseBrief spec={spec} route={2} />
+      <CaseCards spec={spec} after="brief2" />
       <BlockView ctx={ctx} b={spec.block2} missing={missing} />
       <MemoPanel spec={spec} />
       <ExportBar id="export-l3" previewTitle="" showPreview={false} exportLabel={tt("Export the UX Strategy Memo", "UX Strategy Memo exportieren")} docTitle="UX Strategy Memo" filename={filename} missing={missing} buildBody={() => freeMemoBody(p, spec)} />

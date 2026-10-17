@@ -84,9 +84,18 @@ export const SPEC = defineSpec({
       t("Block 1.2: three measures against user, business and risk. Assess each, put them in order, justify your decision.", "Block 1.2: drei Maßnahmen gegen Nutzer, Geschäft und Risiko. Jede bewerten, in eine Reihenfolge bringen, Ihre Entscheidung begründen."),
       t("Block 2.1: the case study. Four central user problems, their design causes, four UX measures and a priority.", "Block 2.1: die Fallstudie. Vier zentrale Nutzerprobleme, ihre Gestaltungsursachen, vier UX-Maßnahmen und eine Priorität."),
     ],
+    known: {
+      title: t("What is known and what is open", "Was bekannt ist und was offen ist"),
+      columns: [
+        { title: t("In the brief", "Im Auftrag"), items: [t("Many functions, but low usage.", "Viele Funktionen, aber geringe Nutzung."), t("Users cannot find content and are frustrated.", "Nutzer finden Inhalte nicht und sind frustriert."), t("A first look: system logic instead of user logic, no clear user guidance.", "Ein erster Blick: Systemlogik statt Nutzerlogik, keine klare Nutzerführung."), t("A limited budget, declining satisfaction; management demands growth.", "Ein begrenztes Budget, sinkende Zufriedenheit; die Geschäftsführung verlangt Wachstum.")] },
+        { title: t("Clear · Case assumption", "Klar · Fallannahme"), items: [t("LearnBase is live and has many functions.", "LearnBase ist live und hat viele Funktionen."), t("The platform records which functions learners use, so “low usage” is a count, not a feeling.", "Die Plattform erfasst, welche Funktionen Lernende nutzen, „geringe Nutzung“ ist also eine Zählung, kein Gefühl."), t("Satisfaction comes from the rating in the feedback form; it is falling.", "Die Zufriedenheit stammt aus der Bewertung im Feedback-Formular; sie sinkt."), t("Growth so far means more registered learners.", "Wachstum heißt bisher mehr registrierte Lernende."), t("The platform in Block 1.2 is LearnBase.", "Die Plattform in Block 1.2 ist LearnBase.")] },
+        { title: t("Open · on purpose", "Offen · mit Absicht"), items: [t("How low the usage is and how far satisfaction has fallen: no figure is given.", "Wie gering die Nutzung ist und wie weit die Zufriedenheit gesunken ist: Es ist keine Zahl angegeben."), t("What management wants to grow next: more usage, more revenue or more learners.", "Was die Geschäftsführung als Nächstes wachsen lassen will: mehr Nutzung, mehr Umsatz oder mehr Lernende."), t("What learners would say if asked: nobody has asked them.", "Was Lernende sagen würden, wenn man sie fragt: Bisher hat sie niemand gefragt."), t("How large the budget is, and by when: neither is set.", "Wie groß das Budget ist und bis wann: Beides ist nicht festgelegt.")] },
+      ],
+      note: t("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen."),
+    },
     assumption: t(
-      "The brief says: many functions, unclear navigation, content hard to find; three options (more content, simpler navigation, new features); a limited budget, declining user satisfaction, management demands growth; many functions but low usage, users cannot find content, high frustration, system logic instead of user logic, no clear user guidance. It prints no cost or budget, so none is used here. Everything else is made up for this exercise: the screens and the simulations.",
-      "Der Auftrag sagt: viele Funktionen, unklare Navigation, Inhalte schwer zu finden; drei Optionen (mehr Inhalt, einfachere Navigation, neue Features); ein begrenztes Budget, sinkende Nutzerzufriedenheit, die Geschäftsführung verlangt Wachstum; viele Funktionen, aber geringe Nutzung, Nutzer finden Inhalte nicht, hohe Frustration, Systemlogik statt Nutzerlogik, keine klare Nutzerführung. Er nennt keine Kosten und kein Budget, daher wird hier keines verwendet. Alles andere ist für diese Übung erfunden: die Bildschirme und die Simulationen.",
+      "The brief says: many functions, unclear navigation, content hard to find; three options (more content, simpler navigation, new features); a limited budget, declining user satisfaction, management demands growth; many functions but low usage, users cannot find content, high frustration, system logic instead of user logic, no clear user guidance. It prints no cost or budget, so none is used here. Everything else is made up for this exercise: the screens, the simulations and the facts marked “Clear”.",
+      "Der Auftrag sagt: viele Funktionen, unklare Navigation, Inhalte schwer zu finden; drei Optionen (mehr Inhalt, einfachere Navigation, neue Features); ein begrenztes Budget, sinkende Nutzerzufriedenheit, die Geschäftsführung verlangt Wachstum; viele Funktionen, aber geringe Nutzung, Nutzer finden Inhalte nicht, hohe Frustration, Systemlogik statt Nutzerlogik, keine klare Nutzerführung. Er nennt keine Kosten und kein Budget, daher wird hier keines verwendet. Alles andere ist für diese Übung erfunden: die Bildschirme, die Simulationen und die als „Klar“ markierten Fakten.",
     ),
   },
   brief2: {
@@ -99,7 +108,16 @@ export const SPEC = defineSpec({
     conditions: { title: t("The framework", "Die Rahmenbedingungen"), items: [t("The platform is growing, but user satisfaction is declining", "Die Plattform wächst, aber die Nutzerzufriedenheit sinkt"), t("Many features, but low usage", "Viele Features, aber geringe Nutzung"), t("Internal stakeholders pursue different goals", "Interne Stakeholder verfolgen unterschiedliche Ziele"), t("You decide without complete user data", "Sie entscheiden ohne vollständige Nutzerdaten")] },
     runTitle: t("How the task runs · one block", "So läuft die Aufgabe · ein Block"),
     run: [t("Block 3.1 asks six questions: the central user needs, three strategic UX decisions, a prioritised roadmap, a conflict analysis of user against business, a decision architecture for user-centred development, and one decision you make on purpose without complete user data.", "Block 3.1 stellt sechs Fragen: die zentralen Nutzerbedürfnisse, drei strategische UX-Entscheidungen, eine priorisierte Roadmap, eine Konfliktanalyse Nutzer gegen Unternehmen, eine Entscheidungsarchitektur für nutzerzentrierte Entwicklung und eine Entscheidung, die Sie bewusst ohne vollständige Nutzerdaten treffen.")],
-    assumption: t("The brief says: a growing platform with declining user satisfaction, many features but low usage, internal stakeholders with different goals, and a decision without complete user data. It prints no figure, so none is used here.", "Der Auftrag sagt: eine wachsende Plattform mit sinkender Nutzerzufriedenheit, viele Features, aber geringe Nutzung, interne Stakeholder mit unterschiedlichen Zielen und eine Entscheidung ohne vollständige Nutzerdaten. Er nennt keine Zahl, daher wird hier keine verwendet."),
+    known: {
+      title: t("What is known and what is open", "Was bekannt ist und was offen ist"),
+      columns: [
+        { title: t("In the brief", "Im Auftrag"), items: [t("The platform is growing, but user satisfaction is declining.", "Die Plattform wächst, aber die Nutzerzufriedenheit sinkt."), t("Many features, but low usage.", "Viele Features, aber geringe Nutzung."), t("Internal stakeholders pursue different goals.", "Interne Stakeholder verfolgen unterschiedliche Ziele."), t("You decide without complete user data.", "Sie entscheiden ohne vollständige Nutzerdaten.")] },
+        { title: t("Clear · Case assumption", "Klar · Fallannahme"), items: [t("You lead UX at LearnBase, the platform of Route 1.", "Sie leiten UX bei LearnBase, der Plattform aus Route 1."), t("The internal stakeholders are management (growth), marketing (new features) and the UX team (ease of use).", "Die internen Stakeholder sind die Geschäftsführung (Wachstum), das Marketing (neue Features) und das UX-Team (Einfachheit)."), t("“Growing” means more registered learners. Usage per function is recorded; learner interviews do not exist.", "„Wachsen“ heißt mehr registrierte Lernende. Die Nutzung je Funktion wird erfasst; Lernenden-Interviews gibt es nicht.")] },
+        { title: t("Open · on purpose", "Offen · mit Absicht"), items: [t("What each stakeholder really wants beyond their label.", "Was jeder Stakeholder über sein Etikett hinaus wirklich will."), t("Which user data is missing: nobody has asked learners what they need.", "Welche Nutzerdaten fehlen: Niemand hat Lernende gefragt, was sie brauchen."), t("How large the budget is: it is not set.", "Wie groß das Budget ist: Es ist nicht festgelegt.")] },
+      ],
+      note: t("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen."),
+    },
+    assumption: t("The brief says: a growing platform with declining user satisfaction, many features but low usage, internal stakeholders with different goals, and a decision without complete user data. It prints no figure, so none is used here. The facts marked “Clear” are made up for this exercise.", "Der Auftrag sagt: eine wachsende Plattform mit sinkender Nutzerzufriedenheit, viele Features, aber geringe Nutzung, interne Stakeholder mit unterschiedlichen Zielen und eine Entscheidung ohne vollständige Nutzerdaten. Er nennt keine Zahl, daher wird hier keine verwendet. Die als „Klar“ markierten Fakten sind für diese Übung erfunden."),
   },
   blocks1: [
     {
@@ -221,8 +239,8 @@ export const SPEC = defineSpec({
       minutes: 6,
       doc: t("1.2 · User-centredness against business goals", "1.2 · Nutzerzentrierung gegen Geschäftsziele"),
       lead: t(
-        "You are the UX lead of a learning platform. Three measures are on the table: A) add more content (a business goal), B) simplify the navigation (a UX goal), C) develop new features (a marketing goal). The conditions: a limited budget, declining user satisfaction, management demands growth.",
-        "Sie sind UX-Leiterin einer Lernplattform. Drei Maßnahmen stehen zur Wahl: A) mehr Inhalt hinzufügen (ein Geschäftsziel), B) die Navigation vereinfachen (ein UX-Ziel), C) neue Features entwickeln (ein Marketingziel). Die Rahmenbedingungen: ein begrenztes Budget, sinkende Nutzerzufriedenheit, die Geschäftsführung verlangt Wachstum.",
+        "You are the UX lead of LearnBase. Three measures are on the table: A) add more content (a business goal), B) simplify the navigation (a UX goal), C) develop new features (a marketing goal). The conditions: a limited budget, declining user satisfaction, management demands growth. As in most projects, the amount of the budget and the deadline are not set, and not everything about the learners is known. Decide anyway, and say what you assume.",
+        "Sie sind UX-Leiterin von LearnBase. Drei Maßnahmen stehen zur Wahl: A) mehr Inhalt hinzufügen (ein Geschäftsziel), B) die Navigation vereinfachen (ein UX-Ziel), C) neue Features entwickeln (ein Marketingziel). Die Rahmenbedingungen: ein begrenztes Budget, sinkende Nutzerzufriedenheit, die Geschäftsführung verlangt Wachstum. Wie in den meisten Projekten sind die Höhe des Budgets und die Frist nicht festgelegt, und nicht alles über die Lernenden ist bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.",
       ),
       slots: ["options"],
       fields: [
@@ -286,7 +304,7 @@ export const SPEC = defineSpec({
           help: t("Say why the first priority goes first, and how you answer management's demand for growth. At least 30 characters.", "Sagen Sie, warum die erste Priorität zuerst kommt und wie Sie die Forderung der Geschäftsführung nach Wachstum beantworten. Mindestens 30 Zeichen."),
           min: 30, rows: 4,
           missing: t("justify your decision", "begründen Sie Ihre Entscheidung"),
-          steps: [t("Start with what the first measure does for the learner, then what it does for the business.", "Beginnen Sie damit, was die erste Maßnahme für die Lernende tut, dann was sie für das Geschäft tut."), t("Say how you would explain it to management in a sentence they care about (usage, satisfaction, growth).", "Sagen Sie, wie Sie es der Geschäftsführung in einem Satz erklären würden, der sie interessiert (Nutzung, Zufriedenheit, Wachstum).")],
+          steps: [t("Start with what the first measure does for the learner, then what it does for the business.", "Beginnen Sie damit, was die erste Maßnahme für die Lernende tut, dann was sie für das Geschäft tut."), t("Say how you would explain it to management in a sentence they care about (usage, satisfaction, growth).", "Sagen Sie, wie Sie es der Geschäftsführung in einem Satz erklären würden, der sie interessiert (Nutzung, Zufriedenheit, Wachstum)."), t("Say in one sentence what you assume about what is not known (the budget, the deadline, or what growth means).", "Sagen Sie in einem Satz, was Sie über das Unbekannte annehmen (das Budget, die Frist oder was Wachstum heißt).")],
           refs: [{ label: t("User-centred against feature-driven (Materi A1)", "Nutzerzentriert gegen funktionsgetrieben (Materi A1)"), value: t("the difference", "der Unterschied"), target: "mat-A1", card: "A1" }],
           model: t("I put simplifying the navigation first. Satisfaction is falling because learners cannot find what they came for, and more content or more features would sit on top of that problem. Management wants growth, and learners who find their courses use the platform more, which is the growth we can reach with a limited budget.", "Ich setze die Vereinfachung der Navigation an die erste Stelle. Die Zufriedenheit sinkt, weil Lernende nicht finden, wofür sie kamen, und mehr Inhalt oder mehr Features würden auf diesem Problem aufsetzen. Die Geschäftsführung will Wachstum, und Lernende, die ihre Kurse finden, nutzen die Plattform mehr, und das ist das Wachstum, das wir mit begrenztem Budget erreichen können."),
           guide: {
@@ -525,6 +543,44 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    {
+      id: "case-qa-card",
+      after: "brief1",
+      ariaLabel: t("Case questions for the facilitator", "Fall-Fragen für die Moderation"),
+      openLabel: t("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen"),
+      hideLabel: t("Hide the case questions", "Die Fall-Fragen ausblenden"),
+      sections: [
+        {
+          kicker: t("If a participant asks …", "Wenn Teilnehmende fragen …"),
+          qa: [
+            { q: t("What are the budget and the deadline?", "Wie hoch sind Budget und Frist?"), a: t("Neither is set, on purpose. Ask the participant to write down what they assume, and whether the choice would change if the budget were twice as large or half as large.", "Beides ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Wahl ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre.") },
+            { q: t("What does “growth” mean?", "Was heißt „Wachstum“?"), a: t("So far: more registered learners. What management wants next is open. The participant says what they assume and how the choice serves it.", "Bisher: mehr registrierte Lernende. Was die Geschäftsführung als Nächstes will, ist offen. Die Teilnehmenden sagen, was sie annehmen und wie die Wahl dem dient.") },
+            { q: t("Which platform is this?", "Welche Plattform ist das?"), a: t("LearnBase, the case of the day (a Case assumption, written in the case brief).", "LearnBase, der Fall des Tages (eine Fallannahme, im Fall-Auftrag festgehalten).") },
+            { q: t("Can I combine the options?", "Darf ich die Optionen kombinieren?"), a: t("This block asks for an order, so combining is what the order does: say what comes first and what follows.", "Dieser Block verlangt eine Reihenfolge, Kombinieren ist also das, was die Reihenfolge tut: Sagen Sie, was zuerst kommt und was folgt.") },
+            { q: t("Option A, more content, is a business goal. Is it wrong?", "Option A, mehr Inhalt, ist ein Geschäftsziel. Ist sie falsch?"), a: t("No. It is one of three options; the participant weighs its user value and its risk against its business value.", "Nein. Sie ist eine von drei Optionen; die Teilnehmenden wägen ihren Nutzerwert und ihr Risiko gegen ihren Geschäftswert ab.") },
+            { q: t("How low is “low usage”, and who rates satisfaction?", "Wie gering ist „geringe Nutzung“, und wer bewertet die Zufriedenheit?"), a: t("No figure is given; do not invent one. Usage per function is counted, satisfaction is the rating in the feedback form, and it is falling.", "Es ist keine Zahl angegeben; erfinden Sie keine. Die Nutzung je Funktion wird gezählt, die Zufriedenheit ist die Bewertung im Feedback-Formular, und sie sinkt.") },
+          ],
+        },
+      ],
+    },
+    {
+      id: "case-qa-card-2",
+      after: "brief2",
+      ariaLabel: t("Case questions for the facilitator", "Fall-Fragen für die Moderation"),
+      openLabel: t("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen"),
+      hideLabel: t("Hide the case questions", "Die Fall-Fragen ausblenden"),
+      sections: [
+        {
+          kicker: t("If a participant asks …", "Wenn Teilnehmende fragen …"),
+          qa: [
+            { q: t("Who are the stakeholders?", "Wer sind die Stakeholder?"), a: t("Management (growth), marketing (new features) and the UX team (ease of use): a Case assumption, in line with the three options of Route 1.", "Die Geschäftsführung (Wachstum), das Marketing (neue Features) und das UX-Team (Einfachheit): eine Fallannahme, passend zu den drei Optionen aus Route 1.") },
+            { q: t("How can it grow while satisfaction falls?", "Wie kann sie wachsen, während die Zufriedenheit sinkt?"), a: t("“Growing” means more registered learners; usage and satisfaction do not follow. That gap is the situation.", "„Wachsen“ heißt mehr registrierte Lernende; Nutzung und Zufriedenheit folgen nicht. Diese Lücke ist die Lage.") },
+            { q: t("What data is missing?", "Welche Daten fehlen?"), a: t("What learners need: nobody has asked them. Usage per function is recorded.", "Was Lernende brauchen: Niemand hat sie gefragt. Die Nutzung je Funktion wird erfasst.") },
+            { q: t("What exactly is the budget?", "Wie hoch ist das Budget genau?"), a: t("It is not set, on purpose. Ask the participant to write down what they assume, and whether the choice would change if the budget were twice as large or half as large. A good decision holds in more than one case.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Wahl ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre. Eine gute Entscheidung hält in mehr als einem Fall.") },
+          ],
+        },
+      ],
+    },
     {
       id: "coaching-card", after: "1.2",
       ariaLabel: t("Coaching card for the facilitator", "Coaching-Karte für die Moderation"),

@@ -8,6 +8,8 @@ import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { Field } from "@/components/ui/Field";
 import { OptionList, TextBox } from "@/components/ui/Inputs";
+import { CaseKnown } from "@/components/ui/CaseKnown";
+import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
@@ -89,8 +91,65 @@ function CaseBrief() {
       >
         {() => <CpoDeskSim />}
       </SimButton>
+      <CaseKnown
+        id="case-known-2"
+        title={tt("What is known and what is open", "Was bekannt ist und was offen ist")}
+        columns={[
+          {
+            title: tt("In the brief", "Im Auftrag"),
+            items: [
+              tt("Competitors use AI and adaptive systems.", "Wettbewerber nutzen KI und adaptive Systeme."),
+              tt("Your own platform is outdated.", "Ihre eigene Plattform ist veraltet."),
+              tt("The budget is limited.", "Das Budget ist begrenzt."),
+              tt("The data situation is incomplete.", "Die Datenlage ist unvollständig."),
+            ],
+          },
+          {
+            title: tt("Clear · Case assumption", "Klar · Fallannahme"),
+            items: [
+              tt("You lead the product of LearnPro, the platform of Route 1.", "Sie verantworten das Produkt von LearnPro, der Plattform aus Route 1."),
+              tt("What competitors offer is known from their public pages and news, not from their numbers.", "Was Wettbewerber bieten, ist aus ihren öffentlichen Seiten und Meldungen bekannt, nicht aus ihren Zahlen."),
+              tt("What LearnPro records today is listed in the table on the desk (open the simulation).", "Was LearnPro heute erfasst, steht in der Tabelle auf dem Schreibtisch (Simulation öffnen)."),
+            ],
+          },
+          {
+            title: tt("Open · on purpose", "Offen · mit Absicht"),
+            items: [
+              tt("How much the competitors' adaptive systems really achieve.", "Wie viel die adaptiven Systeme der Wettbewerber wirklich erreichen."),
+              tt("What exactly is missing in the data, and what it would show.", "Was in den Daten genau fehlt und was es zeigen würde."),
+              tt("How large the budget is: it is not set.", "Wie groß das Budget ist: Es ist nicht festgelegt."),
+            ],
+          },
+        ]}
+        note={tt("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.")}
+      />
+      <FacilitatorCard
+        id="case-qa-card-2"
+        ariaLabel={tt("Case questions for the facilitator", "Fall-Fragen für die Moderation")}
+        openLabel={tt("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen")}
+        hideLabel={tt("Hide the case questions", "Die Fall-Fragen ausblenden")}
+        sections={[
+          {
+            kicker: tt("If a participant asks …", "Wenn Teilnehmende fragen …"),
+            qa: [
+              {
+                q: tt("What exactly is the budget?", "Wie hoch ist das Budget genau?"),
+                a: tt("It is not set, on purpose. Ask the participant to write down what they assume, and whether the decision would change if the budget were twice as large or half as large.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Entscheidung ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre."),
+              },
+              {
+                q: tt("Do the competitors' adaptive systems work?", "Funktionieren die adaptiven Systeme der Wettbewerber?"),
+                a: tt("It is known only from their public pages; there are no numbers. Do not invent their results; say what you would find out.", "Es ist nur aus ihren öffentlichen Seiten bekannt; es gibt keine Zahlen. Erfinden Sie keine Ergebnisse; sagen Sie, was Sie herausfinden würden."),
+              },
+              {
+                q: tt("What data is missing?", "Welche Daten fehlen?"),
+                a: tt("See the table on the desk: where learners stop is recorded; why they leave, how long a lesson takes and what a learner already knows are not.", "Siehe die Tabelle auf dem Schreibtisch: Wo Lernende aufhören, wird erfasst; warum sie gehen, wie lange eine Lektion dauert und was eine Lernende schon weiß, nicht."),
+              },
+            ],
+          },
+        ]}
+      />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("The brief says: competitors use AI and adaptive systems, an outdated platform, a limited budget, incomplete data. It prints no figure, so none is used here.", "Der Auftrag sagt: Wettbewerber nutzen KI und adaptive Systeme, eine veraltete Plattform, ein begrenztes Budget, unvollständige Daten. Er nennt keine Zahl, daher wird hier keine verwendet.")}</p>
+        <p>{tt("The brief says: competitors use AI and adaptive systems, an outdated platform, a limited budget, incomplete data. It prints no figure, so none is used here. The facts marked “Clear” are made up for this exercise.", "Der Auftrag sagt: Wettbewerber nutzen KI und adaptive Systeme, eine veraltete Plattform, ein begrenztes Budget, unvollständige Daten. Er nennt keine Zahl, daher wird hier keine verwendet. Die als „Klar“ markierten Fakten sind für diese Übung erfunden.")}</p>
       </Callout>
     </section>
   );

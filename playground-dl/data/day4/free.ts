@@ -86,9 +86,18 @@ export const SPEC = defineSpec({
       t("Block 1.2: three options to increase motivation. Assess each, put them in order, name the one with a lasting effect.", "Block 1.2: drei Optionen, um die Motivation zu erhöhen. Jede bewerten, in eine Reihenfolge bringen, die mit dauerhafter Wirkung nennen."),
       t("Block 2.1: the case study. Analyse the motivation problems, name three main causes, develop four UX measures and prioritise them.", "Block 2.1: die Fallstudie. Die Motivationsprobleme analysieren, drei Hauptursachen nennen, vier UX-Maßnahmen entwickeln und priorisieren."),
     ],
+    known: {
+      title: t("What is known and what is open", "Was bekannt ist und was offen ist"),
+      columns: [
+        { title: t("In the brief", "Im Auftrag"), items: [t("Users start courses but drop out.", "Nutzer beginnen Kurse, brechen aber ab."), t("The content is perceived as “boring”.", "Der Inhalt wird als „langweilig“ wahrgenommen."), t("There is no visible progress.", "Es gibt keinen sichtbaren Fortschritt."), t("The goal is to raise motivation and engagement; 2 months, a limited budget.", "Das Ziel ist, Motivation und Engagement zu erhöhen; 2 Monate, ein begrenztes Budget.")] },
+        { title: t("Clear · Case assumption", "Klar · Fallannahme"), items: [t("MotivaLearn is live and has a catalogue of courses.", "MotivaLearn ist live und hat einen Katalog von Kursen."), t("The platform records how many learners start and finish each course, and at which lesson they stop.", "Die Plattform erfasst, wie viele Lernende jeden Kurs beginnen und beenden und bei welcher Lektion sie aufhören."), t("“Boring” comes from comments in the feedback form.", "„Langweilig“ stammt aus Kommentaren im Feedback-Formular."), t("The 2 months run until the next management review.", "Die 2 Monate laufen bis zur nächsten Management-Runde."), t("The platform in Block 1.2 is MotivaLearn.", "Die Plattform in Block 1.2 ist MotivaLearn."), t("“Lasting” is judged after the two months, not during them.", "„Dauerhaft“ wird nach den zwei Monaten beurteilt, nicht währenddessen.")] },
+        { title: t("Open · on purpose", "Offen · mit Absicht"), items: [t("How many learners drop out and when: no figure is given.", "Wie viele Lernende abbrechen und wann: Es ist keine Zahl angegeben."), t("What “boring” means exactly.", "Was „langweilig“ genau bedeutet."), t("Why learners drop out: nobody has asked them yet.", "Warum Lernende abbrechen: Bisher hat sie niemand gefragt."), t("How large the budget is: it is not set.", "Wie groß das Budget ist: Es ist nicht festgelegt.")] },
+      ],
+      note: t("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen."),
+    },
     assumption: t(
-      "The brief says: Platform A has a progress bar, small successes that are visible and short tasks; Platform B has long content, no feedback and unclear goals; three options (gamification, visualise progress, more interactive content); a limited budget, users who drop out early, two months; at MotivaLearn users start courses but drop out, the content is “boring” and progress is not visible. It prints no cost or budget, so none is used here. Everything else is made up for this exercise: the screens and the simulations.",
-      "Der Auftrag sagt: Plattform A hat einen Fortschrittsbalken, sichtbare kleine Erfolge und kurze Aufgaben; Plattform B hat lange Inhalte, kein Feedback und unklare Ziele; drei Optionen (Gamification, Fortschritt sichtbar machen, Inhalte interaktiver gestalten); ein begrenztes Budget, Nutzer, die früh abbrechen, zwei Monate; bei MotivaLearn beginnen Nutzer Kurse, brechen aber ab, der Inhalt ist „langweilig“, und der Fortschritt ist nicht sichtbar. Er nennt keine Kosten und kein Budget, daher wird hier keines verwendet. Alles andere ist für diese Übung erfunden: die Bildschirme und die Simulationen.",
+      "The brief says: Platform A has a progress bar, small successes that are visible and short tasks; Platform B has long content, no feedback and unclear goals; three options (gamification, visualise progress, more interactive content); a limited budget, users who drop out early, two months; at MotivaLearn users start courses but drop out, the content is “boring” and progress is not visible. It prints no cost or budget, so none is used here. Everything else is made up for this exercise: the screens, the simulations and the facts marked “Clear”.",
+      "Der Auftrag sagt: Plattform A hat einen Fortschrittsbalken, sichtbare kleine Erfolge und kurze Aufgaben; Plattform B hat lange Inhalte, kein Feedback und unklare Ziele; drei Optionen (Gamification, Fortschritt sichtbar machen, Inhalte interaktiver gestalten); ein begrenztes Budget, Nutzer, die früh abbrechen, zwei Monate; bei MotivaLearn beginnen Nutzer Kurse, brechen aber ab, der Inhalt ist „langweilig“, und der Fortschritt ist nicht sichtbar. Er nennt keine Kosten und kein Budget, daher wird hier keines verwendet. Alles andere ist für diese Übung erfunden: die Bildschirme, die Simulationen und die als „Klar“ markierten Fakten.",
     ),
   },
   brief2: {
@@ -104,7 +113,16 @@ export const SPEC = defineSpec({
     },
     runTitle: t("How the task runs · one block", "So läuft die Aufgabe · ein Block"),
     run: [t("Block 3.1 asks six questions: your motivation strategy, three prioritised UX measures, your evaluation strategy, a risk analysis, a decision architecture for UX optimisation, and one decision you make on purpose under uncertainty.", "Block 3.1 stellt sechs Fragen: Ihre Motivationsstrategie, drei priorisierte UX-Maßnahmen, Ihre Evaluationsstrategie, eine Risikoanalyse, eine Entscheidungsarchitektur für die UX-Optimierung und eine Entscheidung, die Sie bewusst unter Unsicherheit treffen.")],
-    assumption: t("The brief says: low user retention, competitors with more motivating platforms, a limited budget, an incomplete data situation. It prints no figure, so none is used here.", "Der Auftrag sagt: geringe Nutzerbindung, Wettbewerber mit motivierenderen Plattformen, ein begrenztes Budget, eine unvollständige Datenlage. Er nennt keine Zahl, daher wird hier keine verwendet."),
+    known: {
+      title: t("What is known and what is open", "Was bekannt ist und was offen ist"),
+      columns: [
+        { title: t("In the brief", "Im Auftrag"), items: [t("User retention is low.", "Die Nutzerbindung ist gering."), t("Competitors offer more motivating platforms.", "Wettbewerber bieten motivierendere Plattformen."), t("The budget is limited.", "Das Budget ist begrenzt."), t("The data situation is incomplete.", "Die Datenlage ist unvollständig.")] },
+        { title: t("Clear · Case assumption", "Klar · Fallannahme"), items: [t("You lead the experience of MotivaLearn, the platform of Route 1.", "Sie verantworten die Experience von MotivaLearn, der Plattform aus Route 1."), t("What competitors offer is known from their public pages and news, not from their numbers.", "Was Wettbewerber bieten, ist aus ihren öffentlichen Seiten und Meldungen bekannt, nicht aus ihren Zahlen."), t("MotivaLearn records starts, finishes and the lesson where learners stop, but not what they do inside a lesson.", "MotivaLearn erfasst Beginn, Abschluss und die Lektion, bei der Lernende aufhören, aber nicht, was sie in einer Lektion tun.")] },
+        { title: t("Open · on purpose", "Offen · mit Absicht"), items: [t("What makes the competitors' platforms “more motivating”: features, ratings or only marketing.", "Was die Plattformen der Wettbewerber „motivierender“ macht: Features, Bewertungen oder nur Marketing."), t("What exactly is missing in the data, and what it would show.", "Was in den Daten genau fehlt und was es zeigen würde."), t("How large the budget is: it is not set.", "Wie groß das Budget ist: Es ist nicht festgelegt.")] },
+      ],
+      note: t("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen."),
+    },
+    assumption: t("The brief says: low user retention, competitors with more motivating platforms, a limited budget, an incomplete data situation. It prints no figure, so none is used here. The facts marked “Clear” are made up for this exercise.", "Der Auftrag sagt: geringe Nutzerbindung, Wettbewerber mit motivierenderen Plattformen, ein begrenztes Budget, eine unvollständige Datenlage. Er nennt keine Zahl, daher wird hier keine verwendet. Die als „Klar“ markierten Fakten sind für diese Übung erfunden."),
   },
   blocks1: [
     {
@@ -258,8 +276,8 @@ export const SPEC = defineSpec({
       minutes: 6,
       doc: t("1.2 · Deciding on an engagement strategy", "1.2 · Über eine Engagement-Strategie entscheiden"),
       lead: t(
-        "You are to increase motivation on a learning platform. Three options are on the table: A) gamification (badges, points), B) visualise learning progress, C) make content more interactive. The conditions: a limited budget, users drop out early, time pressure of 2 months.",
-        "Sie sollen die Motivation auf einer Lernplattform erhöhen. Drei Optionen stehen zur Wahl: A) Gamification (Badges, Punkte), B) Lernfortschritt sichtbar machen, C) Inhalte interaktiver gestalten. Die Rahmenbedingungen: ein begrenztes Budget, Nutzer brechen früh ab, Zeitdruck von 2 Monaten.",
+        "You are to increase motivation on MotivaLearn. Three options are on the table: A) gamification (badges, points), B) visualise learning progress, C) make content more interactive. The conditions: a limited budget, users drop out early, time pressure of 2 months, until the next management review. As in most projects, the amount of the budget is not set and not everything about the learners is known. Decide anyway, and say what you assume.",
+        "Sie sollen die Motivation auf MotivaLearn erhöhen. Drei Optionen stehen zur Wahl: A) Gamification (Badges, Punkte), B) Lernfortschritt sichtbar machen, C) Inhalte interaktiver gestalten. Die Rahmenbedingungen: ein begrenztes Budget, Nutzer brechen früh ab, Zeitdruck von 2 Monaten, bis zur nächsten Management-Runde. Wie in den meisten Projekten ist die Höhe des Budgets nicht festgelegt, und nicht alles über die Lernenden ist bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.",
       ),
       slots: ["options"],
       fields: [
@@ -350,7 +368,7 @@ export const SPEC = defineSpec({
           min: 30,
           rows: 3,
           missing: t("say why that option has a lasting effect", "sagen Sie, warum diese Option dauerhaft wirkt"),
-          steps: [t("Name the option and say what the learner does or feels differently because of it.", "Nennen Sie die Option und sagen Sie, was die Lernende deshalb anders tut oder fühlt."), t("Say why that does not wear off, and why the other two wear off or cost more.", "Sagen Sie, warum das nicht nachlässt und warum die anderen beiden nachlassen oder mehr kosten.")],
+          steps: [t("Name the option and say what the learner does or feels differently because of it.", "Nennen Sie die Option und sagen Sie, was die Lernende deshalb anders tut oder fühlt."), t("Say why that does not wear off, and why the other two wear off or cost more.", "Sagen Sie, warum das nicht nachlässt und warum die anderen beiden nachlassen oder mehr kosten."), t("Say in one sentence what you assume about what is not known (the budget, or how many learners leave).", "Sagen Sie in einem Satz, was Sie über das Unbekannte annehmen (das Budget oder wie viele Lernende gehen).")],
           refs: [{ label: t("Rewards and progress (Materi A3)", "Belohnungen und Fortschritt (Materi A3)"), value: t("what helps and what backfires", "was hilft und was nach hinten losgeht"), target: "mat-A3", card: "A3" }],
           model: t("Option B. A learner who can see how far they have come keeps wanting to see the rest, and that does not wear off as a badge does. It also fits a limited budget and two months. Points would lift activity for a while but do not change why the learner is there.", "Option B. Eine Lernende, die sieht, wie weit sie gekommen ist, will den Rest sehen, und das lässt nicht nach wie ein Badge. Es passt auch zu einem begrenzten Budget und zwei Monaten. Punkte würden die Aktivität eine Weile heben, ändern aber nicht, warum die Lernende da ist."),
           guide: {
@@ -619,6 +637,45 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    {
+      id: "case-qa-card",
+      after: "brief1",
+      ariaLabel: t("Case questions for the facilitator", "Fall-Fragen für die Moderation"),
+      openLabel: t("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen"),
+      hideLabel: t("Hide the case questions", "Die Fall-Fragen ausblenden"),
+      sections: [
+        {
+          kicker: t("If a participant asks …", "Wenn Teilnehmende fragen …"),
+          qa: [
+            { q: t("What exactly is the budget?", "Wie hoch ist das Budget genau?"), a: t("It is not set, on purpose. Ask the participant to write down what they assume, and whether the choice would change if the budget were twice as large or half as large. A good decision holds in more than one case.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Wahl ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre. Eine gute Entscheidung hält in mehr als einem Fall.") },
+            { q: t("Two months, but a “lasting” effect?", "Zwei Monate, aber eine „dauerhafte“ Wirkung?"), a: t("“Lasting” is judged after the two months: does the effect remain when nothing pushes any more? The participant says why they expect it to.", "„Dauerhaft“ wird nach den zwei Monaten beurteilt: Bleibt die Wirkung, wenn nichts mehr nachhilft? Die Teilnehmenden sagen, warum sie das erwarten.") },
+            { q: t("Which platform is this?", "Welche Plattform ist das?"), a: t("MotivaLearn, the case of the day (a Case assumption, written in the case brief).", "MotivaLearn, der Fall des Tages (eine Fallannahme, im Fall-Auftrag festgehalten).") },
+            { q: t("Can I combine the options?", "Darf ich die Optionen kombinieren?"), a: t("This block asks for an order, so combining is what the order does: say what comes first and what follows.", "Dieser Block verlangt eine Reihenfolge, Kombinieren ist also das, was die Reihenfolge tut: Sagen Sie, was zuerst kommt und was folgt.") },
+            { q: t("What data do we have?", "Welche Daten haben wir?"), a: t("See “What is known and what is open” in the case brief: starts, finishes and the lesson where learners stop are recorded; nobody has asked learners why they leave.", "Siehe „Was bekannt ist und was offen ist“ im Fall-Auftrag: Beginn, Abschluss und die Lektion, bei der Lernende aufhören, werden erfasst; niemand hat Lernende gefragt, warum sie gehen.") },
+            { q: t("What does “boring” mean?", "Was heißt „langweilig“?"), a: t("It comes from comments in the feedback form. What it means is open: a test or an interview would find out.", "Es stammt aus Kommentaren im Feedback-Formular. Was es heißt, ist offen: Ein Test oder ein Interview würde es herausfinden.") },
+            { q: t("How many learners drop out?", "Wie viele Lernende brechen ab?"), a: t("The brief gives no figure and the site prints none. The drop-out is a fact; its size is not given. Do not invent a number: the decision does not depend on it.", "Der Auftrag nennt keine Zahl, und die Seite druckt keine. Der Abbruch ist ein Fakt; seine Größe ist nicht angegeben. Erfinden Sie keine Zahl: Die Entscheidung hängt nicht davon ab.") },
+          ],
+        },
+      ],
+    },
+    {
+      id: "case-qa-card-2",
+      after: "brief2",
+      ariaLabel: t("Case questions for the facilitator", "Fall-Fragen für die Moderation"),
+      openLabel: t("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen"),
+      hideLabel: t("Hide the case questions", "Die Fall-Fragen ausblenden"),
+      sections: [
+        {
+          kicker: t("If a participant asks …", "Wenn Teilnehmende fragen …"),
+          qa: [
+            { q: t("What exactly is the budget?", "Wie hoch ist das Budget genau?"), a: t("It is not set, on purpose. Ask the participant to write down what they assume, and whether the choice would change if the budget were twice as large or half as large. A good decision holds in more than one case.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Wahl ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre. Eine gute Entscheidung hält in mehr als einem Fall.") },
+            { q: t("What do the competitors offer, and does it work?", "Was bieten die Wettbewerber, und funktioniert es?"), a: t("It is known only from their public pages; there are no numbers. Do not invent their results; say what you would find out.", "Es ist nur aus ihren öffentlichen Seiten bekannt; es gibt keine Zahlen. Erfinden Sie keine Ergebnisse; sagen Sie, was Sie herausfinden würden.") },
+            { q: t("What data is missing?", "Welche Daten fehlen?"), a: t("What learners do inside a lesson and why they leave. Which data to ask for is part of the evaluation strategy (item 3).", "Was Lernende in einer Lektion tun und warum sie gehen. Welche Daten man anfordert, gehört zur Evaluationsstrategie (Punkt 3).") },
+            { q: t("Is retention a number?", "Ist die Nutzerbindung eine Zahl?"), a: t("Retention is low; the brief gives no figure. Say how you would measure it.", "Die Nutzerbindung ist gering; der Auftrag nennt keine Zahl. Sagen Sie, wie Sie sie messen würden.") },
+          ],
+        },
+      ],
+    },
     {
       id: "coaching-card",
       after: "1.2",

@@ -60,7 +60,14 @@ for (const day of want) {
     // 1 · the shape: the plan's numbered questions, every block Core, nothing the plan does not print
     ok(blocksOf(spec, 1).map((b) => b.id).join() === "1.1,1.2,2.1" && spec.block2.id === "3.1", "Route 1 has the blocks 1.1, 1.2 and 2.1; Route 2 has block 3.1");
     ok(f2.length === 6, "Block 3.1 asks the six questions of the transfer project");
-    ok(spec.cards.length === 2 && spec.cards.every((c) => c.sections.length >= 2), "two hidden facilitator cards (coaching and feedback round)");
+    const planCards = spec.cards.filter((c) => c.after !== "brief1" && c.after !== "brief2");
+    ok(planCards.length === 2 && planCards.every((c) => c.sections.length >= 2), "two hidden facilitator cards (coaching and feedback round)");
+    // DL-STANDARD section 14: each case brief names what is known and what is open, and a hidden card holds the standard answers
+    for (const [n, b] of [["brief1", spec.brief1], ["brief2", spec.brief2]] as const) {
+      ok(!!b.known && b.known.columns.length === 3 && b.known.columns.every((c) => c.items.length >= 3), `${n}: a "known and open" box with three columns of at least three points`);
+      const qaCards = spec.cards.filter((c) => c.after === n);
+      ok(qaCards.length === 1 && qaCards[0].sections.every((s) => (s.qa?.length ?? 0) >= 3 && s.qa!.every((x) => x.q.length > 5 && x.a.length > 20)), `${n}: one hidden "if a participant asks" card with at least three answered questions`);
+    }
     const lists = f1.concat(f2).filter((f) => f.kind === "lists");
     ok(lists.every((f) => f.kind === "lists" && listLines(f.lists[0].model).length === f.n && f.table.model.length === f.n && f.table.model.every((r) => f.table.cols.every((c) => !!r[c.key]))), "every list holds exactly the asked number of items, in both layouts");
     ok(f1.concat(f2).every((f) => f.kind !== "text" || (f.guide.example.length > 20 && f.guide.lookFor.length >= 2 && f.model.length >= f.min)), "every text field has a model above its minimum and a worked example");

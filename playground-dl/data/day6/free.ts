@@ -82,9 +82,18 @@ export const SPEC = defineSpec({
       t("Block 1.2: a user journey. Sketch entry, usage and the drop-out point, four possible problems, and the critical phase.", "Block 1.2: eine User Journey. Einstieg, Nutzung und Abbruchpunkt skizzieren, vier mögliche Probleme und die kritische Phase."),
       t("Block 2.1: the case study. Two personas, a journey for each, the central pain points and four UX measures.", "Block 2.1: die Fallstudie. Zwei Personas, je eine Journey, die zentralen Pain Points und vier UX-Maßnahmen."),
     ],
+    known: {
+      title: t("What is known and what is open", "Was bekannt ist und was offen ist"),
+      columns: [
+        { title: t("In the brief", "Im Auftrag"), items: [t("Learners drop out due to lack of time.", "Lernende brechen aus Zeitmangel ab."), t("Teachers find the platform too complicated.", "Lehrende finden die Plattform zu kompliziert."), t("The organisation complains about low usage.", "Die Organisation beklagt die geringe Nutzung."), t("Block 1.1: a working professional with little time who wants to continue their education.", "Block 1.1: eine Berufstätige mit wenig Zeit, die sich weiterbilden will.")] },
+        { title: t("Clear · Case assumption", "Klar · Fallannahme"), items: [t("EduPath is live and has three kinds of users: learners, teachers and the organisation that licenses it for its staff.", "EduPath ist live und hat drei Arten von Nutzern: Lernende, Lehrende und die Organisation, die es für ihre Mitarbeitenden lizenziert."), t("“Lack of time” is what learners write when they leave a course.", "„Zeitmangel“ ist das, was Lernende schreiben, wenn sie einen Kurs verlassen."), t("Teachers say “too complicated” in support requests.", "Lehrende sagen „zu kompliziert“ in Support-Anfragen."), t("The organisation sees usage figures for its staff.", "Die Organisation sieht Nutzungszahlen für ihre Mitarbeitenden."), t("The user in Block 1.2 is a learner of EduPath; “after a short time” means after some lessons, not on the first screen.", "Die Nutzerin in Block 1.2 ist eine Lernende von EduPath; „nach kurzer Zeit“ heißt nach einigen Lektionen, nicht auf dem ersten Bildschirm.")] },
+        { title: t("Open · on purpose", "Offen · mit Absicht"), items: [t("Whether lack of time is the whole reason learners leave.", "Ob Zeitmangel der ganze Grund ist, warum Lernende gehen."), t("Which tasks teachers find too complicated.", "Welche Aufgaben Lehrende zu kompliziert finden."), t("How low the organisation's usage is: no figure is given.", "Wie gering die Nutzung der Organisation ist: Es ist keine Zahl angegeben."), t("How many learners and teachers there are.", "Wie viele Lernende und Lehrende es gibt.")] },
+      ],
+      note: t("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen."),
+    },
     assumption: t(
-      "The brief says: a working professional, little time, wants to continue their education; a user who starts an online course but drops out after a short time; at EduPath learners drop out due to lack of time, teachers find the platform too complicated and the organisation complains about low usage. It prints no figure, so none is used here. Everything else is made up for this exercise: the pictures and the simulation.",
-      "Der Auftrag sagt: eine Berufstätige, wenig Zeit, will sich weiterbilden; eine Nutzerin, die einen Online-Kurs beginnt, aber nach kurzer Zeit abbricht; bei EduPath brechen Lernende aus Zeitmangel ab, Lehrende finden die Plattform zu kompliziert, und die Organisation beklagt die geringe Nutzung. Er nennt keine Zahl, daher wird hier keine verwendet. Alles andere ist für diese Übung erfunden: die Bilder und die Simulation.",
+      "The brief says: a working professional, little time, wants to continue their education; a user who starts an online course but drops out after a short time; at EduPath learners drop out due to lack of time, teachers find the platform too complicated and the organisation complains about low usage. It prints no figure, so none is used here. Everything else is made up for this exercise: the pictures, the simulation and the facts marked “Clear”.",
+      "Der Auftrag sagt: eine Berufstätige, wenig Zeit, will sich weiterbilden; eine Nutzerin, die einen Online-Kurs beginnt, aber nach kurzer Zeit abbricht; bei EduPath brechen Lernende aus Zeitmangel ab, Lehrende finden die Plattform zu kompliziert, und die Organisation beklagt die geringe Nutzung. Er nennt keine Zahl, daher wird hier keine verwendet. Alles andere ist für diese Übung erfunden: die Bilder, die Simulation und die als „Klar“ markierten Fakten.",
     ),
   },
   brief2: {
@@ -97,7 +106,16 @@ export const SPEC = defineSpec({
     conditions: { title: t("The framework", "Die Rahmenbedingungen"), items: [t("Different user groups with conflicting needs", "Verschiedene Nutzergruppen mit widersprüchlichen Bedürfnissen"), t("Limited resources", "Begrenzte Ressourcen"), t("The platform is growing quickly", "Die Plattform wächst schnell"), t("You decide without knowing which persona to prioritise", "Sie entscheiden, ohne zu wissen, welche Persona Vorrang hat")] },
     runTitle: t("How the task runs · one block", "So läuft die Aufgabe · ein Block"),
     run: [t("Block 3.1 asks six questions: two or three strategic personas, the most important target group, the most critical user journey, the three biggest problems, a prioritised UX optimisation strategy, and one decision you make on purpose under uncertainty.", "Block 3.1 stellt sechs Fragen: zwei oder drei strategische Personas, die wichtigste Zielgruppe, die kritischste User Journey, die drei größten Probleme, eine priorisierte UX-Optimierungsstrategie und eine Entscheidung, die Sie bewusst unter Unsicherheit treffen.")],
-    assumption: t("The brief says: different user groups with conflicting needs, limited resources, a platform that is growing quickly, and a decision about which persona to prioritise under uncertainty. It prints no figure, so none is used here.", "Der Auftrag sagt: verschiedene Nutzergruppen mit widersprüchlichen Bedürfnissen, begrenzte Ressourcen, eine schnell wachsende Plattform und eine Entscheidung unter Unsicherheit, welche Persona Vorrang hat. Er nennt keine Zahl, daher wird hier keine verwendet."),
+    known: {
+      title: t("What is known and what is open", "Was bekannt ist und was offen ist"),
+      columns: [
+        { title: t("In the brief", "Im Auftrag"), items: [t("Different user groups with conflicting needs.", "Verschiedene Nutzergruppen mit widersprüchlichen Bedürfnissen."), t("Limited resources.", "Begrenzte Ressourcen."), t("The platform is growing quickly.", "Die Plattform wächst schnell."), t("You decide without knowing which persona to prioritise.", "Sie entscheiden, ohne zu wissen, welche Persona Vorrang hat.")] },
+        { title: t("Clear · Case assumption", "Klar · Fallannahme"), items: [t("You lead UX strategy at EduPath, the platform of Route 1.", "Sie leiten die UX-Strategie bei EduPath, der Plattform aus Route 1."), t("The groups are learners, teachers and the organisation, as in Block 2.1.", "Die Gruppen sind Lernende, Lehrende und die Organisation, wie in Block 2.1."), t("“Growing quickly” means more learners and courses are joining; no figures are given.", "„Schnell wachsen“ heißt, dass mehr Lernende und Kurse dazukommen; es sind keine Zahlen angegeben.")] },
+        { title: t("Open · on purpose", "Offen · mit Absicht"), items: [t("How the needs of the groups conflict in detail.", "Wie die Bedürfnisse der Gruppen im Einzelnen kollidieren."), t("What the resources are (people, time or money): none is set.", "Was die Ressourcen sind (Menschen, Zeit oder Geld): Keine ist festgelegt."), t("How much evidence there is for each persona.", "Wie viele Belege es für jede Persona gibt.")] },
+      ],
+      note: t("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen."),
+    },
+    assumption: t("The brief says: different user groups with conflicting needs, limited resources, a platform that is growing quickly, and a decision about which persona to prioritise under uncertainty. It prints no figure, so none is used here. The facts marked “Clear” are made up for this exercise.", "Der Auftrag sagt: verschiedene Nutzergruppen mit widersprüchlichen Bedürfnissen, begrenzte Ressourcen, eine schnell wachsende Plattform und eine Entscheidung unter Unsicherheit, welche Persona Vorrang hat. Er nennt keine Zahl, daher wird hier keine verwendet. Die als „Klar“ markierten Fakten sind für diese Übung erfunden."),
   },
   blocks1: [
     {
@@ -195,7 +213,7 @@ export const SPEC = defineSpec({
       refs: ["A3", "A5"],
       minutes: 6,
       doc: t("1.2 · Analysing a user journey", "1.2 · Eine User Journey analysieren"),
-      lead: t("Scenario: a user starts an online course but drops out after a short time. Think of the persona you just described, or of anyone who has done this.", "Szenario: Eine Nutzerin beginnt einen Online-Kurs, bricht aber nach kurzer Zeit ab. Denken Sie an die Persona, die Sie gerade beschrieben haben, oder an jemanden, der das erlebt hat."),
+      lead: t("Scenario: a learner of EduPath starts an online course but drops out after a short time (after some lessons, not on the first screen). Think of the persona you just described, or of anyone who has done this. Where the scenario is silent, say what you assume.", "Szenario: Eine Lernende von EduPath beginnt einen Online-Kurs, bricht aber nach kurzer Zeit ab (nach einigen Lektionen, nicht auf dem ersten Bildschirm). Denken Sie an die Persona, die Sie gerade beschrieben haben, oder an jemanden, der das erlebt hat. Wo das Szenario schweigt, sagen Sie, was Sie annehmen."),
       slots: ["journey"],
       fields: [
         {
@@ -537,6 +555,43 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    {
+      id: "case-qa-card",
+      after: "brief1",
+      ariaLabel: t("Case questions for the facilitator", "Fall-Fragen für die Moderation"),
+      openLabel: t("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen"),
+      hideLabel: t("Hide the case questions", "Die Fall-Fragen ausblenden"),
+      sections: [
+        {
+          kicker: t("If a participant asks …", "Wenn Teilnehmende fragen …"),
+          qa: [
+            { q: t("Who is “the organisation”?", "Wer ist „die Organisation“?"), a: t("The customer that licenses EduPath for its employees (a Case assumption). Block 2.1 asks for a learner and a teacher; the organisation needs no persona of its own.", "Der Kunde, der EduPath für seine Mitarbeitenden lizenziert (eine Fallannahme). Block 2.1 verlangt eine Lernende und einen Lehrenden; die Organisation braucht keine eigene Persona.") },
+            { q: t("Is the persona in Block 1.1 a real person?", "Ist die Persona in Block 1.1 eine echte Person?"), a: t("No. Build her from the three given facts, and mark what you assume. A persona built from few facts is a hypothesis.", "Nein. Bauen Sie sie aus den drei gegebenen Fakten und kennzeichnen Sie, was Sie annehmen. Eine Persona aus wenigen Fakten ist eine Hypothese.") },
+            { q: t("How long is “a short time”?", "Wie lang ist „nach kurzer Zeit“?"), a: t("After some lessons, not on the first screen. The participant says what they assume.", "Nach einigen Lektionen, nicht auf dem ersten Bildschirm. Die Teilnehmenden sagen, was sie annehmen.") },
+            { q: t("Is lack of time the true cause?", "Ist Zeitmangel die wahre Ursache?"), a: t("It is what learners write. Whether it is all of it is open; the journey may show more.", "Es ist das, was Lernende schreiben. Ob es alles ist, ist offen; die Journey kann mehr zeigen.") },
+            { q: t("What data do we have?", "Welche Daten haben wir?"), a: t("Exit comments of learners, support requests of teachers, usage figures for the organisation. No interviews.", "Austrittskommentare der Lernenden, Support-Anfragen der Lehrenden, Nutzungszahlen für die Organisation. Keine Interviews.") },
+            { q: t("How many users are there?", "Wie viele Nutzer gibt es?"), a: t("No figure is given and the site prints none. Do not invent one: the task does not depend on it.", "Es ist keine Zahl angegeben, und die Seite druckt keine. Erfinden Sie keine: Die Aufgabe hängt nicht davon ab.") },
+          ],
+        },
+      ],
+    },
+    {
+      id: "case-qa-card-2",
+      after: "brief2",
+      ariaLabel: t("Case questions for the facilitator", "Fall-Fragen für die Moderation"),
+      openLabel: t("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen"),
+      hideLabel: t("Hide the case questions", "Die Fall-Fragen ausblenden"),
+      sections: [
+        {
+          kicker: t("If a participant asks …", "Wenn Teilnehmende fragen …"),
+          qa: [
+            { q: t("What are the resources?", "Was sind die Ressourcen?"), a: t("Not set, on purpose. Ask the participant to say what they assume (people, time or money) and whether the decision holds with more or less.", "Mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden zu sagen, was sie annehmen (Menschen, Zeit oder Geld) und ob die Entscheidung mit mehr oder weniger hält.") },
+            { q: t("Which groups conflict, and on what?", "Welche Gruppen kollidieren, und worin?"), a: t("Learners, teachers and the organisation, as in Block 2.1. How exactly they conflict is open: that is part of the analysis.", "Lernende, Lehrende und die Organisation, wie in Block 2.1. Wie genau sie kollidieren, ist offen: Das gehört zur Analyse.") },
+            { q: t("Which persona is the right one?", "Welche Persona ist die richtige?"), a: t("There is no single right one. It is a decision under uncertainty: the reason and what would change the mind count.", "Es gibt nicht die eine richtige. Es ist eine Entscheidung unter Unsicherheit: Der Grund und was die Meinung ändern würde, zählen.") },
+          ],
+        },
+      ],
+    },
     {
       id: "coaching-card", after: "1.2",
       ariaLabel: t("Coaching card for the facilitator", "Coaching-Karte für die Moderation"),

@@ -6,6 +6,8 @@ import { BlockMissing } from "@/components/ui/BlockMissing";
 import { ExampleAnswer } from "@/components/ui/ExampleAnswer";
 import { ExportBar } from "@/components/ui/ExportBar";
 import { TextBox } from "@/components/ui/Inputs";
+import { CaseKnown } from "@/components/ui/CaseKnown";
+import { FacilitatorCard } from "@/components/ui/FacilitatorCard";
 import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
@@ -75,8 +77,65 @@ function CaseBrief() {
           tt("Route 1 is not needed for this route. If you have done it, your answers are quoted in the memo.", "Route 1 ist für diese Route nicht nötig. Wenn Sie sie gemacht haben, werden Ihre Antworten im Memo zitiert.")
         )}
       </p>
+      <CaseKnown
+        id="case-known-2"
+        title={tt("What is known and what is open", "Was bekannt ist und was offen ist")}
+        columns={[
+          {
+            title: tt("In the brief", "Im Auftrag"),
+            items: [
+              tt("The platform is rated “too complicated”.", "Die Plattform wird als „zu kompliziert“ bewertet."),
+              tt("The content is professionally necessary, but hard to understand.", "Der Inhalt ist fachlich nötig, aber schwer verständlich."),
+              tt("The budget is limited.", "Das Budget ist begrenzt."),
+              tt("You decide without user data.", "Sie entscheiden ohne Nutzerdaten."),
+            ],
+          },
+          {
+            title: tt("Clear · Case assumption", "Klar · Fallannahme"),
+            items: [
+              tt("You lead the learning experience at EduCore, the platform of Route 1.", "Sie verantworten die Lernerfahrung bei EduCore, der Plattform aus Route 1."),
+              tt("“Professionally necessary” means learners need the content for their work, so it cannot simply be cut.", "„Fachlich nötig“ heißt, Lernende brauchen den Inhalt für ihre Arbeit, er lässt sich also nicht einfach streichen."),
+              tt("EduCore records which lessons learners open and which quizzes they finish; it has no tests with beginners.", "EduCore erfasst, welche Lektionen Lernende öffnen und welche Quizze sie beenden; es gibt keine Tests mit Einsteigern."),
+            ],
+          },
+          {
+            title: tt("Open · on purpose", "Offen · mit Absicht"),
+            items: [
+              tt("What “too complicated” means to the learners.", "Was „zu kompliziert“ für die Lernenden bedeutet."),
+              tt("How many learners leave, and where: no figure is given.", "Wie viele Lernende gehen und wo: Es ist keine Zahl angegeben."),
+              tt("How large the budget is: it is not set.", "Wie groß das Budget ist: Es ist nicht festgelegt."),
+            ],
+          },
+        ]}
+        note={tt("As in most projects, not everything is known. Decide anyway, and say what you assume.", "Wie in den meisten Projekten ist nicht alles bekannt. Entscheiden Sie trotzdem, und sagen Sie, was Sie annehmen.")}
+      />
+      <FacilitatorCard
+        id="case-qa-card-2"
+        ariaLabel={tt("Case questions for the facilitator", "Fall-Fragen für die Moderation")}
+        openLabel={tt("Case questions · if a participant asks", "Fall-Fragen · wenn Teilnehmende fragen")}
+        hideLabel={tt("Hide the case questions", "Die Fall-Fragen ausblenden")}
+        sections={[
+          {
+            kicker: tt("If a participant asks …", "Wenn Teilnehmende fragen …"),
+            qa: [
+              {
+                q: tt("What exactly is the budget?", "Wie hoch ist das Budget genau?"),
+                a: tt("It is not set, on purpose. Ask the participant to write down what they assume, and whether the strategy would change if the budget were twice as large or half as large.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Strategie ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre."),
+              },
+              {
+                q: tt("Can the content be cut?", "Darf der Inhalt gekürzt werden?"),
+                a: tt("It is professionally necessary: cutting what the subject needs is the risk the participant weighs against content that is too complex.", "Er ist fachlich nötig: Zu kürzen, was das Thema braucht, ist das Risiko, das die Teilnehmenden gegen zu komplexen Inhalt abwägen."),
+              },
+              {
+                q: tt("What data do we have?", "Welche Daten haben wir?"),
+                a: tt("Lesson opens and quiz finishes are recorded; there are no tests with beginners and no learner interviews. That is why one decision is made under uncertainty.", "Das Öffnen von Lektionen und der Abschluss von Quizzen werden erfasst; es gibt keine Tests mit Einsteigern und keine Lernenden-Interviews. Deshalb wird eine Entscheidung unter Unsicherheit getroffen."),
+              },
+            ],
+          },
+        ]}
+      />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("The brief says: a platform rated too complicated, content professionally necessary but hard to understand, a limited budget, and a decision without user data. It prints no figure, so none is used here.", "Der Auftrag sagt: eine als zu kompliziert bewertete Plattform, fachlich nötiger, aber schwer verständlicher Inhalt, ein begrenztes Budget und eine Entscheidung ohne Nutzerdaten. Er nennt keine Zahl, daher wird hier keine verwendet.")}</p>
+        <p>{tt("The brief says: a platform rated too complicated, content professionally necessary but hard to understand, a limited budget, and a decision without user data. It prints no figure, so none is used here. The facts marked “Clear” are made up for this exercise.", "Der Auftrag sagt: eine als zu kompliziert bewertete Plattform, fachlich nötiger, aber schwer verständlicher Inhalt, ein begrenztes Budget und eine Entscheidung ohne Nutzerdaten. Er nennt keine Zahl, daher wird hier keine verwendet. Die als „Klar“ markierten Fakten sind für diese Übung erfunden.")}</p>
       </Callout>
     </section>
   );
