@@ -3,7 +3,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { LongPageSim } from "@/components/day2/sims";
-import { ObserveButton, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
+import { CompetitorSite, ObserveButton, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
 import type { ObserveView } from "@/components/sim/ObserveKit";
 import { tt } from "@/lib/lang";
 
@@ -46,11 +46,13 @@ function CompetitorView() {
     [tt("Can you explain risk lists?", "Können Sie Risikolisten erklären?"), tt("A risk list names what could go wrong, what you would notice first and what you would do. Keep it short enough to be read.", "Eine Risikoliste nennt, was schiefgehen könnte, was Sie zuerst bemerken würden und was Sie tun würden. Halten Sie sie so kurz, dass sie gelesen wird.")],
   ];
   return (
+    <CompetitorSite
+      name="NextStep Learning"
+      tagline={tt("Project basics, adaptive: a course that starts where you are, and an AI tutor you can ask.", "Projektgrundlagen, adaptiv: ein Kurs, der dort beginnt, wo Sie stehen, und ein KI-Tutor, den Sie fragen können.")}
+      points={[tt("Placement in two minutes", "Einstufung in zwei Minuten"), tt("A path that skips what you know", "Ein Pfad, der überspringt, was Sie können"), tt("An AI tutor, day and night", "Ein KI-Tutor, Tag und Nacht")]}
+      quote={tt("I finished the course in half the time I expected. The tutor answered my questions at midnight. · a customer, as quoted on the page", "Ich war mit dem Kurs in der Hälfte der erwarteten Zeit fertig. Der Tutor beantwortete meine Fragen um Mitternacht. · eine Kundin, wie auf der Seite zitiert")}
+    >
     <div className="space-y-3 p-3">
-      <div className="rounded-lg bg-[#1F5F5B] px-4 py-3 text-white">
-        <p className="font-serif text-[16px] font-bold">NextStep Learning</p>
-        <p className="text-[13px] opacity-90">{tt("Project basics · adaptive course · with an AI tutor", "Projektgrundlagen · adaptiver Kurs · mit KI-Tutor")}</p>
-      </div>
       {know === null ? (
         <div className="space-y-2">
           <p className="text-[14px] font-semibold">{tt("Before we start: how much do you know about managing projects?", "Bevor wir beginnen: Wie viel wissen Sie über Projektmanagement?")}</p>
@@ -85,6 +87,7 @@ function CompetitorView() {
       </div>
       <p className="text-[12px] text-[#5F5E5A]">{tt("From the vendor's page: “Learners on adaptive paths finish more courses.” No source or measurement is given.", "Von der Seite des Anbieters: „Lernende auf adaptiven Pfaden schließen mehr Kurse ab.“ Eine Quelle oder Messung wird nicht genannt.")}</p>
     </div>
+    </CompetitorSite>
   );
 }
 
@@ -93,10 +96,10 @@ function VoicesDay2() {
     <VoicesView
       intro={tt("Messages from learners and from the people who book the course, as the support inbox shows them.", "Nachrichten von Lernenden und von denen, die den Kurs buchen, so wie das Support-Postfach sie zeigt.")}
       voices={[
-        { who: "Mia", meta: tt("learner · phone · first week", "Lernende · Handy · erste Woche"), text: tt("It is one long page. I lose my place when I look away, and I cannot tell how much is left.", "Es ist eine lange Seite. Ich verliere meine Stelle, wenn ich wegsehe, und kann nicht sagen, wie viel noch kommt.") },
-        { who: "Sam", meta: tt("learner · laptop · leads projects", "Lernender · Laptop · leitet Projekte"), text: tt("I know most of this already. I would like to skip ahead, but the only way is to scroll.", "Das meiste kenne ich schon. Ich würde gern vorspringen, aber der einzige Weg ist Scrollen.") },
-        { who: tt("A team lead", "Eine Teamleiterin"), meta: tt("books the course for six people", "bucht den Kurs für sechs Personen"), text: tt("Two of my people have been on the same page for a week. I do not know whether they are stuck or just busy.", "Zwei meiner Leute sind seit einer Woche auf derselben Seite. Ich weiß nicht, ob sie feststecken oder nur beschäftigt sind.") },
-        { who: tt("A support agent", "Ein Support-Mitarbeiter"), meta: tt("our own team", "unser eigenes Team"), text: tt("People ask whether the course adapts to them. I have to say it is the same for everyone.", "Leute fragen, ob sich der Kurs an sie anpasst. Ich muss sagen, dass er für alle gleich ist.") },
+        { who: "Mia", meta: tt("learner · first week", "Lernende · erste Woche"), device: tt("Phone", "Handy"), page: "/course/project-basics", channel: tt("Contact form", "Kontaktformular"), text: tt("It is one long page. I lose my place when I look away, and I cannot tell how much is left.", "Es ist eine lange Seite. Ich verliere meine Stelle, wenn ich wegsehe, und kann nicht sagen, wie viel noch kommt.") },
+        { who: "Sam", meta: tt("learner · leads projects", "Lernender · leitet Projekte"), device: tt("Laptop", "Laptop"), page: "/course/project-basics", channel: tt("E-mail", "E-Mail"), text: tt("I know most of this already. I would like to skip ahead, but the only way is to scroll.", "Das meiste kenne ich schon. Ich würde gern vorspringen, aber der einzige Weg ist Scrollen.") },
+        { who: tt("A team lead", "Eine Teamleiterin"), meta: tt("books the course for six people", "bucht den Kurs für sechs Personen"), channel: tt("E-mail", "E-Mail"), text: tt("Two of my people have been on the same page for a week. I do not know whether they are stuck or just busy.", "Zwei meiner Leute sind seit einer Woche auf derselben Seite. Ich weiß nicht, ob sie feststecken oder nur beschäftigt sind.") },
+        { who: tt("A support agent", "Ein Support-Mitarbeiter"), meta: tt("our own team", "unser eigenes Team"), channel: tt("Internal note", "Interne Notiz"), text: tt("People ask whether the course adapts to them. I have to say it is the same for everyone.", "Leute fragen, ob sich der Kurs an sie anpasst. Ich muss sagen, dass er für alle gleich ist.") },
         { who: tt("A learner on another platform", "Eine Lernende auf einer anderen Plattform"), meta: tt("heard about it from a friend", "von einer Freundin gehört"), text: tt("A friend says her course asks a few questions first and then skips what she knows. Does yours do that?", "Eine Freundin sagt, ihr Kurs stellt zuerst ein paar Fragen und überspringt dann, was sie kann. Macht Ihrer das auch?") },
       ]}
     />
@@ -118,7 +121,7 @@ function RecordsDay2() {
     <RecordsView
       intro={tt("What LearnPro's admin console can show today.", "Was die Admin-Konsole von LearnPro heute zeigen kann.")}
       reports={[
-        { name: tt("Where learners stop", "Wo Lernende aufhören"), head: [tt("Date", "Datum"), tt("Learner", "Lernende"), tt("Last lesson opened", "Zuletzt geöffnete Lektion")], rows: stops, note: tt("Recorded events, newest last. A sample of the log; nothing is added up.", "Erfasste Ereignisse, das neueste zuletzt. Ein Ausschnitt des Protokolls; nichts wird zusammengezählt.") },
+        { name: tt("Where learners stop", "Wo Lernende aufhören"), unit: tt("stops", "Abbrüche"), bars: [{ label: tt("Why projects fail", "Warum Projekte scheitern"), value: 34 }, { label: tt("Planning a project", "Ein Projekt planen"), value: 37 }, { label: tt("Working in a team", "Im Team arbeiten"), value: 35 }, { label: tt("Managing risks", "Risiken steuern"), value: 33 }, { label: tt("Talking to stakeholders", "Mit Stakeholdern sprechen"), value: 36 }, { label: tt("Closing a project", "Ein Projekt abschließen"), value: 31 }], head: [tt("Date", "Datum"), tt("Learner", "Lernende"), tt("Last lesson opened", "Zuletzt geöffnete Lektion")], rows: stops, note: tt("Recorded events, newest last. A sample of the log; nothing is added up.", "Erfasste Ereignisse, das neueste zuletzt. Ein Ausschnitt des Protokolls; nichts wird zusammengezählt.") },
         { name: tt("Time per lesson", "Zeit pro Lektion") },
         { name: tt("Why learners leave", "Warum Lernende gehen") },
         { name: tt("What a learner already knows", "Was eine Lernende schon weiß") },

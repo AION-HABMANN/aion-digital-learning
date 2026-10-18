@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import clsx from "clsx";
+import { DeskSim, Sheet } from "@/components/sim/DeskSim";
 import { tt } from "@/lib/lang";
 
 /**
@@ -322,73 +323,67 @@ export function PaperPrototypeSim() {
 /* ------------------------------------------------------------------ Route 2 · the Chief Product Officer's desk */
 
 export function CpoDeskSim() {
-  const items = [
-    { id: "mgmt", from: tt("Management", "Geschäftsführung"), subject: tt("We need a future strategy for the platform", "Wir brauchen eine Zukunftsstrategie für die Plattform") },
-    { id: "comp", from: tt("Industry news", "Branchennachrichten"), subject: tt("Competitors launch AI tutors and adaptive paths", "Wettbewerber starten KI-Tutoren und adaptive Pfade") },
-    { id: "data", from: tt("Data team", "Datenteam"), subject: tt("What our platform records today", "Was unsere Plattform heute erfasst") },
-    { id: "plat", from: tt("Our platform", "Unsere Plattform"), subject: tt("LearnPro today, as a learner sees it", "LearnPro heute, wie eine Lernende es sieht") },
-  ];
-  const [open, setOpen] = useState("mgmt");
   return (
-    <div className="flex min-h-full flex-col sm:flex-row">
-      <ul className="shrink-0 border-b border-[#E3E3E3] bg-[#F7F7F8] sm:w-60 sm:border-b-0 sm:border-r" aria-label={tt("Inbox", "Posteingang")}>
-        {items.map((it) => (
-          <li key={it.id}>
-            <button type="button" aria-current={open === it.id} onClick={() => setOpen(it.id)} className={clsx("block min-h-[48px] w-full border-b border-[#E3E3E3] px-3 py-2 text-left", open === it.id ? "bg-white" : "hover:bg-white")}>
-              <span className="block text-[12px] text-[#666]">{it.from}</span>
-              <span className="block text-[13px] font-semibold text-[#222]">{it.subject}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
-      <div className="min-w-0 flex-1 px-4 py-4 text-[#222]">
-        {open === "mgmt" && (
-          <div className="space-y-3 text-[15px] leading-relaxed">
-            <p className="text-[12px] text-[#666]">{tt("From: Management · To: Chief Product Officer", "Von: Geschäftsführung · An: Chief Product Officer")}</p>
-            <p>{tt("Our competitors now use AI and adaptive systems, and our own platform is outdated. The budget is limited, and our data situation is incomplete.", "Unsere Wettbewerber nutzen inzwischen KI und adaptive Systeme, und unsere eigene Plattform ist veraltet. Das Budget ist begrenzt, und unsere Datenlage ist unvollständig.")}</p>
-            <p>{tt("Please develop a future strategy for the learning platform: do we invest in adaptive learning, how do we test new features, which data do we need, a prioritised innovation roadmap, and the risks of technology against user value. We know you will have to decide some things before we have all the data.", "Bitte entwickeln Sie eine Zukunftsstrategie für die Lernplattform: Investieren wir in adaptives Lernen, wie testen wir neue Funktionen, welche Daten brauchen wir, eine priorisierte Innovations-Roadmap und die Risiken von Technologie gegen Nutzerwert. Uns ist klar, dass Sie manches entscheiden müssen, bevor alle Daten da sind.")}</p>
-          </div>
-        )}
-        {open === "comp" && (
-          <div className="space-y-3 text-[15px] leading-relaxed">
-            <p className="text-[12px] text-[#666]">{tt("Industry news · two competitors", "Branchennachrichten · zwei Wettbewerber")}</p>
-            <h3 className="text-[18px] font-bold">{tt("“An AI tutor for every learner”", "„Ein KI-Tutor für jede Lernende“")}</h3>
-            <p>{tt("Two learning platforms in the market announce an AI tutor that answers questions, and learning paths that adapt to what each learner already knows. Both say their learners finish more courses; neither publishes how this was measured.", "Zwei Lernplattformen am Markt kündigen einen KI-Tutor an, der Fragen beantwortet, und Lernpfade, die sich an das Vorwissen jeder Lernenden anpassen. Beide sagen, ihre Lernenden schließen mehr Kurse ab; keine veröffentlicht, wie das gemessen wurde.")}</p>
-          </div>
-        )}
-        {open === "data" && (
-          <div className="space-y-3">
-            <p className="text-[12px] text-[#666]">{tt("Data team · what is recorded today", "Datenteam · was heute erfasst wird")}</p>
-            <table className="w-full border-collapse text-[14px]">
-              <thead>
-                <tr className="bg-[#F1F1F3] text-left">
-                  <th className="border border-[#DDD] px-2 py-1.5">{tt("Data", "Daten")}</th>
-                  <th className="border border-[#DDD] px-2 py-1.5">{tt("Today", "Heute")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  [tt("At which lesson learners stop", "Bei welcher Lektion Lernende aufhören"), tt("recorded", "erfasst")],
-                  [tt("How long a lesson takes", "Wie lange eine Lektion dauert"), tt("not recorded", "nicht erfasst")],
-                  [tt("Why learners leave", "Warum Lernende gehen"), tt("not recorded", "nicht erfasst")],
-                  [tt("What a learner already knows", "Was eine Lernende schon weiß"), tt("not recorded", "nicht erfasst")],
-                  [tt("Versions of each lesson to adapt to", "Fassungen jeder Lektion zum Anpassen"), tt("one version only", "nur eine Fassung")],
-                ].map(([a, b]) => (
-                  <tr key={a}>
-                    <td className="border border-[#DDD] px-2 py-1.5">{a}</td>
-                    <td className="border border-[#DDD] px-2 py-1.5">{b}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-        {open === "plat" && (
-          <div className="overflow-hidden rounded-lg border border-[#DDD]">
-            <LongPageSim />
-          </div>
-        )}
-      </div>
-    </div>
+    <DeskSim
+      mailbox={tt("Inbox · Chief Product Officer · LearnPro", "Posteingang · Chief Product Officer · LearnPro")}
+      messages={[
+        {
+          from: tt("Management", "Geschäftsführung"),
+          subject: tt("We need a future strategy for the platform", "Wir brauchen eine Zukunftsstrategie für die Plattform"),
+          body: [
+            tt("Our competitors now use AI and adaptive systems, and our own platform is outdated. The budget is limited, and our data situation is incomplete.", "Unsere Wettbewerber nutzen inzwischen KI und adaptive Systeme, und unsere eigene Plattform ist veraltet. Das Budget ist begrenzt, und unsere Datenlage ist unvollständig."),
+            tt("Please develop a future strategy for the learning platform: do we invest in adaptive learning, how do we test new features, which data do we need, a prioritised innovation roadmap, and the risks of technology against user value. We know you will have to decide some things before we have all the data.", "Bitte entwickeln Sie eine Zukunftsstrategie für die Lernplattform: Investieren wir in adaptives Lernen, wie testen wir neue Funktionen, welche Daten brauchen wir, eine priorisierte Innovations-Roadmap und die Risiken von Technologie gegen Nutzerwert. Uns ist klar, dass Sie manches entscheiden müssen, bevor alle Daten da sind."),
+          ],
+        },
+        {
+          from: tt("Industry news", "Branchennachrichten"),
+          subject: tt("Competitors launch AI tutors and adaptive paths", "Wettbewerber starten KI-Tutoren und adaptive Pfade"),
+          body: [tt("A short item from this morning's industry digest. The full article is attached.", "Ein kurzer Beitrag aus dem Branchen-Digest von heute Morgen. Der ganze Artikel ist angehängt.")],
+          attachments: [
+            {
+              name: "ai-tutor-article.html",
+              kind: "page",
+              node: (
+                <div className="space-y-3 bg-white px-5 py-4 text-[#222]">
+                  <p className="text-[12px] text-[#666]">{tt("Industry news · two competitors", "Branchennachrichten · zwei Wettbewerber")}</p>
+                  <h3 className="font-serif text-[20px] font-bold">{tt("“An AI tutor for every learner”", "„Ein KI-Tutor für jede Lernende“")}</h3>
+                  <p className="text-[15px] leading-relaxed">{tt("Two learning platforms in the market announce an AI tutor that answers questions, and learning paths that adapt to what each learner already knows. Both say their learners finish more courses; neither publishes how this was measured.", "Zwei Lernplattformen am Markt kündigen einen KI-Tutor an, der Fragen beantwortet, und Lernpfade, die sich an das Vorwissen jeder Lernenden anpassen. Beide sagen, ihre Lernenden schließen mehr Kurse ab; keine veröffentlicht, wie das gemessen wurde.")}</p>
+                </div>
+              ),
+            },
+          ],
+        },
+        {
+          from: tt("Data team", "Datenteam"),
+          subject: tt("What our platform records today", "Was unsere Plattform heute erfasst"),
+          body: [tt("This is what the platform records today. The sheet is attached.", "Das erfasst die Plattform heute. Die Tabelle ist angehängt.")],
+          attachments: [
+            {
+              name: "platform-records.xlsx",
+              kind: "sheet",
+              node: (
+                <Sheet
+                  title={tt("What the platform records today (Case assumption)", "Was die Plattform heute erfasst (Fallannahme)")}
+                  head={[tt("Data", "Daten"), tt("Today", "Heute")]}
+                  rows={[
+                    [tt("At which lesson learners stop", "Bei welcher Lektion Lernende aufhören"), tt("recorded", "erfasst")],
+                    [tt("How long a lesson takes", "Wie lange eine Lektion dauert"), tt("not recorded", "nicht erfasst")],
+                    [tt("Why learners leave", "Warum Lernende gehen"), tt("not recorded", "nicht erfasst")],
+                    [tt("What a learner already knows", "Was eine Lernende schon weiß"), tt("not recorded", "nicht erfasst")],
+                    [tt("Versions of each lesson to adapt to", "Fassungen jeder Lektion zum Anpassen"), tt("one version only", "nur eine Fassung")],
+                  ]}
+                />
+              ),
+            },
+          ],
+        },
+        {
+          from: tt("Our platform", "Unsere Plattform"),
+          subject: tt("LearnPro today, as a learner sees it", "LearnPro heute, wie eine Lernende es sieht"),
+          body: [tt("A link to the live course, as a learner opens it today.", "Ein Link zum Live-Kurs, so wie eine Lernende ihn heute öffnet.")],
+          attachments: [{ name: "learnpro.example/course", kind: "link", node: <LongPageSim /> }],
+        },
+      ]}
+    />
   );
 }

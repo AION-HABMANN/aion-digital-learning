@@ -96,7 +96,7 @@ function Desk() {
           messages={[
             { from: tt("Management", "Geschäftsführung"), subject: tt("An engagement strategy", "Eine Engagement-Strategie"), body: [tt("User retention is low. We need an engagement strategy for the learning platform, and we expect you to take responsibility for the user experience.", "Die Nutzerbindung ist gering. Wir brauchen eine Engagement-Strategie für die Lernplattform und erwarten, dass Sie die Verantwortung für die User Experience übernehmen."), tt("The budget is limited.", "Das Budget ist begrenzt.")] },
             { from: tt("Market news", "Marktmeldung"), subject: tt("Competitors", "Wettbewerber"), body: [tt("Competing platforms offer a more motivating experience than ours.", "Konkurrierende Plattformen bieten ein motivierenderes Erlebnis als unsere.")] },
-            { from: tt("Analytics", "Analytics"), subject: tt("What we can see", "Was wir sehen können"), body: [tt("Our data situation is incomplete. The table below shows what the platform records today.", "Unsere Datenlage ist unvollständig. Die Tabelle unten zeigt, was die Plattform heute erfasst.")] },
+            { from: tt("Analytics", "Analytics"), subject: tt("What we can see", "Was wir sehen können"), body: [tt("Our data situation is incomplete. The attached table shows what the platform records today.", "Unsere Datenlage ist unvollständig. Die angehängte Tabelle zeigt, was die Plattform heute erfasst.")] },
           ]}
           table={{
             title: tt("What the platform records today (Case assumption)", "Was die Plattform heute erfasst (Fallannahme)"),
