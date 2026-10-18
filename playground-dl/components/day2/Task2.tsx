@@ -16,6 +16,7 @@ import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
 import { WritingHelp } from "@/components/ui/WritingHelp";
+import { ObserveDay2 } from "@/components/day2/observe";
 import { CpoDeskSim } from "@/components/day2/sims";
 import { SimButton } from "@/components/sim/SimFrame";
 import { VERDICTS } from "@/data/day2/case";
@@ -94,6 +95,7 @@ function CaseBrief() {
       >
         {() => <CpoDeskSim />}
       </SimButton>
+      <ObserveDay2 />
       <CaseKnown
         id="case-known-2"
         title={tt("What is known and what is open", "Was bekannt ist und was offen ist")}

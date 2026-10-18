@@ -4,6 +4,7 @@ import { MateriA, MateriB } from "@/components/day6/Materi";
 import { SideScreen } from "@/components/day6/mocks";
 import { EduPathSim } from "@/components/day6/sims";
 import { Diagram } from "@/components/materi/kit";
+import { ObserveDay6 } from "@/components/day6/observe";
 import { DeskSim } from "@/components/sim/DeskSim";
 import { SimButton } from "@/components/sim/SimFrame";
 import type { FreeKit } from "@/lib/dayFree/spec";
@@ -104,4 +105,4 @@ function Desk() {
   );
 }
 
-export const KIT: FreeKit = { MateriA, MateriB, slots: { scenario: () => <Scenario />, journey: () => <JourneyStrip />, situation: () => <Situation />, desk: () => <Desk /> } };
+export const KIT: FreeKit = { MateriA, MateriB, slots: { scenario: () => <Scenario />, journey: () => <JourneyStrip />, situation: () => <Situation />, desk: () => <Desk />, observe: () => <ObserveDay6 /> } };

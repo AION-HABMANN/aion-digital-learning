@@ -436,7 +436,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · User-centred UX strategy", "3.1 · Nutzerzentrierte UX-Strategie"),
-    slots: ["desk"],
+    slots: ["desk", "observe"],
     fields: [
       {
         kind: "text", id: "needs",

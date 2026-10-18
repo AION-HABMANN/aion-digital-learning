@@ -4,6 +4,7 @@ import { MateriA, MateriB } from "@/components/day9/Materi";
 import { MeasureThumb } from "@/components/day9/mocks";
 import { OptionSim, NavLearnSim } from "@/components/day9/sims";
 import { Diagram } from "@/components/materi/kit";
+import { ObserveDay9 } from "@/components/day9/observe";
 import { DeskSim } from "@/components/sim/DeskSim";
 import { OptionCards } from "@/components/sim/OptionCards";
 import { SimButton } from "@/components/sim/SimFrame";
@@ -112,4 +113,4 @@ function Desk() {
   );
 }
 
-export const KIT: FreeKit = { MateriA, MateriB, slots: { platform: () => <Platform />, options: () => <Options />, situation: () => <Situation />, desk: () => <Desk /> } };
+export const KIT: FreeKit = { MateriA, MateriB, slots: { platform: () => <Platform />, options: () => <Options />, situation: () => <Situation />, desk: () => <Desk />, observe: () => <ObserveDay9 /> } };

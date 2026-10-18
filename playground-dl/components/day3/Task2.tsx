@@ -14,6 +14,7 @@ import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
 import { WritingHelp } from "@/components/ui/WritingHelp";
+import { ObserveDay3 } from "@/components/day3/observe";
 import { OPTS } from "@/data/day3/case";
 import { LOGIC_GUIDE, MEASURES_GUIDE, RISK_GUIDE, UNC_GUIDE } from "@/data/day3/tableGuides";
 import { routeHref } from "@/data/course";
@@ -80,6 +81,7 @@ function CaseBrief() {
           tt("Route 1 is not needed for this route. If you have done it, your answers are quoted in the memo.", "Route 1 ist für diese Route nicht nötig. Wenn Sie sie gemacht haben, werden Ihre Antworten im Memo zitiert.")
         )}
       </p>
+      <ObserveDay3 />
       <CaseKnown
         id="case-known-2"
         title={tt("What is known and what is open", "Was bekannt ist und was offen ist")}

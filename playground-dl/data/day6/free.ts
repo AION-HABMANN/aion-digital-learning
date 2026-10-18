@@ -449,7 +449,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · Segmentation and journey strategy", "3.1 · Segmentierungs- und Journey-Strategie"),
-    slots: ["desk"],
+    slots: ["desk", "observe"],
     fields: [
       {
         kind: "text", id: "personas3",

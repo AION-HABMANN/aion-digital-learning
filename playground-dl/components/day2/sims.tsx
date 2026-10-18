@@ -9,7 +9,7 @@ import { tt } from "@/lib/lang";
  * nothing that would change an answer. Platform A (a benchmark): a path of six steps with the current one marked, a progress bar with "Step n of
  * 6", units of six minutes with one goal, a quiz that says "x of y correct" and names the question to review. Platform B (LearnPro today): one
  * long page, no menu, no sign of progress, and after the last page a button back to the course list with no message. The three options of
- * Block 1.2: a high-fidelity prototype that looks finished but where most taps lead nowhere, a paper prototype paged through by a person who
+ * Block 1.2: a high-fidelity prototype in which every drawn screen is linked (list, lesson, quiz, result) while nothing works behind it (the result is fixed, nothing is saved), a paper prototype paged through by a person who
  * plays the computer, and the live product with real data. Route 2: the Chief Product Officer's desk. Own colours only; the content is made up.
  */
 
@@ -213,44 +213,70 @@ export function LongPageSim() {
 
 export function HifiPrototypeSim() {
   const units = UNITS();
-  const [screen, setScreen] = useState<"start" | "lesson">("start");
-  const [toast, setToast] = useState<string | null>(null);
-  const notBuilt = () => setToast(tt("Not built yet in this prototype. Only the first lesson is linked.", "In diesem Prototyp noch nicht gebaut. Nur die erste Lektion ist verknüpft."));
-  return (
-    <div className="relative">
-      <p className="bg-[#2B2340] px-4 py-1 text-[12px] text-white">{tt("Prototype · made in a design tool · not real code", "Prototyp · in einem Design-Werkzeug erstellt · kein echter Code")}</p>
-      <div className="flex items-center justify-between bg-gradient-to-r from-[#4C2FBF] to-[#7A4DE8] px-4 py-3 text-white">
+  type Screen = { kind: "start" } | { kind: "lesson"; i: number } | { kind: "quiz"; i: number } | { kind: "result"; i: number };
+  const [screen, setScreen] = useState<Screen>({ kind: "start" });
+  const [picked, setPicked] = useState<Record<string, number>>({});
+  const frame = (children: React.ReactNode) => (
+    <div>
+      <p className="bg-[#2B2340] px-4 py-1 text-[12px] text-white">{tt("Prototype · made in a design tool · every screen is linked · answers are not checked and nothing is saved", "Prototyp · in einem Design-Werkzeug erstellt · jeder Bildschirm ist verknüpft · Antworten werden nicht geprüft und nichts wird gespeichert")}</p>
+      <div className="bg-gradient-to-r from-[#4C2FBF] to-[#7A4DE8] px-4 py-3 text-white">
         <span className="font-serif text-[16px] font-bold">{tt("Project basics", "Projektgrundlagen")}</span>
-        <button type="button" onClick={notBuilt} className="rounded-full bg-white/20 px-3 py-1 text-[12px]">{tt("Menu", "Menü")}</button>
       </div>
-      {screen === "start" ? (
-        <div className="space-y-2 px-4 py-4">
-          {units.slice(0, 4).map((u, i) => (
-            <button key={i} type="button" onClick={() => (i === 0 ? setScreen("lesson") : notBuilt())} className="flex min-h-[48px] w-full items-center gap-3 rounded-2xl border border-[#E6DCCB] bg-white px-3 text-left shadow-sm">
-              <span className="h-7 w-7 rounded-full bg-[#7A4DE8]" aria-hidden />
-              <span className="flex-1 text-[14px] font-bold text-[#2B2340]">{u.title}</span>
-              <span className="rounded-full bg-[#EFE8FB] px-2 text-[12px] text-[#4C2FBF]">{tt("6 min", "6 Min.")}</span>
-            </button>
-          ))}
-          <button type="button" onClick={() => setScreen("lesson")} className={btnWarm}>{tt("Start ›", "Starten ›")}</button>
-        </div>
-      ) : (
-        <div className="space-y-3 px-4 py-4">
-          <h3 className="text-[18px] font-bold text-[#2B2340]">{units[0].title}</h3>
-          <p className="max-w-prose text-[15px] leading-relaxed">{units[0].text}</p>
-          <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={notBuilt} className={btnWarm}>{tt("Check yourself ›", "Selbst prüfen ›")}</button>
-            <button type="button" onClick={() => setScreen("start")} className="min-h-[40px] rounded-full border border-[#C9B8F5] px-4 text-[14px] text-[#4C2FBF]">{tt("Back", "Zurück")}</button>
-          </div>
-        </div>
-      )}
-      {toast && (
-        <div role="status" className="mx-4 mb-4 flex items-center justify-between gap-3 rounded-lg bg-[#2B2340] px-3 py-2 text-[13px] text-white">
-          {toast}
-          <button type="button" onClick={() => setToast(null)} className="text-[12px] underline">{tt("OK", "OK")}</button>
-        </div>
-      )}
+      {children}
     </div>
+  );
+  if (screen.kind === "start")
+    return frame(
+      <div className="space-y-2 px-4 py-4">
+        {units.map((u, i) => (
+          <button key={i} type="button" onClick={() => setScreen({ kind: "lesson", i })} className="flex min-h-[48px] w-full items-center gap-3 rounded-2xl border border-[#E6DCCB] bg-white px-3 text-left shadow-sm">
+            <span className="h-7 w-7 rounded-full bg-[#7A4DE8]" aria-hidden />
+            <span className="flex-1 text-[14px] font-bold text-[#2B2340]">{u.title}</span>
+            <span className="rounded-full bg-[#EFE8FB] px-2 text-[12px] text-[#4C2FBF]">{tt("6 min", "6 Min.")}</span>
+          </button>
+        ))}
+        <button type="button" onClick={() => setScreen({ kind: "lesson", i: 0 })} className={btnWarm}>{tt("Start ›", "Starten ›")}</button>
+      </div>,
+    );
+  const u = units[screen.i];
+  if (screen.kind === "lesson")
+    return frame(
+      <div className="space-y-3 px-4 py-4">
+        <h3 className="text-[18px] font-bold text-[#2B2340]">{u.title}</h3>
+        <p className="max-w-prose text-[15px] leading-relaxed">{u.text}</p>
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={() => setScreen({ kind: "quiz", i: screen.i })} className={btnWarm}>{tt("Check yourself ›", "Selbst prüfen ›")}</button>
+          <button type="button" onClick={() => setScreen({ kind: "start" })} className="min-h-[40px] rounded-full border border-[#C9B8F5] px-4 text-[14px] text-[#4C2FBF]">{tt("Back", "Zurück")}</button>
+        </div>
+      </div>,
+    );
+  if (screen.kind === "quiz")
+    return frame(
+      <div className="space-y-3 px-4 py-4">
+        {u.q.map((q, k) => (
+          <fieldset key={k} className="space-y-1.5">
+            <legend className="text-[14px] font-semibold">{`${k + 1}. ${q.ask}`}</legend>
+            {q.options.map((o, j) => (
+              <label key={j} className={clsx("flex min-h-[40px] cursor-pointer items-center gap-2 rounded-lg border px-3 text-[14px]", picked[`${screen.i}-${k}`] === j ? "border-[#4C2FBF] bg-[#F4F1FD]" : "border-[#E3DFF0]")}>
+                <input type="radio" name={`hq${screen.i}-${k}`} checked={picked[`${screen.i}-${k}`] === j} onChange={() => setPicked((a) => ({ ...a, [`${screen.i}-${k}`]: j }))} />
+                {o}
+              </label>
+            ))}
+          </fieldset>
+        ))}
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={() => setScreen({ kind: "result", i: screen.i })} className={btnPrimary}>{tt("Submit", "Absenden")}</button>
+          <button type="button" onClick={() => setScreen({ kind: "lesson", i: screen.i })} className="min-h-[40px] rounded-full border border-[#C9B8F5] px-4 text-[14px] text-[#4C2FBF]">{tt("Back", "Zurück")}</button>
+        </div>
+      </div>,
+    );
+  return frame(
+    <div className="space-y-3 px-4 py-4" aria-live="polite">
+      <p className="rounded-lg bg-[#EFE8FB] px-3 py-2 text-[14px]">
+        <span className="font-bold">{tt("1 of 2 correct.", "1 von 2 richtig.")}</span> {tt("Review question 2.", "Frage 2 wiederholen.")}
+      </p>
+      <button type="button" onClick={() => setScreen({ kind: "start" })} className={btnWarm}>{tt("Back to the course ›", "Zurück zum Kurs ›")}</button>
+    </div>,
   );
 }
 

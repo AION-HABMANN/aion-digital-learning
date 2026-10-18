@@ -437,7 +437,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · Information architecture and interaction strategy", "3.1 · Informationsarchitektur und Interaktionsstrategie"),
-    slots: ["desk"],
+    slots: ["desk", "observe"],
     fields: [
       textField({
         id: "structure", q: [1, 6],

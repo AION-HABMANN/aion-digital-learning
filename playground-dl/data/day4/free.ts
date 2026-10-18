@@ -512,7 +512,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · Engagement strategy", "3.1 · Engagement-Strategie"),
-    slots: ["desk"],
+    slots: ["desk", "observe"],
     fields: [
       {
         kind: "text",

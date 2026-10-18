@@ -477,7 +477,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · Inclusive UX strategy and evaluation system", "3.1 · Inklusive UX-Strategie und Evaluationssystem"),
-    slots: ["desk"],
+    slots: ["desk", "observe"],
     fields: [
       textField({
         id: "strategy", q: [1, 6],
