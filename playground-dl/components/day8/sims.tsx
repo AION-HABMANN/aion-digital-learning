@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import clsx from "clsx";
+import { LESSON_TEXTS } from "@/components/sim/lessonText";
 import { tt } from "@/lib/lang";
 
 /**
@@ -78,21 +79,21 @@ export function StructLearnSim() {
 
 /* ------------------------------------------------------------------ the three options of Block 1.2 */
 
-function Calm() {
+function Calm({ onOpen }: { onOpen: (l: string) => void }) {
   return (
     <div className="space-y-2 px-3 py-3">
       <p className="rounded bg-[#EEF0F3] px-3 py-2 text-[13px]">{tt("Spring offers on every course", "Frühlingsangebote für jeden Kurs")}</p>
       <p className="text-[13px]">{tt("Welcome back. What would you like to do?", "Willkommen zurück. Was möchten Sie tun?")}</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {PAGES().map((p, i) => (
-          <button key={`${p.label}-${i}`} type="button" className="min-h-[40px] rounded border border-[#8A93A0] bg-[#F4F6F8] px-3 text-[13px]">{p.label}</button>
+          <button key={`${p.label}-${i}`} type="button" onClick={() => onOpen(p.label)} className="min-h-[40px] rounded border border-[#8A93A0] bg-[#F4F6F8] px-3 text-[13px]">{p.label}</button>
         ))}
       </div>
     </div>
   );
 }
 
-function Restructured() {
+function Restructured({ onOpen }: { onOpen: (l: string) => void }) {
   const [sec, setSec] = useState(0);
   const secs = [tt("Learn", "Lernen"), tt("Find", "Finden"), tt("Progress", "Fortschritt"), tt("Help", "Hilfe")];
   return (
@@ -108,14 +109,14 @@ function Restructured() {
       </div>
       <div className="grid grid-cols-2 gap-2">
         {[tt("Continue", "Weitermachen"), tt("My courses", "Meine Kurse"), tt("Notes", "Notizen"), tt("Offers", "Angebote")].map((l, i) => (
-          <button key={l} type="button" className="min-h-[40px] rounded px-3 text-[13px] font-semibold text-white" style={{ background: COL[(i * 2 + 1) % COL.length] }}>{l}</button>
+          <button key={l} type="button" onClick={() => onOpen(l)} className="min-h-[40px] rounded px-3 text-[13px] font-semibold text-white" style={{ background: COL[(i * 2 + 1) % COL.length] }}>{l}</button>
         ))}
       </div>
     </div>
   );
 }
 
-function MoreVisual() {
+function MoreVisual({ onOpen }: { onOpen: (l: string) => void }) {
   return (
     <div className="space-y-2 px-3 py-3">
       <div className="flex items-center gap-2 rounded px-3 py-3 text-white" style={{ background: "#E4572E" }}>
@@ -128,7 +129,7 @@ function MoreVisual() {
       </div>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {PAGES().map((p, i) => (
-          <button key={`${p.label}-${i}`} type="button" className="flex min-h-[44px] items-center justify-center gap-1 rounded px-3 text-[13px] font-semibold text-white" style={{ background: COL[(i * 2 + 1) % COL.length] }}>
+          <button key={`${p.label}-${i}`} type="button" onClick={() => onOpen(p.label)} className="flex min-h-[44px] items-center justify-center gap-1 rounded px-3 text-[13px] font-semibold text-white" style={{ background: COL[(i * 2 + 1) % COL.length] }}>
             <span aria-hidden>{["●", "▲", "■", "◆", "★", "✚"][i]}</span>
             {p.label}
           </button>
@@ -138,15 +139,35 @@ function MoreVisual() {
   );
 }
 
+/** What each tile of the start page opens: a short real page, keyed by the label in the active language. */
+const PAGE_BODY = (): Record<string, string> => ({
+  [tt("Start", "Start")]: tt("Welcome back. Your last course was Negotiation basics, lesson 3.", "Willkommen zurück. Ihr letzter Kurs war Verhandlungsgrundlagen, Lektion 3."),
+  [tt("Courses", "Kurse")]: tt("Negotiation basics · Project planning · Presenting · Teamwork", "Verhandlungsgrundlagen · Projektplanung · Präsentieren · Teamarbeit"),
+  [tt("My notes", "Meine Notizen")]: tt("“Name my own number first.” · “Prepare the limit.” (2 notes)", "„Meine Zahl zuerst nennen.“ · „Die Grenze vorbereiten.“ (2 Notizen)"),
+  [tt("Notes", "Notizen")]: tt("“Name my own number first.” · “Prepare the limit.” (2 notes)", "„Meine Zahl zuerst nennen.“ · „Die Grenze vorbereiten.“ (2 Notizen)"),
+  [tt("Profile", "Profil")]: tt("Your details and your badges.", "Ihre Angaben und Ihre Badges."),
+  [tt("Offers", "Angebote")]: tt("Spring offers on every course.", "Frühlingsangebote für jeden Kurs."),
+  [tt("News", "Neuigkeiten")]: tt("A new course on presenting starts next month.", "Nächsten Monat startet ein neuer Kurs zum Präsentieren."),
+  [tt("Continue", "Weitermachen")]: LESSON_TEXTS()[2].text,
+  [tt("My courses", "Meine Kurse")]: tt("Negotiation basics (lesson 3 of 8) · Project planning (not started)", "Verhandlungsgrundlagen (Lektion 3 von 8) · Projektplanung (nicht begonnen)"),
+});
+
 /** The same start page under each of the three options of Block 1.2. */
 export function OptionSim({ option }: { option: "A" | "B" | "C" }) {
+  const [opened, setOpened] = useState<string | null>(null);
   return (
     <div className={INK}>
       <div className="flex items-center justify-between bg-[#3F4A58] px-3 py-2 text-white">
         <span className="font-serif text-[15px] font-bold">StructLearn</span>
         <span className="text-[12px] opacity-80">{tt("Start page", "Startseite")}</span>
       </div>
-      {option === "A" ? <Calm /> : option === "B" ? <Restructured /> : <MoreVisual />}
+      {opened ? (
+        <div className="space-y-2 px-3 py-3">
+          <h3 className="text-[15px] font-semibold">{opened}</h3>
+          <p className="text-[13px]">{PAGE_BODY()[opened] ?? LESSON_TEXTS()[2].text}</p>
+          <button type="button" onClick={() => setOpened(null)} className="min-h-[36px] rounded border border-[#8A93A0] px-3 text-[13px]">{tt("Back to the start page", "Zurück zur Startseite")}</button>
+        </div>
+      ) : option === "A" ? <Calm onOpen={setOpened} /> : option === "B" ? <Restructured onOpen={setOpened} /> : <MoreVisual onOpen={setOpened} />}
     </div>
   );
 }

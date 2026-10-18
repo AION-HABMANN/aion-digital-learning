@@ -29,7 +29,14 @@ function TodayView() {
       <p className="px-3 pt-2 text-[12px] text-[#5F5E5A]">
         {who === "mia" ? tt("Mia signed up this week and has never planned a project.", "Mia hat sich diese Woche angemeldet und noch nie ein Projekt geplant.") : tt("Sam signed up this week and has led projects for twelve years.", "Sam hat sich diese Woche angemeldet und leitet seit zwölf Jahren Projekte.")}
       </p>
-      <LongPageSim />
+      <div className="mx-3 mb-3 overflow-hidden border border-[#BBBBBB] bg-white">
+        <div className="flex items-center justify-between border-b border-[#999999] bg-[#DDDDDD] px-3 py-1.5 text-[#333]">
+          <span className="font-serif text-[16px] font-bold">LearnPro</span>
+          <span className="text-[12px]">{who === "mia" ? "mia@company.example" : "sam@company.example"} · {tt("Sign out", "Abmelden")}</span>
+        </div>
+        <LongPageSim key={who} />
+        <p className="border-t border-[#CCCCCC] bg-[#F2F2F2] px-3 py-1.5 text-center text-[11px] text-[#666]">LearnPro 4.2 · © 2017 · {tt("Imprint", "Impressum")} · {tt("Privacy", "Datenschutz")}</p>
+      </div>
     </div>
   );
 }

@@ -94,25 +94,38 @@ export function InclusiveLearnSim() {
 
 /* ------------------------------------------------------------------ the three options of Block 1.2 */
 
+/** The lesson in three parts, so Back and Next lead somewhere (the same words under every option; the plain version is in PLAIN_PARTS). */
+const PARTS = () => [
+  LESSON(),
+  tt("Second, name your goal and your limit. The goal is what you hope for, the limit is the point beyond which you would rather walk away. Write both down before the talk starts.", "Zweitens: Nennen Sie Ihr Ziel und Ihre Grenze. Das Ziel ist, was Sie hoffen, die Grenze ist der Punkt, ab dem Sie lieber gehen. Schreiben Sie beides auf, bevor das Gespräch beginnt."),
+  tt("Third, think about the other side. What might they need, and what could you give that costs you little? A good offer often starts there.", "Drittens: Denken Sie an die andere Seite. Was könnte sie brauchen, und was könnten Sie geben, das Sie wenig kostet? Ein gutes Angebot beginnt oft dort."),
+];
+
 function OptionA() {
+  const [part, setPart] = useState(0);
+  const [battle, setBattle] = useState(false);
+  const parts = PARTS();
   return (
     <div className="space-y-3 px-4 py-4">
       <div className="rounded-lg border border-[#D6DAE1] bg-[#F4F6F8] p-3">
         <p className="text-[13px] font-semibold">{tt("New · Quiz battle", "Neu · Quiz-Battle")}</p>
         <p className="text-[12px]">{tt("Challenge a colleague to a five-question duel on this lesson.", "Fordern Sie eine Kollegin zu einem Fünf-Fragen-Duell zu dieser Lektion heraus.")}</p>
-        <button type="button" className="mt-1 min-h-[34px] rounded bg-[#3F4A58] px-3 text-[12px] text-white">{tt("Start a battle", "Battle starten")}</button>
+        <button type="button" onClick={() => setBattle(true)} className="mt-1 min-h-[34px] rounded bg-[#3F4A58] px-3 text-[12px] text-white">{tt("Start a battle", "Battle starten")}</button>
+        {battle && <p role="status" className="mt-1 text-[12px]">{tt("Challenge sent to a colleague. You will see the result when they have played.", "Herausforderung an eine Kollegin gesendet. Sie sehen das Ergebnis, sobald sie gespielt hat.")}</p>}
       </div>
       <h3 style={{ fontSize: 13 }} className="font-semibold">{tt("Negotiation basics", "Verhandlungsgrundlagen")}</h3>
-      <p style={{ fontSize: 11, lineHeight: 1.45 }}>{LESSON()}</p>
+      <p style={{ fontSize: 11, lineHeight: 1.45 }}>{parts[part]}</p>
       <div className="flex gap-2">
-        <button type="button" style={{ fontSize: 10 }} className="h-[20px] rounded border border-[#8A93A0] px-1.5">{tt("Back", "Zurück")}</button>
-        <button type="button" style={{ fontSize: 10 }} className="h-[20px] rounded bg-[#3F4A58] px-1.5 text-white">{tt("Next", "Weiter")}</button>
+        <button type="button" onClick={() => setPart((x) => Math.max(0, x - 1))} style={{ fontSize: 10 }} className="h-[20px] rounded border border-[#8A93A0] px-1.5">{tt("Back", "Zurück")}</button>
+        <button type="button" onClick={() => setPart((x) => Math.min(parts.length - 1, x + 1))} style={{ fontSize: 10 }} className="h-[20px] rounded bg-[#3F4A58] px-1.5 text-white">{tt("Next", "Weiter")}</button>
       </div>
     </div>
   );
 }
 
 function OptionB() {
+  const [part, setPart] = useState(0);
+  const parts = PARTS();
   return (
     <div className="space-y-3 px-4 py-4">
       <nav className="flex gap-3 border-b border-[#D6DAE1] pb-2 text-[12px]" aria-label={tt("Lesson navigation", "Lektionsnavigation")}>
@@ -121,10 +134,10 @@ function OptionB() {
         <span>{tt("Quiz", "Quiz")}</span>
       </nav>
       <h3 style={{ fontSize: 13 }} className="font-semibold">{tt("Negotiation basics", "Verhandlungsgrundlagen")}</h3>
-      <p style={{ fontSize: 11, lineHeight: 1.6 }}>{LESSON()}</p>
+      <p style={{ fontSize: 11, lineHeight: 1.6 }}>{parts[part]}</p>
       <div className="flex gap-2">
-        <button type="button" style={{ fontSize: 11 }} className="h-[24px] rounded border border-[#8A93A0] px-2">{tt("Back", "Zurück")}</button>
-        <button type="button" style={{ fontSize: 11 }} className="h-[24px] rounded bg-[#3F4A58] px-2 text-white">{tt("Next", "Weiter")}</button>
+        <button type="button" onClick={() => setPart((x) => Math.max(0, x - 1))} style={{ fontSize: 11 }} className="h-[24px] rounded border border-[#8A93A0] px-2">{tt("Back", "Zurück")}</button>
+        <button type="button" onClick={() => setPart((x) => Math.min(parts.length - 1, x + 1))} style={{ fontSize: 11 }} className="h-[24px] rounded bg-[#3F4A58] px-2 text-white">{tt("Next", "Weiter")}</button>
       </div>
     </div>
   );
@@ -135,12 +148,20 @@ const PLAIN = () => tt(
   "Eine Verhandlung beginnt vor dem ersten Angebot. Zuerst überlegt jede Seite, was sie will, was sie stattdessen tun kann und wo eine Einigung möglich ist. Dann wählt sie ein Ziel und eine Grenze. Sie fragt auch: Was könnte die andere Seite brauchen?",
 );
 
+const PLAIN_PARTS = () => [
+  PLAIN(),
+  tt("Next, choose a goal and a limit. The goal is what you hope for. The limit is the point where you would rather walk away. Write both down before the talk.", "Als Nächstes wählen Sie ein Ziel und eine Grenze. Das Ziel ist, was Sie hoffen. Die Grenze ist der Punkt, an dem Sie lieber gehen. Schreiben Sie beides vor dem Gespräch auf."),
+  tt("Last, think about the other side. What might they need? What can you give that costs you little? A good offer often starts there.", "Zuletzt denken Sie an die andere Seite. Was könnte sie brauchen? Was können Sie geben, das Sie wenig kostet? Ein gutes Angebot beginnt oft dort."),
+];
+
 function OptionC() {
   const [captions, setCaptions] = useState(true);
+  const [part, setPart] = useState(0);
+  const plain = PLAIN_PARTS();
   return (
     <div className="space-y-3 px-4 py-4">
       <h3 className="text-[18px] font-semibold">{tt("Negotiation basics", "Verhandlungsgrundlagen")}</h3>
-      <p className="text-[16px] leading-[1.6]">{PLAIN()}</p>
+      <p className="text-[16px] leading-[1.6]">{plain[part]}</p>
       <div className="rounded-lg bg-[#2E3640] p-3 text-white">
         <p className="text-[12px] opacity-80">{tt("Video · Preparing a negotiation", "Video · Eine Verhandlung vorbereiten")}</p>
         {captions && <p className="mt-2 rounded bg-black/60 px-2 py-1 text-[15px]">{tt("“First, think about what you want.”", "„Überlegen Sie zuerst, was Sie wollen.“")}</p>}
@@ -149,8 +170,8 @@ function OptionC() {
         </button>
       </div>
       <div className="flex gap-3">
-        <button type="button" className="min-h-[44px] rounded border border-[#8A93A0] px-4 text-[15px]">{tt("Back", "Zurück")}</button>
-        <button type="button" className="min-h-[44px] rounded bg-[#3F4A58] px-4 text-[15px] text-white">{tt("Next", "Weiter")}</button>
+        <button type="button" onClick={() => setPart((x) => Math.max(0, x - 1))} className="min-h-[44px] rounded border border-[#8A93A0] px-4 text-[15px]">{tt("Back", "Zurück")}</button>
+        <button type="button" onClick={() => setPart((x) => Math.min(plain.length - 1, x + 1))} className="min-h-[44px] rounded bg-[#3F4A58] px-4 text-[15px] text-white">{tt("Next", "Weiter")}</button>
       </div>
       <p className="text-[14px] text-[#5F5E5A]">{tt("Everything on this page works with the keyboard.", "Alles auf dieser Seite funktioniert mit der Tastatur.")}</p>
     </div>

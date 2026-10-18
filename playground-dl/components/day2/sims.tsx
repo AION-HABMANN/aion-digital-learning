@@ -182,30 +182,69 @@ export function GuidedCourseSim({ live = false }: { live?: boolean }) {
 
 /* ------------------------------------------------------------------ one long page, no menu, no progress, no message at the end */
 
-/** Platform B, LearnPro today (and LearnPro in Block 2.1). */
-export function LongPageSim() {
+/** Platform B, LearnPro today (and LearnPro in Block 2.1): every course is one long page, with no menu and no sign of progress; after the last page a button back to the course list, with no message. */
+const FILLER = () => [
+  tt("In practice this means that a team which keeps going without checking will often discover late that it was building different things, and by then the time and the money have gone. Teams that take the time to agree early spend that time once; teams that do not spend it again and again.", "In der Praxis heißt das, dass ein Team, das ohne Prüfung weitermacht, oft spät entdeckt, dass es an verschiedenen Dingen gebaut hat, und dann sind Zeit und Geld weg. Teams, die sich früh die Zeit nehmen, sich abzustimmen, verbringen diese Zeit einmal; Teams, die es nicht tun, verbringen sie immer wieder."),
+  tt("The same holds for every part of a project, from the first plan to the last report: what is written down can be checked, and what can be checked can be corrected while it is still cheap.", "Dasselbe gilt für jeden Teil eines Projekts, vom ersten Plan bis zum letzten Bericht: Was aufgeschrieben ist, lässt sich prüfen, und was sich prüfen lässt, lässt sich korrigieren, solange es noch günstig ist."),
+];
+
+const LP_COURSES = () => {
   const units = UNITS();
-  const [view, setView] = useState<"page" | "list">("page");
-  if (view === "list")
+  return [
+    {
+      title: tt("Project basics", "Projektgrundlagen"),
+      blurb: tt("Plan, run and close a small project.", "Ein kleines Projekt planen, durchführen und abschließen."),
+      paras: units.flatMap((u) => [`${u.text} ${u.text}`]),
+    },
+    {
+      title: tt("Time management", "Zeitmanagement"),
+      blurb: tt("Make room for the work that matters.", "Platz für die Arbeit schaffen, die zählt."),
+      paras: [
+        tt("Most people do not lack time; they lack a clear order. Write down what has to be done this week, mark the three things that matter most, and do those first, before the day fills up with requests from others. The rest can wait or be shared.", "Den meisten Menschen fehlt nicht die Zeit, sondern eine klare Reihenfolge. Schreiben Sie auf, was diese Woche zu tun ist, markieren Sie die drei wichtigsten Dinge und erledigen Sie diese zuerst, bevor sich der Tag mit Anfragen anderer füllt. Der Rest kann warten oder verteilt werden."),
+        tt("A calendar is a promise to yourself. Block the time for focused work the way you block time for a meeting, and treat it as just as fixed. Interruptions are normal; the aim is that they do not take the whole day.", "Ein Kalender ist ein Versprechen an sich selbst. Blocken Sie die Zeit für konzentrierte Arbeit so, wie Sie Zeit für einen Termin blocken, und behandeln Sie sie als ebenso fest. Unterbrechungen sind normal; das Ziel ist, dass sie nicht den ganzen Tag nehmen."),
+        tt("At the end of each week, look back for ten minutes: what took longer than planned, and why? Next week's plan is better when it is based on what really happened.", "Schauen Sie am Ende jeder Woche zehn Minuten zurück: Was dauerte länger als geplant, und warum? Der Plan der nächsten Woche wird besser, wenn er auf dem beruht, was wirklich geschah."),
+      ].map((x) => `${x} ${x}`),
+    },
+    {
+      title: tt("Writing clear emails", "Klare E-Mails schreiben"),
+      blurb: tt("Get an answer with the first message.", "Mit der ersten Nachricht eine Antwort bekommen."),
+      paras: [
+        tt("A clear email starts with what you need and by when, in the first two lines. Background comes after that, for those who want it. A reader who stops after two lines should still know what to do.", "Eine klare E-Mail beginnt in den ersten zwei Zeilen mit dem, was Sie brauchen und bis wann. Der Hintergrund folgt danach, für die, die ihn wollen. Wer nach zwei Zeilen aufhört zu lesen, sollte trotzdem wissen, was zu tun ist."),
+        tt("One email, one request. If you have three questions, number them. If you attach a document, say in a sentence what the reader should look at and what you want from them.", "Eine E-Mail, eine Bitte. Wenn Sie drei Fragen haben, nummerieren Sie sie. Wenn Sie ein Dokument anhängen, sagen Sie in einem Satz, worauf die Leserin schauen soll und was Sie von ihr wollen."),
+        tt("Before you press send, read the subject line as if it were all the reader sees. If it does not say what the email is about, change it.", "Lesen Sie vor dem Absenden die Betreffzeile, als wäre sie alles, was der Leser sieht. Wenn sie nicht sagt, worum es geht, ändern Sie sie."),
+      ].map((x) => `${x} ${x}`),
+    },
+  ];
+};
+
+export function LongPageSim() {
+  const courses = LP_COURSES();
+  const filler = FILLER();
+  const [open, setOpen] = useState<number | null>(0);
+  if (open === null)
     return (
       <div className="space-y-2 px-4 py-4">
         <h3 className="text-[17px] font-semibold text-[#333]">{tt("Your courses", "Ihre Kurse")}</h3>
-        {[tt("Project basics", "Projektgrundlagen"), tt("Time management", "Zeitmanagement"), tt("Writing clear emails", "Klare E-Mails schreiben")].map((c, i) => (
-          <button key={c} type="button" onClick={() => i === 0 && setView("page")} className="block min-h-[44px] w-full rounded border border-[#CCCCCC] bg-white px-3 text-left text-[14px] text-[#333]">{c}</button>
+        {courses.map((c, i) => (
+          <button key={c.title} type="button" onClick={() => setOpen(i)} className="block min-h-[56px] w-full rounded border border-[#CCCCCC] bg-white px-3 py-2 text-left text-[#333]">
+            <span className="block text-[15px] font-semibold">{c.title}</span>
+            <span className="block text-[13px] text-[#666]">{c.blurb}</span>
+          </button>
         ))}
       </div>
     );
+  const c = courses[open];
   return (
     <div className="px-4 py-4 text-[#333]">
-      <h3 className="mb-3 text-[17px] font-semibold">{tt("Project basics", "Projektgrundlagen")}</h3>
-      {units.map((u, i) => (
+      <h3 className="mb-3 text-[17px] font-semibold">{c.title}</h3>
+      {c.paras.map((para, i) => (
         <div key={i}>
-          <p className="mb-3 text-[15px] leading-[1.8]">{u.text} {u.text}</p>
-          <p className="mb-3 text-[15px] leading-[1.8]">{tt("In practice this means that a team which keeps going without checking will often discover late that it was building different things, and by then the time and the money have gone. Teams that take the time to agree early spend that time once; teams that do not spend it again and again.", "In der Praxis heißt das, dass ein Team, das ohne Prüfung weitermacht, oft spät entdeckt, dass es an verschiedenen Dingen gebaut hat, und dann sind Zeit und Geld weg. Teams, die sich früh die Zeit nehmen, sich abzustimmen, verbringen diese Zeit einmal; Teams, die es nicht tun, verbringen sie immer wieder.")}</p>
-          <p className="mb-3 text-[15px] leading-[1.8]">{tt("The same holds for every part of a project, from the first plan to the last report: what is written down can be checked, and what can be checked can be corrected while it is still cheap.", "Dasselbe gilt für jeden Teil eines Projekts, vom ersten Plan bis zum letzten Bericht: Was aufgeschrieben ist, lässt sich prüfen, und was sich prüfen lässt, lässt sich korrigieren, solange es noch günstig ist.")}</p>
+          <p className="mb-3 text-[15px] leading-[1.8]">{para}</p>
+          <p className="mb-3 text-[15px] leading-[1.8]">{filler[0]}</p>
+          <p className="mb-3 text-[15px] leading-[1.8]">{filler[1]}</p>
         </div>
       ))}
-      <button type="button" onClick={() => setView("list")} className="mt-2 min-h-[40px] rounded border border-[#BBBBBB] bg-[#F6F6F6] px-4 text-[14px] text-[#333]">{tt("Back to course list", "Zurück zur Kursliste")}</button>
+      <button type="button" onClick={() => setOpen(null)} className="mt-2 min-h-[40px] rounded border border-[#BBBBBB] bg-[#F6F6F6] px-4 text-[14px] text-[#333]">{tt("Back to course list", "Zurück zur Kursliste")}</button>
     </div>
   );
 }

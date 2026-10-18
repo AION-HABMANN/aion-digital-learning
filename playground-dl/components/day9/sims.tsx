@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import clsx from "clsx";
+import { LESSON_TEXTS } from "@/components/sim/lessonText";
 import { tt } from "@/lib/lang";
 
 /**
@@ -111,6 +112,8 @@ function MoreInteraction() {
 function Structured() {
   const p = PARA();
   const [sec, setSec] = useState(0);
+  const [lesson, setLesson] = useState(3);
+  const titles = [tt("Welcome", "Willkommen"), tt("Why negotiate", "Warum verhandeln"), tt("The first offer", "Das erste Angebot"), tt("Preparing your limit", "Ihre Grenze vorbereiten"), tt("Giving in return", "Etwas dafür geben"), tt("Handling a no", "Mit einem Nein umgehen"), tt("Closing a deal", "Einen Abschluss erzielen"), tt("Putting it together", "Alles zusammenführen")];
   const secs = [tt("Learn", "Lernen"), tt("Find", "Finden"), tt("Progress", "Fortschritt"), tt("Help", "Hilfe")];
   return (
     <div className="space-y-2 px-3 py-3">
@@ -119,13 +122,11 @@ function Structured() {
           <button key={s} type="button" aria-current={sec === i} onClick={() => setSec(i)} className={clsx("min-h-[34px] rounded px-3 text-[13px]", sec === i ? "bg-[#3F4A58] text-white" : "bg-[#EEF0F3]")}>{s}</button>
         ))}
       </nav>
-      <p className="text-[12px] text-[#5F5E5A]">{secs[sec]} › {tt("Negotiation basics", "Verhandlungsgrundlagen")} › {tt("Lesson 3 of 8", "Lektion 3 von 8")}</p>
-      <div aria-hidden className="h-2 overflow-hidden rounded bg-[#E4E8EE]"><div className="h-2 bg-[#3F4A58]" style={{ width: "38%" }} /></div>
-      <p className="text-[15px] font-semibold">{tt("The first offer", "Das erste Angebot")}</p>
-      {p.map((x) => (
-        <p key={x} className="text-[13px]">{x}</p>
-      ))}
-      <button type="button" className="min-h-[38px] rounded bg-[#3F4A58] px-3 text-[13px] font-semibold text-white">{tt("Next: lesson 4", "Weiter: Lektion 4")}</button>
+      <p className="text-[12px] text-[#5F5E5A]">{secs[sec]} › {tt("Negotiation basics", "Verhandlungsgrundlagen")} › {tt(`Lesson ${lesson} of 8`, `Lektion ${lesson} von 8`)}</p>
+      <div aria-hidden className="h-2 overflow-hidden rounded bg-[#E4E8EE]"><div className="h-2 bg-[#3F4A58]" style={{ width: `${(lesson / 8) * 100}%` }} /></div>
+      <p className="text-[15px] font-semibold">{titles[lesson - 1]}</p>
+      <p className="text-[13px]">{LESSON_TEXTS()[lesson - 1].text}</p>
+      <button type="button" onClick={() => setLesson((n) => (n < 8 ? n + 1 : 3))} className="min-h-[38px] rounded bg-[#3F4A58] px-3 text-[13px] font-semibold text-white">{lesson < 8 ? tt(`Next: lesson ${lesson + 1}`, `Weiter: Lektion ${lesson + 1}`) : tt("Back to lesson 3", "Zurück zu Lektion 3")}</button>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import clsx from "clsx";
+import { LESSON_TEXTS } from "@/components/sim/lessonText";
 import { tt } from "@/lib/lang";
 
 /**
@@ -11,16 +12,7 @@ import { tt } from "@/lib/lang";
  */
 const INK = "text-[#26323F]";
 
-const LESSONS = () => [
-  tt("Welcome", "Willkommen"),
-  tt("The first offer", "Das erste Angebot"),
-  tt("Preparing your limit", "Ihre Grenze vorbereiten"),
-  tt("Giving in return", "Etwas dafür geben"),
-  tt("Handling a no", "Mit einem Nein umgehen"),
-  tt("Closing a deal", "Einen Abschluss erzielen"),
-  tt("After the deal", "Nach dem Abschluss"),
-  tt("Putting it together", "Alles zusammenführen"),
-];
+const LESSONS = () => LESSON_TEXTS().map((l) => l.title);
 
 /** The course as the plan describes it: eight lessons that look alike, a task that answers with nothing, and no sign of progress. */
 function CourseBody({ phone }: { phone?: boolean }) {
@@ -42,7 +34,7 @@ function CourseBody({ phone }: { phone?: boolean }) {
       ) : (
         <div className="space-y-2">
           <p className="text-[14px] font-semibold">{lessons[cur]}</p>
-          <p className={clsx("text-[13px]", phone && "whitespace-nowrap text-[12px]")}>{tt("In a negotiation, the first number you hear tends to pull the rest toward it. Prepare your limit before you start.", "In einer Verhandlung zieht die erste Zahl, die Sie hören, den Rest zu sich hin. Bereiten Sie Ihre Grenze vor, bevor Sie beginnen.")}</p>
+          <p className={clsx("text-[13px]", phone && "whitespace-nowrap text-[12px]")}>{LESSON_TEXTS()[cur].text}</p>
           <div className="rounded border border-[#C9D0DA] bg-[#F3F6FA] p-2">
             <p className="text-[13px]">{tt("Task: write your limit for the example offer.", "Aufgabe: Schreiben Sie Ihre Grenze für das Beispielangebot.")}</p>
             <div className="mt-1 flex flex-wrap items-center gap-2">
@@ -111,12 +103,14 @@ function WithProgress() {
 }
 
 function MobileOptimised() {
+  const lessons = LESSONS();
+  const [n, setN] = useState(2);
   return (
     <div className="px-3 py-3">
       <div className="mx-auto max-w-[300px] space-y-2 rounded-xl border-2 border-[#3F4A58] bg-white p-3">
-        <p className="text-[15px] font-semibold">{tt("Negotiation basics", "Verhandlungsgrundlagen")}</p>
-        <button type="button" className="min-h-[48px] w-full rounded bg-[#3F4A58] px-3 text-[15px] font-semibold text-white">{tt("Continue: lesson 4", "Weiter: Lektion 4")}</button>
-        <p className="text-[14px] leading-relaxed">{tt("The first number you hear tends to pull the rest toward it. Prepare your limit before you start.", "Die erste Zahl, die Sie hören, zieht den Rest zu sich hin. Bereiten Sie Ihre Grenze vor, bevor Sie beginnen.")}</p>
+        <p className="text-[15px] font-semibold">{tt("Negotiation basics", "Verhandlungsgrundlagen")} · {lessons[n]}</p>
+        <button type="button" onClick={() => setN((x) => (x + 1) % lessons.length)} className="min-h-[48px] w-full rounded bg-[#3F4A58] px-3 text-[15px] font-semibold text-white">{tt(`Continue: lesson ${((n + 1) % lessons.length) + 1}`, `Weiter: Lektion ${((n + 1) % lessons.length) + 1}`)}</button>
+        <p className="text-[14px] leading-relaxed">{LESSON_TEXTS()[n].text}</p>
         <button type="button" className="min-h-[44px] w-full rounded border border-[#8A93A0] text-[14px]">{tt("Finish task", "Aufgabe beenden")}</button>
       </div>
     </div>

@@ -57,6 +57,7 @@ function LearnerView() {
 }
 
 function TeacherView() {
+  const [saved, setSaved] = useState(false);
   const tabs = TABS();
   const [tab, setTab] = useState(0);
   return (
@@ -77,7 +78,8 @@ function TeacherView() {
           </label>
         ))}
       </div>
-      <button type="button" className="min-h-[40px] rounded bg-[#4A4458] px-4 text-[14px] font-semibold text-white">{tt("Save", "Speichern")}</button>
+      <button type="button" onClick={() => setSaved(true)} className="min-h-[40px] rounded bg-[#4A4458] px-4 text-[14px] font-semibold text-white">{tt("Save", "Speichern")}</button>
+      {saved && <p role="status" className="text-[13px] text-[#4A4458]">{tt("Saved.", "Gespeichert.")}</p>}
       <h3 className="pt-2 text-[14px] font-semibold">{tt("Learners", "Lernende")}</h3>
       <table className="w-full text-[13px]">
         <thead>
