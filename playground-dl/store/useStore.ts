@@ -20,6 +20,7 @@ import { GEN_SPECS } from "@/data/gen/registry";
 import { genKeyR1, genKeyR2 } from "@/lib/dayGen/mentorKey";
 import type { D2R1, D2R2, D2State, D3R1, D3R2, D3State } from "@/store/dayTypes";
 import type { RouteNo } from "@/data/course";
+import { materialsOf } from "@/data/materialRegistry";
 
 /**
  * One persisted store for the whole course (one Next.js project, every day). Each built day adds one slice (`d1`, later `d2`, …), and each
@@ -277,6 +278,12 @@ export function migratePersisted(persisted: unknown, from: number): Persisted {
   return { ...p, d2: p.d2 ?? emptyD2(), d3: p.d3 ?? emptyD3(), d4: p.d4 ?? emptyFreeDay(4), d5: p.d5 ?? emptyFreeDay(5), d6: p.d6 ?? emptyFreeDay(6), d7: p.d7 ?? emptyFreeDay(7), d8: p.d8 ?? emptyFreeDay(8), d9: p.d9 ?? emptyFreeDay(9), d10: p.d10 ?? emptyFreeDay(10), dg: p.dg ?? emptyDg() } as Persisted;
 }
 
+/** The mentor fill also marks every study card of the day as read, so the progress ring of both routes reaches its total after one fill (CLAUDE.md #7). */
+const readUi = (s: { ui: Persisted["ui"] }, day: number): Persisted["ui"] => {
+  const m = materialsOf(day);
+  return { ...s.ui, sectionsRead: { ...s.ui.sectionsRead, ...Object.fromEntries(m.MATERIALS.map((c) => [m.readKey(c.id), true])) } };
+};
+
 export const useStore = create<Persisted & Session & Actions>()(
   persist(
     (set) => ({
@@ -392,26 +399,26 @@ export const useStore = create<Persisted & Session & Actions>()(
           const participant = { name: s.participant.name.trim() ? s.participant.name : "Mentor Check" };
           if (day === 1) {
             const d1: D1State = { r1: { ...emptyD1R1(), ...KEY_D1_R1() }, r2: { ...emptyD1R2(), ...KEY_D1_R2() } };
-            return { participant, d1, resetCount: s.resetCount + 1 };
+            return { participant, d1, resetCount: s.resetCount + 1, ui: readUi(s, day) };
           }
           if (day === 2) {
             const d2: D2State = { r1: { ...emptyD2R1(), ...KEY_D2_R1() }, r2: { ...emptyD2R2(), ...KEY_D2_R2() } };
-            return { participant, d2, resetCount: s.resetCount + 1 };
+            return { participant, d2, resetCount: s.resetCount + 1, ui: readUi(s, day) };
           }
           if (day === 3) {
             const d3: D3State = { r1: { ...emptyD3R1(), ...KEY_D3_R1() }, r2: { ...emptyD3R2(), ...KEY_D3_R2() } };
-            return { participant, d3, resetCount: s.resetCount + 1 };
+            return { participant, d3, resetCount: s.resetCount + 1, ui: readUi(s, day) };
           }
           const fspec = FREE_SPECS[day];
           if (fspec) {
             const slice: FreeState = { r1: freeRouteKey(fspec, 1), r2: freeRouteKey(fspec, 2) };
-            return { participant, [`d${day}`]: slice, resetCount: s.resetCount + 1 } as Partial<Persisted>;
+            return { participant, [`d${day}`]: slice, resetCount: s.resetCount + 1, ui: readUi(s, day) } as Partial<Persisted>;
           }
           const gspec = GEN_SPECS[day];
           if (gspec) {
             const ids = gspec.facts.map((f) => f.id);
             const gen: GenState = { r1: { ...emptyGenR1(ids), ...genKeyR1(gspec) }, r2: { ...emptyGenR2(), ...genKeyR2(gspec) } };
-            return { participant, dg: { ...s.dg, [day]: gen }, resetCount: s.resetCount + 1 };
+            return { participant, dg: { ...s.dg, [day]: gen }, resetCount: s.resetCount + 1, ui: readUi(s, day) };
           }
           return {};
         }),
