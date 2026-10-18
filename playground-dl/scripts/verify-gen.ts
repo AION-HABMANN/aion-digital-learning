@@ -18,7 +18,7 @@ import type { GenSpec } from "../lib/dayGen/spec";
 import { MENTOR_PASSCODE } from "../lib/day1/mentorKey";
 import { setCurrentLang } from "../lib/lang";
 import { emptyD2, emptyD3 } from "../store/dayTypes";
-import { emptyD4, emptyD5, emptyD6, emptyD7 } from "../store/dayTypesStd";
+import { emptyFreeDay } from "../store/dayTypesStd";
 import { emptyGen, emptyGenR1 } from "../store/dayTypesGen";
 import { emptyDg, migratePersisted } from "../store/useStore";
 import type { Persisted, Score } from "../store/useStore";
@@ -46,7 +46,7 @@ function leaves(v: unknown, path: string[], out: [string, string][]) {
 for (const day of days) {
   const spec: GenSpec = GEN_SPECS[day];
   const mats = GEN_MATS[day];
-  const empty = (): Persisted => ({ participant: { name: "" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: undefined, d2: emptyD2(), d3: emptyD3(), d4: emptyD4(), d5: emptyD5(), d6: emptyD6(), d7: emptyD7(), dg: emptyDg() }) as unknown as Persisted;
+  const empty = (): Persisted => ({ participant: { name: "" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: undefined, d2: emptyD2(), d3: emptyD3(), d4: emptyFreeDay(4), d5: emptyFreeDay(5), d6: emptyFreeDay(6), d7: emptyFreeDay(7), dg: emptyDg() }) as unknown as Persisted;
   const withKey = (p: Persisted, r1 = genKeyR1(spec), r2 = genKeyR2(spec)): Persisted => ({ ...p, participant: { name: "Test Person" }, dg: { ...p.dg, [day]: { r1: { ...p.dg[day].r1, ...r1 }, r2: { ...p.dg[day].r2, ...r2 } } } }) as Persisted;
   const l = spec.limits;
   const band = effortBandOf(spec);
@@ -161,7 +161,7 @@ for (const day of days) {
   ok(MENTOR_PASSCODE === "muchson123", "the mentor passcode is unchanged");
   const migrated = migratePersisted({ participant: { name: "Old" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: {} }, 1);
   ok(!!migrated.dg && !!migrated.dg[day] && migrated.participant.name === "Old", "an old blob migrates with an empty slice for this day");
-  const migrated2 = migratePersisted({ participant: { name: "Old" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: {}, d2: emptyD2(), d3: emptyD3(), d4: emptyD4(), d5: emptyD5(), d6: emptyD6(), d7: emptyD7() }, 4);
+  const migrated2 = migratePersisted({ participant: { name: "Old" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: {}, d2: emptyD2(), d3: emptyD3(), d4: emptyFreeDay(4), d5: emptyFreeDay(5), d6: emptyFreeDay(6), d7: emptyFreeDay(7) }, 4);
   ok(!!migrated2.dg[day] && Object.keys(emptyGen(spec.facts.map((f) => f.id)).r1.sort).length === 8 && !!migrated2.d7, "a version-4 blob (Days 1 to 7) gets the generic slices and keeps its answers");
 }
 

@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { A11yPhoneFig, DecisionFrame, DensityMatrix, DevicesFig, FeedbackFig, ProgressFig, SteerChain, WeighExample } from "@/components/day10/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D10 } from "@/components/day10/comicScenes";
+import { COMICS_D10 } from "@/data/day10/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -32,6 +35,7 @@ export function CardA1() {
         tt("Give feedback where it counts (a finished task, a mistake, a milestone), and keep the rest quiet; too much is overload.", "Geben Sie Feedback dort, wo es zählt (eine beendete Aufgabe, ein Fehler, ein Meilenstein), und halten Sie den Rest ruhig; zu viel ist Überlastung."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.A1} art={ART_D10} />
       <FeedbackFig />
       <DataTable
         caption={tt("Two kinds of feedback and what each does", "Zwei Arten von Feedback und was jede bewirkt")}
@@ -65,6 +69,7 @@ export function CardA2() {
         tt("Transparency raises motivation, and motivation raises completion: that is the chain to argue in a priority order.", "Transparenz steigert die Motivation, und Motivation steigert den Abschluss: Das ist die Kette, die Sie in einer Prioritätsreihenfolge anführen."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.A2} art={ART_D10} />
       <ProgressFig />
       <DataTable
         caption={tt("Four progress elements, and the risk of each", "Vier Fortschrittselemente und das Risiko jedes einzelnen")}
@@ -100,6 +105,7 @@ export function CardA3() {
         tt("For a platform with high mobile use, rate a mobile measure as a prerequisite: a progress display or feedback that does not work on a phone reaches nobody.", "Bewerten Sie bei einer Plattform mit hoher Mobilnutzung eine Mobilmaßnahme als Voraussetzung: Eine Fortschrittsanzeige oder ein Feedback, das auf dem Handy nicht funktioniert, erreicht niemanden."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.A3} art={ART_D10} />
       <DevicesFig />
       <DataTable
         caption={tt("What changes by device, and what does not", "Was sich je Gerät ändert und was nicht")}
@@ -132,6 +138,7 @@ export function CardA4() {
         tt("Do not show status by colour alone: add a word.", "Zeigen Sie Status nicht allein durch Farbe: Ergänzen Sie ein Wort."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.A4} art={ART_D10} />
       <A11yPhoneFig />
       <Callout label={tt("Case assumption", "Fallannahme")}>
         <p>{tt("LearnLoop and Jo are made up for this example. The criteria come from WCAG 2.2 (Day 7).", "LearnLoop und Jo sind für dieses Beispiel erfunden. Die Kriterien stammen aus WCAG 2.2 (Tag 7).")}</p>
@@ -147,19 +154,20 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by what it does for motivation and finishing, what it costs and what could go wrong. Transparency and explained feedback before decoration.", "Bewerten Sie eine Maßnahme danach, was sie für Motivation und Abschluss bewirkt, was sie kostet und was schiefgehen kann. Transparenz und erklärtes Feedback vor Dekoration.")}
+      scan={tt("Rate a measure by what it does for motivation and finishing, what could go wrong and how much work it takes. Transparency and explained feedback before decoration.", "Bewerten Sie eine Maßnahme danach, was sie für Motivation und Abschluss bewirkt, was schiefgehen kann und wie viel Arbeit sie macht. Transparenz und erklärtes Feedback vor Dekoration.")}
       sources={["gibbons2018", "hattie2007"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €8,000 is Low; €8,000 to €16,000 is Mid; above €16,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 8.000 € ist Niedrig; 8.000 € bis 16.000 € ist Mittel; über 16.000 € ist Hoch."),
+        tt("Rate effort by how much work and time the measure takes before the release: a few pages or settings changed is Low, a part of the platform rebuilt is Mid or High. Do not judge it by how hard it feels.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und Zeit die Maßnahme bis zum Release braucht: ein paar geänderte Seiten oder Einstellungen sind Niedrig, ein umgebauter Teil der Plattform ist Mittel oder Hoch. Beurteilen Sie ihn nicht danach, wie schwer er sich anfühlt."),
         tt("Rate impact by what a measure does for motivation and for finishing a course: transparency, feedback that counts and a working phone layout first; decoration last.", "Bewerten Sie die Wirkung danach, was eine Maßnahme für Motivation und das Beenden eines Kurses bewirkt: zuerst Transparenz, Feedback, das zählt, und ein funktionierendes Handylayout; Dekoration zuletzt."),
         tt("Rate risk by what could go wrong: a display that misleads, feedback that overloads, a big change that touches every screen.", "Bewerten Sie das Risiko danach, was schiefgehen kann: eine Anzeige, die täuscht, Feedback, das überlastet, eine große Änderung, die jeden Bildschirm berührt."),
         tt("Justify the order with the chain transparency, motivation, usage: say how your first measure leads to the next.", "Begründen Sie die Reihenfolge mit der Kette Transparenz, Motivation, Nutzung: Sagen Sie, wie Ihre erste Maßnahme zur nächsten führt."),
         tt("Say what you do not know, for example where phone learners drop out, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel wo Handy-Lernende abbrechen, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.A5} art={ART_D10} />
       <WeighExample />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop, its three measures and its reasons are made up for this example. The task has its own options and its own answer.", "LearnLoop, seine drei Maßnahmen und seine Gründe sind für dieses Beispiel erfunden. Die Aufgabe hat ihre eigenen Optionen und ihre eigene Antwort.")}</p>
       </Callout>
     </MaterialCard>
   );
@@ -178,6 +186,7 @@ export function CardB1() {
         tt("Argue the order of measures by the chain: transparency first, then feedback, then usage on every device; where most users are on a phone, responsive design can also go first as a prerequisite.", "Begründen Sie die Reihenfolge der Maßnahmen mit der Kette: zuerst Transparenz, dann Feedback, dann Nutzung auf jedem Gerät; wo die meisten Nutzer auf dem Handy sind, kann Responsive Design auch als Voraussetzung zuerst kommen."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.B1} art={ART_D10} />
       <SteerChain />
       <DataTable
         caption={tt("Accessibility measures that make the system work on every device", "Barrierefreiheitsmaßnahmen, die das System auf jedem Gerät funktionieren lassen")}
@@ -213,6 +222,7 @@ export function CardB2() {
         tt("Keep the same components across devices so that a learner who switches device is not lost; adapt the layout, not the meaning.", "Halten Sie dieselben Komponenten über Geräte hinweg gleich, damit eine Lernende, die das Gerät wechselt, nicht verloren ist; passen Sie das Layout an, nicht die Bedeutung."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.B2} art={ART_D10} />
       <DensityMatrix />
       <DataTable
         caption={tt("Three conflicts and a rule for deciding each", "Drei Konflikte und eine Regel, jeden zu entscheiden")}
@@ -247,6 +257,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example the levels and points or a separate app.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel die Level und Punkte oder eine separate App."),
       ]}
     >
+      <ComicButton comic={COMICS_D10.B3} art={ART_D10} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision without retention data by device safer", "Fünf Wege, eine Entscheidung ohne Bindungsdaten pro Gerät sicherer zu machen")}

@@ -12,7 +12,7 @@ const METAS: MaterialMeta[] = bi([
   { id: "A1" as MaterialId, block: "A" as const, title: t("Structure: information architecture, hierarchy and orientation", "Struktur: Informationsarchitektur, Hierarchie und Orientierung"), minutes: 14 },
   { id: "A2" as MaterialId, block: "A" as const, title: t("Visual design: hierarchy, legibility, consistency and reduction", "Visuelles Design: Hierarchie, Lesbarkeit, Konsistenz und Reduktion"), minutes: 14 },
   { id: "A3" as MaterialId, block: "A" as const, title: t("Interaction and user guidance: operability, calls to action, feedback", "Interaktion und Nutzerführung: Bedienbarkeit, Handlungsaufforderung, Rückmeldung"), minutes: 12 },
-  { id: "A4" as MaterialId, block: "A" as const, title: t("Typical UX/UI mistakes and the link to learning psychology", "Typische UX/UI-Fehler und die Verbindung zur Lernpsychologie"), minutes: 10, optional: true },
+  { id: "A4" as MaterialId, block: "A" as const, title: t("Typical UX/UI mistakes and the link to learning psychology", "Typische UX/UI-Fehler und die Verbindung zur Lernpsychologie"), minutes: 10 },
   { id: "A5" as MaterialId, block: "A" as const, title: t("Weighing a design measure: user impact, effort, risk", "Eine Designmaßnahme abwägen: Nutzerwirkung, Aufwand, Risiko"), minutes: 10 },
   { id: "B1" as MaterialId, block: "B" as const, title: t("Design as decision architecture: structure beats surface", "Design als Entscheidungsarchitektur: Struktur schlägt Oberfläche"), minutes: 18 },
   { id: "B2" as MaterialId, block: "B" as const, title: t("Conflicting goals: design against functionality, and too complex against too reduced", "Zielkonflikte: Design gegen Funktionalität, und zu komplex gegen zu reduziert"), minutes: 22 },
@@ -27,12 +27,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Die Struktur einer Lernoberfläche hat drei Teile. Die Informationsarchitektur ist, wie der Inhalt geordnet und benannt ist. Hierarchie und Navigationslogik sagen, was ein Hauptbereich und was ein Detail ist und wie man sich dazwischen bewegt. Orientierung heißt, dass die Lernende immer weiß, wo sie ist und was als Nächstes kommt.",
     ),
     why: t(
-      "In Task 1 you sort facts about a platform into unclear navigation, visual overload and inconsistent design. The first of these is a structure problem, and the plan's coaching says that structure beats visual design.",
-      "In Task 1 ordnen Sie Fakten über eine Plattform in unklare Navigation, visuelle Überladung und inkonsistentes Design. Der erste davon ist ein Strukturproblem, und das Coaching des Plans sagt, dass Struktur visuelles Design schlägt.",
+      "In Block 1.1 you describe the problems of a cluttered interface and where confusion arises, and in Block 2.1 you identify structural problems. This card gives you the three orientation questions and the parts of a structure.",
+      "In Block 1.1 beschreiben Sie die Probleme einer unübersichtlichen Oberfläche und wo Verwirrung entsteht, und in Block 2.1 identifizieren Sie strukturelle Probleme. Diese Karte gibt Ihnen die drei Orientierungsfragen und die Teile einer Struktur.",
     ),
     picture: t(
-      "The first picture is a LearnLoop lesson screen with three switches: a path above the lesson, a menu that marks the real place, and a Next button. Switch them on one at a time and read how many of the three orientation questions the screen answers. The second picture is a simple information architecture. Press “Walk me through it” for a short story.",
-      "Das erste Bild ist ein LearnLoop-Lektionsbildschirm mit drei Schaltern: ein Pfad über der Lektion, ein Menü, das die richtige Stelle markiert, und ein Weiter-Button. Schalten Sie sie nacheinander ein und lesen Sie, wie viele der drei Orientierungsfragen der Bildschirm beantwortet. Das zweite Bild ist eine einfache Informationsarchitektur. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The first picture is a LearnLoop lesson screen with three switches: a path above the lesson, a menu that marks the real place, and a Next button. Switch them on one at a time and read how many of the three orientation questions the screen answers. The second picture is a simple information architecture. Press “Read the comic” for a short story.",
+      "Das erste Bild ist ein LearnLoop-Lektionsbildschirm mit drei Schaltern: ein Pfad über der Lektion, ein Menü, das die richtige Stelle markiert, und ein Weiter-Button. Schalten Sie sie nacheinander ein und lesen Sie, wie viele der drei Orientierungsfragen der Bildschirm beantwortet. Das zweite Bild ist eine einfache Informationsarchitektur. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A2: {
@@ -41,12 +41,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Visuelles Design lenkt die Aufmerksamkeit. Eine visuelle Hierarchie nutzt Größe, Farbe, Kontrast und Position, damit das Wichtigste zuerst gesehen wird. Lesbarkeit heißt, dass sich der Text angenehm lesen lässt, Konsistenz heißt, dass dasselbe überall gleich aussieht, und Reduktion heißt, wegzulassen, was auf diesem Bildschirm dem Ziel der Lernenden nicht hilft.",
     ),
     why: t(
-      "In Task 1 you decide between simplifying the design and restructuring the navigation. You need to know what a visual change can and cannot do.",
-      "In Task 1 entscheiden Sie zwischen dem Vereinfachen des Designs und dem Umbau der Navigation. Sie müssen wissen, was eine visuelle Änderung kann und was nicht.",
+      "In Block 1.2 you decide between simplifying the design and restructuring the navigation, and in Block 3.1 you write principles for visual design. You need to know what a visual change can and cannot do.",
+      "In Block 1.2 entscheiden Sie zwischen dem Vereinfachen des Designs und dem Umbau der Navigation, und in Block 3.1 schreiben Sie Prinzipien für das visuelle Design. Sie müssen wissen, was eine visuelle Änderung kann und was nicht.",
     ),
     picture: t(
-      "Choose “Everything competes” or “One main thing”: the same LearnLoop course page, once with seven colours, three banners and five equal buttons, and once with one main button, quiet links and a progress bar. Read what changed for the learner. Press “Walk me through it” for a short story.",
-      "Wählen Sie „Alles konkurriert“ oder „Eine Hauptsache“: dieselbe LearnLoop-Kursseite, einmal mit sieben Farben, drei Bannern und fünf gleichen Buttons, einmal mit einem Hauptbutton, ruhigen Links und einem Fortschrittsbalken. Lesen Sie, was sich für die Lernende geändert hat. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Choose “Everything competes” or “One main thing”: the same LearnLoop course page, once with seven colours, three banners and five equal buttons, and once with one main button, quiet links and a progress bar. Read what changed for the learner. Press “Read the comic” for a short story.",
+      "Wählen Sie „Alles konkurriert“ oder „Eine Hauptsache“: dieselbe LearnLoop-Kursseite, einmal mit sieben Farben, drei Bannern und fünf gleichen Buttons, einmal mit einem Hauptbutton, ruhigen Links und einem Fortschrittsbalken. Lesen Sie, was sich für die Lernende geändert hat. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -55,12 +55,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Interaktionsdesign hat drei Aufgaben. Intuitive Bedienbarkeit: Dinge sehen aus wie das, was sie tun, die Lernende muss die Oberfläche also nicht lernen. Klare Handlungsaufforderungen: Ein Hauptbutton sagt, was als Nächstes zu tun ist. Rückmeldung auf Aktionen: Wenn die Lernende handelt, antwortet die Plattform sofort.",
     ),
     why: t(
-      "In Task 1 you judge screens with several buttons without priority, and you choose measures for action guidance.",
-      "In Task 1 beurteilen Sie Bildschirme mit mehreren Buttons ohne Priorität, und Sie wählen Maßnahmen für die Handlungsführung.",
+      "In Block 1.1 you judge screens with several buttons without priority, in Block 2.1 you develop action guidance, and in Block 3.1 you write a concept for user guidance.",
+      "In Block 1.1 beurteilen Sie Bildschirme mit mehreren Buttons ohne Priorität, in Block 2.1 entwickeln Sie eine Handlungsführung, und in Block 3.1 schreiben Sie ein Konzept für die Nutzerführung.",
     ),
     picture: t(
-      "A LearnLoop Save button in three versions: it answers within a tenth of a second, it answers after about a second, and it shows nothing for ten seconds. Choose a version and read what the learner does. Press “Walk me through it” for a short story.",
-      "Ein LearnLoop-Speichern-Button in drei Fassungen: Er antwortet innerhalb einer zehntel Sekunde, er antwortet nach etwa einer Sekunde, und er zeigt zehn Sekunden lang nichts. Wählen Sie eine Fassung und lesen Sie, was die Lernende tut. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "A LearnLoop Save button in three versions: it answers within a tenth of a second, it answers after about a second, and it shows nothing for ten seconds. Choose a version and read what the learner does. Press “Read the comic” for a short story.",
+      "Ein LearnLoop-Speichern-Button in drei Fassungen: Er antwortet innerhalb einer zehntel Sekunde, er antwortet nach etwa einer Sekunde, und er zeigt zehn Sekunden lang nichts. Wählen Sie eine Fassung und lesen Sie, was die Lernende tut. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -69,8 +69,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der Plan nennt drei typische Fehler: unklare Navigation, visuelle Überladung und inkonsistentes Design. Er verlangt auch, Design mit Lernpsychologie zu verbinden: Struktur senkt die kognitive Belastung, und visuelle Unterstützung fördert das Lernen (Tag 3). Jeder Fehler nimmt Aufmerksamkeit, die das Lernen braucht.",
     ),
     why: t(
-      "The three mistakes are the three areas Block 1.1 sorts facts into. This card gives you the reason for each.",
-      "Die drei Fehler sind die drei Bereiche, in die Block 1.1 Fakten sortiert. Diese Karte gibt Ihnen den Grund für jeden.",
+      "The three mistakes are the places where confusion arises in Block 1.1, and they help you name structural problems in Block 2.1. This card gives you the reason for each.",
+      "Die drei Fehler sind die Stellen, an denen in Block 1.1 Verwirrung entsteht, und sie helfen Ihnen, in Block 2.1 strukturelle Probleme zu benennen. Diese Karte gibt Ihnen den Grund für jeden.",
     ),
     picture: t(
       "Three small screens, one for each mistake, with what it costs the learner. Nothing to click.",
@@ -79,16 +79,16 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
   },
   A5: {
     idea: t(
-      "To choose between design measures, rate each on the same three questions. User impact: how much does it help the learner find, choose and carry on? Effort: money and time, decided here by a rule: under €8,000 is Low, up to €15,000 is Mid, above that is High. Risk: what could go wrong, for example adding more clutter.",
-      "Um zwischen Designmaßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Nutzerwirkung: Wie sehr hilft sie der Lernenden zu finden, zu wählen und weiterzumachen? Aufwand: Geld und Zeit, hier von einer Regel entschieden: unter 8.000 € ist Niedrig, bis 15.000 € Mittel, darüber Hoch. Risiko: Was kann schiefgehen, zum Beispiel dass mehr Unruhe hinzukommt.",
+      "To choose between design measures, rate each on the same three questions. User impact: how much does it help the learner find, choose and carry on? Effort: how much work and time it takes. Risk: what could go wrong, for example adding more clutter.",
+      "Um zwischen Designmaßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Nutzerwirkung: Wie sehr hilft sie der Lernenden zu finden, zu wählen und weiterzumachen? Aufwand: wie viel Arbeit und Zeit sie braucht. Risiko: Was kann schiefgehen, zum Beispiel dass mehr Unruhe hinzukommt.",
     ),
     why: t(
-      "Block 1.2 and Block 2.2 of the task ask for exactly this. The example uses LearnLoop, so the answer for the task case is not given.",
-      "Block 1.2 und Block 2.2 der Aufgabe verlangen genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
+      "Block 1.2 asks for exactly this, and Block 2.1 uses it for the prioritisation. The example uses LearnLoop and its own options, so the answer for the task case is not given.",
+      "Block 1.2 verlangt genau das, und Block 2.1 nutzt es für die Priorisierung. Das Beispiel nutzt LearnLoop und eigene Optionen, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three measures. The bars show the cost of each. The coloured bands behind them are the effort rule, and the dashed line is the €30,000 budget. Under the bars, the table gives the rating of each measure; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Maßnahmen. Die Balken zeigen die Kosten jeder einzelnen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget von 30.000 €. Unter den Balken gibt die Tabelle die Bewertung jeder Maßnahme; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Three small pictures show LearnLoop's three design measures. The table rates each one on user impact, effort and risk; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Drei kleine Bilder zeigen LearnLoops drei Designmaßnahmen. Die Tabelle bewertet jede nach Nutzerwirkung, Aufwand und Risiko; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -97,8 +97,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Das Coaching des Plans sagt, Design sei Entscheidungsarchitektur: UI heißt nicht, es hübsch zu machen, sondern es verständlich zu machen; Struktur schlägt visuelles Design; gutes UX verringert die falschen Entscheidungen der Nutzer. Die Kette läuft von Struktur und Hierarchie zur Orientierung, von der Orientierung zum Verhalten und vom Verhalten zum Lernerfolg.",
     ),
     why: t(
-      "Task 2 asks you to propose a basic structure, principles for visual design and a concept for user guidance, in order of priority. This card gives you the logic of the order.",
-      "Task 2 verlangt von Ihnen eine Grundstruktur, Prinzipien für das visuelle Design und ein Konzept für die Nutzerführung, in Prioritätsreihenfolge. Diese Karte gibt Ihnen die Logik der Reihenfolge.",
+      "Block 3.1 asks you to propose a basic structure, principles for visual design and a concept for user guidance, in order of priority. This card gives you the logic of the order.",
+      "Block 3.1 verlangt von Ihnen eine Grundstruktur, Prinzipien für das visuelle Design und ein Konzept für die Nutzerführung, in Prioritätsreihenfolge. Diese Karte gibt Ihnen die Logik der Reihenfolge.",
     ),
     picture: t(
       "The chain reads from left to right: structure and hierarchy, orientation and guidance, behaviour, learning result. Below it, the four design layers and what each decides for the learner. Nothing to click.",
@@ -111,12 +111,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Die Konflikte des Plans für Tag 8 sind Design gegen Funktionalität und (in der Risikoanalyse) zu komplex gegen zu reduziert. Wer alles entfernt, um den Bildschirm ruhig zu machen, entfernt vielleicht auch, was Lernende brauchen: Hilfe, Optionen, Leistung für Experten. Wer alles behält, macht den Bildschirm unbenutzbar. Das Ziel ist, Unruhe zu entfernen und Führung und Funktion zu behalten.",
     ),
     why: t(
-      "Task 2 asks for a risk analysis of too complex against too reduced and for prioritised design measures.",
-      "Task 2 verlangt eine Risikoanalyse von zu komplex gegen zu reduziert und priorisierte Designmaßnahmen.",
+      "Block 3.1 asks for a risk analysis of too complex against too reduced and for prioritised design measures.",
+      "Block 3.1 verlangt eine Risikoanalyse von zu komplex gegen zu reduziert und priorisierte Designmaßnahmen.",
     ),
     picture: t(
-      "The matrix places five LearnLoop options by the clutter they remove (to the right) and by the guidance and function they keep (upwards). The position is a reading of the example, not a score. The top right is the aim. Select a point to read why it sits there. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet fünf LearnLoop-Optionen nach der Unruhe, die sie entfernen (nach rechts), und nach der Führung und Funktion, die sie behalten (nach oben). Die Position ist eine Lesart des Beispiels, keine Note. Oben rechts ist das Ziel. Wählen Sie einen Punkt, um zu lesen, warum er dort liegt. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places five LearnLoop options by the clutter they remove (to the right) and by the guidance and function they keep (upwards). The position is a reading of the example, not a score. The top right is the aim. Select a point to read why it sits there. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet fünf LearnLoop-Optionen nach der Unruhe, die sie entfernen (nach rechts), und nach der Führung und Funktion, die sie behalten (nach oben). Die Position ist eine Lesart des Beispiels, keine Note. Oben rechts ist das Ziel. Wählen Sie einen Punkt, um zu lesen, warum er dort liegt. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {
@@ -125,8 +125,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der Plan verlangt, unter Unsicherheit zu entscheiden, zum Beispiel ohne Nutzertests. Eine Entscheidung unter Unsicherheit nennt vier Dinge: was Sie entscheiden, was Sie nicht wissen, was Sie zum Rückgängigmachen bringen würde und bis wann, und worauf Sie verzichten. Bei einer Designentscheidung ist das übliche Unbekannte, wie Lernende auf eine neue Struktur und neue Namen reagieren.",
     ),
     why: t(
-      "Block 3.2 asks for exactly this, together with prioritised design measures and a risk analysis.",
-      "Block 3.2 verlangt genau das, zusammen mit priorisierten Designmaßnahmen und einer Risikoanalyse.",
+      "Block 3.1 asks for exactly this, a decision without user tests, together with prioritised design measures and a risk analysis.",
+      "Block 3.1 verlangt genau das, eine Entscheidung ohne Nutzertests, zusammen mit priorisierten Designmaßnahmen und einer Risikoanalyse.",
     ),
     picture: t(
       "The four boxes at the top are the parts of the decision, filled in for LearnLoop. The two boxes below are the rule for future decisions. Nothing to click.",

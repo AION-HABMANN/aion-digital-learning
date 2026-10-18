@@ -4,9 +4,6 @@
  * assessment counts in the layout the learner chose (a box each or a table) and only in that one, that a different but reasoned choice still exports, that no
  * block is Optional and no cost or budget figure is printed, that the exports carry the learner's own answers, and that an old saved shape loads. It needs no browser.
  */
-import { SPEC as SPEC4 } from "../data/day4/free";
-import { SPEC as SPEC5 } from "../data/day5/free";
-import { SPEC as SPEC6 } from "../data/day6/free";
 import { materialsOf } from "../data/materialRegistry";
 import { GLOSSARY, GLOSS_LOOKUP, GLOSS_LOOKUP_DE } from "../data/glossary";
 import { freeAnalysisBody, freeMemoBody } from "../lib/dayFree/exportDoc";
@@ -18,12 +15,13 @@ import type { FreeField, FreeSpec, GuideSpec } from "../lib/dayFree/spec";
 import { MENTOR_PASSCODE } from "../lib/day1/mentorKey";
 import { setCurrentLang } from "../lib/lang";
 import { emptyD2, emptyD3 } from "../store/dayTypes";
-import { emptyD4, emptyD5, emptyD6 } from "../store/dayTypesStd";
+import { emptyFreeDay } from "../store/dayTypesStd";
+import { FREE_DAYS, FREE_SPECS } from "../data/free/registry";
 import { mergeDefaults, migratePersisted } from "../store/useStore";
 import type { Persisted } from "../store/useStore";
 
-const SPECS: Record<number, FreeSpec> = { 4: SPEC4, 5: SPEC5, 6: SPEC6 };
-const want = process.argv[2] ? [Number(process.argv[2])] : [4, 5, 6];
+const SPECS: Record<number, FreeSpec> = FREE_SPECS;
+const want = process.argv[2] ? [Number(process.argv[2])] : FREE_DAYS;
 
 let failed = 0;
 const ok = (cond: boolean, msg: string) => {
@@ -34,7 +32,7 @@ const ok = (cond: boolean, msg: string) => {
 };
 
 const base = (): Persisted =>
-  ({ participant: { name: "" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: undefined, d2: emptyD2(), d3: emptyD3(), d4: emptyD4(), d5: emptyD5(), d6: emptyD6() }) as unknown as Persisted;
+  ({ participant: { name: "" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: undefined, d2: emptyD2(), d3: emptyD3(), ...Object.fromEntries(FREE_DAYS.map((d) => [`d${d}`, emptyFreeDay(d)])) }) as unknown as Persisted;
 type Patch = (r: ReturnType<typeof freeRouteKey>) => void;
 /** A person who has answered everything with the model, with an optional change on route 1 or route 2. */
 const withKey = (spec: FreeSpec, on1?: Patch, on2?: Patch): Persisted => {
@@ -68,7 +66,12 @@ for (const day of want) {
 
     // 1 · the shape: the plan's numbered questions, every block Core, nothing the plan does not print
     ok(blocksOf(spec, 1).map((b) => b.id).join() === "1.1,1.2,2.1" && spec.block2.id === "3.1", "Route 1 has the blocks 1.1, 1.2 and 2.1; Route 2 has block 3.1");
-    ok(f2.length === 6, "Block 3.1 asks the six questions of the transfer project");
+    ok(f2.length === 6 || f2.length === 7, "Block 3.1 asks the questions of the transfer project (six, or seven where one item has two parts)");
+    // every "see above" reference lands on a field that exists (a list is answered in a box whose id ends in Text)
+    const domIds = new Set(f1.concat(f2).flatMap((f) => (f.kind === "lists" ? f.lists.map((l) => l.id) : [f.id])));
+    const refTargets = f1.concat(f2).flatMap((f) => f.refs ?? []).map((r) => r.target);
+    const badRefs = refTargets.filter((tg) => /-field$/.test(tg) && !domIds.has(tg.replace(/-field$/, "")));
+    ok(badRefs.length === 0, "every reference to an earlier answer points at a field that exists" + (badRefs.length ? ": " + badRefs.join(", ") : ""));
     const planCards = spec.cards.filter((c) => c.after !== "brief1" && c.after !== "brief2");
     ok(planCards.length === 2 && planCards.every((c) => c.sections.length >= 2), "two hidden facilitator cards (coaching and feedback round)");
     // DL-STANDARD section 14: each case brief names what is known and what is open, and a hidden card holds the standard answers
@@ -207,7 +210,7 @@ for (const day of want) {
 setCurrentLang("en");
 ok(MENTOR_PASSCODE === "muchson123", "the mentor passcode is unchanged");
 const migrated = migratePersisted({ participant: { name: "Old" }, ui: { bannerDismissed: {}, sectionsRead: {}, lang: "en" }, d1: { r1: {}, r2: {} } }, 1);
-ok(!!migrated.d4 && !!migrated.d5 && !!migrated.d6 && migrated.participant.name === "Old", "an old blob migrates to the current shape with its name kept");
+ok(FREE_DAYS.every((d) => !!(migrated as unknown as Record<string, unknown>)[`d${d}`]) && migrated.participant.name === "Old", "an old blob migrates to the current shape with its name kept");
 
 console.log(failed ? `\n${failed} check(s) FAILED` : "\nAll checks passed");
 process.exit(failed ? 1 : 0);

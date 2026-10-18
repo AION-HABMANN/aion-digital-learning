@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { DecisionFrame, DesignChain, FeedbackFig, HierarchyFig, IaTree, MistakesFig, OrientationFig, ReductionMatrix, WeighExample } from "@/components/day8/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D8 } from "@/components/day8/comicScenes";
+import { COMICS_D8 } from "@/data/day8/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -31,6 +34,7 @@ export function CardA1() {
         tt("Check a structure with people before you build it: a card sort for the groups, a tree test for the findability.", "Prüfen Sie eine Struktur mit Menschen, bevor Sie sie bauen: einen Card Sort für die Gruppen, einen Tree Test für die Auffindbarkeit."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.A1} art={ART_D8} />
       <OrientationFig />
       <IaTree />
       <DataTable
@@ -69,6 +73,7 @@ export function CardA2() {
         tt("A visual fix does not repair a structural problem. If learners cannot find their course, a new colour scheme will not help.", "Eine visuelle Behebung repariert kein Strukturproblem. Finden Lernende ihren Kurs nicht, hilft ein neues Farbschema nicht."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.A2} art={ART_D8} />
       <HierarchyFig />
       <DataTable
         caption={tt("Five tools of visual design, and what each does", "Fünf Werkzeuge des visuellen Designs und was jedes bewirkt")}
@@ -105,6 +110,7 @@ export function CardA3() {
         tt("Make the main targets large and close to where attention is.", "Machen Sie die Hauptziele groß und nah dort, wo die Aufmerksamkeit ist."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.A3} art={ART_D8} />
       <FeedbackFig />
       <DataTable
         caption={tt("Three jobs of interaction design", "Drei Aufgaben des Interaktionsdesigns")}
@@ -139,6 +145,7 @@ export function CardA4() {
         tt("Explain the cost in terms of attention and working memory (Day 3), not taste.", "Erklären Sie die Kosten in Begriffen von Aufmerksamkeit und Arbeitsgedächtnis (Tag 3), nicht von Geschmack."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.A4} art={ART_D8} />
       <MistakesFig />
       <Callout label={tt("Case assumption", "Fallannahme")}>
         <p>{tt("The three small screens are made up for this example; they are not the task case.", "Die drei kleinen Bildschirme sind für dieses Beispiel erfunden; sie sind nicht der Aufgabenfall.")}</p>
@@ -154,19 +161,20 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate each measure by how much it helps orientation, what it costs and what could go wrong. Structure usually beats surface.", "Bewerten Sie jede Maßnahme danach, wie sehr sie der Orientierung hilft, was sie kostet und was schiefgehen kann. Struktur schlägt meist Oberfläche.")}
+      scan={tt("Rate each measure by how much it helps orientation, what could go wrong and how much work it takes. Structure usually beats surface.", "Bewerten Sie jede Maßnahme danach, wie sehr sie der Orientierung hilft, was sie kostet und was schiefgehen kann. Struktur schlägt meist Oberfläche.")}
       sources={["gibbons2018", "sweller1998"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €8,000 is Low; €8,000 to €15,000 is Mid; above €15,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 8.000 € ist Niedrig; 8.000 € bis 15.000 € ist Mittel; über 15.000 € ist Hoch."),
+        tt("Rate effort by how much work and time the measure takes before the release: a few pages or settings changed is Low, a part of the platform rebuilt is Mid or High. Do not judge it by how hard it feels.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und Zeit die Maßnahme bis zum Release braucht: ein paar geänderte Seiten oder Einstellungen sind Niedrig, ein umgebauter Teil der Plattform ist Mittel oder Hoch. Beurteilen Sie ihn nicht danach, wie schwer er sich anfühlt."),
         tt("Rate user impact by what it does for orientation and action: structure and guidance first, surface second.", "Bewerten Sie die Nutzerwirkung danach, was sie für Orientierung und Handeln bewirkt: zuerst Struktur und Führung, dann Oberfläche."),
         tt("Rate risk by what could be added or lost: a measure that adds elements to a cluttered screen carries the risk of more clutter.", "Bewerten Sie das Risiko danach, was hinzukommen oder verloren gehen kann: Eine Maßnahme, die einem überladenen Bildschirm Elemente hinzufügt, trägt das Risiko von noch mehr Unruhe."),
         tt("Justify the order in a sentence that begins from the learner's problem: structure leads to orientation, and orientation leads to use.", "Begründen Sie die Reihenfolge mit einem Satz, der vom Problem der Lernenden ausgeht: Struktur führt zur Orientierung, und Orientierung führt zur Nutzung."),
         tt("Say what you do not know, for example whether learners fail to find content because of the menu or because of the names.", "Sagen Sie, was Sie nicht wissen, zum Beispiel ob Lernende Inhalte wegen des Menüs oder wegen der Namen nicht finden."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.A5} art={ART_D8} />
       <WeighExample />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop, its three measures and its reasons are made up for this example. The task has its own options and its own answer.", "LearnLoop, seine drei Maßnahmen und seine Gründe sind für dieses Beispiel erfunden. Die Aufgabe hat ihre eigenen Optionen und ihre eigene Antwort.")}</p>
       </Callout>
     </MaterialCard>
   );
@@ -185,6 +193,7 @@ export function CardB1() {
         tt("A rebrand is justified by brand goals; do not present it as a learning measure unless tests show an effect.", "Ein Rebrand wird mit Markenzielen begründet; stellen Sie ihn nicht als Lernmaßnahme dar, solange Tests keine Wirkung zeigen."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.B1} art={ART_D8} />
       <DesignChain />
       <DataTable
         caption={tt("Four layers of design, what each decides for the learner, and the business effect", "Vier Ebenen des Designs, was jede für die Lernende entscheidet, und die Geschäftswirkung")}
@@ -223,6 +232,7 @@ export function CardB2() {
         tt("Where there is no time or money to test, choose changes that can be reversed, and write the test into the plan.", "Wo Zeit oder Geld zum Testen fehlen, wählen Sie Änderungen, die sich zurücknehmen lassen, und schreiben Sie den Test in den Plan."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.B2} art={ART_D8} />
       <ReductionMatrix />
       <DataTable
         caption={tt("Four conflicts and a rule for deciding each", "Vier Konflikte und eine Regel, jeden zu entscheiden")}
@@ -259,6 +269,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example the visual rebrand.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel den visuellen Rebrand."),
       ]}
     >
+      <ComicButton comic={COMICS_D8.B3} art={ART_D8} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a design decision you cannot test first safer", "Fünf Wege, eine Designentscheidung, die Sie nicht zuerst testen können, sicherer zu machen")}

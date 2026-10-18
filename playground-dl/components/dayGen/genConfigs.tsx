@@ -1,7 +1,4 @@
 import type { DayConfig } from "@/components/day/DayPages";
-import { KIT as K8 } from "@/components/day8/kit";
-import { KIT as K9 } from "@/components/day9/kit";
-import { KIT as K10 } from "@/components/day10/kit";
 import { KIT as K11 } from "@/components/day11/kit";
 import { KIT as K12 } from "@/components/day12/kit";
 import { KIT as K13 } from "@/components/day13/kit";
@@ -17,6 +14,6 @@ import { materialsOf } from "@/data/materialRegistry";
  * The page configs of the generic days (Day 8 onward). A day's kit (its pictures and study cards, components/dayN/kit.tsx) is registered here next to the spec
  * registry (data/gen/registry.ts), so adding a day is one line in each.
  */
-const KITS: Record<number, GenKit> = { 8: K8, 9: K9, 10: K10, 11: K11, 12: K12, 13: K13, 14: K14, 15: K15, 16: K16 };
+const KITS: Record<number, GenKit> = { 11: K11, 12: K12, 13: K13, 14: K14, 15: K15, 16: K16 };
 
 export const GEN_CONFIGS: Record<number, DayConfig> = Object.fromEntries(Object.entries(KITS).map(([d, kit]) => [Number(d), makeDayConfig(GEN_SPECS[Number(d)], kit, materialsOf(Number(d)))]));

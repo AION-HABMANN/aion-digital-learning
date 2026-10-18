@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { ActiveFig, ChoicesFig, DecisionFrame, EngageFig, FlexMatrix, IaFig, NavTypesFig, OrientChain, WeighExample } from "@/components/day9/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D9 } from "@/components/day9/comicScenes";
+import { COMICS_D9 } from "@/data/day9/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -31,6 +34,7 @@ export function CardA1() {
         tt("Check a structure with learners before you build it: a card sort for the groups, a tree test for findability.", "Prüfen Sie eine Struktur mit Lernenden, bevor Sie sie bauen: einen Card Sort für die Gruppen, einen Tree Test für die Auffindbarkeit."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.A1} art={ART_D9} />
       <IaFig />
       <DataTable
         caption={tt("Three principles of an information architecture", "Drei Prinzipien einer Informationsarchitektur")}
@@ -65,6 +69,7 @@ export function CardA2() {
         tt("Improve navigation by cutting and grouping the entries, renaming them, and adding the position and the next step.", "Verbessern Sie die Navigation, indem Sie die Einträge kürzen und gruppieren, sie umbenennen und die Position und den nächsten Schritt ergänzen."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.A2} art={ART_D9} />
       <ChoicesFig />
       <NavTypesFig />
       <DataTable
@@ -100,6 +105,7 @@ export function CardA3() {
         tt("Avoid monotony: vary the kind of task, and keep the number of interactions per lesson small enough that most can be skipped.", "Vermeiden Sie Monotonie: Wechseln Sie die Art der Aufgabe und halten Sie die Zahl der Interaktionen pro Lektion so klein, dass sich die meisten überspringen lassen."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.A3} art={ART_D9} />
       <ActiveFig />
       <DataTable
         caption={tt("Active and passive use of a lesson, and what interaction adds", "Aktive und passive Nutzung einer Lektion, und was Interaktion hinzufügt")}
@@ -132,6 +138,7 @@ export function CardA4() {
         tt("Avoid monotony: change the kind of task now and then so that the tenth is not the first again.", "Vermeiden Sie Monotonie: Wechseln Sie ab und zu die Art der Aufgabe, damit die zehnte nicht wieder die erste ist."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.A4} art={ART_D9} />
       <EngageFig />
       <Callout label={tt("Case assumption", "Fallannahme")}>
         <p>{tt("LearnLoop and Ben are made up for this example.", "LearnLoop und Ben sind für dieses Beispiel erfunden.")}</p>
@@ -147,19 +154,20 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how much it helps the learner find and then learn, what it costs and what could go wrong. Structure before interaction.", "Bewerten Sie eine Maßnahme danach, wie sehr sie der Lernenden hilft zu finden und dann zu lernen, was sie kostet und was schiefgehen kann. Struktur vor Interaktion.")}
+      scan={tt("Rate a measure by how much it helps the learner find and then learn, what could go wrong and how much work it takes. Structure before interaction.", "Bewerten Sie eine Maßnahme danach, wie sehr sie der Lernenden hilft zu finden und dann zu lernen, was schiefgehen kann und wie viel Arbeit sie macht. Struktur vor Interaktion.")}
       sources={["gibbons2018", "chiWylie2014"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €7,000 is Low; €7,000 to €14,000 is Mid; above €14,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 7.000 € ist Niedrig; 7.000 € bis 14.000 € ist Mittel; über 14.000 € ist Hoch."),
+        tt("Rate effort by how much work and time the measure takes before the release: a few pages or settings changed is Low, a part of the platform rebuilt is Mid or High. Do not judge it by how hard it feels.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und Zeit die Maßnahme bis zum Release braucht: ein paar geänderte Seiten oder Einstellungen sind Niedrig, ein umgebauter Teil der Plattform ist Mittel oder Hoch. Beurteilen Sie ihn nicht danach, wie schwer er sich anfühlt."),
         tt("Rate learning impact by what a measure does for finding the content and then learning from it: structure and feedback first, extra interaction second.", "Bewerten Sie die Lernwirkung danach, was eine Maßnahme dafür tut, den Inhalt zu finden und dann daraus zu lernen: zuerst Struktur und Rückmeldung, dann zusätzliche Interaktion."),
         tt("Rate risk by what could go wrong: an interaction can become a burden, a reward can reward the wrong thing, a big change touches every page.", "Bewerten Sie das Risiko danach, was schiefgehen kann: Eine Interaktion kann zur Last werden, eine Belohnung das Falsche belohnen, eine große Änderung berührt jede Seite."),
         tt("Justify the order with the chain orientation, activation, engagement: say how your first measure leads to the next.", "Begründen Sie die Reihenfolge mit der Kette Orientierung, Aktivierung, Engagement: Sagen Sie, wie Ihre erste Maßnahme zur nächsten führt."),
         tt("Say what you do not know, for example whether learners drop out before or after they find a lesson, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel ob Lernende abbrechen, bevor oder nachdem sie eine Lektion finden, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.A5} art={ART_D9} />
       <WeighExample />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop, its three measures and its reasons are made up for this example. The task has its own options and its own answer.", "LearnLoop, seine drei Maßnahmen und seine Gründe sind für dieses Beispiel erfunden. Die Aufgabe hat ihre eigenen Optionen und ihre eigene Antwort.")}</p>
       </Callout>
     </MaterialCard>
   );
@@ -178,6 +186,7 @@ export function CardB1() {
         tt("Place each interaction deliberately (start, inside, end of a lesson, or not at all) and tie it to a goal.", "Platzieren Sie jede Interaktion bewusst (Anfang, Mitte, Ende einer Lektion oder gar nicht) und verbinden Sie sie mit einem Ziel."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.B1} art={ART_D9} />
       <OrientChain />
       <DataTable
         caption={tt("Where interaction belongs in a lesson, and where it does not", "Wo Interaktion in eine Lektion gehört und wo nicht")}
@@ -215,6 +224,7 @@ export function CardB2() {
         tt("Where there is no data, choose changes that can be reversed and write the check into the plan.", "Wo es keine Daten gibt, wählen Sie Änderungen, die sich zurücknehmen lassen, und schreiben Sie die Prüfung in den Plan."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.B2} art={ART_D9} />
       <FlexMatrix />
       <DataTable
         caption={tt("Four conflicts and a rule for deciding each", "Vier Konflikte und eine Regel, jeden zu entscheiden")}
@@ -251,6 +261,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example the point system or the assistant.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel das Punktesystem oder den Assistenten."),
       ]}
     >
+      <ComicButton comic={COMICS_D9.B3} art={ART_D9} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision without behaviour data safer", "Fünf Wege, eine Entscheidung ohne Verhaltensdaten sicherer zu machen")}

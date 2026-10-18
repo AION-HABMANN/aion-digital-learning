@@ -1,6 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D7 } from "@/components/day7/comicScenes";
+import { COMICS_D7 } from "@/data/day7/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { BarrierTypes, ContinuousLoop, PlainBuilder, PourFigure, QuizLena, SpectrumExplorer, WeighExample } from "@/components/day7/diagrams";
@@ -34,6 +37,7 @@ export function CardA1() {
         tt("Do not state legal obligations as certain. Name the rule, the year and what is still unclear.", "Nennen Sie rechtliche Pflichten nicht als sicher. Nennen Sie die Regel, das Jahr und was noch unklar ist."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.A1} art={ART_D7} />
       <SpectrumExplorer />
       <DataTable
         caption={tt("Accessibility against usability, and the rules around them (in flux)", "Barrierefreiheit gegen Usability, und die Regeln darum (im Fluss)")}
@@ -71,6 +75,7 @@ export function CardA2() {
         tt("Automated checks find only some problems; a manual check with the keyboard and a screen reader finds more. Do not call a page accessible because a tool passed.", "Automatische Prüfungen finden nur manche Probleme; eine manuelle Prüfung mit Tastatur und Screenreader findet mehr. Nennen Sie eine Seite nicht barrierefrei, nur weil ein Werkzeug sie bestanden hat."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.A2} art={ART_D7} />
       <PourFigure />
       <BarrierTypes />
       <QuizLena />
@@ -111,6 +116,7 @@ export function CardA3() {
         tt("A cognitive barrier is real even when a screen passes every technical check. Test it with learners who find reading hard.", "Eine kognitive Barriere ist real, auch wenn ein Bildschirm jede technische Prüfung besteht. Testen Sie sie mit Lernenden, denen Lesen schwerfällt."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.A3} art={ART_D7} />
       <PlainBuilder />
       <DataTable
         caption={tt("The three tools of inclusive learning", "Die drei Werkzeuge inklusiven Lernens")}
@@ -144,6 +150,7 @@ export function CardA4() {
         tt("Automated tools find only part of the problems; they cannot replace a manual check or a user test.", "Automatische Werkzeuge finden nur einen Teil der Probleme; sie ersetzen weder eine manuelle Prüfung noch einen Nutzertest."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.A4} art={ART_D7} />
       <ContinuousLoop />
       <DataTable
         caption={tt("Where to integrate accessibility, and what to measure", "Wo Barrierefreiheit zu integrieren ist, und was zu messen ist")}
@@ -179,10 +186,10 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by the learners it opens the platform to, what it costs and what could go wrong. Prefer fixes at the source to quick patches.", "Bewerten Sie eine Maßnahme danach, für welche Lernenden sie die Plattform öffnet, was sie kostet und was schiefgehen könnte. Bevorzugen Sie Behebungen an der Quelle gegenüber schnellen Flicken.")}
+      scan={tt("Rate a measure by the learners it opens the platform to, what could go wrong and how much work it takes. Prefer fixes at the source to quick patches.", "Bewerten Sie eine Maßnahme danach, für welche Lernenden sie die Plattform öffnet, was schiefgehen könnte und wie viel Arbeit sie macht. Bevorzugen Sie Behebungen an der Quelle gegenüber schnellen Flicken.")}
       sources={["gibbons2018", "wcag22", "nielsen2000"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €10,000 is Low; €10,000 to €25,000 is Mid; above €25,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 10.000 € ist Niedrig; 10.000 € bis 25.000 € ist Mittel; über 25.000 € ist Hoch."),
+        tt("Rate effort by how much work and time the measure takes before the release: a few pages of text is Low, captions and a changed quiz course by course is Mid, a new feature is High.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und Zeit die Maßnahme bis zum Release braucht: ein paar Seiten Text sind Niedrig, Untertitel und ein geändertes Quiz Kurs für Kurs sind Mittel, ein neues Feature ist Hoch."),
         tt("Rate user impact by the barrier it removes and the groups it reaches. A measure that adds new features and removes no barrier has a low impact on excluded groups.", "Bewerten Sie die Nutzerwirkung nach der Barriere, die sie beseitigt, und den Gruppen, die sie erreicht. Eine Maßnahme, die neue Features ergänzt und keine Barriere beseitigt, hat eine geringe Wirkung auf ausgeschlossene Gruppen."),
         tt("Rate risk by what could go wrong: a fix that only hides a problem (an overlay) or a new feature that adds new barriers carries more risk than a fix at the source.", "Bewerten Sie das Risiko danach, was schiefgehen kann: Eine Behebung, die ein Problem nur verdeckt (ein Overlay), oder ein neues Feature, das neue Barrieren schafft, trägt mehr Risiko als eine Behebung an der Quelle."),
         tt("Fix the source (content, code) before you add a layer on top. A toolbar that promises automatic compliance does not remove the barriers underneath.", "Beheben Sie die Quelle (Inhalt, Code), bevor Sie eine Schicht obendrauf legen. Eine Toolbar, die automatische Konformität verspricht, beseitigt die Barrieren darunter nicht."),
@@ -190,6 +197,7 @@ export function CardA5() {
         tt("Choose evaluation methods that give different kinds of evidence: a test with users with impairments (why), data by group (how many), a manual audit against WCAG (does it meet the criteria). Automated checks find only part of the problems, so they never stand alone.", "Wählen Sie Evaluationsmethoden, die verschiedene Arten von Belegen liefern: einen Test mit Nutzern mit Einschränkungen (warum), Daten pro Gruppe (wie viele), ein manuelles Audit gegen WCAG (erfüllt es die Kriterien). Automatische Prüfungen finden nur einen Teil der Probleme, sie stehen also nie allein."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.A5} art={ART_D7} />
       <WeighExample />
       <DataTable
         caption={tt("Three kinds of evidence for an evaluation, and the question each answers", "Drei Arten von Belegen für eine Evaluation, und die Frage, die jede beantwortet")}
@@ -201,7 +209,7 @@ export function CardA5() {
         ]}
       />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop, its three measures and its reasons are made up for this example. The task has its own options and its own answer.", "LearnLoop, seine drei Maßnahmen und seine Gründe sind für dieses Beispiel erfunden. Die Aufgabe hat ihre eigenen Optionen und ihre eigene Antwort.")}</p>
       </Callout>
     </MaterialCard>
   );
@@ -220,6 +228,7 @@ export function CardB1() {
         tt("Argue to management in its terms: tenders won or lost, complaints, completion by group, risk.", "Argumentieren Sie gegenüber dem Management in dessen Begriffen: gewonnene oder verlorene Ausschreibungen, Beschwerden, Abschluss pro Gruppe, Risiko."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.B1} art={ART_D7} />
       <StrategicChain />
       <DataTable
         caption={tt("What to watch with each reason", "Worauf bei jedem Grund zu achten ist")}
@@ -254,6 +263,7 @@ export function CardB2() {
         tt("Name what waits, and say what the learners who wait experience in the meantime.", "Nennen Sie, was wartet, und sagen Sie, was die Lernenden, die warten, in der Zwischenzeit erleben."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.B2} art={ART_D7} />
       <ReachMatrix />
       <DataTable
         caption={tt("Four conflicts and a rule for deciding each", "Vier Konflikte und eine Regel, jeden zu entscheiden")}
@@ -291,6 +301,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben."),
       ]}
     >
+      <ComicButton comic={COMICS_D7.B3} art={ART_D7} />
       <AverageHides />
       <DataTable
         caption={tt("Five KPIs for inclusion, why each fits, and the method to read it", "Fünf KPIs für Inklusion, warum jeder passt, und die Methode, ihn zu lesen")}

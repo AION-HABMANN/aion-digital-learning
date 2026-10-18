@@ -5,8 +5,7 @@ import clsx from "clsx";
 import { OneInSix } from "@/components/day7/mocks";
 import { ChainFig, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
 import type { MatrixPoint } from "@/components/materi/figures";
-import { Diagram, Insight, Story, ThePoint, useStory } from "@/components/materi/kit";
-import type { StoryPlan } from "@/components/materi/kit";
+import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { pct, tt } from "@/lib/lang";
 
 /**
@@ -61,16 +60,10 @@ export function ReachMatrix() {
     { id: "f", letter: "F", x: 0.1, y: 0.9, name: tt("A new quiz-battle feature", "Ein neues Quiz-Battle-Feature"), reading: tt("A high cost and almost no reach for excluded groups: it is a visible new feature for people who are already in, and a drag-based game could add new barriers.", "Hohe Kosten und fast keine Reichweite für ausgeschlossene Gruppen: Es ist ein sichtbares neues Feature für Menschen, die schon drin sind, und ein Ziehspiel könnte neue Barrieren schaffen.") },
     { id: "g", letter: "G", x: 0.34, y: 0.84, name: tt("Two more languages", "Zwei weitere Sprachen"), reading: tt("A high cost and reach in another way: it adds learners who read other languages, but it removes none of the barriers the excluded groups meet today.", "Hohe Kosten und Reichweite auf anderem Weg: Es erreicht Lernende, die andere Sprachen lesen, beseitigt aber keine der Barrieren, auf die die ausgeschlossenen Gruppen heute treffen.") },
   ];
-  const story = useStory([
-    { title: tt("Seven ideas, one budget", "Sieben Ideen, ein Budget"), say: tt("Let us look at LearnLoop, an online-course provider. It has a limited budget and seven ideas, and it wants to know which one to start with. The picture places every idea by the reach it gives (to the right) and by its cost and effort (upwards).\n\nTwo ideas sit at the lower right: captions and keyboard use for ten courses, and instructions in plain language. They cost the least and reach the most learners, so they are where LearnLoop starts.", "Sehen wir uns LearnLoop an, einen Anbieter von Online-Kursen. Das Unternehmen hat ein begrenztes Budget und sieben Ideen und will wissen, mit welcher es beginnt. Das Bild ordnet jede Idee nach der Reichweite, die sie gibt (nach rechts), und nach ihren Kosten und ihrem Aufwand (nach oben).\n\nZwei Ideen liegen unten rechts: Untertitel und Tastaturbedienung für zehn Kurse und Anleitungen in einfacher Sprache. Sie kosten am wenigsten und erreichen die meisten Lernenden, dort beginnt LearnLoop also."), look: tt("points A and B, lower right", "Punkte A und B, unten rechts"), apply: () => { setSel("a"); setSpot("a"); } },
-    { title: tt("The tempting ideas", "Die verlockenden Ideen"), say: tt("The new quiz-battle feature and two more languages sit at the upper left: they cost a lot and reach almost nobody who is excluded today. They are visible and easy to justify, and that is exactly why they win budget discussions.\n\nThe accessibility toolbar looks cheap, but its reach is small, because the barriers underneath stay. A layer on top does not fix the content and the code.", "Das neue Quiz-Battle-Feature und zwei weitere Sprachen liegen oben links: Sie kosten viel und erreichen fast niemanden, der heute ausgeschlossen ist. Sie sind sichtbar und leicht zu begründen, und genau deshalb gewinnen sie Budgetdiskussionen.\n\nDie Barrierefreiheits-Toolbar wirkt günstig, doch ihre Reichweite ist klein, weil die Barrieren darunter bleiben. Eine Schicht obendrauf behebt Inhalt und Code nicht."), look: tt("points F, G and E, left", "Punkte F, G und E, links"), apply: () => { setSel("f"); setSpot("f"); } },
-    { title: tt("Integration, and what waits", "Integration und was wartet"), say: tt("Accessibility in the definition of “done” costs a middle amount and reaches every future release, so it turns accessibility from a project into a habit. A full audit of every course finds problems and fixes none, so LearnLoop audits in stages after fixing the most-used paths.\n\nSo start with the cheapest, broadest measures, integrate them into the process, and say what waits. Select any point to read its reason.", "Barrierefreiheit in der Definition von „fertig“ kostet einen mittleren Betrag und erreicht jedes künftige Release, sie macht Barrierefreiheit also von einem Projekt zu einer Gewohnheit. Ein vollständiges Audit jedes Kurses findet Probleme und behebt keines, LearnLoop prüft also in Stufen, nachdem es die meistgenutzten Pfade behoben hat.\n\nBeginnen Sie also mit den günstigsten, breitesten Maßnahmen, integrieren Sie sie in den Prozess und sagen Sie, was wartet. Wählen Sie einen Punkt, um seinen Grund zu lesen."), look: tt("points C and D", "Punkte C und D"), apply: () => { setSel("c"); setSpot("c"); } },
-  ] satisfies StoryPlan[]);
   return (
     <Diagram label={tt("A worked example: LearnLoop's seven measures by reach and cost · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoops sieben Maßnahmen nach Reichweite und Kosten · Explorativ")}>
       <div className="space-y-3">
         <ThePoint>{tt("Inclusion is cheaper built in than bolted on, but it competes with new features for a limited budget. Weigh reach against cost, start with the cheapest and broadest measure, and say what waits.", "Inklusion ist eingebaut billiger als aufgesetzt, konkurriert aber mit neuen Features um ein begrenztes Budget. Wägen Sie Reichweite gegen Kosten ab, beginnen Sie mit der günstigsten und breitesten Maßnahme und sagen Sie, was wartet.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <MatrixFig
           title={tt("Seven measures of LearnLoop by reach (to the right) and cost and effort (upwards)", "Sieben Maßnahmen von LearnLoop nach Reichweite (nach rechts) und Kosten und Aufwand (nach oben)")}
           xLabel={tt("Reach: how many learners it opens the platform to", "Reichweite: für wie viele Lernende sie die Plattform öffnet")}
@@ -79,7 +72,6 @@ export function ReachMatrix() {
           points={pts}
           selected={sel}
           onSelect={(id) => {
-            story.leave();
             setSpot(null);
             setSel(id);
           }}
@@ -104,11 +96,6 @@ const AVG = Math.round(GROUPS.reduce((s, g) => s + (g.share * g.success) / 100, 
 export function AverageHides() {
   const [by, setBy] = useState(false);
   const worst = [...GROUPS].sort((a, b) => a.success - b.success)[0];
-  const story = useStory([
-    { title: tt("One healthy number", "Eine gesunde Zahl"), say: tt(`Let us look at LearnLoop, an online-course provider, and at one KPI: task success, the share of learners who finish the main task. For all learners together it is ${pct(AVG)}. The management report says “healthy”, and nobody asks more.`, `Sehen wir uns LearnLoop an, einen Anbieter von Online-Kursen, und einen KPI: den Aufgabenerfolg, den Anteil der Lernenden, die die Hauptaufgabe abschließen. Für alle Lernenden zusammen beträgt er ${pct(AVG)}. Der Managementbericht sagt „gesund“, und niemand fragt weiter.`), look: tt("the single bar", "der einzelne Balken"), apply: () => setBy(false) },
-    { title: tt("The same number, by group", "Dieselbe Zahl, pro Gruppe"), say: tt(`Now LearnLoop reads the same data by group. Learners with a mouse and a screen are ${GROUPS[0].share} of every 100 and succeed ${pct(GROUPS[0].success)} of the time, which carries the average. But screen reader users succeed only ${pct(worst.success)} of the time, and keyboard-only learners ${pct(GROUPS[1].success)}.\n\nA group of ${worst.share} in 100 can fail almost completely and hardly move the average, so the average cannot show it.`, `Nun liest LearnLoop dieselben Daten pro Gruppe. Lernende mit Maus und Bildschirm sind ${GROUPS[0].share} von 100 und haben ${pct(GROUPS[0].success)} Erfolg, was den Durchschnitt trägt. Aber Screenreader-Nutzer haben nur ${pct(worst.success)} Erfolg und Lernende nur mit Tastatur ${pct(GROUPS[1].success)}.\n\nEine Gruppe von ${worst.share} von 100 kann fast vollständig scheitern und den Durchschnitt kaum bewegen, der Durchschnitt kann es also nicht zeigen.`), look: tt("the short bars at the bottom", "die kurzen Balken unten"), apply: () => setBy(true) },
-    { title: tt("Reasons and counts", "Gründe und Zahlen"), say: tt("So an evaluation system reads its KPIs by group, and pairs two kinds of method: counts such as these show how many in each group are blocked, and a test with learners with impairments shows why. Measuring by group may touch special categories of data, so a data-protection check comes first. Switch between the two views yourself.", "Ein Evaluationssystem liest seine KPIs also pro Gruppe und verbindet zwei Arten von Methoden: Zahlen wie diese zeigen, wie viele in jeder Gruppe blockiert sind, und ein Test mit Lernenden mit Einschränkungen zeigt, warum. Pro Gruppe zu messen kann besondere Kategorien von Daten berühren, deshalb kommt zuerst eine Datenschutzprüfung. Wechseln Sie selbst zwischen den beiden Ansichten."), look: tt("the two buttons above the bars", "die beiden Schaltflächen über den Balken"), apply: () => setBy(true) },
-  ] satisfies StoryPlan[]);
   const bar = (label: string, v: number, strong?: boolean, note?: string) => (
     <div key={label} className="grid grid-cols-[minmax(0,9rem)_minmax(0,1fr)_3rem] items-center gap-2 sm:grid-cols-[minmax(0,13rem)_minmax(0,1fr)_3rem]">
       <span className="text-caption text-ink">{label}{note && <span className="block text-micro normal-case tracking-normal text-ash">{note}</span>}</span>
@@ -123,12 +110,11 @@ export function AverageHides() {
     <Diagram label={tt("An average that hides a group: LearnLoop's task success, as one number and by group · Exploratory · Case assumption", "Ein Durchschnitt, der eine Gruppe verbirgt: LearnLoops Aufgabenerfolg, als eine Zahl und pro Gruppe · Explorativ · Fallannahme")}>
       <div className="space-y-3">
         <ThePoint>{tt("An average can look healthy while a small group cannot use the platform at all. Read every KPI by group, and pair a method that shows how many with a method that shows why.", "Ein Durchschnitt kann gesund aussehen, während eine kleine Gruppe die Plattform gar nicht nutzen kann. Lesen Sie jeden KPI pro Gruppe und verbinden Sie eine Methode, die zeigt, wie viele, mit einer, die zeigt, warum.")}</ThePoint>
-        <Story steps={story.plan} step={story.step} onStep={story.go} />
         <div role="radiogroup" aria-label={tt("How the KPI is read", "Wie der KPI gelesen wird")} className="flex flex-wrap gap-2">
-          <Btn on={!by} onClick={() => { story.leave(); setBy(false); }}>{tt("The average", "Der Durchschnitt")}</Btn>
-          <Btn on={by} onClick={() => { story.leave(); setBy(true); }}>{tt("By group", "Pro Gruppe")}</Btn>
+          <Btn on={!by} onClick={() => { setBy(false); }}>{tt("The average", "Der Durchschnitt")}</Btn>
+          <Btn on={by} onClick={() => { setBy(true); }}>{tt("By group", "Pro Gruppe")}</Btn>
         </div>
-        <div className={clsx("space-y-2 rounded-lg border border-line bg-paper p-3", story.step !== null && "anim-pulse")}>
+        <div className={clsx("space-y-2 rounded-lg border border-line bg-paper p-3")}>
           <p className="smallcaps">{tt("Task success: the share who finish the main task", "Aufgabenerfolg: der Anteil, der die Hauptaufgabe abschließt")}</p>
           {!by && bar(tt("All learners together", "Alle Lernenden zusammen"), AVG, true)}
           {by && GROUPS.map((g) => bar(g.name(), g.success, false, tt(`${g.share} of every 100 learners`, `${g.share} von je 100 Lernenden`)))}

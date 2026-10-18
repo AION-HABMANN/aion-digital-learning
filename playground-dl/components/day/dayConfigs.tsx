@@ -5,22 +5,25 @@ import { Task2 as D2Task2 } from "@/components/day2/Task2";
 import { MateriA as D3MateriA, MateriB as D3MateriB } from "@/components/day3/Materi";
 import { Task1 as D3Task1 } from "@/components/day3/Task1";
 import { Task2 as D3Task2 } from "@/components/day3/Task2";
-import { MateriA as D7MateriA, MateriB as D7MateriB } from "@/components/day7/Materi";
-import { Task1 as D7Task1 } from "@/components/day7/Task1";
-import { Task2 as D7Task2 } from "@/components/day7/Task2";
 import { DAY_INTRO as D2_INTRO, ROUTE_CARDS as D2_CARDS, pageNav as d2PageNav, railSections as d2Rail } from "@/data/day2/day";
 import { DAY_INTRO as D3_INTRO, ROUTE_CARDS as D3_CARDS, pageNav as d3PageNav, railSections as d3Rail } from "@/data/day3/day";
-import { DAY_INTRO as D7_INTRO, ROUTE_CARDS as D7_CARDS, pageNav as d7PageNav, railSections as d7Rail } from "@/data/day7/day";
-import { dossierProgress as d7Progress, taskBlocks as d7Blocks } from "@/lib/day7/progress";
 import { dossierProgress as d2Progress, taskBlocks as d2Blocks } from "@/lib/day2/progress";
 import { dossierProgress as d3Progress, taskBlocks as d3Blocks } from "@/lib/day3/progress";
 import { KIT as KIT4 } from "@/components/day4/Free";
 import { KIT as KIT5 } from "@/components/day5/Free";
 import { KIT as KIT6 } from "@/components/day6/Free";
+import { KIT as KIT7 } from "@/components/day7/Free";
+import { KIT as KIT8 } from "@/components/day8/Free";
+import { KIT as KIT9 } from "@/components/day9/Free";
+import { KIT as KIT10 } from "@/components/day10/Free";
 import { makeFreeConfig } from "@/components/dayFree/freeDay";
 import { SPEC as SPEC4 } from "@/data/day4/free";
 import { SPEC as SPEC5 } from "@/data/day5/free";
 import { SPEC as SPEC6 } from "@/data/day6/free";
+import { SPEC as SPEC7 } from "@/data/day7/free";
+import { SPEC as SPEC8 } from "@/data/day8/free";
+import { SPEC as SPEC9 } from "@/data/day9/free";
+import { SPEC as SPEC10 } from "@/data/day10/free";
 import { materialsOf } from "@/data/materialRegistry";
 import { GEN_CONFIGS } from "@/components/dayGen/genConfigs";
 import { tt } from "@/lib/lang";
@@ -87,30 +90,8 @@ export const DAY4: DayConfig = makeFreeConfig(SPEC4, KIT4, materialsOf(4));
 
 export const DAY5: DayConfig = makeFreeConfig(SPEC5, KIT5, materialsOf(5));
 export const DAY6: DayConfig = makeFreeConfig(SPEC6, KIT6, materialsOf(6));
-export const DAY7: DayConfig = {
-  n: 7,
-  heading: () => tt("Day 7 · Accessibility and inclusive design", "Tag 7 · Barrierefreiheit und inklusive Gestaltung"),
-  intro: D7_INTRO,
-  routeCard: D7_CARDS,
-  railSections: d7Rail,
-  pageNav: d7PageNav,
-  MateriA: D7MateriA,
-  MateriB: D7MateriB,
-  Task1: D7Task1,
-  Task2: D7Task2,
-  progress: d7Progress,
-  taskBlocks: d7Blocks,
-  routeHeading: (route) =>
-    route === 1
-      ? {
-          kicker: tt("Day 7 · Route 1 · Levels 1 and 2 · Knowledge and application", "Tag 7 · Route 1 · Level 1 und 2 · Wissen und Anwendung"),
-          h1: tt("Accessibility and inclusive design: find the barriers, then choose the measures", "Barrierefreiheit und inklusives Design: die Barrieren finden, dann die Maßnahmen wählen"),
-          order: tt("Materi A (all five cards, four are core) → the UX Analysis task, one case in two parts (find the barriers, choose measures), with two core blocks. Every section stays open, so you can start anywhere.", "Materi A (alle fünf Karten, vier sind Kern) → die Aufgabe UX Analysis, ein Fall in zwei Teilen (die Barrieren finden, Maßnahmen wählen), mit zwei Kernblöcken. Jeder Abschnitt bleibt offen, Sie können überall beginnen."),
-        }
-      : {
-          kicker: tt("Day 7 · Route 2 · Level 3 · Management decision", "Tag 7 · Route 2 · Level 3 · Managemententscheidung"),
-          h1: tt("Inclusion as a strategy: where accessibility is checked, three measures, an evaluation system, the risk, and what you give up", "Inklusion als Strategie: wo Barrierefreiheit geprüft wird, drei Maßnahmen, ein Evaluationssystem, das Risiko und worauf Sie verzichten"),
-          order: tt("Materi B (three cards) → the UX Strategy task, one frame with two core blocks and a memo that builds below. Route 1 is a good start but not needed; every section stays open.", "Materi B (drei Karten) → die Aufgabe UX Strategy, ein Rahmen mit zwei Kernblöcken und einem Memo, das darunter entsteht. Route 1 ist ein guter Einstieg, aber nicht nötig; jeder Abschnitt bleibt offen."),
-        },
-};
-export const DAY_CONFIGS: Record<number, DayConfig> = { 2: DAY2, 3: DAY3, 4: DAY4, 5: DAY5, 6: DAY6, 7: DAY7, ...GEN_CONFIGS };
+export const DAY7: DayConfig = makeFreeConfig(SPEC7, KIT7, materialsOf(7));
+export const DAY8: DayConfig = makeFreeConfig(SPEC8, KIT8, materialsOf(8));
+export const DAY9: DayConfig = makeFreeConfig(SPEC9, KIT9, materialsOf(9));
+export const DAY10: DayConfig = makeFreeConfig(SPEC10, KIT10, materialsOf(10));
+export const DAY_CONFIGS: Record<number, DayConfig> = { 2: DAY2, 3: DAY3, 4: DAY4, 5: DAY5, 6: DAY6, 7: DAY7, 8: DAY8, 9: DAY9, 10: DAY10, ...GEN_CONFIGS };

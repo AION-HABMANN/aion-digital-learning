@@ -62,7 +62,7 @@ export function MateriA() {
   return (
     <Block id="materi-a" title={tt("Materi A · 60 minutes, facilitator-led", "Materi A · 60 Minuten, moderiert")} intro={tt("Accessibility and inclusive design: what they are, barriers and the four principles, plain language and a lower load, how to build and measure quality into a team, and how to weigh an inclusion measure", "Barrierefreiheit und inklusives Design: was sie sind, Barrieren und die vier Prinzipien, einfache Sprache und geringere Belastung, wie man Qualität in ein Team einbaut und misst, und wie man eine Inklusionsmaßnahme abwägt")}>
       <p className="max-w-prose text-body text-ash">
-        {tt("Five cards, Level 1 and Level 2 in one run. Four are core; A4 on integrating and evaluating is folded. Every diagram uses LearnLoop and other made-up people, so the task is never answered for you.", "Fünf Karten, Level 1 und Level 2 in einem Durchgang. Vier sind Kern; A4 zum Integrieren und Evaluieren ist eingeklappt. Jedes Diagramm nutzt LearnLoop und andere erfundene Menschen, damit die Aufgabe nie für Sie gelöst wird.")}
+        {tt("Five cards, Level 1 and Level 2 in one run. Every diagram uses LearnLoop and other made-up people, so the task is never answered for you.", "Fünf Karten, Level 1 und Level 2 in einem Durchgang. Jedes Diagramm nutzt LearnLoop und andere erfundene Menschen, damit die Aufgabe nie für Sie gelöst wird.")}
       </p>
       <Cards block="A" />
       <ReferencesAccordion block="A" keys={REFS_A} note={NOTE()} />
