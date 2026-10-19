@@ -14,7 +14,8 @@ import { Callout } from "@/components/ui/MaterialCard";
 import { MaterialRefs } from "@/components/ui/MaterialRefs";
 import { MentorGuide } from "@/components/ui/MentorGuide";
 import { WritingHelp } from "@/components/ui/WritingHelp";
-import { ObserveDay3 } from "@/components/day3/observe";
+import { DeskDay3, ObserveDay3 } from "@/components/day3/observe";
+import { SimButton } from "@/components/sim/SimFrame";
 import { OPTS } from "@/data/day3/case";
 import { LOGIC_GUIDE, MEASURES_GUIDE, RISK_GUIDE, UNC_GUIDE } from "@/data/day3/tableGuides";
 import { routeHref } from "@/data/course";
@@ -81,6 +82,15 @@ function CaseBrief() {
           tt("Route 1 is not needed for this route. If you have done it, your answers are quoted in the memo.", "Route 1 ist für diese Route nicht nötig. Wenn Sie sie gemacht haben, werden Ihre Antworten im Memo zitiert.")
         )}
       </p>
+      <SimButton
+        label={tt("Open your desk and read what is waiting", "Ihren Schreibtisch öffnen und lesen, was wartet")}
+        sub={tt("The note from management, a customer's message with the ratings, what support hears, and what the learning team can and cannot tell you.", "Die Nachricht der Geschäftsführung, die Nachricht einer Kundin mit den Bewertungen, was der Support hört, und was das Lernteam Ihnen sagen kann und was nicht.")}
+        url="mail.educore.example/inbox"
+        title={tt("Simulation: the Chief Learning Experience Officer's desk", "Simulation: der Schreibtisch des Chief Learning Experience Officer")}
+        note={tt("Simulation · Case assumption: the messages and the attachments are made up from the brief · nothing here is marked right or wrong.", "Simulation · Fallannahme: die Nachrichten und die Anhänge sind aus dem Auftrag erfunden · hier wird nichts als richtig oder falsch markiert.")}
+      >
+        {() => <DeskDay3 />}
+      </SimButton>
       <ObserveDay3 />
       <CaseKnown
         id="case-known-2"
@@ -100,7 +110,7 @@ function CaseBrief() {
             items: [
               tt("You lead the learning experience at EduCore, the platform of Route 1.", "Sie verantworten die Lernerfahrung bei EduCore, der Plattform aus Route 1."),
               tt("“Professionally necessary” means learners need the content for their work, so it cannot simply be cut.", "„Fachlich nötig“ heißt, Lernende brauchen den Inhalt für ihre Arbeit, er lässt sich also nicht einfach streichen."),
-              tt("EduCore records which lessons learners open and which quizzes they finish; it has no tests with beginners.", "EduCore erfasst, welche Lektionen Lernende öffnen und welche Quizze sie beenden; es gibt keine Tests mit Einsteigern."),
+              tt("EduCore records which lessons learners open, which quizzes they finish and how they rate a module; it has no tests with beginners. What it records is listed in the sheet on the desk (open the simulation).", "EduCore erfasst, welche Lektionen Lernende öffnen, welche Quizze sie beenden und wie sie ein Modul bewerten; es gibt keine Tests mit Einsteigern. Was es erfasst, steht in der Tabelle auf dem Schreibtisch (Simulation öffnen)."),
             ],
           },
           {

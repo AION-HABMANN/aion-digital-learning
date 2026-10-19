@@ -1,107 +1,61 @@
 "use client";
 
-import { useId } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Diagram } from "@/components/materi/kit";
+import { EduCoreShot } from "@/components/day3/sims";
 import { tt } from "@/lib/lang";
 
 /**
- * The four EduCore screens of Day 3, drawn in plain greys so the site's own blue, teal and rust never colour the evidence (CLAUDE.md #49).
- * Dark numbered markers point at the places the eight facts of Block 1.1 describe; they carry no label that says whether something is a
- * problem. A marker is an annotation on the picture, not part of the mock platform.
+ * The four EduCore screens of Day 3 as pictures (DL-STANDARD section 5, v1.6): real screens of the platform, drawn by the same components as the simulation, scaled to fit,
+ * not clickable. Dark numbered markers point at the places the eight facts of Block 1.1 describe; they carry no label that says whether something is a problem. A marker is an
+ * annotation on the picture, not part of the platform. The long pages are cut at the fold, as a screenshot is.
  */
-function Marker({ x, y, n }: { x: number; y: number; n: number }) {
+type ScreenKey = "l7" | "ov" | "ex" | "qz";
+
+/** Scales a screen of 560 px to the width it is given, so the picture is the real page at any size. */
+function Fit({ children }: { children: ReactNode }) {
+  const outer = useRef<HTMLDivElement>(null);
+  const inner = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState({ s: 0.6, h: 360 });
+  useEffect(() => {
+    const fit = () => {
+      const w = outer.current?.clientWidth ?? 560;
+      const s = Math.min(1, w / 560);
+      setBox({ s, h: Math.ceil((inner.current?.offsetHeight ?? 0) * s) });
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    if (outer.current) ro.observe(outer.current);
+    return () => ro.disconnect();
+  }, []);
   return (
-    <g aria-hidden>
-      <circle cx={x} cy={y} r="9.5" fill="#17212E" />
-      <text x={x} y={y + 4.5} textAnchor="middle" fontSize="12" fontWeight="700" fill="#FFFFFF">
-        {n}
-      </text>
-    </g>
+    <div ref={outer} className="w-full overflow-hidden rounded-md border border-[#8793A3] bg-white" style={{ height: box.h }}>
+      <div ref={inner} style={{ width: 560, transform: `scale(${box.s})`, transformOrigin: "top left" }}>{children}</div>
+    </div>
   );
 }
-
-type ScreenKey = "l7" | "ov" | "ex" | "qz";
 
 /** `only` shows some of the four screens; `markers={false}` leaves out the numbers (Block 1.1 shows Lesson 7 alone, as the plan describes it). */
 export function EduCoreScreens({ only, markers = true }: { only?: ScreenKey[]; markers?: boolean } = {}) {
   const uid = useId().replace(/:/g, "");
-  const M = (props: { x: number; y: number; n: number }) => (markers ? <Marker {...props} /> : null);
-  const frame = (x: number, label: string) => (
-    <g>
-      <rect x={x} y="8" width="150" height="190" rx="6" fill="#FFFFFF" stroke="#8793A3" strokeWidth="1.5" />
-      <rect x={x} y="8" width="150" height="14" rx="6" fill="#E6ECF4" stroke="#8793A3" strokeWidth="1.5" />
-      <text x={x + 75} y="220" textAnchor="middle" fontSize="12.5" fontWeight="700" fill="#17212E">{label}</text>
-    </g>
-  );
-  /** One screen per picture: four across on a wide page, two by two on a phone, so the numbers and the names stay readable. */
-  const shot = (key: string, vx: number, title: string, desc: string, body: ReactNode) => (
-    <svg key={key} viewBox={`${vx - 6} 0 162 232` } className="h-auto w-full" role="img" aria-labelledby={`${uid}-${key}-t ${uid}-${key}-d`}>
-      <title id={`${uid}-${key}-t`}>{title}</title>
-      <desc id={`${uid}-${key}-d`}>{desc}</desc>
-      {body}
-    </svg>
-  );
-  const lesson = (
-    <>
-      {frame(6, tt("Lesson 7", "Lektion 7"))}
-      {Array.from({ length: 22 }, (_, i) => (
-        <rect key={i} x="14" y={30 + i * 7.3} width={i % 7 === 6 ? 88 : 116} height="3.8" rx="2" fill="#8793A3" />
-      ))}
-      <M x={140} y={40} n={1} />
-      <M x={140} y={88} n={4} />
-      <M x={140} y={130} n={5} />
-      <M x={140} y={170} n={6} />
-    </>
-  );
-  const overview = (
-    <>
-      {frame(166, tt("Module overview", "Modulübersicht"))}
-      {Array.from({ length: 14 }, (_, i) => (
-        <rect key={i} x="174" y={30 + i * 11.8} width="118" height="8" rx="2" fill="#E6ECF4" stroke="#D5DEE9" />
-      ))}
-      <M x={300} y={70} n={7} />
-      <M x={300} y={170} n={8} />
-    </>
-  );
-  const extras = (
-    <>
-      {frame(326, tt("Lesson page with extras", "Lektionsseite mit Extras"))}
-      <rect x="332" y="28" width="38" height="164" rx="3" fill="#F3F6FA" stroke="#8793A3" />
-      {Array.from({ length: 9 }, (_, i) => (
-        <rect key={i} x="336" y={34 + i * 17} width="30" height="6" rx="2" fill="#8793A3" />
-      ))}
-      <rect x="376" y="28" width="94" height="18" rx="3" fill="#E6ECF4" stroke="#8793A3" />
-      {Array.from({ length: 8 }, (_, i) => (
-        <rect key={i} x="376" y={54 + i * 8} width={i === 7 ? 40 : 66} height="3.8" rx="2" fill="#8793A3" />
-      ))}
-      <rect x="446" y="52" width="26" height="46" rx="3" fill="#E6ECF4" stroke="#8793A3" />
-      <rect x="376" y="130" width="94" height="26" rx="3" fill="#E6ECF4" stroke="#8793A3" />
-      <M x={460} y={37} n={2} />
-    </>
-  );
-  const quiz = (
-    <>
-      {frame(486, tt("Quiz", "Quiz"))}
-      {Array.from({ length: 12 }, (_, i) => (
-        <g key={i}>
-          <rect x="494" y={30 + i * 12} width="8" height="8" rx="2" fill="#FFFFFF" stroke="#8793A3" />
-          <rect x="508" y={32 + i * 12} width="96" height="4" rx="2" fill="#D5DEE9" />
-        </g>
-      ))}
-      <rect x="494" y="176" width="52" height="16" rx="4" fill="#E6ECF4" stroke="#8793A3" />
-      <M x={618} y={96} n={3} />
-    </>
-  );
   const want = (k: ScreenKey) => !only || only.includes(k);
   const single = !!only && only.length === 1;
+  const shot = (key: ScreenKey, label: string, title: string, desc: string) => (
+    <figure key={key} className="min-w-0" role="img" aria-labelledby={`${uid}-${key}-t`} aria-describedby={`${uid}-${key}-d`}>
+      <span id={`${uid}-${key}-t`} className="sr-only">{title}</span>
+      <span id={`${uid}-${key}-d`} className="sr-only">{desc}</span>
+      <Fit><EduCoreShot screen={key} marks={markers} /></Fit>
+      <figcaption className="mt-1 text-center text-[12.5px] font-bold text-ink">{label}</figcaption>
+    </figure>
+  );
   return (
-    <Diagram label={single ? tt("A lesson of EduCore, drawn in outline · Case assumption: the details are made up for this exercise", "Eine Lektion von EduCore in Umrissen · Fallannahme: Die Details sind für diese Übung erfunden") : tt("The EduCore screens, drawn in outline · Case assumption: the details are made up for this exercise", "Die EduCore-Bildschirme in Umrissen · Fallannahme: Die Details sind für diese Übung erfunden")}>
-      <div className={single ? "mx-auto grid max-w-[260px] grid-cols-1" : "mx-auto grid max-w-[700px] grid-cols-2 gap-x-2 gap-y-3 sm:grid-cols-4"}>
-        {want("l7") && shot("l7", 6, tt("EduCore lesson 7: a dense block of text lines", "EduCore Lektion 7: ein dichter Block aus Textzeilen"), tt("A dense block of text lines. Numbers 1, 4, 5 and 6 mark places that facts describe.", "Ein dichter Block aus Textzeilen. Die Nummern 1, 4, 5 und 6 markieren Stellen, die Fakten beschreiben."), lesson)}
-        {want("ov") && shot("ov", 166, tt("EduCore module overview: a long flat list of rows", "EduCore Modulübersicht: eine lange flache Liste von Zeilen"), tt("A long flat list of rows. Numbers 7 and 8 mark places that facts describe.", "Eine lange flache Liste von Zeilen. Die Nummern 7 und 8 markieren Stellen, die Fakten beschreiben."), overview)}
-        {want("ex") && shot("ex", 326, tt("EduCore lesson page with extras: a menu, a banner, text and two boxes", "EduCore Lektionsseite mit Extras: ein Menü, ein Banner, Text und zwei Kästen"), tt("A menu on the left, a banner on top, text, and two boxes on the right. Number 2 marks the place a fact describes.", "Links ein Menü, oben ein Banner, Text und rechts zwei Kästen. Die Nummer 2 markiert die Stelle, die ein Fakt beschreibt."), extras)}
-        {want("qz") && shot("qz", 486, tt("EduCore quiz: twelve checkbox rows and a submit button", "EduCore Quiz: zwölf Zeilen mit Kontrollkästchen und ein Absenden-Button"), tt("Twelve checkbox rows and a submit button. Number 3 marks the place a fact describes.", "Zwölf Zeilen mit Kontrollkästchen und ein Absenden-Button. Die Nummer 3 markiert die Stelle, die ein Fakt beschreibt."), quiz)}
+    <Diagram label={single ? tt("A lesson of EduCore, as the platform shows it · Case assumption: the details are made up for this exercise", "Eine Lektion von EduCore, so wie die Plattform sie zeigt · Fallannahme: Die Details sind für diese Übung erfunden") : tt("The EduCore screens, as the platform shows them · Case assumption: the details are made up for this exercise", "Die EduCore-Bildschirme, so wie die Plattform sie zeigt · Fallannahme: Die Details sind für diese Übung erfunden")}>
+      <div className={single ? "mx-auto grid max-w-[420px] grid-cols-1" : "mx-auto grid max-w-[760px] grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2"}>
+        {want("l7") && shot("l7", tt("Lesson 7", "Lektion 7"), tt("EduCore lesson 7: a dense block of text", "EduCore Lektion 7: ein dichter Textblock"), tt("A dense block of text. Numbers 1, 4, 5 and 6 mark places that facts describe.", "Ein dichter Textblock. Die Nummern 1, 4, 5 und 6 markieren Stellen, die Fakten beschreiben."))}
+        {want("ov") && shot("ov", tt("Module overview", "Modulübersicht"), tt("EduCore module overview: a long flat list of lessons", "EduCore Modulübersicht: eine lange flache Liste von Lektionen"), tt("A long flat list of lessons. Numbers 7 and 8 mark places that facts describe.", "Eine lange flache Liste von Lektionen. Die Nummern 7 und 8 markieren Stellen, die Fakten beschreiben."))}
+        {want("ex") && shot("ex", tt("Lesson page with extras", "Lektionsseite mit Extras"), tt("EduCore lesson page with extras: a menu, a banner, text and two boxes", "EduCore Lektionsseite mit Extras: ein Menü, ein Banner, Text und zwei Kästen"), tt("A menu on the left, a banner on top, text, and two boxes on the right. Number 2 marks the place a fact describes.", "Links ein Menü, oben ein Banner, Text und rechts zwei Kästen. Die Nummer 2 markiert die Stelle, die ein Fakt beschreibt."))}
+        {want("qz") && shot("qz", tt("Quiz", "Quiz"), tt("EduCore quiz: twelve questions on one page and a submit button", "EduCore Quiz: zwölf Fragen auf einer Seite und ein Absenden-Button"), tt("Twelve questions on one page and a submit button. Number 3 marks the place a fact describes.", "Zwölf Fragen auf einer Seite und ein Absenden-Button. Die Nummer 3 markiert die Stelle, die ein Fakt beschreibt."))}
       </div>
     </Diagram>
   );
