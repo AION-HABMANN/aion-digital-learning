@@ -4,12 +4,12 @@ import { useState } from "react";
 import clsx from "clsx";
 import { OptionGrid } from "@/components/day1/diagrams";
 import type { GridRow } from "@/components/day1/diagrams";
-import { CostBands, DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
+import { DecisionFrameFig, MatrixFig } from "@/components/materi/figures";
 import { LevelsPicture, LoadPages, MemoryPicture, ThreeIdeas, TwoLensesPicture } from "@/components/day3/mocks";
 import type { MatrixPoint } from "@/components/materi/figures";
 import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
-import { euro, tt } from "@/lib/lang";
+import { tt } from "@/lib/lang";
 
 /**
  * Day 3 · the teaching diagrams. Static ones (the memory flow, the levels of learning, the chain of effectiveness, the decision frame) need no story; the
@@ -140,19 +140,19 @@ export function Chunking() {
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
   const rows: GridRow[] = [
-    { id: "y1", name: tt("Shorten the content a lot", "Den Inhalt stark kürzen"), sub: euro(6000), cells: {
+    { id: "y1", name: tt("Shorten the content a lot", "Den Inhalt stark kürzen"), cells: {
       impact: { level: 1, reason: tt("Beginners need the content; cutting it removes what they came for.", "Einsteiger brauchen den Inhalt; ihn zu kürzen entfernt, wofür sie gekommen sind.") },
-      effort: { level: 1, note: euro(6000), reason: tt("€6,000 is under €8,000, so the rule gives Low.", "6.000 € liegen unter 8.000 €, die Regel ergibt also Niedrig.") },
+      effort: { level: 1, reason: tt("A few days of editing: Low.", "Ein paar Tage Redaktionsarbeit: Niedrig.") },
       risk: { level: 3, reason: tt("Too much is lost, and it cannot easily be put back.", "Zu viel geht verloren, und es lässt sich nicht leicht zurückholen.") },
     } },
-    { id: "y2", name: tt("Add diagrams and graphics", "Diagramme und Grafiken hinzufügen"), sub: euro(16000), cells: {
+    { id: "y2", name: tt("Add diagrams and graphics", "Diagramme und Grafiken hinzufügen"), cells: {
       impact: { level: 2, reason: tt("A diagram helps where a structure or flow is described, not everywhere.", "Ein Diagramm hilft dort, wo eine Struktur oder ein Ablauf beschrieben wird, nicht überall.") },
-      effort: { level: 3, note: euro(16000), reason: tt("€16,000 is above €15,000, so the rule gives High.", "16.000 € liegen über 15.000 €, die Regel ergibt also Hoch.") },
+      effort: { level: 3, reason: tt("Every diagram is designed and checked, and it takes most of the four weeks: High.", "Jedes Diagramm wird gestaltet und geprüft, und es braucht den Großteil der vier Wochen: Hoch.") },
       risk: { level: 2, reason: tt("It uses the whole four weeks, and weak diagrams add clutter.", "Es braucht alle vier Wochen, und schwache Diagramme erhöhen die Unübersichtlichkeit.") },
     } },
-    { id: "y3", name: tt("Split into small modules", "In kleine Module aufteilen"), sub: euro(12000), cells: {
+    { id: "y3", name: tt("Split into small modules", "In kleine Module aufteilen"), cells: {
       impact: { level: 3, reason: tt("The learner has less to hold at once, and the content is kept.", "Die Lernende hat weniger auf einmal im Kopf, und der Inhalt bleibt erhalten.") },
-      effort: { level: 2, note: euro(12000), reason: tt("€12,000 lies between €8,000 and €15,000: Mid.", "12.000 € liegen zwischen 8.000 € und 15.000 €: Mittel.") },
+      effort: { level: 2, reason: tt("The text is cut into units and titled, nothing new is drawn: Mid.", "Der Text wird in Einheiten geteilt und betitelt, nichts Neues wird gezeichnet: Mittel.") },
       risk: { level: 1, reason: tt("Same content in small units, and the split can be adjusted.", "Derselbe Inhalt in kleinen Einheiten, und die Aufteilung lässt sich anpassen.") },
     } },
   ];
@@ -164,26 +164,12 @@ export function WeighExample() {
   return (
     <Diagram label={tt("A worked example: LearnLoop weighs three load-reducing measures · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Maßnahmen zur Lastsenkung ab · Explorativ")}>
       <div className="space-y-3">
-        <ThePoint>{tt("Rate each measure on how much it helps learning, what it costs and what could go wrong. Cheap and direct usually beats big and slow when time is short, but a measure that only makes the screen lighter does not help learning.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dem Lernen hilft, was sie kostet und was schiefgehen kann. Günstig und direkt schlägt bei knapper Zeit meist groß und langsam, aber eine Maßnahme, die den Bildschirm nur leichter macht, hilft dem Lernen nicht.")}</ThePoint>
+        <ThePoint>{tt("Rate each measure on how much it helps learning, how much effort it takes and what could go wrong. Quick and direct usually beats big and slow when time is short, but a measure that only makes the screen lighter does not help learning.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dem Lernen hilft, wie viel Aufwand sie macht und was schiefgehen kann. Schnell und direkt schlägt bei knapper Zeit meist groß und langsam, aber eine Maßnahme, die den Bildschirm nur leichter macht, hilft dem Lernen nicht.")}</ThePoint>
         <ThreeIdeas />
-        <CostBands
-          title={tt("LearnLoop, three measures: cost against the effort rule and the €30,000 budget", "LearnLoop, drei Maßnahmen: Kosten gegen die Aufwandsregel und das Budget von 30.000 €")}
-          bars={[
-            { name: tt("A · Shorten a lot", "A · Stark kürzen"), cost: 6000 },
-            { name: tt("B · Add diagrams", "B · Diagramme"), cost: 16000 },
-            { name: tt("C · Small modules", "C · Kleine Module"), cost: 12000 },
-          ]}
-          budget={30000}
-          bands={[
-            { to: 8000, label: tt("Low", "Niedrig") },
-            { to: 15000, label: tt("Mid", "Mittel") },
-            { to: null, label: tt("High", "Hoch") },
-          ]}
-        />
-        <OptionGrid label={tt("LearnLoop · budget €30,000, four weeks", "LearnLoop · Budget 30.000 €, vier Wochen")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · four weeks", "LearnLoop · vier Wochen")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
         <p className="rounded-md border border-line bg-canvas px-3 py-2 text-caption text-ink">
           <span className="smallcaps mr-1.5">{tt("Still unknown", "Noch unbekannt")}</span>
-          <Gloss>{tt("Whether learners are overloaded by the amount of content or by its wording. LearnLoop would ask six beginners to explain the key point of one lesson before it commits the whole budget.", "Ob Lernende durch die Menge des Inhalts oder durch seine Formulierung überlastet sind. LearnLoop würde sechs Einsteiger bitten, den Kerngedanken einer Lektion zu erklären, bevor es das ganze Budget bindet.")}</Gloss>
+          <Gloss>{tt("Whether learners are overloaded by the amount of content or by its wording. LearnLoop would ask six beginners to explain the key point of one lesson before it commits all four weeks.", "Ob Lernende durch die Menge des Inhalts oder durch seine Formulierung überlastet sind. LearnLoop würde sechs Einsteiger bitten, den Kerngedanken einer Lektion zu erklären, bevor es die ganzen vier Wochen bindet.")}</Gloss>
         </p>
       </div>
     </Diagram>

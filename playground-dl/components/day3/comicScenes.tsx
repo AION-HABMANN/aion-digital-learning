@@ -364,7 +364,7 @@ export const ART_D3: Record<string, ReactNode> = {
   "a5-2": (
     <Stage label={tt("Idea 1: shorten the content a lot", "Idee 1: den Inhalt stark kürzen")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>1 · SHORTEN A LOT · 6,000</Txt>
+        <Txt x={40} y={12} size={4.4}>1 · SHORTEN A LOT</Txt>
         <Chip x={40} y={18} w={30} h={4} c="#D9534F" />
         <Chip x={40} y={24} w={8} h={4} c="#D4D8E0" />
         {rate([["IMPACT", 1, "LOW"], ["EFFORT", 1, "LOW"], ["RISK", 3, "HIGH"]], 40, 38)}
@@ -376,7 +376,7 @@ export const ART_D3: Record<string, ReactNode> = {
   "a5-3": (
     <Stage label={tt("Idea 2: add diagrams and graphics", "Idee 2: Diagramme und Grafiken hinzufügen")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>2 · DIAGRAMS · 16,000</Txt>
+        <Txt x={40} y={12} size={4.4}>2 · DIAGRAMS</Txt>
         <Chip x={40} y={18} w={14} h={10} c="#B5D4F4" />
         <Bits x={58} y={20} rows={["#####", "#...#", "#.#.#", "#...#", "#####"]} map={{ "#": "#3D7BD9" }} />
         {rate([["IMPACT", 2, "MID"], ["EFFORT", 3, "HIGH"], ["RISK", 2, "MID"]], 40, 38)}
@@ -388,7 +388,7 @@ export const ART_D3: Record<string, ReactNode> = {
   "a5-4": (
     <Stage label={tt("Idea 3: split the content into small modules", "Idee 3: den Inhalt in kleine Module teilen")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>3 · MODULES · 12,000</Txt>
+        <Txt x={40} y={12} size={4.4}>3 · MODULES</Txt>
         {[0, 1, 2].map((i) => (
           <Chip key={i} x={50 + i * 11} y={18} w={9} h={9} c="#9CC3EE" />
         ))}

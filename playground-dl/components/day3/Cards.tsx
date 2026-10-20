@@ -166,10 +166,10 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate each measure on how much it helps learning, what it costs and what could go wrong. Cheap and direct usually beats big and slow when time is short.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dem Lernen hilft, was sie kostet und was schiefgehen kann. Günstig und direkt schlägt bei knapper Zeit meist groß und langsam.")}
+      scan={tt("Rate each measure on how much it helps learning, how much effort it takes and what could go wrong. Quick and direct usually beats big and slow when time is short.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dem Lernen hilft, wie viel Aufwand sie macht und was schiefgehen kann. Schnell und direkt schlägt bei knapper Zeit meist groß und langsam.")}
       sources={["gibbons2018", "sweller1998"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €8,000 is Low; €8,000 to €15,000 is Mid; above €15,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 8.000 € ist Niedrig; 8.000 € bis 15.000 € ist Mittel; über 15.000 € ist Hoch."),
+        tt("Rate effort by how much of the time and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Zeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, Niedrig, Mittel oder Hoch ist also Ihr Urteil, mit Begründung."),
         tt("Rate learning impact by the load it removes from what the learner actually does (reading, finding, holding), and whether it keeps the content the learner needs.", "Bewerten Sie die Lernwirkung danach, welche Belastung sie von dem nimmt, was die Lernende tatsächlich tut (lesen, finden, halten), und ob sie den Inhalt behält, den die Lernende braucht."),
         tt("Rate risk by what could be lost or go wrong: removing needed content is a high risk; a change that can be undone is a low risk.", "Bewerten Sie das Risiko danach, was verloren gehen oder schiefgehen kann: Nötigen Inhalt zu entfernen ist ein hohes Risiko; eine Änderung, die sich zurücknehmen lässt, ein niedriges."),
         tt("A measure that makes the screen lighter but not the learning better (a decoration, a new look) has a low learning impact.", "Eine Maßnahme, die den Bildschirm leichter macht, aber das Lernen nicht besser (eine Dekoration, ein neues Aussehen), hat eine geringe Lernwirkung."),
@@ -180,12 +180,12 @@ export function CardA5() {
       <WeighExample />
       <Bul
         items={[
-          tt("Effort is the one rating a rule decides, from the printed cost. Learning impact and risk are your judgement; give a reason for each.", "Der Aufwand ist die eine Bewertung, die eine Regel aus den gedruckten Kosten entscheidet. Lernwirkung und Risiko sind Ihr Urteil; begründen Sie beides."),
+          tt("All three ratings are your judgement; give a reason for each. Teams often use Low, Mid or High; plain sentences are just as good.", "Alle drei Bewertungen sind Ihr Urteil; begründen Sie jede. Teams nutzen oft Niedrig, Mittel oder Hoch; ganze Sätze sind genauso gut."),
           tt("A prioritisation matrix plots options on two criteria, for example value to the user against effort (Gibbons 2018). Here you rate three and show them side by side.", "Eine Priorisierungsmatrix ordnet Optionen nach zwei Kriterien, zum Beispiel Nutzerwert gegen Aufwand (Gibbons 2018). Hier bewerten Sie drei und zeigen sie nebeneinander."),
         ]}
       />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. EduCore's numbers are in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Die Zahlen von EduCore stehen in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop and its reasons are made up for this example. EduCore's facts are in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Die Fakten zu EduCore stehen in der Aufgabe.")}</p>
       </Callout>
     </MaterialCard>
   );

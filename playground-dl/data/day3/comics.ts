@@ -248,35 +248,35 @@ export const COMICS_D3 = bi({
     id: "d3-a5",
     pixel: true,
     title: t("Three ideas, three questions", "Drei Ideen, drei Fragen"),
-    teaser: t("LearnLoop has €30,000 and four weeks, and Priya weighs three ideas.", "LearnLoop hat 30.000 € und vier Wochen, und Priya wägt drei Ideen ab."),
+    teaser: t("LearnLoop has four weeks, and Priya weighs three ideas.", "LearnLoop hat vier Wochen, und Priya wägt drei Ideen ab."),
     note: NOTE,
     names: NAMES,
     panels: [
       {
         art: "a5-1",
-        scene: t("A course for beginners on a technical subject is rated “too complicated”. The content has to stay. LearnLoop has four weeks and €30,000, and three ideas on the table.", "Ein Kurs für Einsteiger zu einem technischen Thema wird als „zu kompliziert“ bewertet. Der Inhalt muss bleiben. LearnLoop hat vier Wochen und 30.000 € und drei Ideen auf dem Tisch."),
-        speech: [{ by: "priya", text: t("We rate each idea on learning impact, effort and risk. For effort the rule is: under €8,000 is Low, up to €15,000 is Mid, above that is High.", "Wir bewerten jede Idee nach Lernwirkung, Aufwand und Risiko. Für den Aufwand gilt die Regel: unter 8.000 € ist Niedrig, bis 15.000 € Mittel, darüber Hoch.") }],
+        scene: t("A course for beginners on a technical subject is rated “too complicated”. The content has to stay. LearnLoop has four weeks and three ideas on the table.", "Ein Kurs für Einsteiger zu einem technischen Thema wird als „zu kompliziert“ bewertet. Der Inhalt muss bleiben. LearnLoop hat vier Wochen und drei Ideen auf dem Tisch."),
+        speech: [{ by: "priya", text: t("We rate each idea on learning impact, effort and risk. For effort we ask how much of the four weeks it uses and how many people it needs: Low, Mid or High, with a reason.", "Wir bewerten jede Idee nach Lernwirkung, Aufwand und Risiko. Beim Aufwand fragen wir, wie viel der vier Wochen es braucht und wie viele Personen: Niedrig, Mittel oder Hoch, mit Begründung.") }],
         tag: { tone: "plain", text: t("3 IDEAS · 3 QUESTIONS", "3 IDEEN · 3 FRAGEN") },
         means: t(
-          "Learning impact asks how much it helps learners understand. Effort is money and time, decided here by the rule. Risk asks what could go wrong, for example that too much is removed.",
-          "Lernwirkung fragt, wie sehr es Lernenden beim Verstehen hilft. Aufwand ist Geld und Zeit, hier von der Regel entschieden. Risiko fragt, was schiefgehen kann, zum Beispiel dass zu viel entfernt wird.",
+          "Learning impact asks how much it helps learners understand. Effort is time and people, rated with a reason like the other two. Risk asks what could go wrong, for example that too much is removed.",
+          "Lernwirkung fragt, wie sehr es Lernenden beim Verstehen hilft. Aufwand ist Zeit und Personal, mit einer Begründung bewertet wie die anderen beiden. Risiko fragt, was schiefgehen kann, zum Beispiel dass zu viel entfernt wird.",
         ),
       },
       {
         art: "a5-2",
-        scene: t("Idea 1: shorten the content a lot. It costs €6,000.", "Idee 1: den Inhalt stark kürzen. Sie kostet 6.000 €."),
-        speech: [{ by: "priya", think: true, text: t("€6,000 is under €8,000, so the effort is Low. But the content is needed, so cutting it removes what learners came for.", "6.000 € liegen unter 8.000 €, der Aufwand ist also Niedrig. Aber der Inhalt wird gebraucht, wer ihn kürzt, entfernt, wofür die Lernenden gekommen sind.") }],
+        scene: t("Idea 1: shorten the content a lot.", "Idee 1: den Inhalt stark kürzen."),
+        speech: [{ by: "priya", think: true, text: t("A few days of editing, so the effort is Low. But the content is needed, so cutting it removes what learners came for.", "Ein paar Tage Redaktionsarbeit, der Aufwand ist also Niedrig. Aber der Inhalt wird gebraucht, wer ihn kürzt, entfernt, wofür die Lernenden gekommen sind.") }],
         tag: { tone: "plain", text: t("IMPACT LOW · EFFORT LOW · RISK HIGH", "WIRKUNG NIEDRIG · AUFWAND NIEDRIG · RISIKO HOCH") },
         means: t(
-          "Cheap is not the same as good. What is left may no longer teach the subject, and what is cut cannot easily be put back.",
-          "Günstig ist nicht gleich gut. Was bleibt, lehrt das Thema vielleicht nicht mehr, und was gekürzt wurde, lässt sich nicht leicht zurückholen.",
+          "Quick is not the same as good. What is left may no longer teach the subject, and what is cut cannot easily be put back.",
+          "Schnell ist nicht gleich gut. Was bleibt, lehrt das Thema vielleicht nicht mehr, und was gekürzt wurde, lässt sich nicht leicht zurückholen.",
         ),
         look: t("the three rating rows", "die drei Bewertungszeilen"),
       },
       {
         art: "a5-3",
-        scene: t("Idea 2: add diagrams and graphics. It costs €16,000.", "Idee 2: Diagramme und Grafiken hinzufügen. Sie kostet 16.000 €."),
-        speech: [{ by: "priya", think: true, text: t("€16,000 is above €15,000, so the effort is High. A diagram helps where a flow is described, not everywhere, and it takes all four weeks.", "16.000 € liegen über 15.000 €, der Aufwand ist also Hoch. Ein Diagramm hilft dort, wo ein Ablauf beschrieben wird, nicht überall, und es braucht alle vier Wochen.") }],
+        scene: t("Idea 2: add diagrams and graphics.", "Idee 2: Diagramme und Grafiken hinzufügen."),
+        speech: [{ by: "priya", think: true, text: t("Every diagram has to be designed and checked, so the effort is High. A diagram helps where a flow is described, not everywhere, and it takes all four weeks.", "Jedes Diagramm muss gestaltet und geprüft werden, der Aufwand ist also Hoch. Ein Diagramm hilft dort, wo ein Ablauf beschrieben wird, nicht überall, und es braucht alle vier Wochen.") }],
         tag: { tone: "plain", text: t("IMPACT MID · EFFORT HIGH · RISK MID", "WIRKUNG MITTEL · AUFWAND HOCH · RISIKO MITTEL") },
         means: t(
           "A good diagram helps, so the impact is Mid. Weak diagrams add clutter and the work uses the whole time, so the risk is Mid too.",
@@ -285,8 +285,8 @@ export const COMICS_D3 = bi({
       },
       {
         art: "a5-4",
-        scene: t("Idea 3: split the content into small modules. It costs €12,000.", "Idee 3: den Inhalt in kleine Module aufteilen. Sie kostet 12.000 €."),
-        speech: [{ by: "priya", text: t("€12,000 lies between €8,000 and €15,000, so the effort is Mid. The learner holds less at once and the content stays.", "12.000 € liegen zwischen 8.000 € und 15.000 €, der Aufwand ist also Mittel. Die Lernende hält weniger auf einmal, und der Inhalt bleibt.") }],
+        scene: t("Idea 3: split the content into small modules.", "Idee 3: den Inhalt in kleine Module aufteilen."),
+        speech: [{ by: "priya", text: t("The text is only cut into units and titled, so the effort is Mid. The learner holds less at once and the content stays.", "Der Text wird nur in Einheiten geteilt und betitelt, der Aufwand ist also Mittel. Die Lernende hält weniger auf einmal, und der Inhalt bleibt.") }],
         tag: { tone: "teal", text: t("IMPACT HIGH · EFFORT MID · RISK LOW", "WIRKUNG HOCH · AUFWAND MITTEL · RISIKO NIEDRIG") },
         means: t(
           "Chunking reduces what the learner holds at once without deleting content, so the impact is High. The split can be adjusted, so the risk is Low.",
@@ -296,7 +296,7 @@ export const COMICS_D3 = bi({
       {
         art: "a5-5",
         scene: t("Priya names the winner, and what LearnLoop still does not know.", "Priya nennt die Gewinnerin und was LearnLoop noch nicht weiß."),
-        speech: [{ by: "priya", text: t("The module split has the greatest effect, even though it is not the cheapest. What we still do not know: is it the amount of content, or the wording?", "Die Modulaufteilung hat die größte Wirkung, obwohl sie nicht die günstigste ist. Was wir noch nicht wissen: Liegt es an der Menge des Inhalts oder an der Formulierung?") }],
+        speech: [{ by: "priya", text: t("The module split has the greatest effect, even though it is not the quickest. What we still do not know: is it the amount of content, or the wording?", "Die Modulaufteilung hat die größte Wirkung, obwohl sie nicht die schnellste ist. Was wir noch nicht wissen: Liegt es an der Menge des Inhalts oder an der Formulierung?") }],
         tag: { tone: "ink", text: t("THE RULE", "DIE REGEL") },
         means: t(
           "Weigh each measure on the same three questions, put them in order and say why the first goes first. Say what you do not know. Block 1.2 asks you to do this for the three options of a learning module.",

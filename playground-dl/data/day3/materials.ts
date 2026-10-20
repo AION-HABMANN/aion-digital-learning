@@ -85,16 +85,16 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
   },
   A5: {
     idea: t(
-      "To choose between ways of reducing load, rate each on the same three questions. Learning impact: how much does it help learners understand? Effort: money and time, decided here by a rule: under €8,000 is Low, up to €15,000 is Mid, above that is High. Risk: what could go wrong, for example that too much is removed. Then put the measures in order and say why the first goes first.",
-      "Um zwischen Wegen zur Lastsenkung zu wählen, bewerten Sie jeden mit denselben drei Fragen. Lernwirkung: Wie sehr hilft er Lernenden beim Verstehen? Aufwand: Geld und Zeit, hier von einer Regel entschieden: unter 8.000 € ist Niedrig, bis 15.000 € Mittel, darüber Hoch. Risiko: Was kann schiefgehen, zum Beispiel dass zu viel entfernt wird? Dann bringen Sie die Maßnahmen in eine Reihenfolge und sagen, warum die erste zuerst kommt.",
+      "To choose between ways of reducing load, rate each on the same three questions. Learning impact: how much does it help learners understand? Effort: how much of the time and how many people it needs. The plan gives no price, so you rate it Low, Mid or High and say why. Risk: what could go wrong, for example that too much is removed. Then put the measures in order and say why the first goes first.",
+      "Um zwischen Wegen zur Lastsenkung zu wählen, bewerten Sie jeden mit denselben drei Fragen. Lernwirkung: Wie sehr hilft er Lernenden beim Verstehen? Aufwand: wie viel Zeit und wie viele Personen es braucht. Der Plan nennt keinen Preis, Sie bewerten also Niedrig, Mittel oder Hoch und begründen es. Risiko: Was kann schiefgehen, zum Beispiel dass zu viel entfernt wird? Dann bringen Sie die Maßnahmen in eine Reihenfolge und sagen, warum die erste zuerst kommt.",
     ),
     why: t(
-      "Block 2.2 of the task asks for exactly this under a time limit. The example here uses LearnLoop, so the answer for the task case is not given.",
-      "Block 2.2 der Aufgabe verlangt genau das unter einem Zeitlimit. Das Beispiel hier nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
+      "Block 1.2 of the task asks for exactly this under a time limit. The example here uses LearnLoop, so the answer for the task case is not given.",
+      "Block 1.2 der Aufgabe verlangt genau das unter einem Zeitlimit. Das Beispiel hier nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three ideas: a lesson cut by a third, a block of text replaced by a diagram, and one long lesson split into short modules. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine um ein Drittel gekürzte Lektion, einen Textblock, durch ein Diagramm ersetzt, und eine lange Lektion, in kurze Module geteilt. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three ideas: a lesson cut by a third, a block of text replaced by a diagram, and one long lesson split into short modules. Under the pictures, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine um ein Drittel gekürzte Lektion, einen Textblock, durch ein Diagramm ersetzt, und eine lange Lektion, in kurze Module geteilt. Unter den Bildern gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -131,8 +131,8 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der Plan verlangt, unter Unsicherheit zu entscheiden, zum Beispiel ohne Nutzerdaten. Eine Entscheidung unter Unsicherheit nennt vier Dinge: was Sie entscheiden, was Sie nicht wissen, was Sie zum Rückgängigmachen bringen würde und bis wann, und worauf Sie verzichten. Außerdem legen Sie eine Entscheidungslogik für künftige Inhalte fest: wer entscheidet und welche Belege er braucht.",
     ),
     why: t(
-      "Block 3.2 asks for exactly this, and for a rule that will be used for every new lesson.",
-      "Block 3.2 verlangt genau das, und eine Regel, die für jede neue Lektion gilt.",
+      "Block 3.1 asks for exactly this, and for a rule that will be used for every new lesson.",
+      "Block 3.1 verlangt genau das, und eine Regel, die für jede neue Lektion gilt.",
     ),
     picture: t(
       "The four boxes at the top are the parts of the decision, filled in for LearnLoop. The two boxes below are the rule for future decisions. Read from left to right. Nothing to click.",
