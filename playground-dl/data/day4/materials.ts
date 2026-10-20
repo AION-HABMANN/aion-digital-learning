@@ -85,16 +85,16 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
   },
   A5: {
     idea: t(
-      "To choose between ways of raising engagement, rate each on the same three questions. Motivation impact: how much does it support lasting motivation, meaning goals, activation, feedback and progress? Effort: money and time, decided here by a rule: under €10,000 is Low, up to €20,000 is Mid, above that is High. Risk: how can it backfire, through overjustification, pressure or manipulation?",
-      "Um zwischen Wegen zur Steigerung des Engagements zu wählen, bewerten Sie jeden mit denselben drei Fragen. Motivationswirkung: Wie sehr stützt er dauerhafte Motivation, also Ziele, Aktivierung, Feedback und Fortschritt? Aufwand: Geld und Zeit, hier von einer Regel entschieden: unter 10.000 € ist Niedrig, bis 20.000 € Mittel, darüber Hoch. Risiko: Wie kann es nach hinten losgehen, durch Overjustification, Druck oder Manipulation?",
+      "To choose between ways of raising engagement, rate each on the same three questions. Motivation impact: how much does it support lasting motivation, meaning goals, activation, feedback and progress? Effort: how much of the time and how many people it needs. The plan gives no price, so you rate it Low, Mid or High and say why. Risk: how can it backfire, through overjustification, pressure or manipulation?",
+      "Um zwischen Wegen zur Steigerung des Engagements zu wählen, bewerten Sie jeden mit denselben drei Fragen. Motivationswirkung: Wie sehr stützt er dauerhafte Motivation, also Ziele, Aktivierung, Feedback und Fortschritt? Aufwand: wie viel Zeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, Sie bewerten also Niedrig, Mittel oder Hoch und begründen es. Risiko: Wie kann es nach hinten losgehen, durch Overjustification, Druck oder Manipulation?",
     ),
     why: t(
-      "Block 1.2 and Block 2.2 of the task ask for exactly this. The example uses LearnLoop, so the answer for the task case is not given.",
-      "Block 1.2 und Block 2.2 der Aufgabe verlangen genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
+      "Block 1.2 of the task asks for exactly this. The example uses LearnLoop, so the answer for the task case is not given.",
+      "Block 1.2 der Aufgabe verlangt genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three ideas: a weekly leaderboard, a progress and next-step display, and short practice tasks. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine wöchentliche Rangliste, eine Fortschritts- und Nächster-Schritt-Anzeige und kurze Übungsaufgaben. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three ideas: a weekly leaderboard, a progress and next-step display, and short practice tasks. Under the pictures, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: eine wöchentliche Rangliste, eine Fortschritts- und Nächster-Schritt-Anzeige und kurze Übungsaufgaben. Unter den Bildern gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {

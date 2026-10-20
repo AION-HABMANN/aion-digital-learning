@@ -267,24 +267,24 @@ export const COMICS_D4 = bi({
     id: "d4-a5",
     pixel: true,
     title: t("Three ideas, one lasting effect", "Drei Ideen, eine bleibende Wirkung"),
-    teaser: t("LearnLoop has €40,000 and two months, and learners drop out early.", "LearnLoop hat 40.000 € und zwei Monate, und Lernende brechen früh ab."),
+    teaser: t("LearnLoop has two months, and learners drop out early.", "LearnLoop hat zwei Monate, und Lernende brechen früh ab."),
     note: NOTE,
     names: NAMES,
     panels: [
       {
         art: "a5-1",
-        scene: t("Learners drop out early. LearnLoop has €40,000 and two months, and three ideas on the table.", "Lernende brechen früh ab. LearnLoop hat 40.000 € und zwei Monate und drei Ideen auf dem Tisch."),
-        speech: [{ by: "priya", text: t("We rate each idea on motivation impact, effort and risk. The effort rule: under €10,000 is Low, up to €20,000 is Mid, above that is High.", "Wir bewerten jede Idee nach Motivationswirkung, Aufwand und Risiko. Die Aufwandsregel: unter 10.000 € ist Niedrig, bis 20.000 € Mittel, darüber Hoch.") }],
+        scene: t("Learners drop out early. LearnLoop has two months and three ideas on the table.", "Lernende brechen früh ab. LearnLoop hat zwei Monate und drei Ideen auf dem Tisch."),
+        speech: [{ by: "priya", text: t("We rate each idea on motivation impact, effort and risk. For effort we ask how much of the two months it uses and how many people it needs: Low, Mid or High, with a reason.", "Wir bewerten jede Idee nach Motivationswirkung, Aufwand und Risiko. Beim Aufwand fragen wir, wie viel der zwei Monate es braucht und wie viele Personen: Niedrig, Mittel oder Hoch, mit Begründung.") }],
         tag: { tone: "plain", text: t("3 IDEAS · 3 QUESTIONS", "3 IDEEN · 3 FRAGEN") },
         means: t(
-          "Motivation impact asks how much it supports lasting motivation: goals, activation, feedback, progress. Effort is money and time. Risk asks how it can backfire, through overjustification, pressure or manipulation.",
-          "Motivationswirkung fragt, wie sehr es dauerhafte Motivation stützt: Ziele, Aktivierung, Feedback, Fortschritt. Aufwand ist Geld und Zeit. Risiko fragt, wie es nach hinten losgehen kann, durch Overjustification, Druck oder Manipulation.",
+          "Motivation impact asks how much it supports lasting motivation: goals, activation, feedback, progress. Effort is time and people, rated with a reason like the other two. Risk asks how it can backfire, through overjustification, pressure or manipulation.",
+          "Motivationswirkung fragt, wie sehr es dauerhafte Motivation stützt: Ziele, Aktivierung, Feedback, Fortschritt. Aufwand ist Zeit und Personal, mit Begründung bewertet wie die anderen beiden. Risiko fragt, wie es nach hinten losgehen kann, durch Overjustification, Druck oder Manipulation.",
         ),
       },
       {
         art: "a5-2",
-        scene: t("Idea 1: a weekly leaderboard. It costs €14,000.", "Idee 1: eine wöchentliche Rangliste. Sie kostet 14.000 €."),
-        speech: [{ by: "priya", think: true, text: t("€14,000 is between €10,000 and €20,000: effort Mid. It sounds exciting, but a ranking rewards the already active and can discourage those at the bottom.", "14.000 € liegen zwischen 10.000 € und 20.000 €: Aufwand Mittel. Es klingt spannend, aber eine Rangliste belohnt die ohnehin Aktiven und kann die am Ende entmutigen.") }],
+        scene: t("Idea 1: a weekly leaderboard.", "Idee 1: eine wöchentliche Rangliste."),
+        speech: [{ by: "priya", think: true, text: t("A ranking has to be designed, built and kept fair: effort Mid. It sounds exciting, but a ranking rewards the already active and can discourage those at the bottom.", "Eine Rangliste muss gestaltet, gebaut und fair gehalten werden: Aufwand Mittel. Es klingt spannend, aber eine Rangliste belohnt die ohnehin Aktiven und kann die am Ende entmutigen.") }],
         tag: { tone: "plain", text: t("IMPACT LOW · EFFORT MID · RISK HIGH", "WIRKUNG NIEDRIG · AUFWAND MITTEL · RISIKO HOCH") },
         means: t(
           "For the learners LearnLoop wants to keep, the impact is Low. The risk is High because of pressure and social comparison.",
@@ -293,8 +293,8 @@ export const COMICS_D4 = bi({
       },
       {
         art: "a5-3",
-        scene: t("Idea 2: a progress and next-step display. It costs €8,000.", "Idee 2: eine Fortschritts- und Nächster-Schritt-Anzeige. Sie kostet 8.000 €."),
-        speech: [{ by: "priya", text: t("€8,000 is under €10,000: effort Low. It shows how far the learner has come and what to do next, and it takes nothing away.", "8.000 € liegen unter 10.000 €: Aufwand Niedrig. Sie zeigt, wie weit die Lernende gekommen ist und was als Nächstes zu tun ist, und nimmt nichts weg.") }],
+        scene: t("Idea 2: a progress and next-step display.", "Idee 2: eine Fortschritts- und Nächster-Schritt-Anzeige."),
+        speech: [{ by: "priya", text: t("It reuses what the platform already knows about the learner: effort Low. It shows how far the learner has come and what to do next, and it takes nothing away.", "Sie nutzt, was die Plattform über die Lernende schon weiß: Aufwand Niedrig. Sie zeigt, wie weit die Lernende gekommen ist und was als Nächstes zu tun ist, und nimmt nichts weg.") }],
         tag: { tone: "teal", text: t("IMPACT HIGH · EFFORT LOW · RISK LOW", "WIRKUNG HOCH · AUFWAND NIEDRIG · RISIKO NIEDRIG") },
         means: t(
           "It adds information, so the impact is High and the risk is Low.",
@@ -303,8 +303,8 @@ export const COMICS_D4 = bi({
       },
       {
         art: "a5-4",
-        scene: t("Idea 3: short practice tasks. They cost €26,000 and take seven of the eight weeks.", "Idee 3: kurze Übungsaufgaben. Sie kosten 26.000 € und brauchen sieben der acht Wochen."),
-        speech: [{ by: "priya", think: true, text: t("€26,000 is above €20,000: effort High. They make learners active, but the schedule is tight and weak tasks would feel like homework.", "26.000 € liegen über 20.000 €: Aufwand Hoch. Sie machen Lernende aktiv, aber der Zeitplan ist eng und schwache Aufgaben würden sich wie Hausaufgaben anfühlen.") }],
+        scene: t("Idea 3: short practice tasks. They take most of the two months.", "Idee 3: kurze Übungsaufgaben. Sie brauchen den Großteil der zwei Monate."),
+        speech: [{ by: "priya", think: true, text: t("Every task has to be written and checked: effort High. They make learners active, but the schedule is tight and weak tasks would feel like homework.", "Jede Aufgabe muss geschrieben und geprüft werden: Aufwand Hoch. Sie machen Lernende aktiv, aber der Zeitplan ist eng und schwache Aufgaben würden sich wie Hausaufgaben anfühlen.") }],
         tag: { tone: "plain", text: t("IMPACT HIGH · EFFORT HIGH · RISK MID", "WIRKUNG HOCH · AUFWAND HOCH · RISIKO MITTEL") },
         means: t(
           "Practice makes learners active, so the impact is High and lasting. The tight schedule and the risk of weak tasks make the risk Mid.",

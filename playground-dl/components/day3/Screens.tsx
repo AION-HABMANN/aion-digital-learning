@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import { useId } from "react";
 import { Diagram } from "@/components/materi/kit";
 import { EduCoreShot } from "@/components/day3/sims";
+import { Fit } from "@/components/sim/Fit";
 import { tt } from "@/lib/lang";
 
 /**
@@ -12,29 +12,6 @@ import { tt } from "@/lib/lang";
  * annotation on the picture, not part of the platform. The long pages are cut at the fold, as a screenshot is.
  */
 type ScreenKey = "l7" | "ov" | "ex" | "qz";
-
-/** Scales a screen of 560 px to the width it is given, so the picture is the real page at any size. */
-function Fit({ children }: { children: ReactNode }) {
-  const outer = useRef<HTMLDivElement>(null);
-  const inner = useRef<HTMLDivElement>(null);
-  const [box, setBox] = useState({ s: 0.6, h: 360 });
-  useEffect(() => {
-    const fit = () => {
-      const w = outer.current?.clientWidth ?? 560;
-      const s = Math.min(1, w / 560);
-      setBox({ s, h: Math.ceil((inner.current?.offsetHeight ?? 0) * s) });
-    };
-    fit();
-    const ro = new ResizeObserver(fit);
-    if (outer.current) ro.observe(outer.current);
-    return () => ro.disconnect();
-  }, []);
-  return (
-    <div ref={outer} className="w-full overflow-hidden rounded-md border border-[#8793A3] bg-white" style={{ height: box.h }}>
-      <div ref={inner} style={{ width: 560, transform: `scale(${box.s})`, transformOrigin: "top left" }}>{children}</div>
-    </div>
-  );
-}
 
 /** `only` shows some of the four screens; `markers={false}` leaves out the numbers (Block 1.1 shows Lesson 7 alone, as the plan describes it). */
 export function EduCoreScreens({ only, markers = true }: { only?: ScreenKey[]; markers?: boolean } = {}) {

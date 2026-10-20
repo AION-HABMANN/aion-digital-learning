@@ -406,7 +406,7 @@ export const ART_D4: Record<string, ReactNode> = {
 
   /* ------------------------------------------------------------------ A5 */
   "a5-1": (
-    <Stage label={tt("Learners drop out early: €40,000, two months, three ideas", "Lernende brechen früh ab: 40.000 €, zwei Monate, drei Ideen")}>
+    <Stage label={tt("Learners drop out early: two months, three ideas", "Lernende brechen früh ab: zwei Monate, drei Ideen")}>
       <Board x={38} y={8} w={84} h={42}>
         {[["up", 48, "RANKING"], ["chart", 72, "PROGRESS"], ["pencil", 96, "PRACTICE"]].map(([n, x, l]) => (
           <g key={l as string}>
@@ -414,16 +414,16 @@ export const ART_D4: Record<string, ReactNode> = {
             <Txt x={x as number} y={34} size={3.6} anchor="middle">{l as string}</Txt>
           </g>
         ))}
-        <Txt x={80} y={46} size={4.2} anchor="middle" c="#556274">40,000 · 2 MONTHS</Txt>
+        <Txt x={80} y={46} size={4.2} anchor="middle" c="#556274">2 MONTHS</Txt>
       </Board>
       <Person x={10} y={40} who="priya" face="think" />
       <Person x={130} y={40} who="dana" face="neutral" flip />
     </Stage>
   ),
   "a5-2": (
-    <Stage label={tt("Idea 1: a weekly leaderboard, 14,000", "Idee 1: eine wöchentliche Rangliste, 14.000")}>
+    <Stage label={tt("Idea 1: a weekly leaderboard", "Idee 1: eine wöchentliche Rangliste")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>1 · LEADERBOARD · 14,000</Txt>
+        <Txt x={40} y={12} size={4.4}>1 · LEADERBOARD</Txt>
         <Bits x={44} y={16} rows={["..###..", "..#.#..", "###.###", "#######"]} map={{ "#": "#F2A900" }} />
         {rate([["IMPACT", 1, "LOW"], ["EFFORT", 2, "MID"], ["RISK", 3, "HIGH"]], 40, 38)}
       </Board>
@@ -432,9 +432,9 @@ export const ART_D4: Record<string, ReactNode> = {
     </Stage>
   ),
   "a5-3": (
-    <Stage label={tt("Idea 2: a progress and next-step display, 8,000", "Idee 2: eine Fortschritts- und Nächster-Schritt-Anzeige, 8.000")}>
+    <Stage label={tt("Idea 2: a progress and next-step display", "Idee 2: eine Fortschritts- und Nächster-Schritt-Anzeige")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>2 · PROGRESS · 8,000</Txt>
+        <Txt x={40} y={12} size={4.4}>2 · PROGRESS</Txt>
         <Bar x={44} y={20} w={30} p={0.6} c="#2E9E6B" />
         <Chip x={78} y={17} w={18} h={6} c="#FFE48A" />
         {rate([["IMPACT", 3, "HIGH"], ["EFFORT", 1, "LOW"], ["RISK", 1, "LOW"]], 40, 38)}
@@ -444,9 +444,9 @@ export const ART_D4: Record<string, ReactNode> = {
     </Stage>
   ),
   "a5-4": (
-    <Stage label={tt("Idea 3: short practice tasks, 26,000, seven of the eight weeks", "Idee 3: kurze Übungsaufgaben, 26.000, sieben der acht Wochen")}>
+    <Stage label={tt("Idea 3: short practice tasks", "Idee 3: kurze Übungsaufgaben")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>3 · PRACTICE · 26,000</Txt>
+        <Txt x={40} y={12} size={4.4}>3 · PRACTICE</Txt>
         <Icon x={44} y={15} name="pencil" />
         <Txt x={58} y={22} size={4.2}>7 OF 8 WEEKS</Txt>
         {rate([["IMPACT", 3, "HIGH"], ["EFFORT", 3, "HIGH"], ["RISK", 2, "MID"]], 40, 38)}

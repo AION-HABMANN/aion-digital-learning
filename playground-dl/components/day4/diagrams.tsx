@@ -7,7 +7,6 @@ import type { GridRow } from "@/components/day1/diagrams";
 import { IterateLoop, LessonBuilderMock, LoyaltyCard, MeasureThumb, MetricMini, QuizMock, ResultScreen } from "@/components/day4/mocks";
 import type { PointsPhase, Principles5 } from "@/components/day4/mocks";
 import { Svg, Txt } from "@/components/day/mockKit";
-import { CostBands } from "@/components/materi/figures";
 import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
 import { tt } from "@/lib/lang";
@@ -270,20 +269,20 @@ export function MetricsPicture() {
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
   const rows: GridRow[] = [
-    { id: "w1", name: tt("Weekly leaderboard", "Wöchentliche Rangliste"), sub: tt("€14,000", "14.000 €"), cells: {
+    { id: "w1", name: tt("Weekly leaderboard", "Wöchentliche Rangliste"), cells: {
       impact: { level: 1, reason: tt("It rewards the already active; it does not help the learner who is lost.", "Sie belohnt die schon Aktiven; sie hilft der Lernenden nicht, die verloren ist.") },
-      effort: { level: 2, note: tt("€14,000", "14.000 €"), reason: tt("€14,000 lies between €10,000 and €20,000: Mid.", "14.000 € liegen zwischen 10.000 € und 20.000 €: Mittel.") },
+      effort: { level: 2, reason: tt("A ranking has to be designed, built and kept fair: Mid.", "Eine Rangliste muss gestaltet, gebaut und fair gehalten werden: Mittel.") },
       risk: { level: 3, reason: tt("Pressure and comparison can push the weakest learners out.", "Druck und Vergleich können die schwächsten Lernenden hinausdrängen.") },
     } },
-    { id: "w2", name: tt("Progress and next-step display", "Fortschritts- und Nächster-Schritt-Anzeige"), sub: tt("€8,000", "8.000 €"), cells: {
+    { id: "w2", name: tt("Progress and next-step display", "Fortschritts- und Nächster-Schritt-Anzeige"), cells: {
       impact: { level: 3, reason: tt("It supports competence and clarity for every learner.", "Sie stützt Kompetenz und Klarheit für jede Lernende.") },
-      effort: { level: 1, note: tt("€8,000", "8.000 €"), reason: tt("€8,000 is under €10,000: Low.", "8.000 € liegen unter 10.000 €: Niedrig.") },
+      effort: { level: 1, reason: tt("It reuses what the platform already knows about the learner: Low.", "Sie nutzt, was die Plattform über die Lernende schon weiß: Niedrig.") },
       risk: { level: 1, reason: tt("It adds information and can be adjusted.", "Sie fügt Information hinzu und lässt sich anpassen.") },
     } },
-    { id: "w3", name: tt("Short practice tasks", "Kurze Übungsaufgaben"), sub: tt("€26,000", "26.000 €"), cells: {
+    { id: "w3", name: tt("Short practice tasks", "Kurze Übungsaufgaben"), cells: {
       impact: { level: 3, reason: tt("Activation, feedback and a sense of getting better.", "Aktivierung, Feedback und das Gefühl, besser zu werden.") },
-      effort: { level: 3, note: tt("€26,000", "26.000 €"), reason: tt("€26,000 is above €20,000: High.", "26.000 € liegen über 20.000 €: Hoch.") },
-      risk: { level: 2, reason: tt("Seven of eight weeks; weak tasks feel like homework.", "Sieben von acht Wochen; schwache Aufgaben fühlen sich wie Hausaufgaben an.") },
+      effort: { level: 3, reason: tt("Every task has to be written and checked, and it takes most of the two months: High.", "Jede Aufgabe muss geschrieben und geprüft werden, und es braucht den Großteil der zwei Monate: Hoch.") },
+      risk: { level: 2, reason: tt("Most of the two months; weak tasks feel like homework.", "Der Großteil der zwei Monate; schwache Aufgaben fühlen sich wie Hausaufgaben an.") },
     } },
   ];
   const cols = [
@@ -294,7 +293,7 @@ export function WeighExample() {
   return (
     <Diagram label={tt("A worked example: LearnLoop weighs three engagement measures · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Engagement-Maßnahmen ab · Explorativ")}>
       <div className="space-y-3">
-        <ThePoint>{tt("Rate each measure on how much it supports lasting motivation, what it costs and how it can backfire. Pressure and rewards carry the highest risk, and the measure whose value stays when a reward stops is the one with a lasting effect.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dauerhafte Motivation stützt, was sie kostet und wie sie nach hinten losgehen kann. Druck und Belohnungen tragen das höchste Risiko, und die Maßnahme, deren Wert bleibt, wenn eine Belohnung endet, ist die mit nachhaltiger Wirkung.")}</ThePoint>
+        <ThePoint>{tt("Rate each measure on how much it supports lasting motivation, how much effort it takes and how it can backfire. Pressure and rewards carry the highest risk, and the measure whose value stays when a reward stops is the one with a lasting effect.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dauerhafte Motivation stützt, wie viel Aufwand sie macht und wie sie nach hinten losgehen kann. Druck und Belohnungen tragen das höchste Risiko, und die Maßnahme, deren Wert bleibt, wenn eine Belohnung endet, ist die mit nachhaltiger Wirkung.")}</ThePoint>
         <div className="mx-auto grid max-w-[560px] grid-cols-3 gap-2">
           {([["leaderboard", tt("A · Weekly leaderboard", "A · Wöchentliche Rangliste")], ["progress", tt("B · Progress and next step", "B · Fortschritt und nächster Schritt")], ["tasks", tt("C · Short practice tasks", "C · Kurze Übungsaufgaben")]] as const).map(([k, name]) => (
             <div key={k}>
@@ -303,24 +302,10 @@ export function WeighExample() {
             </div>
           ))}
         </div>
-        <CostBands
-          title={tt("LearnLoop, three measures: cost against the effort rule and the €40,000 budget", "LearnLoop, drei Maßnahmen: Kosten gegen die Aufwandsregel und das Budget von 40.000 €")}
-          bars={[
-            { name: tt("A · Leaderboard", "A · Rangliste"), cost: 14000 },
-            { name: tt("B · Progress display", "B · Fortschrittsanzeige"), cost: 8000 },
-            { name: tt("C · Practice tasks", "C · Übungsaufgaben"), cost: 26000 },
-          ]}
-          budget={40000}
-          bands={[
-            { to: 10000, label: tt("Low", "Niedrig") },
-            { to: 20000, label: tt("Mid", "Mittel") },
-            { to: null, label: tt("High", "Hoch") },
-          ]}
-        />
-        <OptionGrid label={tt("LearnLoop · budget €40,000, two months", "LearnLoop · Budget 40.000 €, zwei Monate")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · two months", "LearnLoop · zwei Monate")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
         <p className="rounded-md border border-line bg-canvas px-3 py-2 text-caption text-ink">
           <span className="smallcaps mr-1.5">{tt("Still unknown", "Noch unbekannt")}</span>
-          <Gloss>{tt("Whether learners leave for lack of progress or for lack of time. LearnLoop would interview six learners who dropped out before it commits the whole budget.", "Ob Lernende wegen fehlenden Fortschritts oder fehlender Zeit gehen. LearnLoop würde sechs Lernende interviewen, die abgebrochen haben, bevor es das ganze Budget bindet.")}</Gloss>
+          <Gloss>{tt("Whether learners leave for lack of progress or for lack of time. LearnLoop would interview six learners who dropped out before it commits the two months.", "Ob Lernende wegen fehlenden Fortschritts oder fehlender Zeit gehen. LearnLoop würde sechs Lernende interviewen, die abgebrochen haben, bevor es die zwei Monate bindet.")}</Gloss>
         </p>
       </div>
     </Diagram>

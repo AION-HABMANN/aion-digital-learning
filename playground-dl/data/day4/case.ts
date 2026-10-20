@@ -6,21 +6,10 @@ import type { Tx } from "@/lib/lang";
  *
  * Facts from the plan (printed as facts): learners start courses but drop out; the content is perceived as "boring"; no visible progress;
  * Platform A has a progress bar, small successes visible and short tasks; Platform B has long content, no feedback and unclear goals; a limited
- * budget; two months. Everything else (the screens, the €40,000, the costs and weeks of the measures) is a Case assumption, labelled so on
+ * budget; two months. The plan prints no price, so the site prints none (DL-STANDARD section 6). Everything else (the screens) is a Case assumption, labelled so on
  * screen. The plan's Musterlösung: main problem lack of perceived progress and activation; measures progress tracking, interactive elements,
  * clear learning objectives and feedback mechanisms; rationale: perceived progress is the strongest motivator.
  */
-
-export const BUDGET = 40000;
-export const WEEKS_LIMIT = 8;
-export const PICK_MEASURES = 4;
-export const PICK_CAUSES = 3;
-
-/** Effort follows the printed cost (a rule taught in Materi A5): under €10,000 Low, €10,000 to €20,000 Mid, above that High. */
-export const EFFORT_LOW_MAX = 9999;
-export const EFFORT_MID_MAX = 20000;
-export const effortBand = (cost: number): 1 | 2 | 3 => (cost <= EFFORT_LOW_MAX ? 1 : cost <= EFFORT_MID_MAX ? 2 : 3);
-export const EFFORT_RULE = () => ({ en: "under €10,000, up to €20,000, above", de: "unter 10.000 €, bis 20.000 €, darüber" });
 
 /* ------------------------------------------------------------------ Block 1.1 · eight facts about two platforms */
 
@@ -99,104 +88,3 @@ export const FACT_AREA: Record<FactId, PrincipleId> = Object.fromEntries(FACTS_D
 export const TRUTH_SORT = FACT_AREA;
 /** The platform the reference answer prefers: A has all four principles on screen, B none. */
 export const MODEL_PLATFORM: PlatformId = "A";
-
-/* ------------------------------------------------------------------ Block 1.2 (Optional) · three engagement options */
-
-export type OptId = "A" | "B" | "C";
-export const OPT_IDS: OptId[] = ["A", "B", "C"];
-type OptDef = { id: OptId; name: Tx; cost: number; weeks: number };
-const OPTS_DEF: OptDef[] = [
-  { id: "A", cost: 18000, weeks: 5, name: t("Gamification: badges and points", "Gamification: Badges und Punkte") },
-  { id: "B", cost: 7000, weeks: 3, name: t("Visualise learning progress", "Lernfortschritt sichtbar machen") },
-  { id: "C", cost: 24000, weeks: 7, name: t("Make content more interactive", "Inhalte interaktiver machen") },
-];
-export const OPTS = bi(OPTS_DEF);
-export const OPT_BY_ID = Object.fromEntries(OPTS.map((o) => [o.id, o])) as Record<OptId, (typeof OPTS)[number]>;
-export const MODEL_OPT_IMPACT: Record<string, 1 | 2 | 3> = { A: 1, B: 3, C: 3 };
-export const MODEL_OPT_RISK: Record<string, 1 | 2 | 3> = { A: 3, B: 1, C: 2 };
-export const MODEL_OPT_ORDER: OptId[] = ["B", "C", "A"];
-
-/* ------------------------------------------------------------------ Block 1.3 (Optional) · coaching reflection */
-
-export type ReflectKey = "a" | "b" | "c";
-export const REFLECT = bi([
-  { k: "a" as ReflectKey, q: t("Which measure really changes behaviour?", "Welche Maßnahme verändert wirklich das Verhalten?") },
-  { k: "b" as ReflectKey, q: t("What is sustainable motivation?", "Was ist nachhaltige Motivation?") },
-  { k: "c" as ReflectKey, q: t("Where is there a risk of manipulation?", "Wo besteht ein Risiko der Manipulation?") },
-]);
-
-/* ------------------------------------------------------------------ Block 2.1 (Optional) · three main causes of the motivation problem */
-
-export type CauseId = "c1" | "c2" | "c3" | "c4" | "c5" | "c6";
-export const CAUSE_IDS: CauseId[] = ["c1", "c2", "c3", "c4", "c5", "c6"];
-type CauseDef = { id: CauseId; text: Tx; expected: boolean; why: Tx };
-const CAUSES_DEF: CauseDef[] = [
-  { id: "c1", expected: true, text: t("Learners cannot see their progress.", "Lernende können ihren Fortschritt nicht sehen."), why: t("The case names it (“no visible progress”), and facts 1 and 8 show the difference between the platforms.", "Der Fall nennt es („kein sichtbarer Fortschritt“), und die Fakten 1 und 8 zeigen den Unterschied zwischen den Plattformen.") },
-  { id: "c2", expected: true, text: t("The content is passive: reading without doing.", "Der Inhalt ist passiv: lesen, ohne etwas zu tun."), why: t("The case says the content is perceived as “boring”, and facts 3 and 5 show that one platform has tasks and the other only reading.", "Der Fall sagt, der Inhalt werde als „langweilig“ empfunden, und die Fakten 3 und 5 zeigen, dass die eine Plattform Aufgaben hat und die andere nur Lesetext.") },
-  { id: "c3", expected: true, text: t("Goals and results are unclear: no stated goal, no feedback.", "Ziele und Ergebnisse sind unklar: kein genanntes Ziel, kein Feedback."), why: t("Platform B has long content, no feedback and unclear goals (the plan), and facts 2, 4, 6 and 7 show it.", "Plattform B hat langen Inhalt, kein Feedback und unklare Ziele (der Plan), und die Fakten 2, 4, 6 und 7 zeigen es.") },
-  { id: "c4", expected: false, text: t("The platform gives too few rewards, such as badges.", "Die Plattform gibt zu wenige Belohnungen, etwa Badges."), why: t("No printed fact says so. Platform A motivates without any reward (Materi A1: motivation is not the same as gamification).", "Kein gedruckter Fakt sagt das. Plattform A motiviert ohne jede Belohnung (Materi A1: Motivation ist nicht dasselbe wie Gamification).") },
-  { id: "c5", expected: false, text: t("The subscription price is too high.", "Der Abo-Preis ist zu hoch."), why: t("Nothing in the case mentions the price.", "Nichts im Fall erwähnt den Preis.") },
-  { id: "c6", expected: false, text: t("The course catalogue is too small.", "Der Kurskatalog ist zu klein."), why: t("Learners start courses; the problem is that they drop out, not that there is too little to start.", "Lernende beginnen Kurse; das Problem ist, dass sie abbrechen, nicht dass es zu wenig zu beginnen gibt.") },
-];
-export const CAUSES = bi(CAUSES_DEF);
-export const CAUSE_MODEL: CauseId[] = ["c1", "c2", "c3"];
-
-/* ------------------------------------------------------------------ Block 2.2 (Core) · nine measures, choose four */
-
-export type MeasureId = "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9";
-export const MEASURE_IDS: MeasureId[] = ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9"];
-export type MeasureArea = PrincipleId | "reward" | "comparison" | "pressure" | "look";
-type MeasureDef = { id: MeasureId; no: string; name: Tx; what: Tx; notice: Tx; cost: number; weeks: number; area: MeasureArea };
-const MEASURES_DEF: MeasureDef[] = [
-  { id: "m1", no: "M1", cost: 8000, weeks: 3, area: "progress", name: t("Progress tracking", "Fortschrittsverfolgung"),
-    what: t("A progress bar and “x of y done” on every course page.", "Ein Fortschrittsbalken und „x von y geschafft“ auf jeder Kursseite."),
-    notice: t("The learner sees how far they have come.", "Die Lernende sieht, wie weit sie gekommen ist.") },
-  { id: "m2", no: "M2", cost: 18000, weeks: 6, area: "activation", name: t("Interactive elements", "Interaktive Elemente"),
-    what: t("Replace long reading with short tasks of about three minutes.", "Langes Lesen durch kurze Aufgaben von etwa drei Minuten ersetzen."),
-    notice: t("The learner does something in every unit.", "Die Lernende tut in jeder Einheit etwas.") },
-  { id: "m3", no: "M3", cost: 6000, weeks: 2, area: "goals", name: t("Clear learning objectives", "Klare Lernziele"),
-    what: t("Start each unit with “After this unit you can…”.", "Jede Einheit mit „Nach dieser Einheit können Sie …“ beginnen."),
-    notice: t("The learner knows what the unit is for.", "Die Lernende weiß, wofür die Einheit da ist.") },
-  { id: "m4", no: "M4", cost: 12000, weeks: 4, area: "feedback", name: t("Feedback after every task", "Feedback nach jeder Aufgabe"),
-    what: t("A result and a next step after each task and quiz.", "Ein Ergebnis und ein nächster Schritt nach jeder Aufgabe und jedem Quiz."),
-    notice: t("The learner knows how they did and what to do next.", "Die Lernende weiß, wie sie es gemacht hat und was als Nächstes zu tun ist.") },
-  { id: "m5", no: "M5", cost: 16000, weeks: 4, area: "reward", name: t("Points and badges", "Punkte und Badges"),
-    what: t("Points and a badge for every lesson opened.", "Punkte und ein Badge für jede geöffnete Lektion."),
-    notice: t("A point total goes up.", "Eine Punktzahl steigt.") },
-  { id: "m6", no: "M6", cost: 14000, weeks: 4, area: "comparison", name: t("A public leaderboard", "Eine öffentliche Rangliste"),
-    what: t("A ranking of learners by points.", "Eine Rangliste der Lernenden nach Punkten."),
-    notice: t("The learner sees where they stand against others.", "Die Lernende sieht, wo sie im Vergleich zu anderen steht.") },
-  { id: "m7", no: "M7", cost: 9000, weeks: 3, area: "pressure", name: t("Streaks with loss messages", "Serien mit Verlustmeldungen"),
-    what: t("A daily streak and messages such as “You will lose your streak”.", "Eine Tagesserie und Meldungen wie „Sie verlieren Ihre Serie“."),
-    notice: t("The learner is warned about breaking the chain.", "Die Lernende wird davor gewarnt, die Kette zu unterbrechen.") },
-  { id: "m8", no: "M8", cost: 22000, weeks: 5, area: "reward", name: t("Discount coupons for finishing", "Rabattgutscheine fürs Abschließen"),
-    what: t("A coupon for another course when a course is finished.", "Ein Gutschein für einen weiteren Kurs, wenn ein Kurs abgeschlossen ist."),
-    notice: t("A discount after completion.", "Ein Rabatt nach dem Abschluss.") },
-  { id: "m9", no: "M9", cost: 15000, weeks: 4, area: "look", name: t("New course images and look", "Neue Kursbilder und neues Aussehen"),
-    what: t("New pictures and colours for the course catalogue.", "Neue Bilder und Farben für den Kurskatalog."),
-    notice: t("The catalogue looks different.", "Der Katalog sieht anders aus.") },
-];
-export const MEASURES = bi(MEASURES_DEF);
-export const MEASURE_BY_ID = Object.fromEntries(MEASURES.map((m) => [m.id, m])) as Record<MeasureId, (typeof MEASURES)[number]>;
-export const MEASURE_AREA = bi({
-  progress: t("Acts on: Progress", "Wirkt auf: Fortschritt"),
-  activation: t("Acts on: Activation", "Wirkt auf: Aktivierung"),
-  goals: t("Acts on: Goals", "Wirkt auf: Ziele"),
-  feedback: t("Acts on: Feedback", "Wirkt auf: Feedback"),
-  reward: t("Adds a reward", "Fügt eine Belohnung hinzu"),
-  comparison: t("Adds comparison", "Fügt Vergleich hinzu"),
-  pressure: t("Adds pressure", "Fügt Druck hinzu"),
-  look: t("The look, not the motivation", "Das Aussehen, nicht die Motivation"),
-});
-
-export const totalCost = (ids: string[]) => ids.reduce((s, id) => s + MEASURE_BY_ID[id as MeasureId].cost, 0);
-export const longestWeeks = (ids: string[]) => ids.reduce((m, id) => Math.max(m, MEASURE_BY_ID[id as MeasureId].weeks), 0);
-
-/**
- * The reference set is the plan's own Musterlösung: progress tracking, interactive elements, clear learning objectives, feedback mechanisms. Together they
- * cost €44,000, which is €4,000 over the €40,000 the case assumes, so the reference reasons say where the money goes and what would be phased. A learner
- * who stays inside the budget with another set exports with a reason too (CLAUDE.md #38).
- */
-export const MODEL_MEASURES: MeasureId[] = ["m1", "m2", "m3", "m4"];
-export const MODEL_IMPACT: Record<string, 1 | 2 | 3> = { m1: 3, m2: 3, m3: 2, m4: 3 };
-export const MODEL_RISK: Record<string, 1 | 2 | 3> = { m1: 1, m2: 2, m3: 1, m4: 1 };

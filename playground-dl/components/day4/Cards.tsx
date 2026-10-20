@@ -169,10 +169,10 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate each measure on how much it supports lasting motivation, what it costs and how it can backfire. Pressure and rewards carry the highest risk.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dauerhafte Motivation stützt, was sie kostet und wie sie nach hinten losgehen kann. Druck und Belohnungen tragen das höchste Risiko.")}
+      scan={tt("Rate each measure on how much it supports lasting motivation, how much effort it takes and how it can backfire. Pressure and rewards carry the highest risk.", "Bewerten Sie jede Maßnahme danach, wie sehr sie dauerhafte Motivation stützt, wie viel Aufwand sie macht und wie sie nach hinten losgehen kann. Druck und Belohnungen tragen das höchste Risiko.")}
       sources={["ryanDeci2000", "deci1999", "gibbons2018"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €10,000 is Low; €10,000 to €20,000 is Mid; above €20,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 10.000 € ist Niedrig; 10.000 € bis 20.000 € ist Mittel; über 20.000 € ist Hoch."),
+        tt("Rate effort by how much of the time and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Zeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, Niedrig, Mittel oder Hoch ist also Ihr Urteil, mit Begründung."),
         tt("Rate motivation impact by the principles it delivers (goal, activation, feedback, progress) for the learners who are leaving, not by how exciting it sounds.", "Bewerten Sie die Motivationswirkung danach, welche Prinzipien sie liefert (Ziel, Aktivierung, Feedback, Fortschritt), für die Lernenden, die gehen, nicht danach, wie aufregend sie klingt."),
         tt("Rate risk by how the measure can backfire: expected rewards that crowd out interest, ranking pressure, loss messages and other manipulation.", "Bewerten Sie das Risiko danach, wie die Maßnahme nach hinten losgehen kann: erwartete Belohnungen, die Interesse verdrängen, Rangdruck, Verlustmeldungen und andere Manipulation."),
         tt("Ask which measure has a lasting effect. A measure that depends on a continuing reward has a weaker lasting effect than one that builds competence.", "Fragen Sie, welche Maßnahme nachhaltig wirkt. Eine Maßnahme, die von einer fortlaufenden Belohnung abhängt, wirkt weniger nachhaltig als eine, die Kompetenz aufbaut."),
@@ -183,12 +183,12 @@ export function CardA5() {
       <WeighExample />
       <Bul
         items={[
-          tt("Effort is the one rating a rule decides, from the printed cost. Motivation impact and risk are your judgement; give a reason for each.", "Der Aufwand ist die eine Bewertung, die eine Regel aus den gedruckten Kosten entscheidet. Motivationswirkung und Risiko sind Ihr Urteil; begründen Sie beides."),
+          tt("All three ratings are your judgement; give a reason for each. Teams often use Low, Mid or High; plain sentences are just as good.", "Alle drei Bewertungen sind Ihr Urteil; begründen Sie jede. Teams nutzen oft Niedrig, Mittel oder Hoch; ganze Sätze sind genauso gut."),
           tt("A prioritisation matrix plots options on two criteria, for example value to the user against effort (Gibbons 2018). Here you rate three and show them side by side.", "Eine Priorisierungsmatrix ordnet Optionen nach zwei Kriterien, zum Beispiel Nutzerwert gegen Aufwand (Gibbons 2018). Hier bewerten Sie drei und zeigen sie nebeneinander."),
         ]}
       />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
       </Callout>
     </MaterialCard>
   );
@@ -204,7 +204,7 @@ export function CardB1() {
         tt("Before adding motivation, check ability and prompt: can the learner find and do the next step in a few minutes, and does something invite them at the right moment?", "Prüfen Sie vor dem Ergänzen von Motivation Können und Impuls: Kann die Lernende den nächsten Schritt in wenigen Minuten finden und tun, und lädt sie im richtigen Moment etwas dazu ein?"),
         tt("Say which of the three conditions each measure of your strategy works on. A strategy that works only on motivation is incomplete.", "Sagen Sie, auf welche der drei Bedingungen jede Maßnahme Ihrer Strategie wirkt. Eine Strategie, die nur auf Motivation wirkt, ist unvollständig."),
         tt("Prefer measures with a lasting effect (goals, competence, clear next steps) over measures that need a continuing reward.", "Bevorzugen Sie Maßnahmen mit nachhaltiger Wirkung (Ziele, Kompetenz, klare nächste Schritte) vor Maßnahmen, die eine fortlaufende Belohnung brauchen."),
-        tt("Link every measure to a business figure: retention (return rate), completion, and what it costs.", "Verknüpfen Sie jede Maßnahme mit einer Geschäftszahl: Retention (Rückkehrrate), Completion und was sie kostet."),
+        tt("Link every measure to a business figure: retention (return rate) and completion.", "Verknüpfen Sie jede Maßnahme mit einer Geschäftszahl: Retention (Rückkehrrate), Completion ."),
       ]}
     >
       <ComicButton comic={COMICS_D4.B1} art={ART_D4} />
