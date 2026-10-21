@@ -1,11 +1,11 @@
 "use client";
 
 import { MateriA, MateriB } from "@/components/day6/Materi";
-import { SideScreen } from "@/components/day6/mocks";
-import { EduPathSim } from "@/components/day6/sims";
+import { EduPathShot, EduPathSim } from "@/components/day6/sims";
 import { Diagram } from "@/components/materi/kit";
 import { ObserveDay6 } from "@/components/day6/observe";
-import { DeskSim } from "@/components/sim/DeskSim";
+import { DeskSim, Sheet } from "@/components/sim/DeskSim";
+import { Fit } from "@/components/sim/Fit";
 import { SimButton } from "@/components/sim/SimFrame";
 import type { FreeKit } from "@/lib/dayFree/spec";
 import { tt } from "@/lib/lang";
@@ -66,8 +66,15 @@ function Situation() {
         <li>{tt("teachers find the platform too complicated", "Lehrende finden die Plattform zu kompliziert")}</li>
         <li>{tt("the organisation complains about low usage", "die Organisation beklagt die geringe Nutzung")}</li>
       </ul>
-      <div className="mx-auto max-w-[320px]">
-        <SideScreen kind="teacher" />
+      <div className="mx-auto grid max-w-[760px] gap-3 sm:grid-cols-2">
+        <figure role="img" aria-label={tt("EduPath as a learner sees it: the course page with its units", "EduPath, wie eine Lernende es sieht: die Kursseite mit ihren Einheiten")}>
+          <Fit><EduPathShot kind="learner" /></Fit>
+          <figcaption className="mt-1 text-center text-[12.5px] font-bold text-ink">{tt("The learner's view", "Die Sicht der Lernenden")}</figcaption>
+        </figure>
+        <figure role="img" aria-label={tt("EduPath as a teacher sees it: the course editor with its tabs", "EduPath, wie eine Lehrende es sieht: der Kurseditor mit seinen Reitern")}>
+          <Fit><EduPathShot kind="teacher" /></Fit>
+          <figcaption className="mt-1 text-center text-[12.5px] font-bold text-ink">{tt("The teacher's view", "Die Sicht der Lehrenden")}</figcaption>
+        </figure>
       </div>
       <SimButton
         label={tt("Open EduPath as a learner and as a teacher", "EduPath als Lernende und als Lehrende öffnen")}
@@ -86,7 +93,7 @@ function Desk() {
   return (
     <SimButton
       label={tt("Open your desk and read what is waiting", "Ihren Schreibtisch öffnen und lesen, was wartet")}
-      sub={tt("The note from management and the voices of the user groups.", "Die Nachricht der Geschäftsführung und die Stimmen der Nutzergruppen.")}
+      sub={tt("The note from management, what each user group says, the product team's ideas and what the platform records.", "Die Nachricht der Geschäftsführung, was jede Nutzergruppe sagt, die Ideen des Produktteams und was die Plattform erfasst.")}
       url="mail.edupath.example/inbox"
       title={tt("Simulation: the Head of UX Strategy's desk", "Simulation: der Schreibtisch der Head of UX Strategy")}
       note={tt("Simulation · Case assumption: the messages are made up from the brief · nothing here is marked right or wrong.", "Simulation · Fallannahme: die Nachrichten sind aus dem Auftrag erfunden · hier wird nichts als richtig oder falsch markiert.")}
@@ -96,8 +103,24 @@ function Desk() {
           mailbox={tt("Inbox · Head of UX Strategy", "Posteingang · Head of UX Strategy")}
           messages={[
             { from: tt("Management", "Geschäftsführung"), subject: tt("A segmentation and journey strategy", "Eine Segmentierungs- und Journey-Strategie"), body: [tt("The platform is growing quickly and our resources are limited. We need a user segmentation and journey strategy, and we expect you to justify your decisions.", "Die Plattform wächst schnell, und unsere Ressourcen sind begrenzt. Wir brauchen eine Nutzersegmentierungs- und Journey-Strategie und erwarten, dass Sie Ihre Entscheidungen begründen.")] },
-            { from: tt("Learners", "Lernende"), subject: tt("What learners say", "Was Lernende sagen"), body: [tt("We have different user groups with conflicting needs. Learners say they have little time and drop out.", "Wir haben verschiedene Nutzergruppen mit widersprüchlichen Bedürfnissen. Lernende sagen, sie hätten wenig Zeit und brechen ab.")] },
+            { from: tt("Learners", "Lernende"), subject: tt("What learners say", "Was Lernende sagen"), body: [tt("We have different user groups with conflicting needs. Learners say they have little time and drop out. The link opens the course as a learner meets it.", "Wir haben verschiedene Nutzergruppen mit widersprüchlichen Bedürfnissen. Lernende sagen, sie hätten wenig Zeit und brechen ab. Der Link öffnet den Kurs, so wie eine Lernende ihm begegnet.")], attachments: [{ name: "edupath.example/course", kind: "link", node: <EduPathSim /> }] },
             { from: tt("Teachers and the organisation", "Lehrende und die Organisation"), subject: tt("What others say", "Was andere sagen"), body: [tt("Teachers say the platform is too complicated. The organisation says usage is low. Nobody can say yet which group matters most.", "Lehrende sagen, die Plattform sei zu kompliziert. Die Organisation sagt, die Nutzung sei gering. Niemand kann bisher sagen, welche Gruppe am wichtigsten ist.")] },
+            { from: tt("A teacher", "Eine Lehrende"), subject: tt("Setting up a course takes too long", "Einen Kurs einzurichten dauert zu lange"), body: [tt("Every time I build a course, I go through tab after tab of settings, and I am never sure I set everything. I would like to just build the course.", "Jedes Mal, wenn ich einen Kurs baue, gehe ich Reiter für Reiter durch die Einstellungen und bin nie sicher, ob ich alles gesetzt habe. Ich würde gern einfach den Kurs bauen.")] },
+            { from: tt("The training manager", "Die Weiterbildungsleiterin"), subject: tt("Seats nobody uses", "Plätze, die niemand nutzt"), body: [tt("We pay for the seats, and I cannot show my management that people use them. I need to be able to say who is learning and who is not.", "Wir zahlen für die Plätze, und ich kann meiner Geschäftsführung nicht zeigen, dass sie genutzt werden. Ich muss sagen können, wer lernt und wer nicht.")] },
+            { from: tt("Analytics", "Analytics"), subject: tt("What we can see", "Was wir sehen können"), body: [tt("We do not know yet which group matters most, because we cannot see who does what. The attached sheet shows what the platform records today.", "Wir wissen noch nicht, welche Gruppe am wichtigsten ist, weil wir nicht sehen können, wer was tut. Die angehängte Tabelle zeigt, was die Plattform heute erfasst.")], attachments: [{ name: "what-edupath-records.xlsx", kind: "sheet", node: (
+              <Sheet
+                title={tt("What the platform records today (Case assumption)", "Was die Plattform heute erfasst (Fallannahme)")}
+                head={[tt("Data", "Daten"), tt("Recorded?", "Erfasst?")]}
+                rows={[
+                  [tt("Accounts by role", "Konten nach Rolle"), tt("yes", "ja")],
+                  [tt("Logins", "Anmeldungen"), tt("yes", "ja")],
+                  [tt("Units opened", "Geöffnete Einheiten"), tt("partly", "teilweise")],
+                  [tt("Where learners stop", "Wo Lernende aufhören"), tt("no", "nein")],
+                  [tt("What each group wants to achieve", "Was jede Gruppe erreichen will"), tt("no", "nein")],
+                  [tt("Which group matters most", "Welche Gruppe am wichtigsten ist"), tt("not recorded", "nicht erfasst")],
+                ]}
+              />
+            ) }] },
           ]}
         />
       )}

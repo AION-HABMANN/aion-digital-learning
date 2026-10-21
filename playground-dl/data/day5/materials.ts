@@ -85,16 +85,16 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
   },
   A5: {
     idea: t(
-      "To choose between measures, rate each on the same three questions. User value: how much does it help learners reach their goal? Effort: money and time, decided here by a rule: under €10,000 is Low, up to €20,000 is Mid, above that is High. Risk: what could go wrong or be lost? Then add one sentence on what the business gets, because management weighs a fourth question: what do we gain?",
-      "Um zwischen Maßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Nutzerwert: Wie sehr hilft sie Lernenden, ihr Ziel zu erreichen? Aufwand: Geld und Zeit, hier von einer Regel entschieden: unter 10.000 € ist Niedrig, bis 20.000 € Mittel, darüber Hoch. Risiko: Was kann schiefgehen oder verloren gehen? Dann ergänzen Sie einen Satz dazu, was das Unternehmen bekommt, denn das Management wägt eine vierte Frage ab: Was gewinnen wir?",
+      "To choose between measures, rate each on the same three questions. User value: how much does it help learners reach their goal? Effort: how much work and how many people it needs; the plan prints no price, so Low, Mid or High is your judgement, with a reason. Risk: what could go wrong or be lost? Then add one sentence on what the business gets, because management weighs a fourth question: what do we gain?",
+      "Um zwischen Maßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Nutzerwert: Wie sehr hilft sie Lernenden, ihr Ziel zu erreichen? Aufwand: wie viel Arbeit und wie viele Personen er braucht; der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund. Risiko: Was kann schiefgehen oder verloren gehen? Dann ergänzen Sie einen Satz dazu, was das Unternehmen bekommt, denn das Management wägt eine vierte Frage ab: Was gewinnen wir?",
     ),
     why: t(
       "Block 1.2 and Block 2.2 of the task ask for this. The example uses LearnLoop, so the answer for the task case is not given.",
       "Block 1.2 und Block 2.2 der Aufgabe verlangen das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three ideas: a chat feature, a menu rebuilt around tasks, and ten new courses. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: ein Chat-Feature, ein um Aufgaben herum neu gebautes Menü und zehn neue Kurse. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three ideas: a chat feature, a menu rebuilt around tasks, and ten new courses. Under the pictures, the table gives the rating of each option; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Ideen: ein Chat-Feature, ein um Aufgaben herum neu gebautes Menü und zehn neue Kurse. Unter den Bildern gibt die Tabelle die Bewertung jeder Option; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {

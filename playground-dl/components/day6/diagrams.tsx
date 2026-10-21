@@ -4,8 +4,9 @@ import { useState } from "react";
 import clsx from "clsx";
 import { OptionGrid } from "@/components/day1/diagrams";
 import type { GridRow } from "@/components/day1/diagrams";
-import { EmotionCurve, MeasureThumb, PersonaCard, SideScreen } from "@/components/day6/mocks";
-import { CostBands } from "@/components/materi/figures";
+import { EmotionCurve, MeasureThumb, PersonaCard } from "@/components/day6/mocks";
+import { EduPathShot } from "@/components/day6/sims";
+import { Fit } from "@/components/sim/Fit";
 import { Diagram, Insight, ThePoint } from "@/components/materi/kit";
 import { Gloss } from "@/lib/glossify";
 import { tt } from "@/lib/lang";
@@ -160,11 +161,11 @@ export function TwoPerspectives() {
     >
       <div className="mx-auto grid max-w-[640px] gap-3 sm:grid-cols-2">
         <div>
-          <SideScreen kind="learner" />
+          <Fit><EduPathShot kind="learner" /></Fit>
           <p className="mt-1 text-caption font-bold text-ink">{tt("The learner's view", "Die Sicht der Lernenden")}</p>
         </div>
         <div>
-          <SideScreen kind="teacher" />
+          <Fit><EduPathShot kind="teacher" /></Fit>
           <p className="mt-1 text-caption font-bold text-ink">{tt("The teacher's view", "Die Sicht der Lehrenden")}</p>
         </div>
       </div>
@@ -197,19 +198,19 @@ export function TwoPerspectives() {
 export function WeighExample() {
   const [sel, setSel] = useState<string | null>(null);
   const rows: GridRow[] = [
-    { id: "w1", name: tt("A resume button on every screen", "Ein Fortsetzen-Button auf jedem Bildschirm"), sub: tt("€5,000", "5.000 €"), cells: {
+    { id: "w1", name: tt("A resume button on every screen", "Ein Fortsetzen-Button auf jedem Bildschirm"), sub: tt("One small change", "Eine kleine Änderung"), cells: {
       impact: { level: 3, reason: tt("It removes Mia's lowest point, and many learners return after a break.", "Er beseitigt Mias tiefsten Punkt, und viele Lernende kehren nach einer Pause zurück.") },
-      effort: { level: 1, note: tt("€5,000", "5.000 €"), reason: tt("€5,000 is under €8,000: Low.", "5.000 € liegen unter 8.000 €: Niedrig.") },
+      effort: { level: 1, reason: tt("One person adds it to every screen: Low.", "Eine Person fügt ihn auf jedem Bildschirm hinzu: Niedrig.") },
       risk: { level: 1, reason: tt("A small addition that can be undone.", "Eine kleine Ergänzung, die sich zurücknehmen lässt.") },
     } },
-    { id: "w2", name: tt("Five-minute learning formats", "Fünf-Minuten-Lernformate"), sub: tt("€18,000", "18.000 €"), cells: {
+    { id: "w2", name: tt("Five-minute learning formats", "Fünf-Minuten-Lernformate"), sub: tt("Content rebuilt", "Inhalte neu gebaut"), cells: {
       impact: { level: 3, reason: tt("It fits the time-poor learner's situation.", "Es passt zur Situation der Lernenden mit wenig Zeit.") },
-      effort: { level: 3, note: tt("€18,000", "18.000 €"), reason: tt("€18,000 is above €15,000: High.", "18.000 € liegen über 15.000 €: Hoch.") },
-      risk: { level: 2, reason: tt("Content must be rebuilt, and it uses nearly half the budget.", "Inhalte müssen neu gebaut werden, und es braucht fast das halbe Budget.") },
+      effort: { level: 3, reason: tt("A team has to rebuild the content: High.", "Ein Team muss die Inhalte neu bauen: Hoch.") },
+      risk: { level: 2, reason: tt("Content must be rebuilt, and that keeps a team busy for a long time.", "Inhalte müssen neu gebaut werden, und das beschäftigt ein Team lange.") },
     } },
-    { id: "w3", name: tt("A new course editor for teachers", "Ein neuer Kurseditor für Lehrende"), sub: tt("€26,000", "26.000 €"), cells: {
+    { id: "w3", name: tt("A new course editor for teachers", "Ein neuer Kurseditor für Lehrende"), sub: tt("A large build", "Ein großer Bau"), cells: {
       impact: { level: 1, reason: tt("Low for Mia, who is a learner; High for teachers, a smaller group.", "Niedrig für Mia, die eine Lernende ist; Hoch für Lehrende, eine kleinere Gruppe.") },
-      effort: { level: 3, note: tt("€26,000", "26.000 €"), reason: tt("€26,000 is above €15,000: High.", "26.000 € liegen über 15.000 €: Hoch.") },
+      effort: { level: 3, reason: tt("A new editor has to be designed, built and tested: High.", "Ein neuer Editor muss gestaltet, gebaut und getestet werden: Hoch.") },
       risk: { level: 2, reason: tt("A large project for a smaller group.", "Ein großes Projekt für eine kleinere Gruppe.") },
     } },
   ];
@@ -221,7 +222,7 @@ export function WeighExample() {
   return (
     <Diagram label={tt("A worked example: LearnLoop weighs three measures along a journey · Exploratory", "Ein durchgerechnetes Beispiel: LearnLoop wägt drei Maßnahmen entlang einer Journey ab · Explorativ")}>
       <div className="space-y-3">
-        <ThePoint>{tt("Rate a measure for a named persona at a named pain point: how much it helps, how many people that persona stands for, what it costs, and what could go wrong. A measure that touches no pain point has a low impact.", "Bewerten Sie eine Maßnahme für eine benannte Persona an einem benannten Pain Point: wie sehr sie hilft, für wie viele Menschen diese Persona steht, was sie kostet und was schiefgehen könnte. Eine Maßnahme, die keinen Pain Point berührt, hat eine geringe Wirkung.")}</ThePoint>
+        <ThePoint>{tt("Rate a measure for a named persona at a named pain point: how much it helps, how many people that persona stands for, how much work it takes, and what could go wrong. A measure that touches no pain point has a low impact.", "Bewerten Sie eine Maßnahme für eine benannte Persona an einem benannten Pain Point: wie sehr sie hilft, für wie viele Menschen diese Persona steht, wie viel Arbeit sie macht und was schiefgehen könnte. Eine Maßnahme, die keinen Pain Point berührt, hat eine geringe Wirkung.")}</ThePoint>
         <div className="mx-auto grid max-w-[560px] grid-cols-3 gap-2">
           {([["resume", tt("A · Resume button", "A · Fortsetzen-Button")], ["formats", tt("B · Five-minute formats", "B · Fünf-Minuten-Formate")], ["editor", tt("C · A new editor", "C · Ein neuer Editor")]] as const).map(([k, name]) => (
             <div key={k}>
@@ -230,21 +231,7 @@ export function WeighExample() {
             </div>
           ))}
         </div>
-        <CostBands
-          title={tt("LearnLoop, three measures: cost against the effort rule and the €40,000 budget", "LearnLoop, drei Maßnahmen: Kosten gegen die Aufwandsregel und das Budget von 40.000 €")}
-          bars={[
-            { name: tt("A · Resume button", "A · Fortsetzen-Button"), cost: 5000 },
-            { name: tt("B · Five-minute formats", "B · Fünf-Minuten-Formate"), cost: 18000 },
-            { name: tt("C · A new editor", "C · Ein neuer Editor"), cost: 26000 },
-          ]}
-          budget={40000}
-          bands={[
-            { to: 8000, label: tt("Low", "Niedrig") },
-            { to: 15000, label: tt("Mid", "Mittel") },
-            { to: null, label: tt("High", "Hoch") },
-          ]}
-        />
-        <OptionGrid label={tt("LearnLoop · budget €40,000, three months", "LearnLoop · Budget 40.000 €, drei Monate")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
+        <OptionGrid label={tt("LearnLoop · three months", "LearnLoop · drei Monate")} caption={tt("Three measures for LearnLoop (Case assumption, example company)", "Drei Maßnahmen für LearnLoop (Fallannahme, Beispielunternehmen)")} rows={rows} cols={cols} selected={sel} onSelect={(k) => { setSel(k); }} />
       </div>
     </Diagram>
   );

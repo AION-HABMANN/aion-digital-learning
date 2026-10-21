@@ -417,7 +417,7 @@ export const ART_D5: Record<string, ReactNode> = {
 
   /* ------------------------------------------------------------------ A5 */
   "a5-1": (
-    <Stage label={tt("Learners find their course with difficulty: €50,000 and three ideas", "Lernende finden ihren Kurs nur mit Mühe: 50.000 € und drei Ideen")}>
+    <Stage label={tt("Learners find their course with difficulty: three ideas", "Lernende finden ihren Kurs nur mit Mühe: drei Ideen")}>
       <Board x={38} y={8} w={84} h={42}>
         {[["ask", 48, "CHAT"], ["gear", 72, "MENU"], ["book", 96, "COURSES"]].map(([n, x, l]) => (
           <g key={l as string}>
@@ -425,7 +425,7 @@ export const ART_D5: Record<string, ReactNode> = {
             <Txt x={x as number} y={34} size={3.8} anchor="middle">{l as string}</Txt>
           </g>
         ))}
-        <Txt x={80} y={46} size={4.2} anchor="middle" c="#556274">BUDGET 50,000</Txt>
+        <Txt x={80} y={46} size={4.2} anchor="middle" c="#556274">3 IDEAS</Txt>
       </Board>
       <Person x={6} y={40} who="priya" face="think" />
       <Person x={132} y={40} who="dana" face="neutral" flip />
@@ -548,7 +548,7 @@ export const ART_D5: Record<string, ReactNode> = {
     </Stage>
   ),
   "b2-2": (
-    <Stage label={tt("Simplifying the menu: learners and business agree, and the cost is small", "Das Menü vereinfachen: Lernende und Unternehmen sind sich einig, und die Kosten sind klein")}>
+    <Stage label={tt("Simplifying the menu: learners and business agree, and the work is small", "Das Menü vereinfachen: Lernende und Unternehmen sind sich einig, und der Aufwand ist klein")}>
       <Goals at="learnbiz" />
       <Person x={4} y={40} who="priya" face="neutral" />
     </Stage>

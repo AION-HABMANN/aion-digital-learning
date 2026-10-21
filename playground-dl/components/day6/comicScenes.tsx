@@ -314,7 +314,7 @@ export const ART_D6: Record<string, ReactNode> = {
 
   /* ------------------------------------------------------------------ A5 */
   "a5-1": (
-    <Stage label={tt("Mia's lowest point is the return after three days: €40,000, three months, three measures", "Mias tiefster Punkt ist die Rückkehr nach drei Tagen: 40.000 €, drei Monate, drei Maßnahmen")}>
+    <Stage label={tt("Mia's lowest point is the return after three days: three months, three measures", "Mias tiefster Punkt ist die Rückkehr nach drei Tagen: drei Monate, drei Maßnahmen")}>
       <Board x={38} y={8} w={84} h={42}>
         {[["play", 48, "RESUME"], ["clock", 72, "5 MIN"], ["pencil", 96, "EDITOR"]].map(([n, x, l]) => (
           <g key={l as string}>
@@ -322,16 +322,16 @@ export const ART_D6: Record<string, ReactNode> = {
             <Txt x={x as number} y={34} size={3.8} anchor="middle">{l as string}</Txt>
           </g>
         ))}
-        <Txt x={80} y={46} size={4.2} anchor="middle" c="#556274">40,000 · 3 MONTHS</Txt>
+        <Txt x={80} y={46} size={4.2} anchor="middle" c="#556274">3 MONTHS</Txt>
       </Board>
       <Person x={6} y={40} who="priya" face="think" />
       <Person x={132} y={40} who="dana" face="neutral" flip />
     </Stage>
   ),
   "a5-2": (
-    <Stage label={tt("Measure 1: a resume button on every screen, 5,000", "Maßnahme 1: ein Fortsetzen-Button auf jedem Bildschirm, 5.000")}>
+    <Stage label={tt("Measure 1: a resume button on every screen", "Maßnahme 1: ein Fortsetzen-Button auf jedem Bildschirm")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>1 · RESUME BUTTON · 5,000</Txt>
+        <Txt x={40} y={12} size={4.4}>1 · RESUME BUTTON</Txt>
         <Chip x={44} y={17} w={26} h={7} c="#FFE48A" />
         {rate([["IMPACT", 3, "HIGH"], ["EFFORT", 1, "LOW"], ["RISK", 1, "LOW"]], 40, 38)}
       </Board>
@@ -340,9 +340,9 @@ export const ART_D6: Record<string, ReactNode> = {
     </Stage>
   ),
   "a5-3": (
-    <Stage label={tt("Measure 2: five-minute learning formats, 18,000", "Maßnahme 2: Fünf-Minuten-Lernformate, 18.000")}>
+    <Stage label={tt("Measure 2: five-minute learning formats", "Maßnahme 2: Fünf-Minuten-Lernformate")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>2 · 5-MINUTE FORMATS · 18,000</Txt>
+        <Txt x={40} y={12} size={4.4}>2 · 5-MINUTE FORMATS</Txt>
         <Icon x={44} y={15} name="clock" />
         <Txt x={58} y={22} size={4.2}>CONTENT REBUILT</Txt>
         {rate([["IMPACT", 3, "HIGH"], ["EFFORT", 3, "HIGH"], ["RISK", 2, "MID"]], 40, 38)}
@@ -352,9 +352,9 @@ export const ART_D6: Record<string, ReactNode> = {
     </Stage>
   ),
   "a5-4": (
-    <Stage label={tt("Measure 3: a new course editor, 26,000: for teachers, not for Mia", "Maßnahme 3: ein neuer Kurseditor, 26.000: für Lehrende, nicht für Mia")}>
+    <Stage label={tt("Measure 3: a new course editor: for teachers, not for Mia", "Maßnahme 3: ein neuer Kurseditor: für Lehrende, nicht für Mia")}>
       <Board x={34} y={4} w={92} h={56}>
-        <Txt x={40} y={12} size={4.4}>3 · COURSE EDITOR · 26,000</Txt>
+        <Txt x={40} y={12} size={4.4}>3 · COURSE EDITOR</Txt>
         <Icon x={44} y={15} name="pencil" />
         <Txt x={58} y={22} size={4.2}>FOR TEACHERS</Txt>
         {rate([["IMPACT", 1, "LOW FOR MIA"], ["EFFORT", 3, "HIGH"], ["RISK", 2, "MID"]], 40, 38)}

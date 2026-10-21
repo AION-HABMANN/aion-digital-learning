@@ -5,7 +5,7 @@ import { MeasureThumb } from "@/components/day5/mocks";
 import { LearnBaseScreens } from "@/components/day5/Screens";
 import { LearnBaseOptionSim, LearnBaseSim } from "@/components/day5/sims";
 import { ObserveDay5 } from "@/components/day5/observe";
-import { DeskSim } from "@/components/sim/DeskSim";
+import { DeskSim, Sheet } from "@/components/sim/DeskSim";
 import { OptionCards } from "@/components/sim/OptionCards";
 import { SimButton } from "@/components/sim/SimFrame";
 import { RevealHint } from "@/components/ui/RevealHint";
@@ -86,7 +86,7 @@ function Desk() {
   return (
     <SimButton
       label={tt("Open your desk and read what is waiting", "Ihren Schreibtisch öffnen und lesen, was wartet")}
-      sub={tt("The note from management and the views of the stakeholders.", "Die Nachricht der Geschäftsführung und die Sichtweisen der Stakeholder.")}
+      sub={tt("The note from management, what product, marketing, sales and the UX team say, and what the platform records.", "Die Nachricht der Geschäftsführung, was Produkt, Marketing, Vertrieb und UX-Team sagen, und was die Plattform erfasst.")}
       url="mail.learnbase.example/inbox"
       title={tt("Simulation: the Chief UX Strategist's desk", "Simulation: der Schreibtisch der Chief UX Strategist")}
       note={tt("Simulation · Case assumption: the messages are made up from the brief · nothing here is marked right or wrong.", "Simulation · Fallannahme: die Nachrichten sind aus dem Auftrag erfunden · hier wird nichts als richtig oder falsch markiert.")}
@@ -96,8 +96,24 @@ function Desk() {
           mailbox={tt("Inbox · Chief UX Strategist", "Posteingang · Chief UX Strategist")}
           messages={[
             { from: tt("Management", "Geschäftsführung"), subject: tt("A user-centred UX strategy", "Eine nutzerzentrierte UX-Strategie"), body: [tt("The platform is growing, but user satisfaction is declining. We need a user-centred UX strategy, and we expect you to take responsibility for the decisions.", "Die Plattform wächst, aber die Nutzerzufriedenheit sinkt. Wir brauchen eine nutzerzentrierte UX-Strategie und erwarten, dass Sie die Verantwortung für die Entscheidungen übernehmen.")] },
-            { from: tt("Product", "Produkt"), subject: tt("Many features, little usage", "Viele Features, wenig Nutzung"), body: [tt("We have many features, but few of them are used.", "Wir haben viele Features, aber nur wenige werden genutzt.")] },
-            { from: tt("Stakeholders", "Stakeholder"), subject: tt("Different goals", "Unterschiedliche Ziele"), body: [tt("Internal stakeholders pursue different goals. Not everyone wants the same thing from the platform, and there is no complete data on what users need.", "Interne Stakeholder verfolgen unterschiedliche Ziele. Nicht alle wollen dasselbe von der Plattform, und es gibt keine vollständigen Daten darüber, was Nutzer brauchen.")] },
+            { from: tt("Product", "Produkt"), subject: tt("Many features, little usage", "Viele Features, wenig Nutzung"), body: [tt("We have many features, but few of them are used. The link opens the platform as a learner meets it today.", "Wir haben viele Features, aber nur wenige werden genutzt. Der Link öffnet die Plattform, so wie eine Lernende sie heute erlebt.")], attachments: [{ name: "learnbase.example/home", kind: "link", node: <LearnBaseSim /> }] },
+            { from: tt("Marketing", "Marketing"), subject: tt("We need to be seen", "Wir müssen sichtbar sein"), body: [tt("Competitors announce new features every few months. I would like the next version to have something we can put in a campaign, a learning feed, a coach, anything people can talk about.", "Wettbewerber kündigen alle paar Monate neue Features an. Ich hätte gern, dass die nächste Version etwas hat, das wir in einer Kampagne zeigen können: einen Lern-Feed, einen Coach, irgendetwas, worüber man spricht.")] },
+            { from: tt("Sales", "Vertrieb"), subject: tt("More courses sell", "Mehr Kurse verkaufen sich"), body: [tt("Customers ask about the size of the catalogue before they ask about anything else. For me the next step is more content: a bigger catalogue is the easiest thing to put in front of a buyer.", "Kunden fragen nach der Größe des Katalogs, bevor sie nach irgendetwas anderem fragen. Für mich ist der nächste Schritt mehr Inhalt: Ein größerer Katalog lässt sich einem Käufer am leichtesten zeigen.")] },
+            { from: tt("UX team", "UX-Team"), subject: tt("What learners tell us", "Was Lernende uns sagen"), body: [tt("In the comments, learners say they cannot find a lesson they had open yesterday, and that they do not know where to start. We have no interviews and no usage study yet, only these comments.", "In den Kommentaren schreiben Lernende, dass sie eine Lektion von gestern nicht wiederfinden und nicht wissen, wo sie anfangen sollen. Wir haben noch keine Interviews und keine Nutzungsstudie, nur diese Kommentare.")] },
+            { from: tt("Stakeholders", "Stakeholder"), subject: tt("Different goals", "Unterschiedliche Ziele"), body: [tt("Internal stakeholders pursue different goals. Not everyone wants the same thing from the platform, and there is no complete data on what users need. The attached sheet shows what the platform records today.", "Interne Stakeholder verfolgen unterschiedliche Ziele. Nicht alle wollen dasselbe von der Plattform, und es gibt keine vollständigen Daten darüber, was Nutzer brauchen. Die angehängte Tabelle zeigt, was die Plattform heute erfasst.")], attachments: [{ name: "what-learnbase-records.xlsx", kind: "sheet", node: (
+              <Sheet
+                title={tt("What the platform records today (Case assumption)", "Was die Plattform heute erfasst (Fallannahme)")}
+                head={[tt("Data", "Daten"), tt("Recorded?", "Erfasst?")]}
+                rows={[
+                  [tt("Logins", "Anmeldungen"), tt("yes", "ja")],
+                  [tt("Course starts", "Kursstarts"), tt("yes", "ja")],
+                  [tt("Which menu entries are opened", "Welche Menüeinträge geöffnet werden"), tt("partly", "teilweise")],
+                  [tt("Where learners stop searching", "Wo Lernende die Suche abbrechen"), tt("no", "nein")],
+                  [tt("What learners want to do", "Was Lernende tun wollen"), tt("no", "nein")],
+                  [tt("User feedback beyond comments", "Nutzerfeedback über Kommentare hinaus"), tt("none collected", "nicht erhoben")],
+                ]}
+              />
+            ) }] },
           ]}
         />
       )}

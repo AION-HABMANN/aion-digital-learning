@@ -157,10 +157,10 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate each measure on user value, effort and risk, and add one sentence on what the business gets. Effort follows a rule from the printed cost; the other two are your judgement.", "Bewerten Sie jede Maßnahme nach Nutzerwert, Aufwand und Risiko und ergänzen Sie einen Satz dazu, was das Unternehmen bekommt. Der Aufwand folgt einer Regel aus den gedruckten Kosten; die anderen beiden sind Ihr Urteil.")}
+      scan={tt("Rate each measure on user value, effort and risk, and add one sentence on what the business gets. All three are your judgement; give a reason for each.", "Bewerten Sie jede Maßnahme nach Nutzerwert, Aufwand und Risiko und ergänzen Sie einen Satz dazu, was das Unternehmen bekommt. Alle drei sind Ihr Urteil; begründen Sie jedes.")}
       sources={["gibbons2018", "norman2013", "kohavi2020"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €10,000 is Low; €10,000 to €20,000 is Mid; above €20,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 10.000 € ist Niedrig; 10.000 € bis 20.000 € ist Mittel; über 20.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate user value by how much the measure helps learners reach their goal, shown by a printed fact, not by how modern it sounds.", "Bewerten Sie den Nutzerwert danach, wie sehr die Maßnahme Lernenden hilft, ihr Ziel zu erreichen, gezeigt durch einen gedruckten Fakt, nicht danach, wie modern sie klingt."),
         tt("Rate risk by what could go wrong or be lost: a change that adds a thing to a crowded screen, or that spends most of the budget on one bet, carries more risk.", "Bewerten Sie das Risiko danach, was schiefgehen oder verloren gehen könnte: Eine Änderung, die einem vollen Bildschirm etwas hinzufügt oder den größten Teil des Budgets auf eine Wette setzt, trägt mehr Risiko."),
         tt("Add one sentence on what the business gets: management weighs a fourth question, what do we gain?", "Ergänzen Sie einen Satz dazu, was das Unternehmen bekommt: Das Management wägt eine vierte Frage ab, was gewinnen wir?"),
@@ -172,12 +172,12 @@ export function CardA5() {
       <WeighExample />
       <Bul
         items={[
-          tt("Effort is the one rating a rule decides, from the printed cost. User value and risk are your judgement; give a reason for each.", "Der Aufwand ist die eine Bewertung, die eine Regel aus den gedruckten Kosten entscheidet. Nutzerwert und Risiko sind Ihr Urteil; begründen Sie beides."),
+          tt("All three ratings are your judgement; give a reason for each. For effort, say how much work and how many people the measure needs.", "Alle drei Bewertungen sind Ihr Urteil; begründen Sie jede. Sagen Sie beim Aufwand, wie viel Arbeit und wie viele Personen die Maßnahme braucht."),
           tt("A prioritisation matrix plots options on two criteria, for example value to the user against effort (Gibbons 2018). Here you rate each on three and show them side by side.", "Eine Priorisierungsmatrix ordnet Optionen nach zwei Kriterien, zum Beispiel Nutzerwert gegen Aufwand (Gibbons 2018). Hier bewerten Sie jede nach dreien und zeigen sie nebeneinander."),
         ]}
       />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
       </Callout>
     </MaterialCard>
   );

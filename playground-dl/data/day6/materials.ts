@@ -85,16 +85,16 @@ export const MATERIAL_PLAIN: Record<MaterialId, PlainExplain> = bi({
   },
   A5: {
     idea: t(
-      "To choose between measures, place each on the journey and rate it on three questions. User impact: how much does it help the persona at a pain point, and how many people does that persona stand for? Effort: money and time, decided here by a rule: under €8,000 is Low, up to €15,000 is Mid, above that is High. Risk: what could go wrong or be lost?",
-      "Um zwischen Maßnahmen zu wählen, ordnen Sie jede auf der Journey ein und bewerten sie mit drei Fragen. Nutzerwirkung: Wie sehr hilft sie der Persona an einem Pain Point, und für wie viele Menschen steht diese Persona? Aufwand: Geld und Zeit, hier von einer Regel entschieden: unter 8.000 € ist Niedrig, bis 15.000 € Mittel, darüber Hoch. Risiko: Was kann schiefgehen oder verloren gehen?",
+      "To choose between measures, place each on the journey and rate it on three questions. User impact: how much does it help the persona at a pain point, and how many people does that persona stand for? Effort: how much work and how many people it needs; the plan prints no price, so Low, Mid or High is your judgement, with a reason. Risk: what could go wrong or be lost?",
+      "Um zwischen Maßnahmen zu wählen, ordnen Sie jede auf der Journey ein und bewerten sie mit drei Fragen. Nutzerwirkung: Wie sehr hilft sie der Persona an einem Pain Point, und für wie viele Menschen steht diese Persona? Aufwand: wie viel Arbeit und wie viele Personen er braucht; der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund. Risiko: Was kann schiefgehen oder verloren gehen?",
     ),
     why: t(
       "Block 2.2 of the task asks for exactly this. The example uses LearnLoop, so the answer for the task case is not given.",
       "Block 2.2 der Aufgabe verlangt genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "First, three small pictures show LearnLoop's three measures: a resume button, five-minute learning formats and a new course editor. The bars show the cost of the three measures. The coloured bands behind them are the effort rule, and the dashed line is the budget. Under the bars, the table gives the rating of each measure; select a cell to read the reason. Press “Read the comic” for a short story.",
-      "Zuerst zeigen drei kleine Bilder LearnLoops drei Maßnahmen: einen Fortsetzen-Button, Fünf-Minuten-Lernformate und einen neuen Kurseditor. Die Balken zeigen die Kosten der drei Maßnahmen. Die farbigen Bänder dahinter sind die Aufwandsregel, die gestrichelte Linie ist das Budget. Unter den Balken gibt die Tabelle die Bewertung jeder Maßnahme; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
+      "First, three small pictures show LearnLoop's three measures: a resume button, five-minute learning formats and a new course editor. Under the pictures, the table gives the rating of each measure; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Zuerst zeigen drei kleine Bilder LearnLoops drei Maßnahmen: einen Fortsetzen-Button, Fünf-Minuten-Lernformate und einen neuen Kurseditor. Unter den Bildern gibt die Tabelle die Bewertung jeder Maßnahme; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {

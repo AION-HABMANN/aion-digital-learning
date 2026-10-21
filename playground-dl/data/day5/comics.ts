@@ -256,24 +256,24 @@ export const COMICS_D5 = bi({
     id: "d5-a5",
     pixel: true,
     title: t("Three ideas, three ratings, one sentence for the business", "Drei Ideen, drei Bewertungen, ein Satz fürs Unternehmen"),
-    teaser: t("LearnLoop has €50,000, and learners find their course with difficulty.", "LearnLoop hat 50.000 €, und Lernende finden ihren Kurs nur mit Mühe."),
+    teaser: t("LearnLoop has three ideas, and learners find their course with difficulty.", "LearnLoop hat drei Ideen, und Lernende finden ihren Kurs nur mit Mühe."),
     note: NOTE,
     names: NAMES,
     panels: [
       {
         art: "a5-1",
-        scene: t("Learners find their course with difficulty. LearnLoop has a budget of €50,000 and three ideas on the table.", "Lernende finden ihren Kurs nur mit Mühe. LearnLoop hat ein Budget von 50.000 € und drei Ideen auf dem Tisch."),
-        speech: [{ by: "priya", text: t("We rate each idea on user value, effort and risk. The effort rule: under €10,000 is Low, up to €20,000 is Mid, above that is High.", "Wir bewerten jede Idee nach Nutzerwert, Aufwand und Risiko. Die Aufwandsregel: unter 10.000 € ist Niedrig, bis 20.000 € Mittel, darüber Hoch.") }],
+        scene: t("Learners find their course with difficulty. LearnLoop has three ideas on the table.", "Lernende finden ihren Kurs nur mit Mühe. LearnLoop hat drei Ideen auf dem Tisch."),
+        speech: [{ by: "priya", text: t("We rate each idea on user value, effort and risk. Effort is how much work and how many people an idea needs, and we say why.", "Wir bewerten jede Idee nach Nutzerwert, Aufwand und Risiko. Aufwand ist, wie viel Arbeit und wie viele Personen eine Idee braucht, und wir sagen, warum.") }],
         tag: { tone: "plain", text: t("3 IDEAS · 3 QUESTIONS", "3 IDEEN · 3 FRAGEN") },
         means: t(
-          "User value asks how much it helps learners reach their goal. Effort is money and time, decided here by the rule. Risk asks what could go wrong or be lost.",
-          "Nutzerwert fragt, wie sehr es Lernenden hilft, ihr Ziel zu erreichen. Aufwand ist Geld und Zeit, hier von der Regel entschieden. Risiko fragt, was schiefgehen oder verloren gehen kann.",
+          "User value asks how much it helps learners reach their goal. Effort is how much work and how many people it needs. Risk asks what could go wrong or be lost.",
+          "Nutzerwert fragt, wie sehr es Lernenden hilft, ihr Ziel zu erreichen. Aufwand ist, wie viel Arbeit und wie viele Personen es braucht. Risiko fragt, was schiefgehen oder verloren gehen kann.",
         ),
       },
       {
         art: "a5-2",
-        scene: t("Idea 1: a chat window. It costs €24,000.", "Idee 1: ein Chat-Fenster. Es kostet 24.000 €."),
-        speech: [{ by: "priya", think: true, text: t("€24,000 is above €20,000: effort High. It helps a few learners who are already stuck, but only if they find it on a crowded screen. And someone must answer every day.", "24.000 € liegen über 20.000 €: Aufwand Hoch. Es hilft einigen Lernenden, die schon feststecken, aber nur, wenn sie es auf einem vollen Bildschirm finden. Und jemand muss jeden Tag antworten.") }],
+        scene: t("Idea 1: a chat window. A team builds it and someone answers it every day.", "Idee 1: ein Chat-Fenster. Ein Team baut es, und jemand beantwortet es jeden Tag."),
+        speech: [{ by: "priya", think: true, text: t("Effort High: it needs a team and a daily answerer. It helps a few learners who are already stuck, but only if they find it on a crowded screen. And someone must answer every day.", "Aufwand Hoch: Es braucht ein Team und jemanden, der täglich antwortet. Es hilft einigen Lernenden, die schon feststecken, aber nur, wenn sie es auf einem vollen Bildschirm finden. Und jemand muss jeden Tag antworten.") }],
         tag: { tone: "plain", text: t("VALUE MID · EFFORT HIGH · RISK MID", "WERT MITTEL · AUFWAND HOCH · RISIKO MITTEL") },
         means: t(
           "A chat nobody answers is worse than none, so the risk is Mid.",
@@ -282,22 +282,22 @@ export const COMICS_D5 = bi({
       },
       {
         art: "a5-3",
-        scene: t("Idea 3: ten new courses. They cost €32,000.", "Idee 3: zehn neue Kurse. Sie kosten 32.000 €."),
+        scene: t("Idea 3: ten new courses. A content team has to write and check them.", "Idee 3: zehn neue Kurse. Ein Inhaltsteam muss sie schreiben und prüfen."),
         speech: [{ by: "priya", think: true, text: t("Also effort High. And more to choose from makes finding the right course harder, not easier.", "Ebenfalls Aufwand Hoch. Und mehr Auswahl macht das Finden des richtigen Kurses schwerer, nicht leichter.") }],
         tag: { tone: "plain", text: t("VALUE LOW · EFFORT HIGH · RISK HIGH", "WERT NIEDRIG · AUFWAND HOCH · RISIKO HOCH") },
         means: t(
-          "Most of the budget goes into content before the finding problem is solved, so the risk is High.",
-          "Der größte Teil des Budgets geht in Inhalt, bevor das Problem des Findens gelöst ist, das Risiko ist also Hoch.",
+          "Most of the effort goes into content before the finding problem is solved, so the risk is High.",
+          "Der größte Teil des Aufwands geht in Inhalt, bevor das Problem des Findens gelöst ist, das Risiko ist also Hoch.",
         ),
       },
       {
         art: "a5-4",
-        scene: t("Idea 2: rebuild the menu around the three tasks learners have. It costs €12,000.", "Idee 2: das Menü um die drei Aufgaben der Lernenden herum neu bauen. Es kostet 12.000 €."),
-        speech: [{ by: "priya", text: t("€12,000 lies between €10,000 and €20,000: effort Mid. It answers the very trouble learners have, takes nothing away, and can be adjusted after a test.", "12.000 € liegen zwischen 10.000 € und 20.000 €: Aufwand Mittel. Es beantwortet genau die Schwierigkeit der Lernenden, nimmt nichts weg und lässt sich nach einem Test anpassen.") }],
+        scene: t("Idea 2: rebuild the menu around the three tasks learners have. One small team does it.", "Idee 2: das Menü um die drei Aufgaben der Lernenden herum neu bauen. Ein kleines Team schafft das."),
+        speech: [{ by: "priya", text: t("Effort Mid: one small team and a test. It answers the very trouble learners have, takes nothing away, and can be adjusted after a test.", "Aufwand Mittel: ein kleines Team und ein Test. Es beantwortet genau die Schwierigkeit der Lernenden, nimmt nichts weg und lässt sich nach einem Test anpassen.") }],
         tag: { tone: "teal", text: t("VALUE HIGH · EFFORT MID · RISK LOW", "WERT HOCH · AUFWAND MITTEL · RISIKO NIEDRIG") },
         means: t(
-          "The idea with the highest user value, the lowest risk and an effort the budget allows comes first, even though a chat sounds modern.",
-          "Die Idee mit dem höchsten Nutzerwert, dem niedrigsten Risiko und einem Aufwand, den das Budget erlaubt, kommt zuerst, auch wenn ein Chat modern klingt.",
+          "The idea with the highest user value, the lowest risk and an effort the team can carry comes first, even though a chat sounds modern.",
+          "Die Idee mit dem höchsten Nutzerwert, dem niedrigsten Risiko und einem Aufwand, den das Team tragen kann, kommt zuerst, auch wenn ein Chat modern klingt.",
         ),
       },
       {

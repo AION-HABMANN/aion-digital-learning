@@ -244,14 +244,14 @@ export const COMICS_D6 = bi({
     id: "d6-a5",
     pixel: true,
     title: t("Three measures for one pain point", "Drei Maßnahmen für einen Schmerzpunkt"),
-    teaser: t("LearnLoop has €40,000 and three months.", "LearnLoop hat 40.000 € und drei Monate."),
+    teaser: t("LearnLoop has three months and three measures to weigh.", "LearnLoop hat drei Monate und drei Maßnahmen zum Abwägen."),
     note: NOTE,
     names: NAMES,
     panels: [
       {
         art: "a5-1",
-        scene: t("Mia falls into frustration at one point: when she returns after three days and cannot find where she stopped. LearnLoop has €40,000 and three months, and three measures on the table.", "Mia fällt an einem Punkt in Frustration: wenn sie nach drei Tagen zurückkehrt und nicht findet, wo sie aufgehört hat. LearnLoop hat 40.000 € und drei Monate und drei Maßnahmen auf dem Tisch."),
-        speech: [{ by: "priya", text: t("We rate each on user impact, effort and risk. Effort: under €8,000 is Low, up to €15,000 is Mid, above that is High.", "Wir bewerten jede nach Nutzerwirkung, Aufwand und Risiko. Aufwand: unter 8.000 € ist Niedrig, bis 15.000 € Mittel, darüber Hoch.") }],
+        scene: t("Mia falls into frustration at one point: when she returns after three days and cannot find where she stopped. LearnLoop has three months and three measures on the table.", "Mia fällt an einem Punkt in Frustration: wenn sie nach drei Tagen zurückkehrt und nicht findet, wo sie aufgehört hat. LearnLoop hat drei Monate und drei Maßnahmen auf dem Tisch."),
+        speech: [{ by: "priya", text: t("We rate each on user impact, effort and risk. Effort is how much work and how many people a measure needs, and we say why.", "Wir bewerten jede nach Nutzerwirkung, Aufwand und Risiko. Aufwand ist, wie viel Arbeit und wie viele Personen eine Maßnahme braucht, und wir sagen, warum.") }],
         tag: { tone: "plain", text: t("3 MEASURES · 3 QUESTIONS", "3 MASSNAHMEN · 3 FRAGEN") },
         means: t(
           "User impact asks how much a measure helps the persona at a pain point, and how many people that persona stands for. Risk asks what could go wrong or be lost.",
@@ -260,8 +260,8 @@ export const COMICS_D6 = bi({
       },
       {
         art: "a5-2",
-        scene: t("Measure 1: a resume button on every screen. It costs €5,000.", "Maßnahme 1: ein Fortsetzen-Button auf jedem Bildschirm. Er kostet 5.000 €."),
-        speech: [{ by: "priya", text: t("€5,000 is under €8,000: effort Low. It removes Mia's lowest point, and many learners return after a break. It is a small addition that can be undone.", "5.000 € liegen unter 8.000 €: Aufwand Niedrig. Er beseitigt Mias tiefsten Punkt, und viele Lernende kehren nach einer Pause zurück. Er ist eine kleine Ergänzung, die sich zurücknehmen lässt.") }],
+        scene: t("Measure 1: a resume button on every screen. It is one small change on every screen.", "Maßnahme 1: ein Fortsetzen-Button auf jedem Bildschirm. Er ist eine kleine Änderung auf jedem Bildschirm."),
+        speech: [{ by: "priya", text: t("Effort Low: a small change by one person. It removes Mia's lowest point, and many learners return after a break. It is a small addition that can be undone.", "Aufwand Niedrig: eine kleine Änderung durch eine Person. Er beseitigt Mias tiefsten Punkt, und viele Lernende kehren nach einer Pause zurück. Er ist eine kleine Ergänzung, die sich zurücknehmen lässt.") }],
         tag: { tone: "teal", text: t("IMPACT HIGH · EFFORT LOW · RISK LOW", "WIRKUNG HOCH · AUFWAND NIEDRIG · RISIKO NIEDRIG") },
         means: t(
           "It answers Mia's lowest point exactly.",
@@ -270,8 +270,8 @@ export const COMICS_D6 = bi({
       },
       {
         art: "a5-3",
-        scene: t("Measure 2: five-minute learning formats. They cost €18,000.", "Maßnahme 2: Fünf-Minuten-Lernformate. Sie kosten 18.000 €."),
-        speech: [{ by: "priya", think: true, text: t("€18,000 is above €15,000: effort High. They fit the time-poor learner a lot, but content must be rebuilt and it uses nearly half the budget.", "18.000 € liegen über 15.000 €: Aufwand Hoch. Sie passen sehr gut zu Lernenden mit wenig Zeit, aber Inhalte müssen neu gebaut werden, und es braucht fast das halbe Budget.") }],
+        scene: t("Measure 2: five-minute learning formats. The content has to be rebuilt.", "Maßnahme 2: Fünf-Minuten-Lernformate. Die Inhalte müssen neu gebaut werden."),
+        speech: [{ by: "priya", think: true, text: t("Effort High. They fit the time-poor learner a lot, but content must be rebuilt and that keeps a team busy for a long time.", "Aufwand Hoch. Sie passen sehr gut zu Lernenden mit wenig Zeit, aber Inhalte müssen neu gebaut werden, und das beschäftigt ein Team lange.") }],
         tag: { tone: "plain", text: t("IMPACT HIGH · EFFORT HIGH · RISK MID", "WIRKUNG HOCH · AUFWAND HOCH · RISIKO MITTEL") },
         means: t(
           "A good fit for the persona, with a real cost and some risk.",
@@ -280,7 +280,7 @@ export const COMICS_D6 = bi({
       },
       {
         art: "a5-4",
-        scene: t("Measure 3: a new course editor for teachers. It costs €26,000.", "Maßnahme 3: ein neuer Kurseditor für Lehrende. Er kostet 26.000 €."),
+        scene: t("Measure 3: a new course editor for teachers. It is a large build.", "Maßnahme 3: ein neuer Kurseditor für Lehrende. Er ist ein großer Bau."),
         speech: [{ by: "priya", think: true, text: t("It does nothing for Mia's critical point, so its impact on this persona is Low. For teachers it could be High. That is why you must say whom a measure is for.", "Er tut nichts für Mias kritischen Punkt, seine Wirkung auf diese Persona ist also Niedrig. Für Lehrende könnte sie Hoch sein. Deshalb müssen Sie sagen, für wen eine Maßnahme ist.") }],
         tag: { tone: "plain", text: t("IMPACT LOW FOR MIA · EFFORT HIGH · RISK MID", "WIRKUNG NIEDRIG FÜR MIA · AUFWAND HOCH · RISIKO MITTEL") },
         means: t(

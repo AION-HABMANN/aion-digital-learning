@@ -163,10 +163,10 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how much it helps the persona at their critical point, what it costs and what could go wrong. Effort follows a rule from the printed cost.", "Bewerten Sie eine Maßnahme danach, wie sehr sie der Persona an ihrem kritischen Punkt hilft, was sie kostet und was schiefgehen könnte. Der Aufwand folgt einer Regel aus den gedruckten Kosten.")}
+      scan={tt("Rate a measure by how much it helps the persona at their critical point, how much work it takes and what could go wrong. All three are your judgement.", "Bewerten Sie eine Maßnahme danach, wie sehr sie der Persona an ihrem kritischen Punkt hilft, wie viel Arbeit sie macht und was schiefgehen könnte. Alle drei sind Ihr Urteil.")}
       sources={["gibbons2018", "gibbons2018b"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €8,000 is Low; €8,000 to €15,000 is Mid; above €15,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 8.000 € ist Niedrig; 8.000 € bis 15.000 € ist Mittel; über 15.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate user impact for a named persona at a named pain point. A measure that does not touch any pain point of a persona has a low impact.", "Bewerten Sie die Nutzerwirkung für eine benannte Persona an einem benannten Pain Point. Eine Maßnahme, die keinen Pain Point einer Persona berührt, hat eine geringe Wirkung."),
         tt("Say how many people the persona stands for: a measure for a large segment weighs more than one for a small one, unless the small one is business-critical.", "Sagen Sie, für wie viele Menschen die Persona steht: Eine Maßnahme für ein großes Segment wiegt mehr als eine für ein kleines, es sei denn, das kleine ist geschäftskritisch."),
         tt("Rate risk by what could be lost or wasted, and by whether the measure can be undone.", "Bewerten Sie das Risiko danach, was verloren gehen oder verschwendet werden könnte, und danach, ob sich die Maßnahme zurücknehmen lässt."),
@@ -177,12 +177,12 @@ export function CardA5() {
       <WeighExample />
       <Bul
         items={[
-          tt("Effort is the one rating a rule decides, from the printed cost. User impact and risk are your judgement; give a reason for each.", "Der Aufwand ist die eine Bewertung, die eine Regel aus den gedruckten Kosten entscheidet. Nutzerwirkung und Risiko sind Ihr Urteil; begründen Sie beides."),
+          tt("All three ratings are your judgement; give a reason for each. For effort, say how much work and how many people the measure needs.", "Alle drei Bewertungen sind Ihr Urteil; begründen Sie jede. Sagen Sie beim Aufwand, wie viel Arbeit und wie viele Personen die Maßnahme braucht."),
           tt("A measure can be right for one persona and wrong for another, so say whom it is for.", "Eine Maßnahme kann für eine Persona richtig und für eine andere falsch sein, sagen Sie also, für wen sie ist."),
         ]}
       />
       <Callout label={tt("Case assumption", "Fallannahme")}>
-        <p>{tt("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
+        <p>{tt("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}</p>
       </Callout>
     </MaterialCard>
   );
