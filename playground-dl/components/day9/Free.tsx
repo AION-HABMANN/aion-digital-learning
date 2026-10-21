@@ -2,10 +2,11 @@
 
 import { MateriA, MateriB } from "@/components/day9/Materi";
 import { MeasureThumb } from "@/components/day9/mocks";
-import { OptionSim, NavLearnSim } from "@/components/day9/sims";
+import { OptionSim, NavLearnSim, NavLearnShot } from "@/components/day9/sims";
 import { Diagram } from "@/components/materi/kit";
 import { ObserveDay9 } from "@/components/day9/observe";
-import { DeskSim } from "@/components/sim/DeskSim";
+import { DeskSim, Sheet } from "@/components/sim/DeskSim";
+import { Fit } from "@/components/sim/Fit";
 import { OptionCards } from "@/components/sim/OptionCards";
 import { SimButton } from "@/components/sim/SimFrame";
 import type { FreeKit } from "@/lib/dayFree/spec";
@@ -30,6 +31,14 @@ function Platform() {
           </ul>
         </div>
       </Diagram>
+      <div className="mx-auto grid max-w-[760px] gap-3 sm:grid-cols-2">
+        {([["welcome", tt("The start of the platform", "Der Start der Plattform")], ["library", tt("A page of the menu", "Eine Seite des Menüs")]] as const).map(([k, name]) => (
+          <figure key={k} role="img" aria-label={`NavLearn: ${name}`}>
+            <Fit><NavLearnShot page={k} /></Fit>
+            <figcaption className="mt-1 text-center text-[12.5px] font-bold text-ink">{name}</figcaption>
+          </figure>
+        ))}
+      </div>
       <SimButton
         label={tt("Open NavLearn and try it", "NavLearn öffnen und ausprobieren")}
         sub={tt("Use it as a learner does: look for a course or a lesson.", "Nutzen Sie sie wie eine Lernende: einen Kurs oder eine Lektion suchen.")}
@@ -82,31 +91,35 @@ function Desk() {
   return (
     <SimButton
       label={tt("Open your desk and read what is waiting", "Ihren Schreibtisch öffnen und lesen, was wartet")}
-      sub={tt("The note from management and what the platform records today.", "Die Nachricht der Geschäftsführung und was die Plattform heute erfasst.")}
+      sub={tt("The note from management, what support, a learner, a content author and the product team say, and what the platform records.", "Die Nachricht der Geschäftsführung, was Support, eine Lernende, ein Content-Autor und das Produktteam sagen, und was die Plattform erfasst.")}
       url="mail.navlearn.example/inbox"
       title={tt("Simulation: the Head of UX Architecture's desk", "Simulation: der Schreibtisch des Head of UX Architecture")}
-      note={tt("Simulation · Case assumption: the messages and the table are made up from the brief · nothing here is marked right or wrong.", "Simulation · Fallannahme: die Nachrichten und die Tabelle sind aus dem Auftrag erfunden · hier wird nichts als richtig oder falsch markiert.")}
+      note={tt("Simulation · Case assumption: the messages and the attachments are made up from the brief · nothing here is marked right or wrong.", "Simulation · Fallannahme: die Nachrichten und die Anhänge sind aus dem Auftrag erfunden · hier wird nichts als richtig oder falsch markiert.")}
     >
       {() => (
         <DeskSim
           mailbox={tt("Inbox · Head of UX Architecture", "Posteingang · Head of UX Architecture")}
           messages={[
             { from: tt("Management", "Geschäftsführung"), subject: tt("An architecture for NavLearn", "Eine Architektur für NavLearn"), body: [tt("The platform keeps growing without structure, users lose orientation, and engagement is declining. We need an information architecture and an interaction strategy, and we expect you to take responsibility for how users are guided.", "Die Plattform wächst weiter ohne Struktur, Nutzer verlieren die Orientierung, und das Engagement sinkt. Wir brauchen eine Informationsarchitektur und eine Interaktionsstrategie und erwarten, dass Sie die Verantwortung dafür übernehmen, wie Nutzer geführt werden.")] },
-            { from: tt("Support", "Support"), subject: tt("What reaches us", "Was bei uns ankommt"), body: [tt("Learners write that they cannot find a course or a certificate, and that the lessons feel the same. Many do not say which page they were on.", "Lernende schreiben, dass sie einen Kurs oder ein Zertifikat nicht finden und dass sich die Lektionen gleich anfühlen. Viele sagen nicht, auf welcher Seite sie waren.")] },
-            { from: tt("Analytics", "Analytics"), subject: tt("What we can see", "Was wir sehen können"), body: [tt("We record page views and quiz answers, but not the path a learner takes. The attached table shows what the platform records today.", "Wir erfassen Seitenaufrufe und Quizantworten, aber nicht den Weg, den eine Lernende nimmt. Die angehängte Tabelle zeigt, was die Plattform heute erfasst.")] },
+            { from: tt("Support", "Support"), subject: tt("What reaches us", "Was bei uns ankommt"), body: [tt("Learners write that they cannot find a course or a certificate, and that the lessons feel the same. Many do not say which page they were on. The link opens the platform as a learner meets it today.", "Lernende schreiben, dass sie einen Kurs oder ein Zertifikat nicht finden und dass sich die Lektionen gleich anfühlen. Viele sagen nicht, auf welcher Seite sie waren. Der Link öffnet die Plattform, so wie eine Lernende ihr heute begegnet.")], attachments: [{ name: "navlearn.example/start", kind: "link", node: <NavLearnSim /> }] },
+            { from: tt("A learner", "Eine Lernende"), subject: tt("Where is my certificate?", "Wo ist mein Zertifikat?"), body: [tt("I finished a course and want my certificate. There are sixteen items in the menu and I do not know which one has it.", "Ich habe einen Kurs beendet und möchte mein Zertifikat. Das Menü hat sechzehn Punkte, und ich weiß nicht, in welchem es liegt.")] },
+            { from: tt("A content author", "Ein Content-Autor"), subject: tt("Where does a new course go?", "Wohin kommt ein neuer Kurs?"), body: [tt("When I add a course I put it where there is room. Nobody told me where it belongs.", "Wenn ich einen Kurs hinzufüge, lege ich ihn dorthin, wo Platz ist. Niemand hat mir gesagt, wohin er gehört.")] },
+            { from: tt("Product team", "Produktteam"), subject: tt("Ideas that keep coming up", "Ideen, die immer wieder genannt werden"), body: [tt("Three kinds of ideas came up: more quizzes and things to tap, a clear learning structure, or only a nicer look. We have not looked into any of them.", "Drei Arten von Ideen kamen auf: mehr Quizze und Dinge zum Tippen, eine klare Lernstruktur oder nur ein schöneres Aussehen. Wir haben keine davon geprüft.")] },
+            { from: tt("Analytics", "Analytics"), subject: tt("What we can see", "Was wir sehen können"), body: [tt("We record page views and quiz answers, but not the path a learner takes. The attached sheet shows what the platform records today.", "Wir erfassen Seitenaufrufe und Quizantworten, aber nicht den Weg, den eine Lernende nimmt. Die angehängte Tabelle zeigt, was die Plattform heute erfasst.")], attachments: [{ name: "what-navlearn-records.xlsx", kind: "sheet", node: (
+              <Sheet
+                title={tt("What the platform records today (Case assumption)", "Was die Plattform heute erfasst (Fallannahme)")}
+                head={[tt("Data", "Daten"), tt("Recorded?", "Erfasst?")]}
+                rows={[
+                  [tt("Pages opened", "Geöffnete Seiten"), tt("yes", "ja")],
+                  [tt("Quizzes answered", "Beantwortete Quizze"), tt("yes", "ja")],
+                  [tt("Questions in the support inbox", "Fragen im Support-Postfach"), tt("yes", "ja")],
+                  [tt("The path through the platform", "Der Weg durch die Plattform"), tt("no", "nein")],
+                  [tt("Where learners stop", "Wo Lernende aufhören"), tt("no", "nein")],
+                  [tt("Tests of the menu names with users", "Tests der Menünamen mit Nutzern"), tt("none done", "nicht durchgeführt")],
+                ]}
+              />
+            ) }] },
           ]}
-          table={{
-            title: tt("What the platform records today (Case assumption)", "Was die Plattform heute erfasst (Fallannahme)"),
-            head: [tt("Data", "Daten"), tt("Recorded?", "Erfasst?")],
-            rows: [
-              [tt("Pages opened", "Geöffnete Seiten"), tt("yes", "ja")],
-              [tt("Quizzes answered", "Beantwortete Quizze"), tt("yes", "ja")],
-              [tt("Questions in the support inbox", "Fragen im Support-Postfach"), tt("yes", "ja")],
-              [tt("The path through the platform", "Der Weg durch die Plattform"), tt("no", "nein")],
-              [tt("Where learners stop", "Wo Lernende aufhören"), tt("no", "nein")],
-              [tt("Tests of the menu names with users", "Tests der Menünamen mit Nutzern"), tt("none done", "nicht durchgeführt")],
-            ],
-          }}
         />
       )}
     </SimButton>

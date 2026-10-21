@@ -2,10 +2,11 @@
 
 import { MateriA, MateriB } from "@/components/day8/Materi";
 import { MeasureThumb } from "@/components/day8/mocks";
-import { OptionSim, StructLearnSim } from "@/components/day8/sims";
+import { OptionSim, StructLearnSim, StructLearnShot } from "@/components/day8/sims";
 import { Diagram } from "@/components/materi/kit";
 import { ObserveDay8 } from "@/components/day8/observe";
-import { DeskSim } from "@/components/sim/DeskSim";
+import { DeskSim, Sheet } from "@/components/sim/DeskSim";
+import { Fit } from "@/components/sim/Fit";
 import { OptionCards } from "@/components/sim/OptionCards";
 import { SimButton } from "@/components/sim/SimFrame";
 import type { FreeKit } from "@/lib/dayFree/spec";
@@ -30,6 +31,14 @@ function Interface() {
           </ul>
         </div>
       </Diagram>
+      <div className="mx-auto grid max-w-[760px] gap-3 sm:grid-cols-2">
+        {([["home", tt("The start page", "Die Startseite")], ["courses", tt("The course list", "Die Kursliste")]] as const).map(([k, name]) => (
+          <figure key={k} role="img" aria-label={`StructLearn: ${name}`}>
+            <Fit><StructLearnShot page={k} /></Fit>
+            <figcaption className="mt-1 text-center text-[12.5px] font-bold text-ink">{name}</figcaption>
+          </figure>
+        ))}
+      </div>
       <SimButton
         label={tt("Open StructLearn and try it", "StructLearn öffnen und ausprobieren")}
         sub={tt("Use it as a learner does: look for a course and press a button.", "Nutzen Sie sie wie eine Lernende: einen Kurs suchen und einen Button drücken.")}
@@ -82,7 +91,7 @@ function Desk() {
   return (
     <SimButton
       label={tt("Open your desk and read what is waiting", "Ihren Schreibtisch öffnen und lesen, was wartet")}
-      sub={tt("The note from management and what the platform shows today.", "Die Nachricht der Geschäftsführung und was die Plattform heute zeigt.")}
+      sub={tt("The note from management, what support, a learner, marketing and the design team say, and what the platform records.", "Die Nachricht der Geschäftsführung, was Support, eine Lernende, das Marketing und das Designteam sagen, und was die Plattform erfasst.")}
       url="mail.structlearn.example/inbox"
       title={tt("Simulation: the Chief UX Architect's desk", "Simulation: der Schreibtisch des Chief UX Architect")}
       note={tt("Simulation · Case assumption: the messages are made up from the brief · nothing here is marked right or wrong.", "Simulation · Fallannahme: die Nachrichten sind aus dem Auftrag erfunden · hier wird nichts als richtig oder falsch markiert.")}
@@ -92,8 +101,23 @@ function Desk() {
           mailbox={tt("Inbox · Chief UX Architect", "Posteingang · Chief UX Architect")}
           messages={[
             { from: tt("Management", "Geschäftsführung"), subject: tt("A redesign of StructLearn", "Ein Redesign von StructLearn"), body: [tt("The platform has grown and become cluttered, and users lose orientation. A redesign is necessary. We need a basic UX/UI structure for the platform, and we expect you to take responsibility for the design decisions.", "Die Plattform ist gewachsen und unübersichtlich geworden, und Nutzer verlieren die Orientierung. Ein Redesign ist nötig. Wir brauchen eine UX/UI-Grundstruktur für die Plattform und erwarten, dass Sie die Verantwortung für die Designentscheidungen übernehmen."), tt("The budget is limited.", "Das Budget ist begrenzt.")] },
-            { from: tt("Support", "Support"), subject: tt("What reaches us", "Was bei uns ankommt"), body: [tt("Learners write that they cannot find their course or do not know what to press. Many do not say which page they were on.", "Lernende schreiben, dass sie ihren Kurs nicht finden oder nicht wissen, was sie drücken sollen. Viele sagen nicht, auf welcher Seite sie waren.")] },
+            { from: tt("Support", "Support"), subject: tt("What reaches us", "Was bei uns ankommt"), body: [tt("Learners write that they cannot find their course or do not know what to press. Many do not say which page they were on. The link opens the platform as a learner meets it today.", "Lernende schreiben, dass sie ihren Kurs nicht finden oder nicht wissen, was sie drücken sollen. Viele sagen nicht, auf welcher Seite sie waren. Der Link öffnet die Plattform, so wie eine Lernende ihr heute begegnet.")], attachments: [{ name: "structlearn.example/start", kind: "link", node: <StructLearnSim /> }] },
+            { from: tt("A learner", "Eine Lernende"), subject: tt("Which button do I press?", "Welchen Button drücke ich?"), body: [tt("I open the start page and everything is shouting at me. I just want to continue my course, and I cannot tell which of the buttons does that.", "Ich öffne die Startseite, und alles schreit mich an. Ich will nur meinen Kurs fortsetzen und kann nicht erkennen, welcher der Buttons das tut.")] },
+            { from: tt("Marketing", "Marketing"), subject: tt("Our campaigns need room", "Unsere Kampagnen brauchen Platz"), body: [tt("Every campaign gets a banner and its own colour so that it stands out. If we take them away, nobody will see our offers.", "Jede Kampagne bekommt ein Banner und eine eigene Farbe, damit sie auffällt. Wenn wir sie wegnehmen, sieht niemand unsere Angebote.")] },
             { from: tt("Design team", "Designteam"), subject: tt("How the pages grew", "Wie die Seiten gewachsen sind"), body: [tt("Over time every team added a banner, a button or a colour for its own feature. Nobody has checked yet how the pages fit together. We have no user tests yet.", "Mit der Zeit hat jedes Team für sein Feature ein Banner, einen Button oder eine Farbe ergänzt. Niemand hat bisher geprüft, wie die Seiten zusammenpassen. Wir haben noch keine Nutzertests.")] },
+            { from: tt("Analytics", "Analytics"), subject: tt("What we can see", "Was wir sehen können"), body: [tt("We record page views, but not what people press on a page. The attached sheet shows what the platform records today.", "Wir erfassen Seitenaufrufe, aber nicht, was Leute auf einer Seite drücken. Die angehängte Tabelle zeigt, was die Plattform heute erfasst.")], attachments: [{ name: "what-structlearn-records.xlsx", kind: "sheet", node: (
+              <Sheet
+                title={tt("What the platform records today (Case assumption)", "Was die Plattform heute erfasst (Fallannahme)")}
+                head={[tt("Data", "Daten"), tt("Recorded?", "Erfasst?")]}
+                rows={[
+                  [tt("Page views", "Seitenaufrufe"), tt("yes", "ja")],
+                  [tt("Questions in the support inbox", "Fragen im Support-Postfach"), tt("yes", "ja")],
+                  [tt("Which button is pressed on a page", "Welcher Button auf einer Seite gedrückt wird"), tt("no", "nein")],
+                  [tt("Where learners get lost", "Wo Lernende sich verlieren"), tt("no", "nein")],
+                  [tt("Tests of the pages with users", "Tests der Seiten mit Nutzern"), tt("none done", "nicht durchgeführt")],
+                ]}
+              />
+            ) }] },
           ]}
         />
       )}

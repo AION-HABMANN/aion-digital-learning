@@ -25,7 +25,8 @@
     "verify:day14": "tsx scripts/verify-gen.ts 14",
     "verify:day15": "tsx scripts/verify-gen.ts 15",
     "verify:day16": "tsx scripts/verify-gen.ts 16",
-    "vercel-build": "next build"
+    "vercel-build": "next build",
+    "verify:platforms": "tsx scripts/verify-platforms.ts"
   },
   "dependencies": {
     "clsx": "2.1.1",
