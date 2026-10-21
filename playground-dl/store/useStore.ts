@@ -28,7 +28,7 @@ import { materialsOf } from "@/data/materialRegistry";
  * and is covered by the deep `merge` (CLAUDE.md #9).
  */
 export const STORAGE_KEY = "dl-v1";
-export const PERSIST_VERSION = 12;
+export const PERSIST_VERSION = 13;
 const HISTORY_CAP = 100;
 
 /** 0 means not chosen yet; 1 Low, 2 Mid, 3 High. */
@@ -114,6 +114,12 @@ export type Persisted = {
   d8: FreeState;
   d9: FreeState;
   d10: FreeState;
+  d11: FreeState;
+  d12: FreeState;
+  d13: FreeState;
+  d14: FreeState;
+  d15: FreeState;
+  d16: FreeState;
   /** The generic days (Day 11 onward), by day number: store/dayTypesGen.ts. */
   dg: Record<number, GenState>;
 };
@@ -225,6 +231,12 @@ const emptyPersisted = (): Persisted => ({
   d8: emptyFreeDay(8),
   d9: emptyFreeDay(9),
   d10: emptyFreeDay(10),
+  d11: emptyFreeDay(11),
+  d12: emptyFreeDay(12),
+  d13: emptyFreeDay(13),
+  d14: emptyFreeDay(14),
+  d15: emptyFreeDay(15),
+  d16: emptyFreeDay(16),
   dg: emptyDg(),
 });
 
@@ -275,7 +287,7 @@ export function mergeDefaults<T>(base: T, saved: unknown): T {
  */
 export function migratePersisted(persisted: unknown, from: number): Persisted {
   const p = (persisted ?? {}) as Partial<Persisted>;
-  return { ...p, d2: p.d2 ?? emptyD2(), d3: p.d3 ?? emptyD3(), d4: p.d4 ?? emptyFreeDay(4), d5: p.d5 ?? emptyFreeDay(5), d6: p.d6 ?? emptyFreeDay(6), d7: p.d7 ?? emptyFreeDay(7), d8: p.d8 ?? emptyFreeDay(8), d9: p.d9 ?? emptyFreeDay(9), d10: p.d10 ?? emptyFreeDay(10), dg: p.dg ?? emptyDg() } as Persisted;
+  return { ...p, d2: p.d2 ?? emptyD2(), d3: p.d3 ?? emptyD3(), d4: p.d4 ?? emptyFreeDay(4), d5: p.d5 ?? emptyFreeDay(5), d6: p.d6 ?? emptyFreeDay(6), d7: p.d7 ?? emptyFreeDay(7), d8: p.d8 ?? emptyFreeDay(8), d9: p.d9 ?? emptyFreeDay(9), d10: p.d10 ?? emptyFreeDay(10), d11: p.d11 ?? emptyFreeDay(11), d12: p.d12 ?? emptyFreeDay(12), d13: p.d13 ?? emptyFreeDay(13), d14: p.d14 ?? emptyFreeDay(14), d15: p.d15 ?? emptyFreeDay(15), d16: p.d16 ?? emptyFreeDay(16), dg: p.dg ?? emptyDg() } as Persisted;
 }
 
 /** The mentor fill also marks every study card of the day as read, so the progress ring of both routes reaches its total after one fill (CLAUDE.md #7). */
@@ -451,7 +463,7 @@ export const useStore = create<Persisted & Session & Actions>()(
       version: PERSIST_VERSION,
       skipHydration: true,
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ participant: s.participant, ui: s.ui, d1: s.d1, d2: s.d2, d3: s.d3, d4: s.d4, d5: s.d5, d6: s.d6, d7: s.d7, d8: s.d8, d9: s.d9, d10: s.d10, dg: s.dg }),
+      partialize: (s) => ({ participant: s.participant, ui: s.ui, d1: s.d1, d2: s.d2, d3: s.d3, d4: s.d4, d5: s.d5, d6: s.d6, d7: s.d7, d8: s.d8, d9: s.d9, d10: s.d10, d11: s.d11, d12: s.d12, d13: s.d13, d14: s.d14, d15: s.d15, d16: s.d16, dg: s.dg }),
       migrate: migratePersisted,
       merge: (persisted, current) => {
         const merged = mergeDefaults(emptyPersisted(), (persisted ?? {}) as Partial<Persisted>);

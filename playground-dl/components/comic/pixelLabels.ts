@@ -1,4 +1,5 @@
 import { isDe } from "@/lib/lang";
+import { DE_MORE } from "@/components/comic/pixelLabelsMore";
 
 /**
  * The short labels written inside the pixel drawings (components/dayN/comicScenes.tsx, DL-STANDARD.md section 13), in the German version.
@@ -664,7 +665,7 @@ const numbers = (s: string) =>
 /** The label as it is written in the drawing, in the language of the site. */
 export function pixelLabel(s: string): string {
   if (!isDe()) return s;
-  const hit = DE[s];
+  const hit = DE[s] ?? DE_MORE[s];
   if (hit !== undefined) return numbers(hit);
   const parts = s.split(/( · |   |  )/);
   if (parts.length > 1) return parts.map((p, i) => (i % 2 ? p : pixelLabel(p))).join("");

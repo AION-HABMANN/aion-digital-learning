@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { AdaptiveFig, ComplexityMatrix, DecisionFrame, DesignChain, OppRiskFig, PatternFig, TechFig, WeighExample } from "@/components/day12/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D12 } from "@/components/day12/comicScenes";
+import { COMICS_D12 } from "@/data/day12/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -37,6 +40,7 @@ export function CardA1() {
         tt("Compare a platform that gives everyone the same content with one that adapts: the first is clear and ignores differences; the second can fit each learner, if it is understandable.", "Vergleichen Sie eine Plattform, die allen denselben Inhalt gibt, mit einer, die sich anpasst: Die erste ist klar und ignoriert Unterschiede; die zweite kann zu jeder Lernenden passen, wenn sie verständlich ist."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.A1} art={ART_D12} />
       <AdaptiveFig />
       <DataTable
         caption={tt("The three steps of an adaptive system", "Die drei Schritte eines adaptiven Systems")}
@@ -69,6 +73,7 @@ export function CardA2() {
         tt("Over-adaptation: a system that reacts strongly to one mistake or a few clicks boxes the learner in; adapt slowly and keep a way back.", "Überanpassung: Ein System, das stark auf einen Fehler oder wenige Klicks reagiert, sperrt die Lernende ein; passen Sie langsam an und lassen Sie einen Weg zurück."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.A2} art={ART_D12} />
       <TechFig />
       <DataTable
         caption={tt("Rules and models side by side", "Regeln und Modelle nebeneinander")}
@@ -100,6 +105,7 @@ export function CardA3() {
         tt("Start the first adaptation from what the learner says (a short questionnaire they can edit), and let behaviour refine it.", "Starten Sie die erste Anpassung bei dem, was die Lernende sagt (ein kurzer Fragebogen, den sie ändern kann), und lassen Sie das Verhalten sie verfeinern."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.A3} art={ART_D12} />
       <PatternFig />
       <DataTable
         caption={tt("Four patterns and what makes each one usable", "Vier Muster und was jedes nutzbar macht")}
@@ -130,6 +136,7 @@ export function CardA4() {
         tt("Join gamification to personalisation through a personal goal, not through a point total.", "Verbinden Sie Gamification mit Personalisierung über ein persönliches Ziel, nicht über eine Punktesumme."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.A4} art={ART_D12} />
       <OppRiskFig />
       {CA("LearnLoop is the example company.", "LearnLoop ist das Beispielunternehmen.")}
       <Extra id="A4">
@@ -143,18 +150,19 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how much it helps learners, what it costs and what could go wrong. Technology against benefit: a small data basis points to simple rules.", "Bewerten Sie eine Maßnahme danach, wie sehr sie Lernenden hilft, was sie kostet und was schiefgehen kann. Technologie gegen Nutzen: Eine kleine Datenbasis spricht für einfache Regeln.")}
+      scan={tt("Rate a measure by how much it helps learners, how much work it takes and what could go wrong. Technology against benefit: a small data basis points to simple rules.", "Bewerten Sie eine Maßnahme danach, wie sehr sie Lernenden hilft, wie viel Arbeit sie macht und was schiefgehen kann. Technologie gegen Nutzen: Eine kleine Datenbasis spricht für einfache Regeln.")}
       sources={["gibbons2018", "amershi2019"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €10,000 is Low; €10,000 to €25,000 is Mid; above €25,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 10.000 € ist Niedrig; 10.000 € bis 25.000 € ist Mittel; über 25.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate benefit by how much it helps different learners understand and use the adaptation, not by how advanced the technology is.", "Bewerten Sie den Nutzen danach, wie sehr es verschiedenen Lernenden hilft, die Anpassung zu verstehen und zu nutzen, nicht danach, wie fortschrittlich die Technik ist."),
         tt("Rate risk by what could go wrong: a small data basis, a system nobody understands, over-adaptation, a big change that touches every screen.", "Bewerten Sie das Risiko danach, was schiefgehen kann: eine kleine Datenbasis, ein System, das niemand versteht, Überanpassung, eine große Änderung, die jeden Bildschirm berührt."),
         tt("Justify the order with the rule comprehensibility before complexity: say how your first measure makes the system understandable.", "Begründen Sie die Reihenfolge mit der Regel Verständlichkeit vor Komplexität: Sagen Sie, wie Ihre erste Maßnahme das System verständlich macht."),
         tt("Say what you do not know, for example whether learners keep the adaptation on, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel ob Lernende die Anpassung eingeschaltet lassen, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.A5} art={ART_D12} />
       <WeighExample />
-      {CA("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
+      {CA("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
     </MaterialCard>
   );
 }
@@ -173,6 +181,7 @@ export function CardB1() {
         tt("Sketch at low fidelity first: place each element on the screen where it belongs and leave out what a first test does not need.", "Skizzieren Sie zuerst in Low Fidelity: Ordnen Sie jedes Element dem Bildschirm zu, auf den es gehört, und lassen Sie weg, was ein erster Test nicht braucht."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.B1} art={ART_D12} />
       <DesignChain />
       <DataTable
         caption={tt("The test for each link of the chain", "Der Test für jedes Glied der Kette")}
@@ -205,6 +214,7 @@ export function CardB2() {
         tt("Keep the full path visible even when it is adapted, so a learner can look beyond what the system suggests.", "Halten Sie den ganzen Pfad sichtbar, auch wenn er angepasst ist, damit eine Lernende über das hinausschauen kann, was das System vorschlägt."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.B2} art={ART_D12} />
       <ComplexityMatrix />
       <DataTable
         caption={tt("Two conflicts and a rule for deciding each", "Zwei Konflikte und eine Regel, jeden zu entscheiden")}
@@ -236,6 +246,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example a model or an “AI-powered” label.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel ein Modell oder ein Etikett „KI-gestützt“."),
       ]}
     >
+      <ComicButton comic={COMICS_D12.B3} art={ART_D12} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision with incomplete data safer", "Fünf Wege, eine Entscheidung bei unvollständigen Daten sicherer zu machen")}

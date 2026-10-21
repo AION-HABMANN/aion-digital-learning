@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { ActivityFig, DecisionFrame, ElementsFig, EffectMatrix, MotivationFig, PrinciplesFig, ToolChain, WeighExample } from "@/components/day11/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D11 } from "@/components/day11/comicScenes";
+import { COMICS_D11 } from "@/data/day11/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -37,6 +40,7 @@ export function CardA1() {
         tt("Note that gamification is not the same as a game: a platform with game elements is still a learning platform.", "Beachten Sie, dass Gamification nicht dasselbe ist wie ein Spiel: Eine Plattform mit Spielelementen bleibt eine Lernplattform."),
       ]}
     >
+      <ComicButton comic={COMICS_D11.A1} art={ART_D11} />
       <ElementsFig />
       <DataTable
         caption={tt("Five game elements and what each does", "Fünf Spielelemente und was jedes bewirkt")}
@@ -71,6 +75,7 @@ export function CardA2() {
         tt("A reward can crowd out interest that was already there, so adding points to something learners enjoyed can make it worse.", "Eine Belohnung kann Interesse verdrängen, das schon da war, Punkte zu etwas hinzuzufügen, was Lernenden Spaß machte, kann es also verschlechtern."),
       ]}
     >
+      <ComicButton comic={COMICS_D11.A2} art={ART_D11} />
       <MotivationFig />
       <DataTable
         caption={tt("The three needs of Self-Determination Theory", "Die drei Bedürfnisse der Selbstbestimmungstheorie")}
@@ -103,6 +108,7 @@ export function CardA3() {
         tt("Check with the learner's own view: would they say they learned something, or only that they collected something?", "Prüfen Sie aus Sicht der Lernenden: Würden sie sagen, dass sie etwas gelernt haben, oder nur, dass sie etwas gesammelt haben?"),
       ]}
     >
+      <ComicButton comic={COMICS_D11.A3} art={ART_D11} />
       <ActivityFig />
       <DataTable
         caption={tt("Activity or learning: how to tell", "Aktivität oder Lernen: wie man es unterscheidet")}
@@ -134,6 +140,7 @@ export function CardA4() {
         tt("Challenge: a task that is too easy bores and one that is too hard worries; matching it to ability is called flow.", "Herausforderung: Eine zu leichte Aufgabe langweilt und eine zu schwere beunruhigt; sie an die Fähigkeit anzupassen heißt Flow."),
       ]}
     >
+      <ComicButton comic={COMICS_D11.A4} art={ART_D11} />
       <PrinciplesFig />
       {CA("LearnLoop is the example company. Flow follows Csikszentmihalyi (1990).", "LearnLoop ist das Beispielunternehmen. Flow folgt Csikszentmihalyi (1990).")}
       <Extra id="A4">
@@ -147,18 +154,19 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how long it keeps learners going, what it costs and what could go wrong. Learning before reward.", "Bewerten Sie eine Maßnahme danach, wie lange sie Lernende bei der Sache hält, was sie kostet und was schiefgehen kann. Lernen vor Belohnung.")}
+      scan={tt("Rate a measure by how long it keeps learners going, how much work it takes and what could go wrong. Learning before reward.", "Bewerten Sie eine Maßnahme danach, wie lange sie Lernende bei der Sache hält, wie viel Arbeit sie macht und was schiefgehen kann. Lernen vor Belohnung.")}
       sources={["gibbons2018", "hamari2014"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €7,000 is Low; €7,000 to €14,000 is Mid; above €14,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 7.000 € ist Niedrig; 7.000 € bis 14.000 € ist Mittel; über 14.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate motivation by how long it keeps the learner going: elements that feed competence and interest last; a reward fades.", "Bewerten Sie die Motivation danach, wie lange sie die Lernende bei der Sache hält: Elemente, die Kompetenz und Interesse nähren, halten; eine Belohnung verblasst."),
         tt("Rate risk by what could go wrong: learners chasing the reward, pressure and worry, a contest most cannot win, a big change that touches every screen.", "Bewerten Sie das Risiko danach, was schiefgehen kann: Lernende, die der Belohnung nachjagen, Druck und Sorge, ein Wettbewerb, den die meisten nicht gewinnen können, eine große Änderung, die jeden Bildschirm berührt."),
         tt("Justify the order with the rule learning before reward: say how your first measure leads to the next.", "Begründen Sie die Reihenfolge mit der Regel Lernen vor Belohnung: Sagen Sie, wie Ihre erste Maßnahme zur nächsten führt."),
         tt("Say what you do not know, for example whether the progress display raises the return rate, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel ob die Fortschrittsanzeige die Wiederkehrrate erhöht, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D11.A5} art={ART_D11} />
       <WeighExample />
-      {CA("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
+      {CA("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
     </MaterialCard>
   );
 }
@@ -177,6 +185,7 @@ export function CardB1() {
         tt("Order the measures by the rule learning before reward: progress and feedback first, a say for the learner next, rewards and contests last.", "Ordnen Sie die Maßnahmen nach der Regel Lernen vor Belohnung: zuerst Fortschritt und Feedback, dann Mitsprache der Lernenden, Belohnungen und Wettbewerbe zuletzt."),
       ]}
     >
+      <ComicButton comic={COMICS_D11.B1} art={ART_D11} />
       <ToolChain />
       <DataTable
         caption={tt("The test for each link of the chain", "Der Test für jedes Glied der Kette")}
@@ -209,6 +218,7 @@ export function CardB2() {
         tt("Keep the learner in control: let them choose the order of topics and switch badges off.", "Lassen Sie die Lernende die Kontrolle behalten: Sie darf die Reihenfolge der Themen wählen und Abzeichen ausschalten."),
       ]}
     >
+      <ComicButton comic={COMICS_D11.B2} art={ART_D11} />
       <EffectMatrix />
       <DataTable
         caption={tt("Three conflicts and a rule for deciding each", "Drei Konflikte und eine Regel, jeden zu entscheiden")}
@@ -241,6 +251,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example a leaderboard or a points system.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel eine Rangliste oder ein Punktesystem."),
       ]}
     >
+      <ComicButton comic={COMICS_D11.B3} art={ART_D11} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision without proof safer", "Fünf Wege, eine Entscheidung ohne Beleg sicherer zu machen")}
