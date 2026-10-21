@@ -10,12 +10,20 @@ import * as d9 from "../data/day9/platforms";
 import * as d10 from "../data/day10/platforms";
 import * as d11 from "../data/day11/platforms";
 import * as d12 from "../data/day12/platforms";
+import * as d13 from "../data/day13/platforms";
+import * as d14 from "../data/day14/platforms";
+import * as d15 from "../data/day15/platforms";
+import * as d16 from "../data/day16/platforms";
 import { setCurrentLang } from "../lib/lang";
 
 const DAYS: Record<string, Record<string, () => PlatformCfg>> = {
   "Day 7": { today: d7.today, A: d7.optionA, B: d7.optionB, C: d7.optionC },
   "Day 8": { today: d8.today, A: d8.optionA, B: d8.optionB, C: d8.optionC },
   "Day 9": { today: d9.today, A: d9.optionA, B: d9.optionB, C: d9.optionC },
+  "Day 16": { figures: d16.figures, today: d16.today, A: d16.optionA, B: d16.optionB, C: d16.optionC },
+  "Day 15": { today: d15.today, desktop: d15.desktop, A: d15.optionA, B: d15.optionB, C: d15.optionC },
+  "Day 14": { today: d14.today, A: d14.optionA, B: d14.optionB, C: d14.optionC },
+  "Day 13": { today: d13.today, A: d13.optionA, B: d13.optionB, C: d13.optionC },
   "Day 12": { today: d12.today, platformA: d12.platformA, platformB: d12.platformB, A: d12.optionA, B: d12.optionB, C: d12.optionC },
   "Day 11": { today: d11.today, platformA: d11.platformA, platformB: d11.platformB, A: d11.optionA, B: d11.optionB, C: d11.optionC },
   "Day 10": { today: () => d10.today(), phone: () => d10.today(true), A: d10.optionA, B: d10.optionB, C: d10.optionC },

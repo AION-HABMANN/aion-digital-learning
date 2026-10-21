@@ -7,11 +7,15 @@ import { SPEC as D9 } from "@/data/day9/free";
 import { SPEC as D10 } from "@/data/day10/free";
 import { SPEC as D11 } from "@/data/day11/free";
 import { SPEC as D12 } from "@/data/day12/free";
+import { SPEC as D13 } from "@/data/day13/free";
+import { SPEC as D14 } from "@/data/day14/free";
+import { SPEC as D15 } from "@/data/day15/free";
+import { SPEC as D16 } from "@/data/day16/free";
 import type { FreeSpec } from "@/lib/dayFree/spec";
 
 /**
  * The free-form days (DL-STANDARD v1.1): each day's data in one spec (data/dayN/free.ts). A day is added here when its spec exists; the store (empty slices, the
  * mentor fill, reset), the day pages and the verify script all read this registry, so a day is wired in one place.
  */
-export const FREE_SPECS: Record<number, FreeSpec> = { 4: D4, 5: D5, 6: D6, 7: D7, 8: D8, 9: D9, 10: D10, 11: D11, 12: D12 };
+export const FREE_SPECS: Record<number, FreeSpec> = { 4: D4, 5: D5, 6: D6, 7: D7, 8: D8, 9: D9, 10: D10, 11: D11, 12: D12, 13: D13, 14: D14, 15: D15, 16: D16 };
 export const FREE_DAYS = Object.keys(FREE_SPECS).map(Number);

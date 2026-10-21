@@ -5,14 +5,13 @@ import type { MaterialId, MaterialMeta, PlainExplain } from "@/data/day1/materia
 /**
  * Day 13 · the material registry. Materi A (Route 1, Levels 1 and 2) has five cards, 60 minutes; Materi B (Route 2, Level 3) has three, 60 minutes. The cards follow the topic
  * groups of the plan's Wissen cell (fundamentals of inclusive design; the principles; WCAG in practice; implementation in UX/UI design; then accessibility as a strategic
- * quality, its conflicts and a decision under uncertainty). A4 (implementation in UX/UI design) is Optional: plain language and structure are repeated in A3 and B1 (CLAUDE.md
- * #35, #40).
+ * quality, its conflicts and a decision under uncertainty). All eight cards are Core (DL-STANDARD v1.7).
  */
 const METAS: MaterialMeta[] = bi([
   { id: "A1" as MaterialId, block: "A" as const, title: t("Inclusive design: user groups with different needs, and how it differs from usability", "Inklusives Design: Nutzergruppen mit unterschiedlichen Bedürfnissen und wie es sich von Usability unterscheidet"), minutes: 14 },
   { id: "A2" as MaterialId, block: "A" as const, title: t("The four principles: perceivable, operable, understandable, robust", "Die vier Prinzipien: wahrnehmbar, bedienbar, verständlich, robust"), minutes: 12 },
   { id: "A3" as MaterialId, block: "A" as const, title: t("WCAG in practice: contrast, text alternatives, structure, keyboard use", "WCAG in der Praxis: Kontrast, Textalternativen, Struktur, Tastaturbedienung"), minutes: 14 },
-  { id: "A4" as MaterialId, block: "A" as const, title: t("Implementation in UX/UI design: plain language, hierarchy, intuitive interaction", "Umsetzung im UX/UI-Design: schlichte Sprache, Hierarchie, intuitive Interaktion"), minutes: 10, optional: true },
+  { id: "A4" as MaterialId, block: "A" as const, title: t("Implementation in UX/UI design: plain language, hierarchy, intuitive interaction", "Umsetzung im UX/UI-Design: schlichte Sprache, Hierarchie, intuitive Interaktion"), minutes: 10 },
   { id: "A5" as MaterialId, block: "A" as const, title: t("Prioritising accessibility measures: impact, effort, risk", "Barrierefreiheitsmaßnahmen priorisieren: Wirkung, Aufwand, Risiko"), minutes: 10 },
   { id: "B1" as MaterialId, block: "B" as const, title: t("Accessibility as a strategic quality: from requirement to priority, process and measure", "Barrierefreiheit als strategische Qualität: von der Anforderung über Priorität und Prozess zur Messung"), minutes: 18 },
   { id: "B2" as MaterialId, block: "B" as const, title: t("Conflicting goals: accessibility against cost, standardisation against flexibility", "Zielkonflikte: Barrierefreiheit gegen Kosten, Standardisierung gegen Flexibilität"), minutes: 22 },
@@ -27,12 +26,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Inklusives Design heißt, so zu gestalten, dass Menschen mit unterschiedlichen Bedürfnissen ein Produkt nutzen können, nicht nur der typische Nutzer. Klassische Usability fragt, ob ein typischer Nutzer ein Produkt leicht findet. Inklusion fragt, wer ausgeschlossen bleibt. Drei Gruppen von Bedürfnissen zählen: visuell (die Seite sehen), motorisch (die Bedienelemente nutzen) und kognitiv (verstehen und folgen).",
     ),
     why: t(
-      "In Task 1 you sort facts about a platform by the user group they affect, and you say which one stops a learner completely.",
-      "In Task 1 ordnen Sie Fakten über eine Plattform nach der Nutzergruppe, die sie betreffen, und sagen, welcher eine Lernende vollständig stoppt.",
+      "In Block 1.1 you name five barriers of a platform and the user groups they affect. This card gives the three groups and the difference between a barrier that slows and one that stops.",
+      "In Block 1.1 benennen Sie fünf Barrieren einer Plattform und die Nutzergruppen, die sie betreffen. Diese Karte gibt die drei Gruppen und den Unterschied zwischen einer Barriere, die bremst, und einer, die stoppt.",
     ),
     picture: t(
-      "One LearnLoop lesson page as three learners meet it: Mia with low vision, Tom with only a keyboard, and Nia who finds long text hard. Choose one and read what happens to them. Press “Walk me through it” for a short story.",
-      "Eine LearnLoop-Lektionsseite, wie drei Lernende ihr begegnen: Mia mit eingeschränktem Sehvermögen, Tom mit nur einer Tastatur und Nia, der langer Text schwerfällt. Wählen Sie eine und lesen Sie, was ihnen geschieht. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "One LearnLoop lesson page as three learners meet it: Mia with low vision, Tom with only a keyboard, and Nia who finds long text hard. Choose one and read what happens to them. Press “Read the comic” for a short story.",
+      "Eine LearnLoop-Lektionsseite, wie drei Lernende ihr begegnen: Mia mit eingeschränktem Sehvermögen, Tom mit nur einer Tastatur und Nia, der langer Text schwerfällt. Wählen Sie eine und lesen Sie, was ihnen geschieht. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A2: {
@@ -41,8 +40,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der WCAG-Standard beruht auf vier Prinzipien. Inhalte müssen wahrnehmbar sein (Menschen können sie sehen oder hören), bedienbar (Menschen können die Bedienelemente nutzen), verständlich (Menschen können ihnen folgen) und robust (sie funktionieren mit verschiedenen Browsern und assistiven Technologien, etwa einem Screenreader). Eine Barriere bricht eines der vier.",
     ),
     why: t(
-      "In Block 2.1 and Block 2.2 you name the barriers behind the facts. The four principles are the way to name them.",
-      "In Block 2.1 und Block 2.2 benennen Sie die Barrieren hinter den Fakten. Die vier Prinzipien sind der Weg, sie zu benennen.",
+      "In Block 1.1 and Block 2.1 you name the barrier behind a problem. The four principles are the way to name it.",
+      "In Block 1.1 und Block 2.1 benennen Sie die Barriere hinter einem Problem. Die vier Prinzipien sind der Weg, sie zu benennen.",
     ),
     picture: t(
       "Four small pictures, one for each principle: an eye, a keyboard key, a short text and a plug that fits. Nothing to click.",
@@ -55,12 +54,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "WCAG, die Web Content Accessibility Guidelines, macht die Prinzipien zu prüfbaren Anforderungen. Vier zählen auf einer Lernplattform am meisten: ausreichender Kontrast (mindestens 4,5 : 1 für normalen Text), eine Textalternative für jedes Bild, das Inhalt trägt, eine klare Struktur und Navigation und Tastaturbedienbarkeit, sodass alles ohne Maus funktioniert.",
     ),
     why: t(
-      "Block 1.2 and Block 2.2 ask you to prioritise measures. Each one is one of these four requirements.",
-      "Block 1.2 und Block 2.2 verlangen, Maßnahmen zu priorisieren. Jede ist eine dieser vier Anforderungen.",
+      "Block 1.2 asks you to assess three measures: contrast, navigation and alternative content. Each is one of these four requirements.",
+      "Block 1.2 verlangt, drei Maßnahmen zu bewerten: Kontrast, Navigation und alternative Inhalte. Jede ist eine dieser vier Anforderungen.",
     ),
     picture: t(
-      "One LearnLoop lesson page with four switches: contrast, a text alternative, structure and keyboard use. Switch them on one at a time and read what changes. Press “Walk me through it” for a short story.",
-      "Eine LearnLoop-Lektionsseite mit vier Schaltern: Kontrast, eine Textalternative, Struktur und Tastaturbedienung. Schalten Sie sie nacheinander ein und lesen Sie, was sich ändert. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "One LearnLoop lesson page with four switches: contrast, a text alternative, structure and keyboard use. Switch them on one at a time and read what changes. Press “Read the comic” for a short story.",
+      "Eine LearnLoop-Lektionsseite mit vier Schaltern: Kontrast, eine Textalternative, Struktur und Tastaturbedienung. Schalten Sie sie nacheinander ein und lesen Sie, was sich ändert. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -69,8 +68,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Barrierefreiheit wird im Design selbst gebaut: schlichte Sprache (kurze Sätze, Alltagswörter, erklärte Abkürzungen), eine klare visuelle Hierarchie (Überschriften, die zeigen, was zählt) und intuitive Interaktionen (Bedienelemente, die aussehen und sich verhalten, wie Menschen es erwarten). Sie helfen allen und sind die günstigsten Barrieren, die sich vermeiden lassen.",
     ),
     why: t(
-      "Block 3.1 asks how accessibility joins the UX process. The core rules on structure are repeated in A3 and B1, so no Core block needs this card.",
-      "Block 3.1 fragt, wie Barrierefreiheit in den UX-Prozess kommt. Die Kernregeln zur Struktur stehen auch in A3 und B1, kein Kernblock braucht diese Karte also.",
+      "Block 2.1 asks for four UX measures, and plain language, a clear hierarchy and intuitive interaction are the cheapest of them. Block 3.1 asks how accessibility joins the UX process.",
+      "Block 2.1 verlangt vier UX-Maßnahmen, und schlichte Sprache, eine klare Hierarchie und intuitive Interaktion sind die günstigsten davon. Block 3.1 fragt, wie Barrierefreiheit in den UX-Prozess kommt.",
     ),
     picture: t(
       "A before and after: one block of long text, and the same text with headings and short steps. Nothing to click.",
@@ -79,16 +78,16 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
   },
   A5: {
     idea: t(
-      "To choose between accessibility measures, rate each on the same three questions. Impact: how many learners does it free from a barrier, and how badly were they blocked? Effort: money and time, decided here by a rule: under €8,000 is Low, up to €18,000 is Mid, above that is High. Risk: what could go wrong, for example that it takes longer than planned.",
-      "Um zwischen Barrierefreiheitsmaßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Wirkung: Wie viele Lernende befreit sie von einer Barriere, und wie stark waren sie blockiert? Aufwand: Geld und Zeit, hier von einer Regel entschieden: unter 8.000 € ist Niedrig, bis 18.000 € Mittel, darüber Hoch. Risiko: Was kann schiefgehen, zum Beispiel dass es länger dauert als geplant.",
+      "To choose between accessibility measures, rate each on the same three questions. Impact: how many learners does it free from a barrier, and how badly were they blocked? Effort: how much work and how many people it needs; the plan prints no price, so Low, Mid or High is your judgement, with a reason. Risk: what could go wrong, for example that it takes longer than planned.",
+      "Um zwischen Barrierefreiheitsmaßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Wirkung: Wie viele Lernende befreit sie von einer Barriere, und wie stark waren sie blockiert? Aufwand: wie viel Arbeit und wie viele Personen es braucht; der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund. Risiko: Was kann schiefgehen, zum Beispiel dass es länger dauert als geplant.",
     ),
     why: t(
-      "Block 1.2 and Block 2.2 of the task ask for exactly this. The example uses LearnLoop, so the answer for the task case is not given.",
-      "Block 1.2 und Block 2.2 der Aufgabe verlangen genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
+      "Block 1.2 and Block 2.1 ask for exactly this: impact, effort and risk, a prioritisation and a justification. The example uses LearnLoop, so the answer for the task case is not given.",
+      "Block 1.2 und Block 2.1 verlangen genau das: Wirkung, Aufwand und Risiko, eine Priorisierung und eine Begründung. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "Three small pictures show LearnLoop's three measures, the bars show the cost of each against the effort rule and the €40,000 budget, and the table gives the rating of each; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Drei kleine Bilder zeigen LearnLoops drei Maßnahmen, die Balken zeigen die Kosten jeder gegen die Aufwandsregel und das Budget von 40.000 €, und die Tabelle gibt die Bewertung jeder; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Three small pictures show LearnLoop's three measures, and the table gives the rating of each on impact, effort and risk; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Drei kleine Bilder zeigen LearnLoops drei Maßnahmen, und die Tabelle gibt die Bewertung jeder nach Wirkung, Aufwand und Risiko; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -97,8 +96,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Das Coaching des Plans sagt, dass Barrierefreiheit kein Add-on, sondern ein Standard ist und dass WCAG ein Minimum ist, kein Ziel. Eine Strategie geht von der Anforderung zu einer Priorität (dort beginnen, wo die meisten Lernenden auf die Barriere treffen), zu einem Prozess (damit neuer Inhalt barrierefrei bleibt) und zu einer Messung (damit das Management Fortschritt sehen kann).",
     ),
     why: t(
-      "Task 2 asks for a strategy to implement WCAG, the integration into the UX process and an evaluation approach. This chain gives you the order.",
-      "Task 2 verlangt eine Strategie zur Umsetzung von WCAG, die Integration in den UX-Prozess und einen Bewertungsansatz. Diese Kette gibt Ihnen die Reihenfolge.",
+      "Block 3.1 asks for a strategy to implement WCAG, its integration into the UX process and an evaluation approach. This chain gives you the order.",
+      "Block 3.1 verlangt eine Strategie zur Umsetzung von WCAG, ihre Integration in den UX-Prozess und einen Bewertungsansatz. Diese Kette gibt Ihnen die Reihenfolge.",
     ),
     picture: t(
       "The chain reads from left to right: requirement, priority, process, measure. Below it, the test for each link. Nothing to click.",
@@ -111,12 +110,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Die Konflikte des Plans für Tag 13 sind Barrierefreiheit gegen Kosten und Standardisierung gegen Flexibilität. Ein breites Programm ist teuer, und ein billiges Overlay beseitigt keine Barrieren. Ein fester Standard ist verlässlich, doch manche Lernende brauchen andere Lösungen. Das Ziel sind die Maßnahmen, die die meisten Lernenden für die geringsten Kosten erreichen, mit dem Standard als Untergrenze.",
     ),
     why: t(
-      "Task 2 asks for prioritised measures and a risk analysis of costs against benefits. The rules of this card tell you how to weigh them.",
-      "Task 2 verlangt priorisierte Maßnahmen und eine Risikoanalyse von Kosten gegen Nutzen. Die Regeln dieser Karte sagen Ihnen, wie Sie sie abwägen.",
+      "Block 3.1 asks for prioritised measures and a risk analysis of costs against benefits. The rules of this card tell you how to weigh them.",
+      "Block 3.1 verlangt priorisierte Maßnahmen und eine Risikoanalyse von Kosten gegen Nutzen. Die Regeln dieser Karte sagen Ihnen, wie Sie sie abwägen.",
     ),
     picture: t(
-      "The matrix places six LearnLoop measures by their cost (to the right) and the reach, that is how many learners gain (upwards). The position is a reading of the example, not a score. Select a point to read why it sits there. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet sechs LearnLoop-Maßnahmen nach ihren Kosten (nach rechts) und der Reichweite, also wie viele Lernende profitieren (nach oben). Die Position ist eine Lesart des Beispiels, keine Note. Wählen Sie einen Punkt, um zu lesen, warum er dort liegt. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places six LearnLoop measures by their cost (to the right) and the reach, that is how many learners gain (upwards). The position is a reading of the example, not a score. Select a point to read why it sits there. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet sechs LearnLoop-Maßnahmen nach ihren Kosten (nach rechts) und der Reichweite, also wie viele Lernende profitieren (nach oben). Die Position ist eine Lesart des Beispiels, keine Note. Wählen Sie einen Punkt, um zu lesen, warum er dort liegt. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {
@@ -125,8 +124,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der Plan verlangt, zu entscheiden, obwohl Sie nicht wissen, wie viel der Plattform WCAG nicht erfüllt, und die Anforderungen steigen. Eine Entscheidung unter Unsicherheit nennt vier Dinge: was Sie entscheiden, was Sie nicht wissen, was Sie zum Rückgängigmachen bringen würde und bis wann, und worauf Sie verzichten. Ein kurzes Audit einer Stichprobe ist der günstigste Weg zu erfahren, was Sie nicht wissen.",
     ),
     why: t(
-      "Block 3.2 asks for exactly this, together with prioritised measures and a risk analysis.",
-      "Block 3.2 verlangt genau das, zusammen mit priorisierten Maßnahmen und einer Risikoanalyse.",
+      "Block 3.1 asks for exactly this: a decision made on purpose without knowing how much of the platform fails.",
+      "Block 3.1 verlangt genau das: eine Entscheidung, die bewusst getroffen wird, ohne zu wissen, wie viel der Plattform scheitert.",
     ),
     picture: t(
       "The four boxes at the top are the parts of the decision, filled in for LearnLoop. The two boxes below are the rule for future decisions. Nothing to click.",

@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { ContextFig, DecisionFrame, FitMatrix, MicroFig, MobileChain, MobileTestFig, PhoneFixFig, WeighExample } from "@/components/day15/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D15 } from "@/components/day15/comicScenes";
+import { COMICS_D15 } from "@/data/day15/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -38,6 +41,7 @@ export function CardA1() {
         tt("Decide which content belongs on a phone: short, quick to check, easy to stop. Long reading, wide tables and projects with files fit a laptop better.", "Entscheiden Sie, welcher Inhalt aufs Handy gehört: kurz, schnell zu prüfen, leicht zu beenden. Langes Lesen, breite Tabellen und Projekte mit Dateien passen besser auf einen Laptop."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.A1} art={ART_D15} />
       <ContextFig />
       <DataTable
         caption={tt("Two contexts of use, side by side", "Zwei Nutzungskontexte nebeneinander")}
@@ -71,6 +75,7 @@ export function CardA2() {
         tt("Name the risk when you propose microlearning: fragmentation, and say how you would guard against it.", "Nennen Sie das Risiko, wenn Sie Microlearning vorschlagen: Zersplitterung, und sagen Sie, wie Sie sich davor schützen würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.A2} art={ART_D15} />
       <MicroFig />
       <DataTable
         caption={tt("Advantages and risks of microlearning", "Vorteile und Risiken von Microlearning")}
@@ -103,6 +108,7 @@ export function CardA3() {
         tt("Keep the same names and the same logic on every device, and adapt only the layout.", "Halten Sie auf jedem Gerät dieselben Namen und dieselbe Logik und passen Sie nur das Layout an."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.A3} art={ART_D15} />
       <PhoneFixFig />
       <DataTable
         caption={tt("Four fixes, and the failure each one answers", "Vier Korrekturen und der Fehler, den jede beantwortet")}
@@ -134,6 +140,7 @@ export function CardA4() {
         tt("Adjust continuously: repeat the loop as use changes.", "Passen Sie fortlaufend an: Wiederholen Sie den Kreislauf, wenn sich die Nutzung ändert."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.A4} art={ART_D15} />
       <MobileTestFig />
       {CA("LearnLoop is the example company.", "LearnLoop ist das Beispielunternehmen.")}
       <Extra id="A4">
@@ -147,18 +154,19 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how much it helps a learner on the move, what it costs and what could go wrong. Fit the content to the context before building another product.", "Bewerten Sie eine Maßnahme danach, wie sehr sie einer Lernenden unterwegs hilft, was sie kostet und was schiefgehen kann. Passen Sie den Inhalt an den Kontext an, bevor Sie ein weiteres Produkt bauen.")}
+      scan={tt("Rate a measure by how much it helps a learner on the move, how much work it takes and what could go wrong. Fit the content to the context before building another product.", "Bewerten Sie eine Maßnahme danach, wie sehr sie einer Lernenden unterwegs hilft, wie viel Arbeit sie macht und was schiefgehen kann. Passen Sie den Inhalt an den Kontext an, bevor Sie ein weiteres Produkt bauen.")}
       sources={["gibbons2018", "hug2005"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €8,000 is Low; €8,000 to €16,000 is Mid; above €16,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 8.000 € ist Niedrig; 8.000 € bis 16.000 € ist Mittel; über 16.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate user value by how much it helps a learner on the move: a measure that fits the context outweighs one that only copies the desktop.", "Bewerten Sie den Nutzerwert danach, wie sehr er einer Lernenden unterwegs hilft: Eine Maßnahme, die zum Kontext passt, wiegt schwerer als eine, die nur den Desktop kopiert."),
         tt("Rate risk by what could go wrong: fragmentation of knowledge, two products to keep up, a sync error, a change that touches every screen.", "Bewerten Sie das Risiko danach, was schiefgehen kann: Zersplitterung des Wissens, zwei Produkte zu pflegen, ein Synchronisationsfehler, eine Änderung, die jeden Bildschirm berührt."),
         tt("Justify the order with context, design, usage: say how your first measure fits the context of use.", "Begründen Sie die Reihenfolge mit Kontext, Design, Nutzung: Sagen Sie, wie Ihre erste Maßnahme zum Nutzungskontext passt."),
         tt("Say what you do not know, for example how many learners use a phone and when, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel wie viele Lernende ein Handy nutzen und wann, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.A5} art={ART_D15} />
       <WeighExample />
-      {CA("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
+      {CA("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
     </MaterialCard>
   );
 }
@@ -177,6 +185,7 @@ export function CardB1() {
         tt("Say what you do not know and how to find out: the share of phone learners, and where they stop.", "Sagen Sie, was Sie nicht wissen und wie Sie es herausfinden: den Anteil der Handy-Lernenden und wo sie aufhören."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.B1} art={ART_D15} />
       <MobileChain />
       <DataTable
         caption={tt("The test for each link of the chain", "Der Test für jedes Glied der Kette")}
@@ -209,6 +218,7 @@ export function CardB2() {
         tt("Reject interruptions as a cure: a daily push message adds to the distractions of the context and does not fix the content.", "Verwerfen Sie Unterbrechungen als Mittel: Eine tägliche Push-Nachricht verstärkt die Ablenkungen des Kontexts und behebt den Inhalt nicht."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.B2} art={ART_D15} />
       <FitMatrix />
       <DataTable
         caption={tt("Two conflicts and a rule for deciding each", "Zwei Konflikte und eine Regel, jeden zu entscheiden")}
@@ -240,6 +250,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example the native app or the push reminders.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel die native App oder die Push-Erinnerungen."),
       ]}
     >
+      <ComicButton comic={COMICS_D15.B3} art={ART_D15} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision without the data by device safer", "Fünf Wege, eine Entscheidung ohne die Daten nach Gerät sicherer zu machen")}

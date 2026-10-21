@@ -37,6 +37,8 @@ export type PlatformCfg = {
   /** Header colour (default a plain purple-grey), and a phone-width frame for a mobile screen. */
   color?: string;
   phone?: boolean;
+  /** Draw the whole platform in washed-out, low-contrast colours (an accessibility day shows the problem as the learner meets it). */
+  dim?: boolean;
   /** Text at the right of the header, from the pages visited so far (points, a level, a step count). */
   header?: (visited: string[]) => string;
 };
@@ -315,7 +317,8 @@ function Head({ cfg, crumb, right, cur, onGo, marks }: { cfg: PlatformCfg; crumb
 
 /** A phone-width frame for a mobile platform; a plain wrapper otherwise. */
 function Frame({ cfg, children }: { cfg: PlatformCfg; children: ReactNode }) {
-  return cfg.phone ? <div className={clsx(INK, "mx-auto my-3 max-w-[340px] overflow-hidden rounded-[18px] border-4 border-[#3F4A58] bg-white")}>{children}</div> : <div className={INK}>{children}</div>;
+  const dim = cfg.dim ? { filter: "contrast(0.38) brightness(1.18)" } : undefined;
+  return cfg.phone ? <div className={clsx(INK, "mx-auto my-3 max-w-[340px] overflow-hidden rounded-[18px] border-4 border-[#3F4A58] bg-white")} style={dim}>{children}</div> : <div className={INK} style={dim}>{children}</div>;
 }
 
 /** The platform, usable: every link opens a page, "Back" returns, visited pages feed the lists, the progress bars and the header. */

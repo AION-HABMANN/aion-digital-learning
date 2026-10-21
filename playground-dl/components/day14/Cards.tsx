@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { ClarityChain, ClarityMatrix, DecisionFrame, LoopFig, PlainFig, TestingFig, UsabilityFig, WeighExample } from "@/components/day14/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D14 } from "@/components/day14/comicScenes";
+import { COMICS_D14 } from "@/data/day14/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -38,6 +41,7 @@ export function CardA1() {
         tt("Name the users who are hurt most: new learners, people who read in a second language, people with dyslexia or low attention.", "Nennen Sie die Nutzer, die am meisten leiden: neue Lernende, Menschen, die in einer Zweitsprache lesen, Menschen mit Legasthenie oder geringer Aufmerksamkeit."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.A1} art={ART_D14} />
       <PlainFig />
       <DataTable
         caption={tt("Three principles of plain language", "Drei Prinzipien schlichter Sprache")}
@@ -70,6 +74,7 @@ export function CardA2() {
         tt("Do not answer a confusing platform with a manual or a help centre: intuitive means understandable without explanation.", "Beantworten Sie eine verwirrende Plattform nicht mit einem Handbuch oder Hilfecenter: Intuitiv heißt verständlich ohne Erklärung."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.A2} art={ART_D14} />
       <UsabilityFig />
       <DataTable
         caption={tt("Three usability principles, a typical failure and a fix", "Drei Usability-Prinzipien, ein typischer Fehler und eine Korrektur")}
@@ -102,6 +107,7 @@ export function CardA3() {
         tt("Note each comprehension barrier with where it happened, then fix the most common one first.", "Halten Sie jede Verständnisbarriere fest, mit dem Ort, an dem sie auftrat, und beheben Sie dann die häufigste zuerst."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.A3} art={ART_D14} />
       <TestingFig />
       <DataTable
         caption={tt("Three test methods and what each shows", "Drei Testmethoden und was jede zeigt")}
@@ -132,6 +138,7 @@ export function CardA4() {
         tt("Keep evaluating: a platform changes, and new text and screens bring new hurdles.", "Bewerten Sie fortlaufend: Eine Plattform verändert sich, und neuer Text und neue Bildschirme bringen neue Hürden."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.A4} art={ART_D14} />
       <LoopFig />
       {CA("LearnLoop is the example company.", "LearnLoop ist das Beispielunternehmen.")}
       <Extra id="A4">
@@ -145,18 +152,19 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how much it helps learners understand and keep going, what it costs and what could go wrong. Simplify first, add functions later.", "Bewerten Sie eine Maßnahme danach, wie sehr sie Lernenden hilft, zu verstehen und weiterzumachen, was sie kostet und was schiefgehen kann. Zuerst vereinfachen, Funktionen später ergänzen.")}
+      scan={tt("Rate a measure by how much it helps learners understand and keep going, how much work it takes and what could go wrong. Simplify first, add functions later.", "Bewerten Sie eine Maßnahme danach, wie sehr sie Lernenden hilft, zu verstehen und weiterzumachen, wie viel Arbeit sie macht und was schiefgehen kann. Zuerst vereinfachen, Funktionen später ergänzen.")}
       sources={["gibbons2018", "nielsen1994"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €7,000 is Low; €7,000 to €15,000 is Mid; above €15,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 7.000 € ist Niedrig; 7.000 € bis 15.000 € ist Mittel; über 15.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate impact by how much it helps learners understand and keep going: a measure that goes to the cause (words, structure) outweighs one that adds something new.", "Bewerten Sie die Wirkung danach, wie sehr es Lernenden hilft, zu verstehen und weiterzumachen: Eine Maßnahme, die an die Ursache geht (Worte, Struktur), wiegt schwerer als eine, die etwas Neues hinzufügt."),
         tt("Rate risk by what could go wrong: added complexity, removing information some learners need, a new menu that disturbs regular users at first.", "Bewerten Sie das Risiko danach, was schiefgehen kann: zusätzliche Komplexität, das Entfernen von Information, die manche Lernende brauchen, ein neues Menü, das Stammnutzer zunächst stört."),
         tt("Justify the order with comprehensibility, then usage, then success: say how your first measure helps learners understand.", "Begründen Sie die Reihenfolge mit Verständlichkeit, dann Nutzung, dann Erfolg: Sagen Sie, wie Ihre erste Maßnahme Lernenden beim Verstehen hilft."),
         tt("Say what you do not know, for example on which screen most learners stop, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel auf welchem Bildschirm die meisten Lernenden aufhören, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.A5} art={ART_D14} />
       <WeighExample />
-      {CA("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
+      {CA("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
     </MaterialCard>
   );
 }
@@ -175,6 +183,7 @@ export function CardB1() {
         tt("Use data and tests together: data tells you where, a test tells you why.", "Nutzen Sie Daten und Tests zusammen: Daten sagen, wo, ein Test sagt, warum."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.B1} art={ART_D14} />
       <ClarityChain />
       <DataTable
         caption={tt("The test for each link of the chain", "Der Test für jedes Glied der Kette")}
@@ -207,6 +216,7 @@ export function CardB2() {
         tt("Keep a standard (one name for one action, one place for one thing) and allow flexibility where learners differ, such as a choice of text size.", "Behalten Sie einen Standard (ein Name für eine Aktion, ein Ort für eine Sache) und erlauben Sie Flexibilität dort, wo Lernende sich unterscheiden, etwa eine Wahl der Textgröße."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.B2} art={ART_D14} />
       <ClarityMatrix />
       <DataTable
         caption={tt("Two conflicts and a rule for deciding each", "Zwei Konflikte und eine Regel, jeden zu entscheiden")}
@@ -238,6 +248,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example new functions or a cut in content.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel neue Funktionen oder eine Kürzung des Inhalts."),
       ]}
     >
+      <ComicButton comic={COMICS_D14.B3} art={ART_D14} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision without knowing where learners stop safer", "Fünf Wege, eine Entscheidung ohne Wissen, wo Lernende aufhören, sicherer zu machen")}

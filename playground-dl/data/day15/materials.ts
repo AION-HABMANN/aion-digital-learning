@@ -5,13 +5,13 @@ import type { MaterialId, MaterialMeta, PlainExplain } from "@/data/day1/materia
 /**
  * Day 15 · the material registry. Materi A (Route 1, Levels 1 and 2) has five cards, 60 minutes; Materi B (Route 2, Level 3) has three, 60 minutes. The cards follow the topic
  * groups of the plan's Wissen cell (mobile context of use; microlearning; responsive design and cross-device; testing; then mobile UX as a strategy of its own, its conflicts and a
- * decision under uncertainty). A4 (testing and optimising mobile learning) is Optional: its rules are repeated in B1 (CLAUDE.md #35, #40).
+ * decision under uncertainty). All eight cards are Core (DL-STANDARD v1.7).
  */
 const METAS: MaterialMeta[] = bi([
   { id: "A1" as MaterialId, block: "A" as const, title: t("The mobile context of use: on the go, little time, low attention", "Der mobile Nutzungskontext: unterwegs, wenig Zeit, wenig Aufmerksamkeit"), minutes: 14 },
   { id: "A2" as MaterialId, block: "A" as const, title: t("Microlearning design: short units with one objective, and its risks", "Microlearning-Design: kurze Einheiten mit einem Ziel, und ihre Risiken"), minutes: 14 },
   { id: "A3" as MaterialId, block: "A" as const, title: t("Responsive and cross-device design: prioritise, reduce, synchronise", "Responsives und Cross-Device-Design: priorisieren, reduzieren, synchronisieren"), minutes: 12 },
-  { id: "A4" as MaterialId, block: "A" as const, title: t("Testing and optimising mobile learning: real phones, real settings", "Mobiles Lernen testen und optimieren: echte Handys, echte Umgebungen"), minutes: 10, optional: true },
+  { id: "A4" as MaterialId, block: "A" as const, title: t("Testing and optimising mobile learning: real phones, real settings", "Mobiles Lernen testen und optimieren: echte Handys, echte Umgebungen"), minutes: 10 },
   { id: "A5" as MaterialId, block: "A" as const, title: t("Weighing a mobile measure: user value, effort, risk", "Eine mobile Maßnahme abwägen: Nutzerwert, Aufwand, Risiko"), minutes: 10 },
   { id: "B1" as MaterialId, block: "B" as const, title: t("Mobile UX as a strategy of its own: context, design, usage, scale", "Mobile UX als eigene Strategie: Kontext, Design, Nutzung, Skalierung"), minutes: 18 },
   { id: "B2" as MaterialId, block: "B" as const, title: t("Conflicting goals: mobile against desktop, content against fit to the situation", "Zielkonflikte: Mobil gegen Desktop, Inhalt gegen Passung zur Situation"), minutes: 22 },
@@ -26,12 +26,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der Nutzungskontext ist, wo, wann und mit wie viel Aufmerksamkeit ein Mensch ein Produkt nutzt. Auf dem Handy ist es meist unterwegs, mit wenig Zeit und wenig Aufmerksamkeit, an einem Ort mit vielen Ablenkungen. Am Schreibtisch ist es das Gegenteil. Mobil ist kein kleinerer Desktop: Der Kontext bestimmt das Design, und was mobile Lernende brauchen, sind Tempo, Einfachheit und Klarheit.",
     ),
     why: t(
-      "In Task 1 you say which problem to fix first for a learner on the move and which content belongs on a phone. Both come from the context of use.",
-      "In Task 1 sagen Sie, welches Problem Sie für eine Lernende unterwegs zuerst beheben und welcher Inhalt aufs Handy gehört. Beides kommt aus dem Nutzungskontext.",
+      "In Block 1.1 you say what problems arise for a learner on the move, what she expects and which content makes sense on a phone. All three come from the context of use.",
+      "In Block 1.1 sagen Sie, welche Probleme für eine Lernende unterwegs entstehen, was sie erwartet und welcher Inhalt auf dem Handy sinnvoll ist. Alles drei kommt aus dem Nutzungskontext.",
     ),
     picture: t(
-      "The same learner, Ben, in three contexts: at a desk, on a crowded train and in a five-minute break. Choose one and read what he needs. Press “Walk me through it” for a short story.",
-      "Derselbe Lernende, Ben, in drei Kontexten: am Schreibtisch, in einem vollen Zug und in einer Fünf-Minuten-Pause. Wählen Sie einen und lesen Sie, was er braucht. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The same learner, Ben, in three contexts: at a desk, on a crowded train and in a five-minute break. Choose one and read what he needs. Press “Read the comic” for a short story.",
+      "Derselbe Lernende, Ben, in drei Kontexten: am Schreibtisch, in einem vollen Zug und in einer Fünf-Minuten-Pause. Wählen Sie einen und lesen Sie, was er braucht. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A2: {
@@ -40,12 +40,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Microlearning heißt kurze, in sich geschlossene Lerneinheiten, jede mit einem Lernziel. Seine Vorteile sind Flexibilität und eine bessere Passung zum Alltag. Sein Risiko ist die Zersplitterung des Wissens: Stücke, die sich nicht zusammenfügen. Eine Einheit braucht ein Ziel, eine kurze Prüfung und einen sichtbaren Platz im Kurs.",
     ),
     why: t(
-      "In Block 2.2 and Block 3.1 you choose microlearning measures and rules, and you name the risk of fragmentation.",
-      "In Block 2.2 und Block 3.1 wählen Sie Microlearning-Maßnahmen und -Regeln, und Sie benennen das Risiko der Zersplitterung.",
+      "Block 1.2 asks you to assess shortening the content for mobile, and Block 2.1 and Block 3.1 ask for microlearning units. This card gives the rules and the risk of fragmentation.",
+      "Block 1.2 verlangt, das Kürzen der Inhalte für mobile Geräte zu bewerten, und Block 2.1 und Block 3.1 verlangen Microlearning-Einheiten. Diese Karte gibt die Regeln und das Risiko der Zersplitterung.",
     ),
     picture: t(
-      "The same content three ways: one long lesson, the same lesson cut into pieces at arbitrary points, and five short units with a goal each. Choose one and read what Ben gets. Press “Walk me through it” for a short story.",
-      "Derselbe Inhalt auf drei Arten: eine lange Lektion, dieselbe Lektion an beliebigen Stellen in Stücke geschnitten und fünf kurze Einheiten mit je einem Ziel. Wählen Sie eine und lesen Sie, was Ben bekommt. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The same content three ways: one long lesson, the same lesson cut into pieces at arbitrary points, and five short units with a goal each. Choose one and read what Ben gets. Press “Read the comic” for a short story.",
+      "Derselbe Inhalt auf drei Arten: eine lange Lektion, dieselbe Lektion an beliebigen Stellen in Stücke geschnitten und fünf kurze Einheiten mit je einem Ziel. Wählen Sie eine und lesen Sie, was Ben bekommt. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A3: {
@@ -54,12 +54,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Responsive Design passt eine Plattform an verschiedene Bildschirmgrößen an. Auf dem Handy priorisiert es Inhalt, reduziert das Gezeigte auf das Wesentliche und macht Bedienelemente groß genug für einen Daumen. Cross-Device-Optimierung geht weiter: Sie hält das Erlebnis ganz, wenn eine Lernende das Gerät wechselt, indem Fortschritt synchronisiert und dieselben Namen und dieselbe Layoutlogik beibehalten werden.",
     ),
     why: t(
-      "Block 2.2 and Block 3.1 ask for mobile optimisation and for progress synchronisation. This card names both.",
-      "Block 2.2 und Block 3.1 verlangen mobile Optimierung und Fortschrittssynchronisation. Diese Karte nennt beides.",
+      "Block 1.2 asks you to assess a separate mobile UX, and Block 2.1 and Block 3.1 ask for mobile optimisation and progress synchronisation. This card names both.",
+      "Block 1.2 verlangt, eine eigene mobile UX zu bewerten, und Block 2.1 und Block 3.1 verlangen mobile Optimierung und Fortschrittssynchronisation. Diese Karte nennt beides.",
     ),
     picture: t(
-      "One LearnLoop phone screen with four switches: prioritised content, large targets, text that fits and a synchronised continue card. Switch them on one at a time and read what Ben can do. Press “Walk me through it” for a short story.",
-      "Ein LearnLoop-Handybildschirm mit vier Schaltern: priorisierter Inhalt, große Ziele, passender Text und eine synchronisierte Weitermachen-Karte. Schalten Sie sie nacheinander ein und lesen Sie, was Ben tun kann. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "One LearnLoop phone screen with four switches: prioritised content, large targets, text that fits and a synchronised continue card. Switch them on one at a time and read what Ben can do. Press “Read the comic” for a short story.",
+      "Ein LearnLoop-Handybildschirm mit vier Schaltern: priorisierter Inhalt, große Ziele, passender Text und eine synchronisierte Weitermachen-Karte. Schalten Sie sie nacheinander ein und lesen Sie, was Ben tun kann. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   A4: {
@@ -68,8 +68,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Mobiles Lernen wird auf echten Handys in echten Umgebungen getestet. Ein mobiler Usability-Test heißt, Lernenden bei Aufgaben auf ihren eigenen Handys zuzusehen, manchen unterwegs. Die Nutzungskontexte zu analysieren heißt herauszufinden, wann und wo sie lernen, und fortlaufende Anpassung heißt, den Kreislauf zu wiederholen, wenn sich die Nutzung ändert.",
     ),
     why: t(
-      "Block 3.1 asks for a testing and optimisation strategy. The loop is repeated in B1, so no Core block needs this card.",
-      "Block 3.1 verlangt eine Test- und Optimierungsstrategie. Der Kreislauf steht auch in B1, kein Kernblock braucht diese Karte also.",
+      "Block 3.1 asks for a testing and optimisation strategy. This card gives the tests on real phones and the analysis of contexts.",
+      "Block 3.1 verlangt eine Test- und Optimierungsstrategie. Diese Karte gibt die Tests auf echten Handys und die Analyse der Nutzungskontexte.",
     ),
     picture: t(
       "A learner tests a task on her own phone while a tester watches and notes where she stops. Nothing to click.",
@@ -78,16 +78,16 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
   },
   A5: {
     idea: t(
-      "To choose between mobile measures, rate each on the same three questions. User value: how much does it help a learner on the move? Effort: money and time, decided here by a rule: under €8,000 is Low, up to €16,000 is Mid, above that is High. Risk: what could go wrong, for example that knowledge is fragmented or two products must be kept up.",
-      "Um zwischen mobilen Maßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Nutzerwert: Wie sehr hilft sie einer Lernenden unterwegs? Aufwand: Geld und Zeit, hier von einer Regel entschieden: unter 8.000 € ist Niedrig, bis 16.000 € Mittel, darüber Hoch. Risiko: Was kann schiefgehen, zum Beispiel dass Wissen zersplittert wird oder zwei Produkte gepflegt werden müssen.",
+      "To choose between mobile measures, rate each on the same three questions. User value: how much does it help a learner on the move? Effort: how much work and how many people it needs; the plan prints no price, so Low, Mid or High is your judgement, with a reason. Risk: what could go wrong, for example that knowledge is fragmented or two products must be kept up.",
+      "Um zwischen mobilen Maßnahmen zu wählen, bewerten Sie jede mit denselben drei Fragen. Nutzerwert: Wie sehr hilft sie einer Lernenden unterwegs? Aufwand: wie viel Arbeit und wie viele Personen es braucht; der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund. Risiko: Was kann schiefgehen, zum Beispiel dass Wissen zersplittert wird oder zwei Produkte gepflegt werden müssen.",
     ),
     why: t(
-      "Block 1.2 and Block 2.2 of the task ask for exactly this. The example uses LearnLoop, so the answer for the task case is not given.",
-      "Block 1.2 und Block 2.2 der Aufgabe verlangen genau das. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
+      "Block 1.2 asks for exactly this: user value, effort and risk, a decision and a justification. The example uses LearnLoop, so the answer for the task case is not given.",
+      "Block 1.2 verlangt genau das: Nutzerwert, Aufwand und Risiko, eine Entscheidung und eine Begründung. Das Beispiel nutzt LearnLoop, damit die Antwort für den Aufgabenfall nicht verraten wird.",
     ),
     picture: t(
-      "Three small pictures show LearnLoop's three measures, the bars show the cost of each against the effort rule and the €40,000 budget, and the table gives the rating of each; select a cell to read the reason. Press “Walk me through it” for a short story.",
-      "Drei kleine Bilder zeigen LearnLoops drei Maßnahmen, die Balken zeigen die Kosten jeder gegen die Aufwandsregel und das Budget von 40.000 €, und die Tabelle gibt die Bewertung jeder; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "Three small pictures show LearnLoop's three measures, and the table gives the rating of each on user value, effort and risk; select a cell to read the reason. Press “Read the comic” for a short story.",
+      "Drei kleine Bilder zeigen LearnLoops drei Maßnahmen, und die Tabelle gibt die Bewertung jeder nach Nutzerwert, Aufwand und Risiko; wählen Sie eine Zelle, um den Grund zu lesen. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B1: {
@@ -96,8 +96,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Das Coaching des Plans sagt, dass Mobil kein kleinerer Desktop ist, der Nutzungskontext das Design bestimmt und Cross-Device ein strategischer Vorteil ist. Eine mobile Strategie geht deshalb vom Kontext aus, gestaltet dafür (kurze Einheiten, ein Layout, das priorisiert), prüft die Nutzung, die sie erzeugt, und skaliert das Erlebnis über Geräte hinweg. Die Kette ist Kontext, Design, Nutzung, Skalierung.",
     ),
     why: t(
-      "Task 2 asks for a mobile strategy, a microlearning concept, a cross-device approach and a testing strategy. This chain gives you the order.",
-      "Task 2 verlangt eine mobile Strategie, ein Microlearning-Konzept, einen Cross-Device-Ansatz und eine Teststrategie. Diese Kette gibt Ihnen die Reihenfolge.",
+      "Block 3.1 asks for a mobile strategy, a microlearning concept, a cross-device approach and a testing strategy. This chain gives you the order.",
+      "Block 3.1 verlangt eine mobile Strategie, ein Microlearning-Konzept, einen Cross-Device-Ansatz und eine Teststrategie. Diese Kette gibt Ihnen die Reihenfolge.",
     ),
     picture: t(
       "The chain reads from left to right: context, design, usage, scale. Below it, the test for each link. Nothing to click.",
@@ -110,12 +110,12 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Die Konflikte des Plans für Tag 15 sind Mobil gegen Desktop und Informationsgehalt gegen Passung zur Situation. Der Desktop kann alles zeigen, ein Handy nicht. Das Ziel ist, auf jedem Gerät zu zeigen, was zu seiner Situation passt, und ein Erlebnis über beide zu halten, statt zwei Produkte zu bauen oder eines auf das andere zu kopieren.",
     ),
     why: t(
-      "Task 2 asks for a risk analysis and prioritised measures. The rules of this card tell you how to weigh them.",
-      "Task 2 verlangt eine Risikoanalyse und priorisierte Maßnahmen. Die Regeln dieser Karte sagen Ihnen, wie Sie sie abwägen.",
+      "Block 3.1 asks for prioritised measures and a risk analysis. The rules of this card tell you how to weigh them.",
+      "Block 3.1 verlangt priorisierte Maßnahmen und eine Risikoanalyse. Die Regeln dieser Karte sagen Ihnen, wie Sie sie abwägen.",
     ),
     picture: t(
-      "The matrix places six LearnLoop ideas by how much content they show at once (to the right) and how well they fit the learner's situation (upwards). The position is a reading of the example, not a score. The top right is the aim. Select a point to read why it sits there. Press “Walk me through it” for a short story.",
-      "Die Matrix ordnet sechs LearnLoop-Ideen danach, wie viel Inhalt sie auf einmal zeigen (nach rechts) und wie gut sie zur Situation der Lernenden passen (nach oben). Die Position ist eine Lesart des Beispiels, keine Note. Oben rechts ist das Ziel. Wählen Sie einen Punkt, um zu lesen, warum er dort liegt. Drücken Sie „Führen Sie mich durch“ für eine kurze Geschichte.",
+      "The matrix places six LearnLoop ideas by how much content they show at once (to the right) and how well they fit the learner's situation (upwards). The position is a reading of the example, not a score. The top right is the aim. Select a point to read why it sits there. Press “Read the comic” for a short story.",
+      "Die Matrix ordnet sechs LearnLoop-Ideen danach, wie viel Inhalt sie auf einmal zeigen (nach rechts) und wie gut sie zur Situation der Lernenden passen (nach oben). Die Position ist eine Lesart des Beispiels, keine Note. Oben rechts ist das Ziel. Wählen Sie einen Punkt, um zu lesen, warum er dort liegt. Drücken Sie „Comic lesen“ für eine kurze Geschichte.",
     ),
   },
   B3: {
@@ -124,8 +124,8 @@ const PLAIN: Record<MaterialId, PlainExplain> = bi({
       "Der Plan verlangt, zu entscheiden, obwohl Sie die Daten nach Gerät noch nicht haben. Eine Entscheidung unter Unsicherheit nennt vier Dinge: was Sie entscheiden, was Sie nicht wissen, was Sie zum Rückgängigmachen bringen würde und bis wann, und worauf Sie verzichten. Die Daten nach Gerät aufzuteilen und auf einigen echten Handys zu testen ist der günstigste Weg zu erfahren, was Sie nicht wissen.",
     ),
     why: t(
-      "Block 3.2 asks for exactly this, together with prioritised measures and a risk analysis.",
-      "Block 3.2 verlangt genau das, zusammen mit priorisierten Maßnahmen und einer Risikoanalyse.",
+      "Block 3.1 asks for exactly this: a decision made on purpose without the data by device.",
+      "Block 3.1 verlangt genau das: eine Entscheidung, die bewusst ohne die Daten nach Gerät getroffen wird.",
     ),
     picture: t(
       "The four boxes at the top are the parts of the decision, filled in for LearnLoop. The two boxes below are the rule for future decisions. Nothing to click.",

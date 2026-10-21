@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { DecisionFrame, HypLoopFig, InsightMatrix, KpiFig, ReadFig, SeeFig, SystemChain, WeighExample } from "@/components/day16/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D16 } from "@/components/day16/comicScenes";
+import { COMICS_D16 } from "@/data/day16/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -38,6 +41,7 @@ export function CardA1() {
         tt("Combine the two: use figures to find where, and watching to find why.", "Verbinden Sie beide: Nutzen Sie Zahlen, um zu finden, wo, und Zusehen, um zu finden, warum."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.A1} art={ART_D16} />
       <SeeFig />
       <DataTable
         caption={tt("Three test methods, and what each shows", "Drei Testmethoden und was jede zeigt")}
@@ -70,6 +74,7 @@ export function CardA2() {
         tt("Collect only what a question needs, tell users what is tracked and get consent where it is required (GDPR); tracking with names and no notice is a problem.", "Erfassen Sie nur, was eine Frage braucht, sagen Sie Nutzern, was erfasst wird, und holen Sie Einwilligung ein, wo sie verlangt ist (DSGVO); Tracking mit Namen und ohne Hinweis ist ein Problem."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.A2} art={ART_D16} />
       <KpiFig />
       <DataTable
         caption={tt("Three common KPIs, how to define each, and a trap", "Drei gängige KPIs, wie man jede definiert, und eine Falle")}
@@ -102,6 +107,7 @@ export function CardA3() {
         tt("Write a hypothesis in the form “we believe …, so we will …, and expect …”, with a figure, and change one thing at a time so that the effect can be seen.", "Schreiben Sie eine Hypothese in der Form „wir glauben …, also werden wir …, und erwarten …“, mit einer Zahl, und ändern Sie eine Sache nach der anderen, damit sich die Wirkung sehen lässt."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.A3} art={ART_D16} />
       <ReadFig />
       <DataTable
         caption={tt("Three misreadings, and how to avoid each", "Drei Fehldeutungen und wie man jede vermeidet")}
@@ -132,6 +138,7 @@ export function CardA4() {
         tt("Keep going: every result starts the next hypothesis.", "Machen Sie weiter: Jedes Ergebnis startet die nächste Hypothese."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.A4} art={ART_D16} />
       <HypLoopFig />
       {CA("LearnLoop is the example company.", "LearnLoop ist das Beispielunternehmen.")}
       <Extra id="A4">
@@ -145,18 +152,19 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how much it would move the KPI or the team's ability to move it, what it costs and what could go wrong. Define what matters first, then look for causes, and show data last.", "Bewerten Sie eine Maßnahme danach, wie stark sie die KPI oder die Fähigkeit des Teams, sie zu bewegen, beeinflussen würde, was sie kostet und was schiefgehen kann. Legen Sie zuerst fest, was zählt, suchen Sie dann Ursachen, und zeigen Sie Daten zuletzt.")}
+      scan={tt("Rate a measure by how much it would move the KPI or the team's ability to move it, how much work it takes and what could go wrong. Define what matters first, then look for causes, and show data last.", "Bewerten Sie eine Maßnahme danach, wie stark sie die KPI oder die Fähigkeit des Teams, sie zu bewegen, beeinflussen würde, wie viel Arbeit sie macht und was schiefgehen kann. Legen Sie zuerst fest, was zählt, suchen Sie dann Ursachen, und zeigen Sie Daten zuletzt.")}
       sources={["gibbons2018", "rodden2010"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €7,000 is Low; €7,000 to €14,000 is Mid; above €14,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 7.000 € ist Niedrig; 7.000 € bis 14.000 € ist Mittel; über 14.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate KPI impact by how far it would move the drop-out or completion rate, or the team's ability to do so: a measure that fixes a cause or sharpens the KPI outweighs one that only shows more numbers.", "Bewerten Sie die KPI-Wirkung danach, wie weit sie die Abbruch- oder Abschlussquote bewegen würde, oder die Fähigkeit des Teams dazu: Eine Maßnahme, die eine Ursache behebt oder die KPI schärft, wiegt schwerer als eine, die nur mehr Zahlen zeigt."),
         tt("Rate risk by what could go wrong: the team reading the data wrongly again, noise from more charts, a test on too few learners, a privacy problem.", "Bewerten Sie das Risiko danach, was schiefgehen kann: dass das Team die Daten wieder falsch liest, Rauschen durch mehr Diagramme, ein Test mit zu wenigen Lernenden, ein Datenschutzproblem."),
         tt("Justify the order with data, then insight, then decision: say how your first measure turns data into an insight.", "Begründen Sie die Reihenfolge mit Daten, dann Erkenntnis, dann Entscheidung: Sagen Sie, wie Ihre erste Maßnahme Daten in eine Erkenntnis verwandelt."),
         tt("Say what you do not know, for example where the drop-out concentrates, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel wo sich die Abbrüche konzentrieren, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.A5} art={ART_D16} />
       <WeighExample />
-      {CA("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
+      {CA("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
     </MaterialCard>
   );
 }
@@ -175,6 +183,7 @@ export function CardB1() {
         tt("Say what you do not know and how to find out: which screen causes most of the drop-out.", "Sagen Sie, was Sie nicht wissen und wie Sie es herausfinden: welcher Bildschirm die meisten Abbrüche verursacht."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.B1} art={ART_D16} />
       <SystemChain />
       <DataTable
         caption={tt("The test for each link of the chain", "Der Test für jedes Glied der Kette")}
@@ -207,6 +216,7 @@ export function CardB2() {
         tt("Keep judgement where data cannot decide: which hypothesis to test first, how a message should sound, what the product stands for.", "Behalten Sie das Urteil dort, wo Daten nicht entscheiden können: welche Hypothese zuerst getestet wird, wie eine Meldung klingen soll, wofür das Produkt steht."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.B2} art={ART_D16} />
       <InsightMatrix />
       <DataTable
         caption={tt("Two conflicts and a rule for deciding each", "Zwei Konflikte und eine Regel, jeden zu entscheiden")}
@@ -238,6 +248,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example a new tool or a live dashboard.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel ein neues Werkzeug oder ein Live-Dashboard."),
       ]}
     >
+      <ComicButton comic={COMICS_D16.B3} art={ART_D16} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision with unclear causes safer", "Fünf Wege, eine Entscheidung bei unklaren Ursachen sicherer zu machen")}

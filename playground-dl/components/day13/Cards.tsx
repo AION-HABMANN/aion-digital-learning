@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { DecisionFrame, PlainFig, PourFig, ReachMatrix, StrategyChain, UsersFig, WcagFig, WeighExample } from "@/components/day13/diagrams";
+import { ComicButton } from "@/components/comic/ComicModal";
+import { ART_D13 } from "@/components/day13/comicScenes";
+import { COMICS_D13 } from "@/data/day13/comics";
 import { Callout, DataTable, MaterialCard } from "@/components/ui/MaterialCard";
 import { ShowMore } from "@/components/ui/ShowMore";
 import { tt } from "@/lib/lang";
@@ -37,6 +40,7 @@ export function CardA1() {
         tt("Do not blame the learner: if a page does not work for a group, the barrier is in the page.", "Geben Sie nicht der Lernenden die Schuld: Wenn eine Seite für eine Gruppe nicht funktioniert, liegt die Barriere in der Seite."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.A1} art={ART_D13} />
       <UsersFig />
       <DataTable
         caption={tt("Three groups of needs, with an example of a barrier and a fix", "Drei Gruppen von Bedürfnissen, mit Beispiel für eine Barriere und eine Korrektur")}
@@ -67,6 +71,7 @@ export function CardA2() {
         tt("Treat WCAG as a minimum: meeting it does not by itself make a platform good to use.", "Behandeln Sie WCAG als Minimum: Es zu erfüllen macht eine Plattform nicht von selbst gut nutzbar."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.A2} art={ART_D13} />
       <PourFig />
       <DataTable
         caption={tt("The four principles, the question each asks, and a barrier that breaks it", "Die vier Prinzipien, die Frage, die jedes stellt, und eine Barriere, die es bricht")}
@@ -100,6 +105,7 @@ export function CardA3() {
         tt("Videos need captions, and a time limit must be adjustable; both appear as measures in the task.", "Videos brauchen Untertitel, und ein Zeitlimit muss einstellbar sein; beides kommt als Maßnahme in der Aufgabe vor."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.A3} art={ART_D13} />
       <WcagFig />
       <DataTable
         caption={tt("Four requirements, the group each frees, and a test", "Vier Anforderungen, die Gruppe, die jede befreit, und ein Test")}
@@ -131,6 +137,7 @@ export function CardA4() {
         tt("Intuitive interaction: controls look and behave as people expect, with the same pattern for the same task.", "Intuitive Interaktion: Bedienelemente sehen aus und verhalten sich, wie Menschen es erwarten, mit demselben Muster für dieselbe Aufgabe."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.A4} art={ART_D13} />
       <PlainFig />
       {CA("LearnLoop is the example company. Day 14 treats plain language and intuitive environments in depth.", "LearnLoop ist das Beispielunternehmen. Tag 14 behandelt schlichte Sprache und intuitive Umgebungen ausführlich.")}
       <Extra id="A4">
@@ -144,18 +151,19 @@ export function CardA5() {
   return (
     <MaterialCard
       id="A5"
-      scan={tt("Rate a measure by how many learners it frees and how badly they were blocked, what it costs and what could go wrong. Cheap fixes that free a blocked group go first.", "Bewerten Sie eine Maßnahme danach, wie viele Lernende sie befreit und wie stark sie blockiert waren, was sie kostet und was schiefgehen kann. Günstige Korrekturen, die eine blockierte Gruppe befreien, kommen zuerst.")}
+      scan={tt("Rate a measure by how many learners it frees and how badly they were blocked, how much work it takes and what could go wrong. Small fixes that free a blocked group go first.", "Bewerten Sie eine Maßnahme danach, wie viele Lernende sie befreit und wie stark sie blockiert waren, wie viel Arbeit sie macht und was schiefgehen kann. Kleine Korrekturen, die eine blockierte Gruppe befreien, kommen zuerst.")}
       sources={["gibbons2018", "wcag22"]}
       reasoning={[
-        tt("Rate effort by the printed cost: under €8,000 is Low; €8,000 to €18,000 is Mid; above €18,000 is High.", "Bewerten Sie den Aufwand nach den gedruckten Kosten: unter 8.000 € ist Niedrig; 8.000 € bis 18.000 € ist Mittel; über 18.000 € ist Hoch."),
+        tt("Rate effort by how much work and how many people it needs. The plan prints no price, so Low, Mid or High is your judgement, with a reason.", "Bewerten Sie den Aufwand danach, wie viel Arbeit und wie viele Personen er braucht. Der Plan nennt keinen Preis, also ist Niedrig, Mittel oder Hoch Ihr Urteil, mit einem Grund."),
         tt("Rate impact by how many learners are freed and how badly they were blocked: a barrier that stops a group completely outweighs one that only slows.", "Bewerten Sie die Wirkung danach, wie viele Lernende befreit werden und wie stark sie blockiert waren: Eine Barriere, die eine Gruppe vollständig stoppt, wiegt schwerer als eine, die nur bremst."),
         tt("Rate risk by what could go wrong: a job that takes longer than the time allows, a fix that covers only part of the content, a new menu that confuses regular users at first.", "Bewerten Sie das Risiko danach, was schiefgehen kann: eine Arbeit, die länger dauert, als die Zeit erlaubt, eine Korrektur, die nur einen Teil des Inhalts abdeckt, ein neues Menü, das Stammnutzer zunächst verwirrt."),
         tt("Justify the order with accessibility is usability is success: say whom your first measure helps soonest.", "Begründen Sie die Reihenfolge mit Barrierefreiheit ist Usability ist Erfolg: Sagen Sie, wem Ihre erste Maßnahme am schnellsten hilft."),
         tt("Say what you do not know, for example how many learners use a screen reader, and how you would find out.", "Sagen Sie, was Sie nicht wissen, zum Beispiel wie viele Lernende einen Screenreader nutzen, und wie Sie es herausfinden würden."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.A5} art={ART_D13} />
       <WeighExample />
-      {CA("LearnLoop, its costs and its reasons are made up for this example. The task case is in the task.", "LearnLoop, seine Kosten und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
+      {CA("LearnLoop and its reasons are made up for this example. The task case is in the task.", "LearnLoop und seine Gründe sind für dieses Beispiel erfunden. Der Aufgabenfall steht in der Aufgabe.")}
     </MaterialCard>
   );
 }
@@ -174,6 +182,7 @@ export function CardB1() {
         tt("Name who else gains: measures built for one group, such as captions or a clear menu, often help everyone.", "Nennen Sie, wer noch profitiert: Maßnahmen, die für eine Gruppe gebaut sind, etwa Untertitel oder ein klares Menü, helfen oft allen."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.B1} art={ART_D13} />
       <StrategyChain />
       <DataTable
         caption={tt("The test for each link of the chain", "Der Test für jedes Glied der Kette")}
@@ -206,6 +215,7 @@ export function CardB2() {
         tt("Use the standard as the floor and allow flexibility above it: a learner who needs more time or a different format should be able to ask for it.", "Nutzen Sie den Standard als Untergrenze und erlauben Sie darüber Flexibilität: Eine Lernende, die mehr Zeit oder ein anderes Format braucht, sollte darum bitten können."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.B2} art={ART_D13} />
       <ReachMatrix />
       <DataTable
         caption={tt("Two conflicts and a rule for deciding each", "Zwei Konflikte und eine Regel, jeden zu entscheiden")}
@@ -237,6 +247,7 @@ export function CardB3() {
         tt("Giving up nothing means you have not decided: name what you postpone, for example the claim “fully accessible” or the old archive.", "Auf nichts zu verzichten heißt, nicht entschieden zu haben: Nennen Sie, was Sie verschieben, zum Beispiel die Aussage „vollständig barrierefrei“ oder das alte Archiv."),
       ]}
     >
+      <ComicButton comic={COMICS_D13.B3} art={ART_D13} />
       <DecisionFrame />
       <DataTable
         caption={tt("Five ways to make a decision with an unknown scale safer", "Fünf Wege, eine Entscheidung mit unbekanntem Ausmaß sicherer zu machen")}
