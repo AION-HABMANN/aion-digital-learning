@@ -674,11 +674,14 @@ export function EduCoreSim({ start = "overview" }: { start?: SimStart } = {}) {
 /* ------------------------------------------------------------------ Block 1.1 and 1.2 · one lesson, read as a learner reads it */
 
 /** A lesson of the course in a bare page frame: the top bar of the platform and a bottom bar with "Mark as complete" that answers. */
-function LessonFrame({ children, onFinish, finishLabel }: { children: ReactNode; onFinish?: () => void; finishLabel?: string }) {
+function LessonFrame({ children, onFinish, finishLabel, onBack }: { children: ReactNode; onFinish?: () => void; finishLabel?: string; onBack?: () => void }) {
   const [done, setDone] = useState(false);
   return (
     <div className={INK}>
-      <div className={clsx("px-3 py-2 font-serif text-[15px] font-bold text-white", HEAD)}>EduCore</div>
+      <div className={clsx("flex items-center justify-between px-3 py-2 font-serif text-[15px] font-bold text-white", HEAD)}>
+        <span>EduCore</span>
+        {onBack && <button type="button" onClick={onBack} className="min-h-[32px] rounded bg-white/15 px-3 font-sans text-[13px] font-normal hover:bg-white/25">← {tt("Module overview", "Modulübersicht")}</button>}
+      </div>
       {done ? (
         <div className="space-y-3 px-4 py-6">
           <h3 className="text-[17px] font-semibold">{tt("Lesson completed", "Lektion abgeschlossen")}</h3>
@@ -720,12 +723,12 @@ const Box = ({ children, strong }: { children: React.ReactNode; strong?: boolean
 );
 
 /** The module of Block 1.2 as each option leaves it: A shortened significantly, B with diagrams and graphics, C split into small modules. */
-export function OptionSim({ option }: { option: OptId }) {
+function OptionLesson({ option, onBack, onFinish }: { option: OptId; onBack: () => void; onFinish: () => void }) {
   const parts = PARTS();
   const [unit, setUnit] = useState(0);
   if (option === "A") {
     return (
-      <LessonFrame>
+      <LessonFrame onBack={onBack} onFinish={onFinish}>
         <h3 className="mb-2 text-[17px] font-semibold">{LESSON_TITLE()}</h3>
         <p className="text-[14px] leading-[1.55]">{`${parts[0].text} ${parts[5].text}`}</p>
       </LessonFrame>
@@ -733,7 +736,7 @@ export function OptionSim({ option }: { option: OptId }) {
   }
   if (option === "B") {
     return (
-      <LessonFrame>
+      <LessonFrame onBack={onBack} onFinish={onFinish}>
         <div className="space-y-3">
           <h3 className="text-[17px] font-semibold">{LESSON_TITLE()}</h3>
           <p className="text-[14px] leading-[1.55]">{parts[0].text}</p>
@@ -764,7 +767,7 @@ export function OptionSim({ option }: { option: OptId }) {
   }
   const last = parts.length - 1;
   return (
-    <LessonFrame key={unit === last ? "last" : "unit"} finishLabel={unit === last ? tt("Finish the module", "Modul beenden") : tt("Next", "Weiter") + " ›"} onFinish={unit === last ? undefined : () => setUnit((u) => Math.min(last, u + 1))}>
+    <LessonFrame key={unit === last ? "last" : "unit"} onBack={onBack} finishLabel={unit === last ? tt("Finish the module", "Modul beenden") : tt("Next", "Weiter") + " ›"} onFinish={unit === last ? onFinish : () => setUnit((u) => Math.min(last, u + 1))}>
       <div className="space-y-3">
         <div className="flex items-center gap-3">
           <div className="h-2 flex-1 rounded-full bg-[#E4E0EC]" role="progressbar" aria-valuemin={0} aria-valuemax={parts.length} aria-valuenow={unit + 1} aria-label={tt("Progress", "Fortschritt")}>
@@ -777,6 +780,30 @@ export function OptionSim({ option }: { option: OptId }) {
         <p className="max-w-prose text-[15px] leading-relaxed">{parts[unit].text}</p>
         {unit > 0 && <button type="button" onClick={() => setUnit((u) => Math.max(0, u - 1))} className={btn}>‹ {tt("Back", "Zurück")}</button>}
       </div>
+    </LessonFrame>
+  );
+}
+
+/** The three options of Block 1.2 inside the platform: the module overview of 28 lessons, every lesson opens and can be completed (it then shows as completed in the overview), and lesson 7 is the one each option reshapes. */
+export function OptionSim({ option }: { option: OptId }) {
+  const [open, setOpen] = useState<number | null>(null);
+  const [done, setDone] = useState<number[]>([]);
+  const finish = (i: number) => {
+    setDone((d) => (d.includes(i) ? d : [...d, i]));
+    setOpen(null);
+  };
+  if (open === null) {
+    return (
+      <div className={INK}>
+        <div className={clsx("px-3 py-2 font-serif text-[15px] font-bold text-white", HEAD)}>EduCore</div>
+        <div className="px-4 py-4"><OverviewList onOpen={setOpen} done={done} /></div>
+      </div>
+    );
+  }
+  if (open === 6) return <OptionLesson key={option} option={option} onBack={() => setOpen(null)} onFinish={() => finish(6)} />;
+  return (
+    <LessonFrame onBack={() => setOpen(null)} onFinish={() => finish(open)}>
+      <LessonBody i={open} />
     </LessonFrame>
   );
 }

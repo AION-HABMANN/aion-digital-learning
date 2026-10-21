@@ -28,6 +28,7 @@ function Bar({ role }: { role: string }) {
 
 function LearnerView() {
   const [open, setOpen] = useState<number | null>(null);
+  const [done, setDone] = useState<number[]>([]);
   const units = UNITS();
   if (open !== null)
     return (
@@ -36,7 +37,10 @@ function LearnerView() {
         <p className="text-[12px] font-semibold text-[#4A4458]">{tt("45 min", "45 Min.")}</p>
         <p className="text-[14px] leading-[1.6]">{TEXT()}</p>
         <p className="text-[14px] leading-[1.6]">{TEXT()}</p>
-        <button type="button" onClick={() => setOpen(null)} className="text-[13px] underline">← {tt("Back to the course", "Zurück zum Kurs")}</button>
+        <div className="flex flex-wrap items-center gap-3">
+          <button type="button" onClick={() => { setDone((d) => (d.includes(open) ? d : [...d, open])); setOpen(null); }} className="min-h-[40px] rounded bg-[#4A4458] px-4 text-[14px] font-semibold text-white">{tt("Mark as finished", "Als beendet markieren")}</button>
+          <button type="button" onClick={() => setOpen(null)} className="text-[13px] underline">← {tt("Back to the course", "Zurück zum Kurs")}</button>
+        </div>
       </div>
     );
   return (
@@ -46,7 +50,7 @@ function LearnerView() {
         {units.map((u, i) => (
           <li key={u}>
             <button type="button" onClick={() => setOpen(i)} className="flex min-h-[44px] w-full items-center justify-between rounded border border-[#D9D5E2] px-3 text-left hover:bg-[#F4F2F7]">
-              <span className="text-[14px]">{`${i + 1}. ${u}`}</span>
+              <span className="text-[14px]">{`${i + 1}. ${u}`}{done.includes(i) ? " ✓" : ""}</span>
               <span className="text-[12px] text-[#5F5E5A]">{tt("45 min", "45 Min.")}</span>
             </button>
           </li>
@@ -60,6 +64,15 @@ function TeacherView() {
   const [saved, setSaved] = useState(false);
   const tabs = TABS();
   const [tab, setTab] = useState(0);
+  const [who, setWho] = useState<string | null>(null);
+  if (who)
+    return (
+      <div className="space-y-3 px-4 py-4">
+        <h3 className="text-[17px] font-semibold">{who}</h3>
+        <p className="text-[14px]">{tt("Enrolled in: Project management. Last login: two days ago. Units opened: 3 of 8.", "Eingeschrieben in: Projektmanagement. Letzte Anmeldung: vor zwei Tagen. Geöffnete Einheiten: 3 von 8.")}</p>
+        <button type="button" onClick={() => setWho(null)} className="text-[13px] underline">← {tt("Back to the course editor", "Zurück zum Kurseditor")}</button>
+      </div>
+    );
   return (
     <div className="space-y-3 px-3 py-3">
       <h3 className="text-[17px] font-semibold">{tt("Course editor", "Kurseditor")}</h3>
@@ -87,7 +100,7 @@ function TeacherView() {
         </thead>
         <tbody>
           {["A. Berg", "M. Okafor", "L. Weiss", "J. Kaya"].map((n) => (
-            <tr key={n} className="border-t border-[#E4E0EC]"><td className="px-2 py-1">{n}</td><td className="px-2 py-1">—</td></tr>
+            <tr key={n} className="border-t border-[#E4E0EC]"><td className="px-2 py-1"><button type="button" onClick={() => setWho(n)} className="min-h-[32px] underline decoration-dotted">{n}</button></td><td className="px-2 py-1">—</td></tr>
           ))}
         </tbody>
       </table>

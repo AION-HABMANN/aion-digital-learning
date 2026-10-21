@@ -346,78 +346,215 @@ export function MotivaShot({ kind, marks }: { kind: ShotKind; marks: boolean }) 
   );
 }
 
-/* ------------------------------------------------------------------ Block 1.2 · the three options as the same short lesson */
+/* ------------------------------------------------------------------ Block 1.2 · the three options as the same small platform */
 
-/** The three options of Block 1.2, each as the same short lesson: A gamification (badges, points), B visible progress, C interactive content. */
+type OView = { v: "home" } | { v: "lesson"; i: number } | { v: "done" } | { v: "badges" } | { v: "board" } | { v: "progress" } | { v: "summary" };
+const STEPS = () => [tt("Write down the big task", "Die große Aufgabe aufschreiben"), tt("Split it into steps of a day or less", "Sie in Schritte von höchstens einem Tag teilen"), tt("Start with the first step", "Mit dem ersten Schritt beginnen")];
+const WHY = () => [
+  tt("A short weekly look at what is done and what is next catches most delays while they are still small.", "Ein kurzer wöchentlicher Blick darauf, was fertig ist und was als Nächstes kommt, fängt die meisten Verzögerungen ab, solange sie klein sind."),
+  tt("Writing the task down, splitting it and starting with the first step is the order the lesson describes.", "Die Aufgabe aufzuschreiben, sie zu teilen und mit dem ersten Schritt zu beginnen, ist die Reihenfolge, die die Lektion beschreibt."),
+  tt("A step is done when someone else could use its result; writing that down avoids arguments at the end.", "Ein Schritt ist fertig, wenn jemand anderes sein Ergebnis nutzen könnte; das aufzuschreiben vermeidet Streit am Ende."),
+];
+
+/** The three options of Block 1.2, each as the same small platform with the same course and the same three lessons: A with points, badges and a ranking, B with a visible progress path, C with a different task on every page. */
 export function EngagementOptionSim({ option }: { option: "A" | "B" | "C" }) {
   const pages = PAGES();
-  const [i, setI] = useState(0);
-  const [points, setPoints] = useState(0);
-  const [answered, setAnswered] = useState<Record<number, number>>({});
-  const [fin, setFin] = useState(false);
-  const p = pages[i];
-  const last = i === pages.length - 1;
-  const head = (
-    <div className="flex items-center justify-between bg-[#4A4458] px-4 py-2.5 text-white">
-      <span className="font-serif text-[15px] font-bold">{tt("Planning basics", "Planungsgrundlagen")}</span>
-      {option === "A" && <span className="rounded-full bg-white px-3 py-0.5 text-[13px] font-bold text-[#4A4458]">{tt(`${points} points`, `${points} Punkte`)}</span>}
+  const [view, setView] = useState<OView>({ v: "home" });
+  const [done, setDone] = useState<number[]>([]);
+  const [pick, setPick] = useState<Record<number, number>>({});
+  const [order, setOrder] = useState([1, 2, 0]);
+  const [checked, setChecked] = useState<Record<number, boolean>>({});
+  const [toast, setToast] = useState("");
+  const points = done.length * 10 + (done.length === pages.length ? 10 : 0);
+  const level = Math.floor(points / 20) + 1;
+  const next = Math.min(pages.length - 1, done.length);
+  const BADGES = [
+    { n: tt("Explorer", "Entdecker"), need: tt("Finish the first lesson", "Die erste Lektion beenden"), ok: done.length >= 1 },
+    { n: tt("Planner", "Planer"), need: tt("Finish two lessons", "Zwei Lektionen beenden"), ok: done.length >= 2 },
+    { n: tt("Finisher", "Durchhalter"), need: tt("Finish the course", "Den Kurs beenden"), ok: done.length >= pages.length },
+  ];
+  const finish = (i: number) => {
+    setDone((d) => (d.includes(i) ? d : [...d, i]));
+    setToast(option === "A" ? tt("+10 points", "+10 Punkte") : "");
+    setView(i === pages.length - 1 ? { v: "done" } : { v: "lesson", i: i + 1 });
+  };
+  const go = (x: OView) => { setToast(""); setView(x); };
+  const nav: [string, OView][] = [[tt("Course", "Kurs"), { v: "home" }]];
+  if (option === "A") nav.push([tt("Badges", "Badges"), { v: "badges" }], [tt("Ranking", "Rangliste"), { v: "board" }]);
+  if (option === "B") nav.push([tt("My progress", "Mein Fortschritt"), { v: "progress" }]);
+  if (option === "C") nav.push([tt("My answers", "Meine Antworten"), { v: "summary" }]);
+  const pct = Math.round((done.length / pages.length) * 100);
+  const bar = (
+    <div className="h-3 rounded-full bg-[#E4E0EC]" role="progressbar" aria-valuemin={0} aria-valuemax={pages.length} aria-valuenow={done.length} aria-label={tt("Course progress", "Kursfortschritt")}>
+      <div className="h-3 rounded-full bg-[#4A4458]" style={{ width: `${pct}%` }} />
     </div>
   );
-  const go = () => {
-    if (option === "A") setPoints((x) => x + 10);
-    if (last) setFin(true);
-    else setI((x) => x + 1);
-  };
-  if (fin) {
-    return (
-      <div className={INK}>
-        {head}
-        <div className="space-y-3 px-4 py-6">
-          <h3 className="text-[17px] font-semibold">{tt("Lesson finished", "Lektion beendet")}</h3>
-          <p className="text-[14px]">{option === "A" ? tt(`You collected ${points} points.`, `Sie haben ${points} Punkte gesammelt.`) : tt("Your progress was saved.", "Ihr Fortschritt wurde gespeichert.")}</p>
-          <button type="button" onClick={() => { setFin(false); setI(0); setPoints(0); setAnswered({}); }} className={btn}>{tt("Start again", "Noch einmal beginnen")}</button>
-        </div>
+  const head = (
+    <div className="bg-[#4A4458] text-white">
+      <div className="flex items-center justify-between px-4 py-2.5">
+        <span className="font-serif text-[15px] font-bold">{tt("Planning basics", "Planungsgrundlagen")}</span>
+        {option === "A" && <span className="rounded-full bg-white px-3 py-0.5 text-[13px] font-bold text-[#4A4458]">{tt(`${points} points · level ${level}`, `${points} Punkte · Stufe ${level}`)}</span>}
+        {option === "B" && <span className="text-[13px]">{tt(`${done.length} of ${pages.length} done`, `${done.length} von ${pages.length} geschafft`)}</span>}
+      </div>
+      <div className="flex gap-1 px-3 pb-2">
+        {nav.map(([l, t]) => (
+          <button key={l} type="button" onClick={() => go(t)} className={clsx("min-h-[32px] rounded px-3 text-[13px]", view.v === t.v ? "bg-white text-[#4A4458]" : "hover:bg-white/15")}>{l}</button>
+        ))}
+      </div>
+    </div>
+  );
+  const back = <button type="button" onClick={() => go({ v: "home" })} className="text-[13px] underline">← {tt("Back to the course", "Zurück zum Kurs")}</button>;
+  const reset = () => { setDone([]); setPick({}); setChecked({}); setOrder([1, 2, 0]); go({ v: "home" }); };
+  let body: React.ReactNode;
+  if (view.v === "badges") {
+    body = (
+      <div className="space-y-3 px-4 py-4">
+        <h3 className="text-[17px] font-semibold">{tt("Your badges", "Ihre Badges")}</h3>
+        <ul className="grid gap-2 sm:grid-cols-3">
+          {BADGES.map((b) => (
+            <li key={b.n} className={clsx("rounded border p-3 text-[13px]", b.ok ? "border-[#4A4458] bg-[#FFF4D6]" : "border-[#D9D5E2] bg-[#FAF9FC] text-[#5F5E5A]")}>
+              <p className="text-[15px] font-semibold">{b.ok ? "★ " : "☆ "}{b.n}</p>
+              <p>{b.need}</p>
+              <p className="mt-1 font-semibold">{b.ok ? tt("Unlocked", "Freigeschaltet") : tt("Locked", "Gesperrt")}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="text-[13px] text-[#5F5E5A]">{tt("Every finished lesson gives 10 points; finishing the course gives 10 more. A new level every 20 points.", "Jede beendete Lektion gibt 10 Punkte; den Kurs zu beenden gibt 10 weitere. Alle 20 Punkte eine neue Stufe.")}</p>
+        {back}
       </div>
     );
-  }
-  return (
-    <div className={INK}>
-      {head}
-      {option === "B" && (
-        <div className="px-4 pt-3">
-          <ol className="flex gap-1" aria-label={tt("Progress path", "Fortschrittspfad")}>
-            {pages.map((x, k) => (
-              <li key={k} className={clsx("flex-1 rounded px-2 py-1 text-center text-[12px]", k < i ? "bg-[#2E7D5B] text-white" : k === i ? "border-2 border-[#4A4458] bg-white font-semibold" : "bg-[#E4E0EC]")}>
-                {k < i ? "✓ " : ""}{k + 1}
-              </li>
-            ))}
-          </ol>
-          <p className="mt-1 text-[13px] text-[#5F5E5A]">{tt(`Step ${i + 1} of ${pages.length} · ${Math.round((i / pages.length) * 100)}% done`, `Schritt ${i + 1} von ${pages.length} · ${Math.round((i / pages.length) * 100)} % geschafft`)}</p>
-        </div>
-      )}
+  } else if (view.v === "board") {
+    const you = tt("You", "Sie");
+    const rows = [{ n: "Jonas K.", p: 60 }, { n: "Mira S.", p: 40 }, { n: "Tomas B.", p: 20 }, { n: you, p: points }].sort((a, b) => b.p - a.p);
+    body = (
       <div className="space-y-3 px-4 py-4">
+        <h3 className="text-[17px] font-semibold">{tt("Ranking this week", "Rangliste dieser Woche")}</h3>
+        <ol className="space-y-1">
+          {rows.map((r, k) => (
+            <li key={r.n} className={clsx("flex justify-between rounded border px-3 py-2 text-[14px]", r.n === you ? "border-[#4A4458] bg-[#F4F2F7] font-semibold" : "border-[#D9D5E2]")}><span>{k + 1}. {r.n}</span><span>{tt(`${r.p} points`, `${r.p} Punkte`)}</span></li>
+          ))}
+        </ol>
+        <p className="text-[13px] text-[#5F5E5A]">{tt("The other names and points are made up.", "Die anderen Namen und Punkte sind erfunden.")}</p>
+        {back}
+      </div>
+    );
+  } else if (view.v === "progress") {
+    body = (
+      <div className="space-y-3 px-4 py-4">
+        <h3 className="text-[17px] font-semibold">{tt("Your progress", "Ihr Fortschritt")}</h3>
+        <ul className="space-y-1 text-[14px]">
+          <li>{tt(`Lessons finished: ${done.length} of ${pages.length}`, `Beendete Lektionen: ${done.length} von ${pages.length}`)}</li>
+          <li>{tt(`Time spent: about ${done.length * 3} minutes`, `Verbrachte Zeit: etwa ${done.length * 3} Minuten`)}</li>
+          <li>{tt(`Time left: about ${(pages.length - done.length) * 3} minutes`, `Verbleibende Zeit: etwa ${(pages.length - done.length) * 3} Minuten`)}</li>
+        </ul>
+        {bar}
+        {back}
+      </div>
+    );
+  } else if (view.v === "summary") {
+    body = (
+      <div className="space-y-3 px-4 py-4">
+        <h3 className="text-[17px] font-semibold">{tt("Your answers", "Ihre Antworten")}</h3>
+        <ul className="space-y-2 text-[14px]">
+          {pages.map((p, k) => (
+            <li key={k} className="rounded border border-[#D9D5E2] p-3">
+              <p className="font-semibold">{p.title}</p>
+              <p>{k === 1 ? (checked[1] ? order.map((s) => STEPS()[s]).join(" → ") : tt("Not answered yet.", "Noch nicht beantwortet.")) : pick[k] === undefined ? tt("Not answered yet.", "Noch nicht beantwortet.") : p.a[pick[k]]}</p>
+            </li>
+          ))}
+        </ul>
+        {back}
+      </div>
+    );
+  } else if (view.v === "done") {
+    body = (
+      <div className="space-y-3 px-4 py-6">
+        <h3 className="text-[17px] font-semibold">{tt("Course finished", "Kurs beendet")}</h3>
+        <p className="text-[14px]">{option === "A" ? tt(`You collected ${points} points and reached level ${level}.`, `Sie haben ${points} Punkte gesammelt und Stufe ${level} erreicht.`) : tt("Your progress was saved.", "Ihr Fortschritt wurde gespeichert.")}</p>
+        <div className="flex items-center gap-3"><button type="button" onClick={reset} className={btn}>{tt("Start again", "Noch einmal beginnen")}</button>{back}</div>
+      </div>
+    );
+  } else if (view.v === "lesson") {
+    const i = view.i;
+    const p = pages[i];
+    const answered = i === 1 ? !!checked[1] : pick[i] !== undefined;
+    const right = i === 1 ? order.join() === "0,1,2" : pick[i] === 0;
+    const move = (k: number, d: number) => { const o = [...order]; [o[k + d], o[k]] = [o[k], o[k + d]]; setOrder(o); setChecked((c) => ({ ...c, 1: false })); };
+    const badge = BADGES.filter((b) => b.ok).slice(-1)[0];
+    body = (
+      <div className="space-y-3 px-4 py-4">
+        {option === "B" && (
+          <div>
+            <ol className="flex gap-1" aria-label={tt("Progress path", "Fortschrittspfad")}>
+              {pages.map((x, k) => (
+                <li key={k} className="flex-1">
+                  <button type="button" onClick={() => go({ v: "lesson", i: k })} className={clsx("min-h-[32px] w-full rounded px-2 py-1 text-center text-[12px]", done.includes(k) ? "bg-[#2E7D5B] text-white" : k === i ? "border-2 border-[#4A4458] bg-white font-semibold" : "bg-[#E4E0EC]")}>{done.includes(k) ? "✓ " : ""}{k + 1}</button>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-1 text-[13px] text-[#5F5E5A]">{tt(`Step ${i + 1} of ${pages.length} · ${pct}% done`, `Schritt ${i + 1} von ${pages.length} · ${pct} % geschafft`)}{i + 1 < pages.length ? tt(` · next: ${pages[i + 1].title}`, ` · als Nächstes: ${pages[i + 1].title}`) : ""}</p>
+          </div>
+        )}
         <h3 className="text-[17px] font-semibold">{p.title}</h3>
         <p className="text-[15px] leading-relaxed">{p.text}</p>
         {option === "C" && (
           <fieldset className="space-y-2 rounded border border-[#D9D5E2] p-3">
-            <legend className="px-1 text-[14px] font-semibold">{p.q}</legend>
-            {p.a.map((o, j) => (
-              <label key={j} className={clsx("flex min-h-[40px] cursor-pointer items-center gap-2 rounded border px-3 text-[14px]", answered[i] === j ? "border-[#4A4458] bg-[#F4F2F7]" : "border-[#D9D5E2]")}>
-                <input type="radio" name={`q${i}`} checked={answered[i] === j} onChange={() => setAnswered((s) => ({ ...s, [i]: j }))} />
-                {o}
-              </label>
-            ))}
-            {answered[i] !== undefined && <p role="status" className="text-[13px]">{answered[i] === 0 ? tt("Correct.", "Richtig.") : tt("Not quite.", "Nicht ganz.")}</p>}
+            <legend className="px-1 text-[14px] font-semibold">{i === 1 ? tt("Put the steps in order", "Bringen Sie die Schritte in die Reihenfolge") : p.q}</legend>
+            {i === 1 ? (
+              <ol className="space-y-1">
+                {order.map((s, k) => (
+                  <li key={s} className="flex items-center gap-2 rounded border border-[#D9D5E2] px-2 py-1 text-[14px]">
+                    <span className="flex-1">{k + 1}. {STEPS()[s]}</span>
+                    <button type="button" aria-label={tt("Move up", "Nach oben")} disabled={k === 0} onClick={() => move(k, -1)} className="min-h-[32px] min-w-[32px] rounded border border-[#B9B4C4] disabled:opacity-40">▲</button>
+                    <button type="button" aria-label={tt("Move down", "Nach unten")} disabled={k === order.length - 1} onClick={() => move(k, 1)} className="min-h-[32px] min-w-[32px] rounded border border-[#B9B4C4] disabled:opacity-40">▼</button>
+                  </li>
+                ))}
+                <li><button type="button" onClick={() => setChecked((c) => ({ ...c, 1: true }))} className={btn}>{tt("Check the order", "Reihenfolge prüfen")}</button></li>
+              </ol>
+            ) : (
+              p.a.map((o, j) => (
+                <label key={j} className={clsx("flex min-h-[40px] cursor-pointer items-center gap-2 rounded border px-3 text-[14px]", pick[i] === j ? "border-[#4A4458] bg-[#F4F2F7]" : "border-[#D9D5E2]")}>
+                  <input type="radio" name={`q${i}`} checked={pick[i] === j} onChange={() => setPick((s) => ({ ...s, [i]: j }))} />
+                  {o}
+                </label>
+              ))
+            )}
+            {answered && <p role="status" className="text-[13px]"><span className="font-semibold">{right ? tt("Right. ", "Richtig. ") : tt("Not quite. ", "Nicht ganz. ")}</span>{WHY()[i]}</p>}
           </fieldset>
         )}
-        {option === "A" && points >= 20 && (
-          <p className="rounded bg-[#FFF4D6] px-3 py-2 text-[13px] font-semibold" role="status">{tt("Badge unlocked: Explorer", "Badge freigeschaltet: Entdecker")}</p>
-        )}
+        {toast && <p role="status" className="rounded bg-[#FFF4D6] px-3 py-2 text-[13px] font-semibold">{toast}{badge ? ` · ${tt("Badge unlocked: ", "Badge freigeschaltet: ")}${badge.n}` : ""}</p>}
         <div className="flex gap-2">
-          {i > 0 && <button type="button" onClick={() => setI((x) => Math.max(0, x - 1))} className={btn}>‹ {tt("Back", "Zurück")}</button>}
-          <button type="button" onClick={go} className={btnDark}>{last ? tt("Finish", "Beenden") : tt("Next", "Weiter") + " ›"}</button>
+          {i > 0 && <button type="button" onClick={() => go({ v: "lesson", i: i - 1 })} className={btn}>‹ {tt("Back", "Zurück")}</button>}
+          <button type="button" onClick={() => finish(i)} className={btnDark}>{i === pages.length - 1 ? tt("Finish", "Beenden") : tt("Next", "Weiter") + " ›"}</button>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    body = (
+      <div className="space-y-3 px-4 py-4">
+        <h3 className="text-[17px] font-semibold">{tt("Planning basics", "Planungsgrundlagen")}</h3>
+        <p className="text-[14px]">{tt(`A short course on keeping a plan on track. ${pages.length} lessons, about ${pages.length * 3} minutes in all.`, `Ein kurzer Kurs darüber, einen Plan im Griff zu behalten. ${pages.length} Lektionen, insgesamt etwa ${pages.length * 3} Minuten.`)}</p>
+        {option === "A" && <p className="rounded bg-[#F4F2F7] px-3 py-2 text-[13px]">{tt(`Level ${level} · ${points} points · ${BADGES.filter((b) => b.ok).length} of ${BADGES.length} badges`, `Stufe ${level} · ${points} Punkte · ${BADGES.filter((b) => b.ok).length} von ${BADGES.length} Badges`)}</p>}
+        {option === "B" && (
+          <div>
+            {bar}
+            <p className="mt-1 text-[13px] text-[#5F5E5A]">{tt(`${done.length} of ${pages.length} lessons done · about ${(pages.length - done.length) * 3} minutes left`, `${done.length} von ${pages.length} Lektionen geschafft · noch etwa ${(pages.length - done.length) * 3} Minuten`)}</p>
+          </div>
+        )}
+        <ul className="space-y-1">
+          {pages.map((p, k) => (
+            <li key={k}>
+              <button type="button" onClick={() => go({ v: "lesson", i: k })} className={rowBtn}>
+                {option === "B" && <span className="mr-2">{done.includes(k) ? "✓" : k === next ? "▶" : "○"}</span>}{k + 1}. {p.title}<span className="float-right text-[12px] text-[#5F5E5A]">{tt("3 min", "3 Min.")}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button type="button" onClick={() => go({ v: "lesson", i: next })} className={btnDark}>
+          {done.length === 0 ? tt("Start the course", "Kurs beginnen") : done.length >= pages.length ? tt("Review the last lesson", "Letzte Lektion wiederholen") : option === "B" ? tt(`Continue where you left off (lesson ${next + 1})`, `Dort weitermachen, wo Sie aufgehört haben (Lektion ${next + 1})`) : tt("Continue", "Weitermachen")}
+        </button>
+      </div>
+    );
+  }
+  return <div className={INK}>{head}{body}</div>;
 }
