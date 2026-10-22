@@ -1,11 +1,12 @@
 import type { Blk, Item, PPage, PlatformCfg } from "@/components/sim/PlatformSim";
-import { lessonPages } from "@/components/sim/platformKit";
+import { accountPage, courseAbout, courseHero, courseOutcomes, footerOf, helpPage, richLessonPages } from "@/components/sim/courseKit";
 import { LESSON_TEXTS } from "@/components/sim/lessonText";
 import { tt } from "@/lib/lang";
 
 /**
  * Day 13 · AccessLearn as it is (a platform with low contrast, a small font and a complex navigation, Block 1.1 and the case of Block 2.1) and the three options of Block 1.2 as the
- * same platform after each measure: A) improve the contrasts, B) simplify the navigation, C) provide alternative content (DL-STANDARD v1.7). One generator builds all four, so
+ * same platform after each measure: A) improve the contrasts, B) simplify the navigation, C) provide alternative content (DL-STANDARD v1.8; the course page, lessons, help
+ * and account read like a real platform through `courseKit.ts`, in the small font of the plan). One generator builds all four, so
  * only the named change differs. Every menu entry, list entry and button opens a real page. Nothing here is marked right or wrong, and no figure is printed that the plan does not
  * print.
  */
@@ -19,7 +20,7 @@ const COURSE = () => tt("Negotiation basics", "Verhandlungsgrundlagen");
 const back = (to: string, label?: string): Blk => ({ t: "links", items: [{ label: label ?? tt("Back", "Zurück"), go: to }], size: SMALL });
 
 function access(f: Fix): PlatformCfg {
-  const lessons = lessonPages(N, {
+  const lessons = richLessonPages(N, {
     size: SMALL,
     leading: 1.25,
     back: "course",
@@ -28,7 +29,7 @@ function access(f: Fix): PlatformCfg {
   const course: PPage = {
     title: COURSE(),
     section: f.simpleNav ? "courses" : "learning",
-    blocks: [{ t: "h", text: COURSE() }, { t: "links", items: titles().slice(0, N).map((l, i) => go(`${i + 1}. ${l}`, `lesson${i}`)), size: SMALL, small: true }, { t: "links", items: [go(tt("Chart: completion by month", "Diagramm: Abschluss je Monat"), "chart"), go(tt("Video: a negotiation", "Video: eine Verhandlung"), "video")], size: SMALL, small: true }],
+    blocks: [...courseHero({ size: SMALL }, N), { t: "links", items: titles().slice(0, N).map((l, i) => go(`${i + 1}. ${l}`, `lesson${i}`)), size: SMALL, small: true }, { t: "links", items: [go(tt("Chart: completion by month", "Diagramm: Abschluss je Monat"), "chart"), go(tt("Video: a negotiation", "Video: eine Verhandlung"), "video")], size: SMALL, small: true }, ...courseOutcomes({ size: SMALL }), ...courseAbout({ size: SMALL })],
   };
   const chart: PPage = {
     title: tt("Chart", "Diagramm"),
@@ -60,12 +61,8 @@ function access(f: Fix): PlatformCfg {
     section: "library",
     blocks: [{ t: "h", text: tt("Library", "Bibliothek") }, { t: "links", items: [go(tt("Chart: completion by month", "Diagramm: Abschluss je Monat"), "chart"), go(tt("Video: a negotiation", "Video: eine Verhandlung"), "video")], size: SMALL, small: true }],
   };
-  const help: PPage = {
-    title: tt("Help", "Hilfe"),
-    crumb: tt("Help", "Hilfe"),
-    section: "help",
-    blocks: [{ t: "h", text: tt("Help", "Hilfe") }, { t: "p", text: tt("Write to the team and say what is not working. We answer within a few days.", "Schreiben Sie dem Team und sagen Sie, was nicht funktioniert. Wir antworten innerhalb weniger Tage."), size: SMALL }, { t: "form", fields: [tt("Your message", "Ihre Nachricht")], button: tt("Send", "Senden"), msg: tt("Sent.", "Gesendet.") }],
-  };
+  const help: PPage = helpPage({ size: SMALL }, "help");
+
 
   const simple: PlatformCfg["pages"] = {
     home: {
@@ -99,7 +96,7 @@ function access(f: Fix): PlatformCfg {
     certs: { title: tt("Certificates", "Zertifikate"), crumb: tt("Certificates", "Zertifikate"), section: "certs", blocks: [{ t: "h", text: tt("Certificates", "Zertifikate") }, { t: "p", text: tt("No certificates yet. Finish a course to receive one.", "Noch keine Zertifikate. Schließen Sie einen Kurs ab, um eines zu erhalten."), size: SMALL }] },
     messages: { title: tt("Messages", "Nachrichten"), crumb: tt("Messages", "Nachrichten"), section: "messages", blocks: [{ t: "h", text: tt("Messages", "Nachrichten") }, { t: "p", text: tt("No new messages.", "Keine neuen Nachrichten."), size: SMALL }] },
     settings: { title: tt("Settings", "Einstellungen"), crumb: tt("Settings", "Einstellungen"), section: "settings", blocks: [{ t: "h", text: tt("Settings", "Einstellungen") }, { t: "tabs", tabs: [{ label: tt("Notifications", "Benachrichtigungen"), fields: [tt("E-mail summary", "E-Mail-Zusammenfassung"), tt("Reminders", "Erinnerungen")] }, { label: tt("Privacy", "Datenschutz"), fields: [tt("Show my name in groups", "Meinen Namen in Gruppen zeigen")] }, { label: tt("Language", "Sprache"), fields: [tt("Interface language", "Sprache der Oberfläche")] }], button: tt("Save", "Speichern"), msg: tt("Saved.", "Gespeichert.") }] },
-    account: { title: tt("Account", "Konto"), crumb: tt("Account", "Konto"), section: "account", blocks: [{ t: "h", text: tt("Account", "Konto") }, { t: "form", fields: [tt("Name", "Name"), tt("E-mail", "E-Mail")], button: tt("Save", "Speichern"), msg: tt("Saved.", "Gespeichert.") }] },
+    account: accountPage({ size: SMALL }, "account"),
     course,
     library,
     help,
@@ -107,6 +104,7 @@ function access(f: Fix): PlatformCfg {
 
   return {
     name: "AccessLearn",
+    footer: footerOf("AccessLearn"),
     start: "home",
     color: "#566074",
     dim: !f.contrast,

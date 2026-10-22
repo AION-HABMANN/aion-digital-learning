@@ -41,7 +41,7 @@ export function ObserveButton({ company, views }: { company: string; views: Obse
       sub={tt(`Look around ${company} as it is today: the product, the support tickets, the admin reports. If the text is enough for you, skip this and write your answers.`, `Sehen Sie sich ${company} so an, wie es heute ist: das Produkt, die Support-Tickets, die Admin-Berichte. Wenn Ihnen der Text genügt, überspringen Sie das und schreiben Sie Ihre Antworten.`)}
       url={`observe.${company.toLowerCase()}.example/today`}
       title={tt(`Simulation: ${company} today`, `Simulation: ${company} heute`)}
-      note={tt("Simulation · Case assumption: everything here, figures included, is made up from the brief's facts · nothing is marked, ranked or added up for you · you do not need it to answer.", "Simulation · Fallannahme: Alles hier, auch die Zahlen, ist aus den Fakten des Auftrags erfunden · nichts wird für Sie markiert, eingestuft oder zusammengezählt · Sie brauchen es nicht, um zu antworten.")}
+      note={tt("Simulation · Case assumption: everything here, figures included, is made up from the brief's facts, except a tab marked “Real”, which shows a real company's own public page · nothing is marked, ranked or added up for you · you do not need it to answer.", "Simulation · Fallannahme: Alles hier, auch die Zahlen, ist aus den Fakten des Auftrags erfunden, außer einem Tab mit „Echt“, der die eigene öffentliche Seite eines echten Unternehmens zeigt · nichts wird für Sie markiert, eingestuft oder zusammengezählt · Sie brauchen es nicht, um zu antworten.")}
     >
       {() => <Tabs views={views} />}
     </SimButton>
@@ -214,6 +214,68 @@ export function CompetitorSite({ name, tagline, points, quote, children }: { nam
       </ul>
       <p className="border-b border-[#E3E6EC] px-4 py-3 text-[13px] italic text-[#4A5160]">“{quote}”</p>
       {children}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ a real competitor, live (v1.8) */
+
+export type RealSite = {
+  /** The real company and the page shown, e.g. "Duolingo" and "Blog: How leaderboards and leagues work". */
+  name: string;
+  page: string;
+  url: string;
+  /** Why this page belongs to the day: one sentence in the day's terms. */
+  why: string;
+  /** What to look at: neutral prompts in the terms of the task, never a verdict. */
+  look: string[];
+  /** The site allows being shown inside another page (checked 2026-10-22): shown live. Otherwise `shot` is a screenshot of the page. */
+  embed: boolean;
+  shot?: { src: string; date: string; phone?: boolean };
+};
+
+/**
+ * A real platform beside the case's made-up competitor (user request 2026-10-22, DL-STANDARD v1.8 section 4): an optional tab, only on days whose brief has competitors. The page
+ * is the real company's own public page, live where the site allows it and otherwise a dated screenshot, always with a button that opens the real site in a new browser tab. It is
+ * not part of the case: nothing in it is a fact of the case, the course makes no claim about the company, and the learner who wants a real comparison looks and notes what they see.
+ */
+export function RealSiteView({ site }: { site: RealSite }) {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return (
+    <div className="text-[#26323F]">
+      <div className="space-y-1 border-b border-[#E3D9B8] bg-[#FBF6E6] px-4 py-3 text-[13px]">
+        <p className="font-semibold">{tt(`A real platform: ${site.name} · not part of the case`, `Eine echte Plattform: ${site.name} · nicht Teil des Falls`)}</p>
+        <p>{site.why}</p>
+        <p className="text-[12px] text-[#5F5E5A]">{tt("This is the company's own public page. Nothing on it is a fact of the case, and the course makes no claim about the company. Look at it if you want a real comparison; you do not need it to answer.", "Das ist die eigene öffentliche Seite des Unternehmens. Nichts darauf ist eine Tatsache des Falls, und der Kurs stellt keine Behauptung über das Unternehmen auf. Sehen Sie sie sich an, wenn Sie einen echten Vergleich möchten; zum Antworten brauchen Sie sie nicht.")}</p>
+      </div>
+      <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_240px]">
+        <div className="min-w-0 border-b border-[#D9DEE6] lg:border-b-0 lg:border-r">
+          <div className="flex items-center gap-2 border-b border-[#D9DEE6] bg-[#F4F6F9] px-3 py-1.5">
+            <span className="min-w-0 flex-1 truncate rounded bg-white px-2 py-1 text-[12px] text-[#5F5E5A]">{site.url}</span>
+            <a href={site.url} target="_blank" rel="noopener noreferrer" className="shrink-0 rounded bg-[#3F4A58] px-3 py-1.5 text-[12px] font-semibold text-white underline-offset-2 hover:underline">
+              {tt("Open the real site ↗", "Echte Seite öffnen ↗")}
+            </a>
+          </div>
+          {site.embed ? (
+            <iframe src={site.url} title={`${site.name} · ${site.page}`} loading="lazy" referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" className="block h-[560px] w-full bg-white" />
+          ) : site.shot ? (
+            <figure className="bg-[#EEF1F5] p-3">
+              {/* A dated screenshot: the site does not allow being shown inside another page. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`${base}${site.shot.src}`} alt={tt(`Screenshot of ${site.name}: ${site.page}`, `Screenshot von ${site.name}: ${site.page}`)} className={clsx("mx-auto block rounded border border-[#C9D0DA] bg-white", site.shot.phone ? "max-h-[560px] w-auto max-w-[300px]" : "w-full")} />
+              <figcaption className="mt-2 text-center text-[12px] text-[#5F5E5A]">
+                {tt(`Screenshot of ${site.page}, taken on ${site.shot.date}. ${site.name} does not allow its site to be shown inside another page, so open it in a new tab to use it.`, `Screenshot von ${site.page}, aufgenommen am ${site.shot.date}. ${site.name} erlaubt nicht, die Seite in einer anderen Seite anzuzeigen; öffnen Sie sie in einem neuen Tab, um sie zu nutzen.`)}
+              </figcaption>
+            </figure>
+          ) : null}
+          {site.embed && <p className="px-3 py-1.5 text-[12px] text-[#5F5E5A]">{tt("Shown live. If the page stays empty, the site has stopped allowing this: open it in a new tab.", "Live angezeigt. Bleibt die Seite leer, erlaubt die Website das nicht mehr: Öffnen Sie sie in einem neuen Tab.")}</p>}
+        </div>
+        <div className="space-y-2 p-3 text-[13px]">
+          <p className="font-semibold">{tt("What to look at", "Worauf Sie achten können")}</p>
+          <ul className="list-disc space-y-1 pl-4">{site.look.map((x) => <li key={x}>{x}</li>)}</ul>
+          <p className="text-[12px] text-[#5F5E5A]">{tt("Compare it with the made-up competitor in the tab before, and with your own case. Note what you see, not what you guess.", "Vergleichen Sie sie mit dem erfundenen Wettbewerber im Tab davor und mit Ihrem eigenen Fall. Notieren Sie, was Sie sehen, nicht was Sie vermuten.")}</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 import type { Blk, Item, PPage, PlatformCfg } from "@/components/sim/PlatformSim";
-import { lessonPages } from "@/components/sim/platformKit";
+import { catalogCards, catalogPages, coursePageOf, footerOf, helpPage, richLessonPages } from "@/components/sim/courseKit";
 import { LESSON_TEXTS } from "@/components/sim/lessonText";
 import { tt } from "@/lib/lang";
 
 /**
  * Day 14 · ClearLearn as it is (an interface text with long, complex sentences and many technical terms, and a navigation whose entries are unclear: Block 1.1 and the case of
  * Block 2.1) and the three options of Block 1.2 as the same platform after each measure: A) simplify the content, B) improve the navigation, C) add additional functions
- * (DL-STANDARD v1.7). One generator builds all four, so only the named change differs. Every menu entry, list entry and button opens a real page. Nothing here is marked right
+ * (DL-STANDARD v1.8). One generator builds all four, so only the named change differs. The course page, the lessons, the catalogue and the help read like a real platform
+ * (`courseKit.ts`); their interface texts are hard (long sentences, technical terms) unless Option A simplifies them. Every menu entry, list entry and button opens a real page. Nothing here is marked right
  * or wrong, and no figure is printed that the plan does not print.
  */
 type Fix = { plain: boolean; clearNav: boolean; extra: boolean };
@@ -38,7 +39,8 @@ function clear(f: Fix): PlatformCfg {
     support: f.clearNav ? tt("Help", "Hilfe") : tt("Support", "Support"),
   };
 
-  const lessons = lessonPages(N, { back: "work" });
+  const look = { hard: !f.plain };
+  const lessons = richLessonPages(N, { back: "course", section: "work" });
   const pages: Record<string, PPage> = {
     home: {
       title: L.home,
@@ -63,12 +65,14 @@ function clear(f: Fix): PlatformCfg {
       title: L.work,
       crumb: L.work,
       section: "work",
-      blocks: [{ t: "h", text: L.work }, { t: "links", items: titles().slice(0, N).map((l, i) => go(`${i + 1}. ${l}`, `lesson${i}`)) }],
+      blocks: [{ t: "h", text: L.work }, { t: "links", items: titles().slice(0, N).map((l, i) => go(`${i + 1}. ${l}`, `lesson${i}`)) }, { t: "links", items: [go(f.plain ? tt("About this course", "Über diesen Kurs") : tt("Course metadata and syllabus specification", "Kursmetadaten und Syllabus-Spezifikation"), "course")] }],
     },
+    course: { ...coursePageOf(look, N, [{ t: "links", items: titles().slice(0, N).map((l, i) => go(`${i + 1}. ${l}`, `lesson${i}`)) }], "work"), crumb: COURSE() },
     repo: { title: L.repo, crumb: L.repo, section: "repo", blocks: [{ t: "h", text: L.repo }, { t: "p", text: f.plain ? tt("Articles and videos for every course.", "Artikel und Videos zu jedem Kurs.") : tt("Asset repository of supplementary resources, indexed by taxonomy node.", "Asset-Repository ergänzender Ressourcen, indiziert nach Taxonomieknoten.") }, back("work", L.work)] },
-    dir: { title: L.dir, crumb: L.dir, section: "dir", blocks: [{ t: "h", text: L.dir }, { t: "links", items: [go(COURSE(), "work")] }] },
+    dir: { title: L.dir, crumb: L.dir, section: "dir", blocks: [{ t: "h", text: L.dir }, catalogCards(look, "course")] },
+    ...catalogPages(look, { go: "dir", label: tt("Back", "Zurück") }, "cat", "dir"),
     console: { title: L.console, crumb: L.console, section: "console", blocks: [{ t: "h", text: L.console }, { t: "tabs", tabs: [{ label: f.plain ? tt("My lessons", "Meine Lektionen") : tt("Sequencing", "Sequenzierung"), fields: [f.plain ? tt("Adapt my lessons", "Meine Lektionen anpassen") : tt("Heuristic weighting", "Heuristik-Gewichtung")] }, { label: tt("Language", "Sprache"), fields: [tt("Interface language", "Sprache der Oberfläche")] }], button: tt("Save", "Speichern"), msg: tt("Saved.", "Gespeichert.") }] },
-    support: { title: L.support, crumb: L.support, section: "support", blocks: [{ t: "h", text: L.support }, { t: "p", text: helpText }, { t: "form", fields: [tt("Your question", "Ihre Frage")], button: tt("Send", "Senden"), msg: tt("Sent.", "Gesendet.") }] },
+    support: { ...helpPage(look, "support", [{ t: "p", text: helpText }]), title: L.support, crumb: L.support },
     ...lessons,
   };
 
@@ -83,7 +87,7 @@ function clear(f: Fix): PlatformCfg {
     nav.push({ label: tt("Chat", "Chat"), go: "chat" }, { label: tt("Badges", "Abzeichen"), go: "badges" }, { label: tt("Forum", "Forum"), go: "forum" }, { label: tt("Planner", "Planer"), go: "planner" });
   }
 
-  return { name: "ClearLearn", start: "home", color: "#4A5568", nav, pages };
+  return { name: "ClearLearn", start: "home", color: "#4A5568", nav, pages, footer: footerOf("ClearLearn") };
 }
 
 /** ClearLearn as it is: a hard text, unclear menu entries. */

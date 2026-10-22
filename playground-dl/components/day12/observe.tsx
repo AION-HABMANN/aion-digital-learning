@@ -1,8 +1,10 @@
 "use client";
 
 import { AdaptLearnSim } from "@/components/day12/sims";
-import { ObserveButton, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
-import type { ObserveView } from "@/components/sim/ObserveKit";
+import { ObserveButton, RealSiteView, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
+import { PlatformSim } from "@/components/sim/PlatformSim";
+import { competitor } from "@/data/day12/competitor";
+import type { ObserveView, RealSite } from "@/components/sim/ObserveKit";
 import { tt } from "@/lib/lang";
 
 /**
@@ -39,9 +41,21 @@ function RecordsDay12() {
   );
 }
 
+/** The real platform beside the made-up competitor (DL-STANDARD v1.8, section 4): optional, checked on 2026-10-22. */
+const REAL = (): RealSite => ({
+  name: "Duolingo",
+  page: tt("Blog: Introducing Birdbrain, the model that personalises lessons", "Blog: Birdbrain, das Modell, das Lektionen personalisiert"),
+  url: "https://blog.duolingo.com/learning-how-to-help-you-learn-introducing-birdbrain/",
+  why: tt("A real learning platform that uses an adaptive system, as the brief says your competitors do. In this post Duolingo explains how its model chooses exercises for each learner.", "Eine echte Lernplattform, die ein adaptives System nutzt, wie der Auftrag es von Ihren Wettbewerbern sagt. In diesem Beitrag erklärt Duolingo, wie sein Modell Übungen für jede Lernende auswählt."),
+  look: [tt("Which signals does the model use to adapt, and does a learner see them?", "Welche Signale nutzt das Modell, um sich anzupassen, und sieht eine Lernende sie?"), tt("What does the company say about why it adapts, and what about how well it works?", "Was sagt das Unternehmen dazu, warum es anpasst, und was dazu, wie gut es wirkt?"), tt("What would a learner on your platform need to understand an adaptation like this?", "Was bräuchte eine Lernende auf Ihrer Plattform, um eine solche Anpassung zu verstehen?")],
+  embed: true,
+});
+
 export function ObserveDay12() {
   const views: ObserveView[] = [
     { id: "today", name: tt("AdaptLearn today", "AdaptLearn heute"), node: <AdaptLearnSim /> },
+    { id: "comp", name: tt("A competing platform: PathWise", "Eine konkurrierende Plattform: PathWise"), node: <PlatformSim cfg={competitor()} /> },
+    { id: "real", name: tt("Real: Duolingo", "Echt: Duolingo"), node: <RealSiteView site={REAL()} /> },
     { id: "voices", name: tt("What people say", "Was Menschen sagen"), node: <VoicesDay12 /> },
     { id: "records", name: tt("What AdaptLearn records", "Was AdaptLearn erfasst"), node: <RecordsDay12 /> },
   ];

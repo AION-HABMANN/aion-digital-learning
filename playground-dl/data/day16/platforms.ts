@@ -1,12 +1,13 @@
 import type { Blk, Item, PPage, PlatformCfg } from "@/components/sim/PlatformSim";
-import { lessonPages } from "@/components/sim/platformKit";
+import { catalogCards, catalogPages, coursePageOf, footerOf, helpPage, richLessonPages } from "@/components/sim/courseKit";
 import { LESSON_TEXTS } from "@/components/sim/lessonText";
 import { tt } from "@/lib/lang";
 
 /**
  * Day 16 · DataLearn. Two platforms: the analytics console (the key figures of Block 1.1 with the plan's 70% drop-out rate and a short time spent; and the console of the case of
  * Block 2.1 and Level 3, with a lot of tracking data and measures that show no effect) and the learner-facing platform after each of the three options of Block 1.2: A) improve UX
- * (navigation, structure), B) expand content, C) increase marketing (DL-STANDARD v1.7). Every menu entry, list entry and button opens a real page. Nothing here is marked right or
+ * (navigation, structure), B) expand content, C) increase marketing (DL-STANDARD v1.8; the learner-facing course page, lessons and help read like a real platform through
+ * `courseKit.ts`, the same in every option; Option B adds real further courses). Every menu entry, list entry and button opens a real page. Nothing here is marked right or
  * wrong, and no figure is printed that the plan does not print (the 70% of Block 1.1 is the plan's own).
  */
 const N = 5;
@@ -95,7 +96,7 @@ type Fix = { ux: boolean; content: boolean; marketing: boolean };
 
 /** The learner-facing platform: unclear navigation and structure as it is, and after each of the three options. */
 function learner(f: Fix): PlatformCfg {
-  const lessons = lessonPages(N, { back: "course" });
+  const lessons = richLessonPages(N, { back: "course", section: "course" });
   const nav = f.ux
     ? [{ label: tt("Start", "Start"), go: "home" }, { label: tt("My course", "Mein Kurs"), go: "course" }, { label: tt("Help", "Hilfe"), go: "help" }]
     : [{ label: tt("Portal", "Portal"), go: "home" }, { label: tt("Modules", "Module"), go: "course" }, { label: tt("Resources", "Ressourcen"), go: "resources" }, { label: tt("Hub", "Hub"), go: "hub" }, { label: tt("Help", "Hilfe"), go: "help" }];
@@ -115,18 +116,22 @@ function learner(f: Fix): PlatformCfg {
       title: COURSE(),
       crumb: COURSE(),
       section: "course",
-      blocks: f.ux
-        ? [{ t: "h", text: COURSE() }, { t: "p", text: tt("Five steps. Start with step 1.", "Fünf Schritte. Beginnen Sie mit Schritt 1.") }, { t: "links", items: titles().slice(0, N).map((l, i) => go(`${i + 1}. ${l}`, `lesson${i}`)) }]
-        : [{ t: "h", text: COURSE() }, { t: "links", items: [...titles().slice(0, N).map((l, i) => go(l, `lesson${i}`)), ...(f.content ? [go(tt("Negotiation: advanced", "Verhandlung: Fortgeschritten"), "more"), go(tt("Pricing basics", "Preisgrundlagen"), "more"), go(tt("Contracts", "Verträge"), "more")] : [])], size: 12, small: true }],
+      blocks: [...((f.ux
+        ? [...coursePageOf({}, N, []).blocks.slice(0, 2), { t: "p", text: tt("Five steps. Start with step 1.", "Fünf Schritte. Beginnen Sie mit Schritt 1.") }, { t: "links", items: titles().slice(0, N).map((l, i) => go(`${i + 1}. ${l}`, `lesson${i}`)) }]
+        : [...coursePageOf({}, N, []).blocks.slice(0, 2), { t: "links", items: [...titles().slice(0, N).map((l, i) => go(l, `lesson${i}`)), ...(f.content ? [go(tt("Negotiation: advanced", "Verhandlung: Fortgeschritten"), "more"), go(tt("Pricing basics", "Preisgrundlagen"), "more"), go(tt("Contracts", "Verträge"), "more")] : [])], size: 12, small: true }]) as Blk[]), ...coursePageOf({}, N, []).blocks.slice(2)],
     },
+
     ...(f.ux ? {} : { resources: { title: tt("Resources", "Ressourcen"), crumb: tt("Resources", "Ressourcen"), section: "resources", blocks: [{ t: "h", text: tt("Resources", "Ressourcen") }, { t: "p", text: tt("Files and links for every module.", "Dateien und Links zu jedem Modul."), size: 12 }, back("home", tt("Back", "Zurück"))] },
     hub: { title: tt("Hub", "Hub"), crumb: tt("Hub", "Hub"), section: "hub", blocks: [{ t: "h", text: tt("Hub", "Hub") }, { t: "p", text: tt("Messages, groups and announcements.", "Nachrichten, Gruppen und Ankündigungen."), size: 12 }, back("home", tt("Back", "Zurück"))] } }),
-    help: { title: tt("Help", "Hilfe"), crumb: tt("Help", "Hilfe"), section: "help", blocks: [{ t: "h", text: tt("Help", "Hilfe") }, { t: "form", fields: [tt("Your question", "Ihre Frage")], button: tt("Send", "Senden"), msg: tt("Sent.", "Gesendet.") }] },
+    help: helpPage({}, "help"),
     ...lessons,
   };
-  if (f.content) pages.more = { title: tt("More courses", "Mehr Kurse"), crumb: tt("More courses", "Mehr Kurse"), section: "course", blocks: [{ t: "h", text: tt("More courses", "Mehr Kurse") }, { t: "p", text: tt("New courses were added. Each has the same long lessons.", "Neue Kurse wurden ergänzt. Jeder hat dieselben langen Lektionen."), size: 12 }, back("course", tt("Back to the course", "Zurück zum Kurs"))] };
+  if (f.content) {
+    pages.more = { title: tt("More courses", "Mehr Kurse"), crumb: tt("More courses", "Mehr Kurse"), section: "course", blocks: [{ t: "h", text: tt("More courses", "Mehr Kurse") }, { t: "p", text: tt("New courses were added. Each has the same long lessons and the same navigation.", "Neue Kurse wurden ergänzt. Jeder hat dieselben langen Lektionen und dieselbe Navigation.") }, catalogCards({}, "course")] };
+    Object.assign(pages, catalogPages({}, { go: "more", label: tt("Back to more courses", "Zurück zu mehr Kursen") }, "cat", "course"));
+  }
   if (f.marketing) pages.campaign = { title: tt("Campaign", "Kampagne"), crumb: tt("Campaign", "Kampagne"), section: "home", blocks: [{ t: "h", text: tt("Join DataLearn today", "Melden Sie sich heute bei DataLearn an") }, { t: "p", text: tt("A page for new visitors: what DataLearn offers, and a sign-up button.", "Eine Seite für neue Besucher: was DataLearn bietet, und ein Anmeldebutton.") }, { t: "form", fields: [tt("Your e-mail", "Ihre E-Mail")], button: tt("Sign up", "Anmelden"), msg: tt("Signed up. Welcome!", "Angemeldet. Willkommen!") }, back("home", tt("Back to the platform", "Zurück zur Plattform"))] };
-  return { name: "DataLearn", start: "home", color: "#4A4458", nav, pages };
+  return { name: "DataLearn", start: "home", color: "#4A4458", nav, pages, footer: footerOf("DataLearn") };
 }
 
 /** The console with the plan's key figures (Block 1.1). */

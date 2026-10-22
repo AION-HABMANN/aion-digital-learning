@@ -1,8 +1,10 @@
 "use client";
 
 import { GameLearnSim } from "@/components/day11/sims";
-import { ObserveButton, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
-import type { ObserveView } from "@/components/sim/ObserveKit";
+import { ObserveButton, RealSiteView, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
+import { PlatformSim } from "@/components/sim/PlatformSim";
+import { competitor } from "@/data/day11/competitor";
+import type { ObserveView, RealSite } from "@/components/sim/ObserveKit";
 import { tt } from "@/lib/lang";
 
 /**
@@ -39,9 +41,21 @@ function RecordsDay11() {
   );
 }
 
+/** The real platform beside the made-up competitor (DL-STANDARD v1.8, section 4): optional, checked on 2026-10-22. */
+const REAL = (): RealSite => ({
+  name: "Duolingo",
+  page: tt("Blog: How Duolingo leaderboards and leagues work", "Blog: Wie die Ranglisten und Ligen von Duolingo funktionieren"),
+  url: "https://blog.duolingo.com/duolingo-leagues-leaderboards/",
+  why: tt("A real learning platform that uses gamification heavily, as the brief says your competitors do. In this post Duolingo describes its weekly leagues in its own words.", "Eine echte Lernplattform, die stark auf Gamification setzt, wie der Auftrag es von Ihren Wettbewerbern sagt. In diesem Beitrag beschreibt Duolingo seine wöchentlichen Ligen mit eigenen Worten."),
+  look: [tt("Which behaviour do the leagues reward: learning, or activity?", "Welches Verhalten belohnen die Ligen: Lernen oder Aktivität?"), tt("What happens to a learner who cannot keep up with the top of the league?", "Was passiert mit einer Lernenden, die mit der Spitze der Liga nicht mithalten kann?"), tt("Which claims about learning does the page make, and which evidence does it show for them?", "Welche Aussagen über das Lernen macht die Seite, und welche Belege zeigt sie dafür?")],
+  embed: true,
+});
+
 export function ObserveDay11() {
   const views: ObserveView[] = [
     { id: "today", name: tt("GameLearn today", "GameLearn heute"), node: <GameLearnSim /> },
+    { id: "comp", name: tt("A competing platform: QuestUp", "Eine konkurrierende Plattform: QuestUp"), node: <PlatformSim cfg={competitor()} /> },
+    { id: "real", name: tt("Real: Duolingo", "Echt: Duolingo"), node: <RealSiteView site={REAL()} /> },
     { id: "voices", name: tt("What people say", "Was Menschen sagen"), node: <VoicesDay11 /> },
     { id: "records", name: tt("What GameLearn records", "Was GameLearn erfasst"), node: <RecordsDay11 /> },
   ];

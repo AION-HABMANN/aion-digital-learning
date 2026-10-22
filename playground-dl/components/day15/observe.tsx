@@ -1,8 +1,10 @@
 "use client";
 
 import { MobileLearnSim } from "@/components/day15/sims";
-import { ObserveButton, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
-import type { ObserveView } from "@/components/sim/ObserveKit";
+import { ObserveButton, RealSiteView, RecordsView, VoicesView } from "@/components/sim/ObserveKit";
+import { PlatformSim } from "@/components/sim/PlatformSim";
+import { competitor } from "@/data/day15/competitor";
+import type { ObserveView, RealSite } from "@/components/sim/ObserveKit";
 import { tt } from "@/lib/lang";
 
 /**
@@ -39,10 +41,22 @@ function RecordsDay15() {
   );
 }
 
+/** The real platform beside the made-up competitor (DL-STANDARD v1.8, section 4): optional, checked on 2026-10-22. */
+const REAL = (): RealSite => ({
+  name: "Duolingo",
+  page: tt("the start page on a phone", "die Startseite auf einem Handy"),
+  url: "https://www.duolingo.com/",
+  why: tt("A real learning platform that is built for the phone first, as the brief says your competitors are better on mobile. The screenshot shows its start page at phone width.", "Eine echte Lernplattform, die zuerst für das Handy gebaut ist, so wie der Auftrag sagt, dass Ihre Wettbewerber mobil besser sind. Der Screenshot zeigt ihre Startseite in Handybreite."),
+  look: [tt("What is the first thing a learner can do on the phone, and how large is that target?", "Was kann eine Lernende auf dem Handy als Erstes tun, und wie groß ist dieses Ziel?"), tt("How much text is on the first screen, compared with MobileLearn on a phone?", "Wie viel Text steht auf dem ersten Bildschirm, verglichen mit MobileLearn auf einem Handy?"), tt("Where does the page send a learner: the website or the app?", "Wohin schickt die Seite eine Lernende: auf die Website oder in die App?")],
+  embed: false, shot: { src: "/real/duolingo-mobile-2026-10-22.jpg", date: tt("22.10.2026", "22.10.2026"), phone: true },
+});
+
 export function ObserveDay15() {
   const views: ObserveView[] = [
     { id: "today", name: tt("MobileLearn on a phone", "MobileLearn auf einem Handy"), node: <MobileLearnSim /> },
     { id: "desktop", name: tt("MobileLearn on a desktop", "MobileLearn auf einem Desktop"), node: <MobileLearnSim onDesktop /> },
+    { id: "comp", name: tt("A competing platform: PocketCampus", "Eine konkurrierende Plattform: PocketCampus"), node: <PlatformSim cfg={competitor()} /> },
+    { id: "real", name: tt("Real: Duolingo", "Echt: Duolingo"), node: <RealSiteView site={REAL()} /> },
     { id: "voices", name: tt("What people say", "Was Menschen sagen"), node: <VoicesDay15 /> },
     { id: "records", name: tt("What MobileLearn records", "Was MobileLearn erfasst"), node: <RecordsDay15 /> },
   ];

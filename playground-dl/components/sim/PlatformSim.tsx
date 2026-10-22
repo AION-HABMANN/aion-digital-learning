@@ -26,7 +26,18 @@ export type Blk =
   | { t: "note"; title: string; text: string; button?: { label: string; msg: string }; go?: { label: string; go: string }; mark?: number }
   | { t: "tabs"; tabs: { label: string; fields: string[] }[]; button: string; msg: string; mark?: number }
   | { t: "chat"; intro: string; reply: string; label: string; mark?: number }
-  | { t: "finish"; label: string; task: string; key?: string; feedback?: string[]; big?: boolean; mark?: number };
+  | { t: "finish"; label: string; task: string; key?: string; feedback?: string[]; big?: boolean; mark?: number }
+  /* v1.8 (2026-10-22, Days 7 to 16): the parts a real learning platform is made of, so a page reads like a product and not like a line of text. */
+  | { t: "hero"; kicker?: string; title: string; text: string; button?: { label: string; go: string }; size?: number; mark?: number }
+  | { t: "meta"; items: string[]; size?: number; mark?: number }
+  | { t: "cards"; items: Card[]; size?: number; mark?: number }
+  | { t: "outline"; modules: { title: string; text?: string; items: Item[] }[]; size?: number; mark?: number }
+  | { t: "person"; name: string; role: string; text: string; size?: number; mark?: number }
+  | { t: "quotes"; title?: string; items: { who: string; role: string; text: string }[]; size?: number; mark?: number }
+  | { t: "faq"; title?: string; items: { q: string; a: string }[]; size?: number; mark?: number }
+  | { t: "sub"; text: string; size?: number };
+/** A course or content card in a catalogue: a tag, a title, two lines of description, a line of plain facts and who teaches it. */
+export type Card = { title: string; text: string; tag?: string; meta?: string; by?: string; go?: string; track?: boolean };
 
 export type PPage = { title: string; crumb?: string; /** The menu entry this page belongs to, so the menu always marks where the learner is. */ section?: string; blocks: Blk[] };
 export type PlatformCfg = {
@@ -41,6 +52,8 @@ export type PlatformCfg = {
   dim?: boolean;
   /** Text at the right of the header, from the pages visited so far (points, a level, a step count). */
   header?: (visited: string[]) => string;
+  /** A plain footer line under every page (company, imprint, privacy), as a real product has. Text only, no links. */
+  footer?: string;
 };
 
 const INK = "text-[#26323F]";
@@ -68,6 +81,9 @@ export function platformIssues(cfg: PlatformCfg): string[] {
       if (b.t === "links") b.items.forEach((i) => i.go && to.push(i.go));
       if (b.t === "table") b.rows.forEach((r) => r.forEach((c) => typeof c !== "string" && to.push(c.go)));
       if (b.t === "note" && b.go) to.push(b.go.go);
+      if (b.t === "hero" && b.button) to.push(b.button.go);
+      if (b.t === "cards") b.items.forEach((i) => i.go && to.push(i.go));
+      if (b.t === "outline") b.modules.forEach((m) => m.items.forEach((i) => i.go && to.push(i.go)));
     }
     return to;
   };
@@ -204,9 +220,149 @@ function Finish({ b, ctx }: { b: Extract<Blk, { t: "finish" }>; ctx: Ctx }) {
   );
 }
 
+/** Initials in a circle, for a teacher or a learner who wrote a review. */
+function Initials({ name, size = 36 }: { name: string; size?: number }) {
+  const ini = name.split(/\s+/).filter((w) => /^[A-ZÄÖÜ]/.test(w)).map((w) => w[0]).slice(0, 2).join("") || name.slice(0, 1);
+  return <span aria-hidden className="flex shrink-0 items-center justify-center rounded-full bg-[#E4E0EC] font-semibold text-[#4A4458]" style={{ width: size, height: size, fontSize: size * 0.38 }}>{ini}</span>;
+}
+
+/** The v1.8 blocks: hero, facts row, course cards, a syllabus, a teacher, reviews, questions, a small heading. Every link opens a page, as everywhere in the platform. */
+function RichBlock({ b, ctx }: { b: Extract<Blk, { t: "hero" | "meta" | "cards" | "outline" | "person" | "quotes" | "faq" | "sub" }>; ctx: Ctx }) {
+  const fs = b.size;
+  const st = fs ? { fontSize: fs } : undefined;
+  const small = fs ? { fontSize: Math.max(fs - 1, 10) } : undefined;
+  switch (b.t) {
+    case "hero":
+      return (
+        <div className="relative space-y-2 rounded-lg border border-[#DCD8E4] bg-[#F4F2F7] px-4 py-4">
+          {b.kicker && <p className="text-[11px] font-semibold uppercase tracking-wide text-[#6B6478]" style={small}>{b.kicker}</p>}
+          <p className="text-[19px] font-semibold leading-snug" style={fs ? { fontSize: fs + 4 } : undefined}>{b.title}</p>
+          <p className="text-[14px] leading-relaxed" style={st}>{b.text}</p>
+          {b.button && <button type="button" disabled={!ctx.live} onClick={() => ctx.go(b.button!.go)} className={btnDark} style={st}>{b.button.label}</button>}
+          <Mk n={b.mark} on={ctx.marks} />
+        </div>
+      );
+    case "meta":
+      return (
+        <ul className="relative flex flex-wrap gap-1.5" aria-label={tt("Facts about the course", "Fakten zum Kurs")}>
+          {b.items.map((x) => <li key={x} className="rounded-full border border-[#D9D5E2] bg-white px-2.5 py-0.5 text-[12px] text-[#4A4458]" style={small}>{x}</li>)}
+          <Mk n={b.mark} on={ctx.marks} />
+        </ul>
+      );
+    case "cards":
+      return (
+        <ul className="relative grid gap-2 sm:grid-cols-2">
+          {b.items.map((c) => {
+            const body = (
+              <>
+                {c.tag && <span className="mb-1 inline-block rounded bg-[#ECE9F1] px-1.5 py-0.5 text-[11px] text-[#4A4458]" style={small}>{c.tag}</span>}
+                <span className="block text-[14px] font-semibold" style={st}>{c.track && c.go && ctx.visited.includes(c.go) ? "✓ " : ""}{c.title}</span>
+                <span className="mt-0.5 block text-[13px] leading-snug text-[#3E4652]" style={small}>{c.text}</span>
+                {(c.meta || c.by) && <span className="mt-1.5 block text-[12px] text-[#6B6478]" style={small}>{[c.by, c.meta].filter(Boolean).join(" · ")}</span>}
+              </>
+            );
+            return (
+              <li key={c.title}>
+                {c.go ? (
+                  <button type="button" disabled={!ctx.live} onClick={() => ctx.go(c.go!)} className="block h-full w-full rounded-lg border border-[#D9D5E2] bg-white p-3 text-left hover:border-[#B9B4C4] hover:bg-[#FAF9FC]">{body}</button>
+                ) : (
+                  <div className="h-full rounded-lg border border-[#D9D5E2] bg-white p-3">{body}</div>
+                )}
+              </li>
+            );
+          })}
+          <Mk n={b.mark} on={ctx.marks} />
+        </ul>
+      );
+    case "outline":
+      return (
+        <div className="relative divide-y divide-[#E4E0EC] rounded-lg border border-[#D9D5E2]">
+          {b.modules.map((m, i) => (
+            <details key={m.title} open={i === 0} className="group">
+              <summary className="flex min-h-[40px] cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-[14px] font-semibold" style={st}>
+                <span>{m.title}</span>
+                <span aria-hidden className="text-[12px] text-[#6B6478] group-open:rotate-180">▾</span>
+              </summary>
+              <div className="space-y-1 px-3 pb-3">
+                {m.text && <p className="text-[13px] text-[#3E4652]" style={small}>{m.text}</p>}
+                <ul className="space-y-1">
+                  {m.items.map((it) => (
+                    <li key={it.label}>
+                      <button type="button" disabled={!ctx.live || !it.go} onClick={() => it.go && ctx.go(it.go)} className={clsx(tile, "w-full")} style={small}>
+                        {it.track && it.go && ctx.visited.includes(it.go) ? "✓ " : ""}{it.label}
+                        {it.doneKey ? <span className="float-right text-[12px] text-[#5F5E5A]">{ctx.visited.includes(it.doneKey) ? tt("done", "erledigt") : tt("open", "offen")}</span> : it.sub ? <span className="float-right text-[12px] text-[#5F5E5A]">{it.sub}</span> : null}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          ))}
+          <Mk n={b.mark} on={ctx.marks} />
+        </div>
+      );
+    case "person":
+      return (
+        <div className="relative flex gap-3 rounded-lg border border-[#D9D5E2] bg-white p-3">
+          <Initials name={b.name} />
+          <div className="min-w-0">
+            <p className="text-[14px] font-semibold" style={st}>{b.name}</p>
+            <p className="text-[12px] text-[#6B6478]" style={small}>{b.role}</p>
+            <p className="mt-1 text-[13px] leading-snug" style={small}>{b.text}</p>
+          </div>
+          <Mk n={b.mark} on={ctx.marks} />
+        </div>
+      );
+    case "quotes":
+      return (
+        <div className="relative space-y-2">
+          {b.title && <p className="text-[14px] font-semibold" style={st}>{b.title}</p>}
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {b.items.map((q) => (
+              <li key={q.who} className="rounded-lg border border-[#E4E0EC] bg-[#FAF9FC] p-3">
+                <p className="text-[13px] italic leading-snug" style={small}>“{q.text}”</p>
+                <p className="mt-2 flex items-center gap-2 text-[12px] text-[#6B6478]" style={small}><Initials name={q.who} size={24} /><span><span className="font-semibold text-[#26323F]">{q.who}</span> · {q.role}</span></p>
+              </li>
+            ))}
+          </ul>
+          <Mk n={b.mark} on={ctx.marks} />
+        </div>
+      );
+    case "faq":
+      return (
+        <div className="relative space-y-1">
+          {b.title && <p className="text-[14px] font-semibold" style={st}>{b.title}</p>}
+          <div className="divide-y divide-[#E4E0EC] rounded-lg border border-[#D9D5E2]">
+            {b.items.map((f) => (
+              <details key={f.q} className="group px-3">
+                <summary className="flex min-h-[40px] cursor-pointer list-none items-center justify-between gap-2 py-2 text-[13px] font-semibold" style={small}>
+                  <span>{f.q}</span>
+                  <span aria-hidden className="text-[12px] text-[#6B6478] group-open:rotate-180">▾</span>
+                </summary>
+                <p className="pb-2 text-[13px] leading-snug" style={small}>{f.a}</p>
+              </details>
+            ))}
+          </div>
+          <Mk n={b.mark} on={ctx.marks} />
+        </div>
+      );
+    case "sub":
+      return <p className="pt-1 text-[12px] font-semibold uppercase tracking-wide text-[#6B6478]" style={small}>{b.text}</p>;
+  }
+}
+
 function Block({ b, ctx }: { b: Blk; ctx: Ctx }) {
   const [msg, setMsg] = useState("");
   switch (b.t) {
+    case "hero":
+    case "meta":
+    case "cards":
+    case "outline":
+    case "person":
+    case "quotes":
+    case "faq":
+    case "sub":
+      return <RichBlock b={b} ctx={ctx} />;
     case "h":
       return <h3 className="relative text-[17px] font-semibold">{b.text}<Mk n={b.mark} on={ctx.marks} style={{ top: -2, right: -26 }} /></h3>;
     case "p":
@@ -287,12 +443,15 @@ function Block({ b, ctx }: { b: Blk; ctx: Ctx }) {
   }
 }
 
-function Body({ page, ctx, back }: { page: PPage; ctx: Ctx; back?: () => void }) {
+function Body({ page, ctx, back, footer }: { page: PPage; ctx: Ctx; back?: () => void; footer?: string }) {
   return (
-    <div className="space-y-3 px-4 py-4">
-      {page.blocks.map((b, i) => <Block key={i} b={b} ctx={ctx} />)}
-      {back && <button type="button" onClick={back} className="min-h-[36px] text-[13px] underline">← {tt("Back", "Zurück")}</button>}
-    </div>
+    <>
+      <div className="space-y-3 px-4 py-4">
+        {page.blocks.map((b, i) => <Block key={i} b={b} ctx={ctx} />)}
+        {back && <button type="button" onClick={back} className="min-h-[36px] text-[13px] underline">← {tt("Back", "Zurück")}</button>}
+      </div>
+      {footer && <p className="border-t border-[#E4E0EC] bg-[#FAF9FC] px-4 py-2 text-[11px] text-[#6B6478]">{footer}</p>}
+    </>
   );
 }
 
@@ -339,7 +498,7 @@ export function PlatformSim({ cfg, start }: { cfg: PlatformCfg; start?: string }
   return (
     <Frame cfg={cfg}>
       <Head cfg={cfg} crumb={page.crumb} right={cfg.header?.(visited)} cur={page.section ?? cur} onGo={root} />
-      <Body page={page} ctx={{ go, mark, visited, marks: false, live: true }} back={stack.length > 1 ? () => setStack((s) => s.slice(0, -1)) : undefined} />
+      <Body page={page} ctx={{ go, mark, visited, marks: false, live: true }} back={stack.length > 1 ? () => setStack((s) => s.slice(0, -1)) : undefined} footer={cfg.footer} />
     </Frame>
   );
 }
