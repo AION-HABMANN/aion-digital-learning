@@ -1,5 +1,6 @@
 import { t } from "@/lib/lang";
 import { defineSpec } from "@/lib/dayFree/spec";
+import { REF_CARD_21, REF_CARD_31 } from "@/data/day14/reference";
 import { Q, assessField, caseCard, coachingCard, feedbackCard, frameTable, known, listsField, ref, rowsTable, textField, uncertainTable } from "@/data/free/kit";
 
 /**
@@ -476,7 +477,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · A UX optimisation strategy", "3.1 · Eine UX-Optimierungsstrategie"),
-    slots: ["desk", "observe"],
+    slots: ["desk", "observe", "reference"],
     fields: [
       textField({
         id: "strategy", q: [1, 6],
@@ -622,6 +623,8 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    REF_CARD_21,
+    REF_CARD_31,
     caseCard("case-qa-card", "brief1", [
       [["How high is the drop-out rate?", "Wie hoch ist die Abbruchquote?"], ["“High” is all the plan says, and the site prints no figure. Do not invent one: the task does not depend on it. It is part of what is open on purpose.", "„Hoch“ ist alles, was der Plan sagt, und die Seite druckt keine Zahl. Erfinden Sie keine: Die Aufgabe hängt nicht davon ab. Es gehört zu dem, was mit Absicht offen ist."]],
       [["How long is the time pressure?", "Wie lange dauert der Zeitdruck?"], ["Not set, on purpose. Ask the participant to write down what they assume, and whether the order would change if there were twice as much time.", "Mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Reihenfolge ändern würde, wenn doppelt so viel Zeit wäre."]],

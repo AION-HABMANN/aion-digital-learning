@@ -1,5 +1,6 @@
 import { t } from "@/lib/lang";
 import { defineSpec } from "@/lib/dayFree/spec";
+import { REF_CARD_21, REF_CARD_31 } from "@/data/day15/reference";
 import { Q, assessField, caseCard, coachingCard, feedbackCard, frameTable, known, listsField, ref, rowsTable, textField, uncertainTable } from "@/data/free/kit";
 
 /**
@@ -445,7 +446,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · A mobile learning and cross-device UX strategy", "3.1 · Eine Strategie für mobiles Lernen und Cross-Device-UX"),
-    slots: ["desk", "observe"],
+    slots: ["desk", "observe", "reference"],
     fields: [
       textField({
         id: "strategy", q: [1, 6],
@@ -592,6 +593,8 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    REF_CARD_21,
+    REF_CARD_31,
     caseCard("case-qa-card", "brief1", [
       [["What exactly is the budget?", "Wie hoch ist das Budget genau?"], ["It is not set, on purpose. Ask the participant to write down what they assume, and whether the choice would change if the budget were twice as large or half as large.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Wahl ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre."]],
       [["How high is the drop-out on phones?", "Wie hoch sind die Abbrüche auf Handys?"], ["“High” is all the plan says, and the site prints no figure. Do not invent one: the task does not depend on it. It is part of what is open on purpose.", "„Hoch“ ist alles, was der Plan sagt, und die Seite druckt keine Zahl. Erfinden Sie keine: Die Aufgabe hängt nicht davon ab. Es gehört zu dem, was mit Absicht offen ist."]],

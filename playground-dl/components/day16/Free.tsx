@@ -8,6 +8,8 @@ import { DeskSim, Sheet } from "@/components/sim/DeskSim";
 import { Fit } from "@/components/sim/Fit";
 import { OptionCards } from "@/components/sim/OptionCards";
 import { SimButton } from "@/components/sim/SimFrame";
+import { ReferenceButton } from "@/components/sim/ReferencePlatform";
+import { REF_21, REF_31 } from "@/data/day16/reference";
 import type { FreeKit } from "@/lib/dayFree/spec";
 import { tt } from "@/lib/lang";
 
@@ -65,6 +67,7 @@ function Situation() {
       <SimButton label={tt("Open DataLearn's console and look around", "DataLearns Konsole öffnen und sich umsehen")} sub={tt("Use the console as the team does: the overview, the tracking, the reports and the measures taken.", "Nutzen Sie die Konsole so, wie das Team es tut: die Übersicht, das Tracking, die Berichte und die getroffenen Maßnahmen.")} url="datalearn.example/console" title={tt("Simulation: DataLearn's console", "Simulation: DataLearns Konsole")} note={NOTE()}>
         {() => <ConsoleSim />}
       </SimButton>
+      <ReferenceButton spec={REF_21()} />
     </div>
   );
 }
@@ -107,4 +110,4 @@ function Desk() {
   );
 }
 
-export const KIT: FreeKit = { MateriA, MateriB, slots: { figures: () => <Figures />, options: () => <Options />, situation: () => <Situation />, desk: () => <Desk />, observe: () => <ObserveDay16 /> } };
+export const KIT: FreeKit = { MateriA, MateriB, slots: { figures: () => <Figures />, options: () => <Options />, situation: () => <Situation />, desk: () => <Desk />, observe: () => <ObserveDay16 />, reference: () => <ReferenceButton spec={REF_31()} /> } };

@@ -1,5 +1,6 @@
 import { t } from "@/lib/lang";
 import { defineSpec } from "@/lib/dayFree/spec";
+import { REF_CARD_21, REF_CARD_31 } from "@/data/day16/reference";
 import { Q, assessField, caseCard, coachingCard, feedbackCard, frameTable, known, listsField, ref, rowsTable, textField, uncertainTable } from "@/data/free/kit";
 
 /**
@@ -453,7 +454,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · A data-driven UX optimisation strategy", "3.1 · Eine datengetriebene UX-Optimierungsstrategie"),
-    slots: ["desk", "observe"],
+    slots: ["desk", "observe", "reference"],
     fields: [
       textField({
         id: "kpis31", q: [1, 6],
@@ -599,6 +600,8 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    REF_CARD_21,
+    REF_CARD_31,
     caseCard("case-qa-card", "brief1", [
       [["Why is the drop-out 70 percent in Block 1.1 but only “high” in Block 2.1?", "Warum liegt die Abbruchquote in Block 1.1 bei 70 Prozent, in Block 2.1 aber nur bei „hoch“?"], ["The plan prints 70% for the key figures of Task 1 and only “high” for the case study. The site uses exactly what the plan prints, and does not carry the 70% into the case.", "Der Plan nennt 70 % für die Kennzahlen von Aufgabe 1 und nur „hoch“ für die Fallstudie. Die Seite nutzt genau das, was der Plan nennt, und überträgt die 70 % nicht in den Fall."]],
       [["What exactly is the budget?", "Wie hoch ist das Budget genau?"], ["It is not set, on purpose. Ask the participant to write down what they assume, and whether the choice would change if the budget were twice as large or half as large.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Wahl ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre."]],

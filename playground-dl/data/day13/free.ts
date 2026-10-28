@@ -1,5 +1,6 @@
 import { t } from "@/lib/lang";
 import { defineSpec } from "@/lib/dayFree/spec";
+import { REF_CARD_21, REF_CARD_31 } from "@/data/day13/reference";
 import { Q, assessField, caseCard, coachingCard, feedbackCard, frameTable, known, listsField, ref, rowsTable, textField, uncertainTable } from "@/data/free/kit";
 
 /**
@@ -462,7 +463,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · An accessible UX strategy", "3.1 · Eine barrierefreie UX-Strategie"),
-    slots: ["desk", "observe"],
+    slots: ["desk", "observe", "reference"],
     fields: [
       textField({
         id: "strategy", q: [1, 6],
@@ -608,6 +609,8 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    REF_CARD_21,
+    REF_CARD_31,
     caseCard("case-qa-card", "brief1", [
       [["What exactly is the budget?", "Wie hoch ist das Budget genau?"], ["It is not set, on purpose. Ask the participant to write down what they assume, and whether the order would change if the budget were twice as large or half as large.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Reihenfolge ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre."]],
       [["How many content items are there?", "Wie viele Inhalte gibt es?"], ["“Many” is all the plan says, and the site prints no figure. Do not invent one: the task does not depend on it. It is part of what is open on purpose.", "„Viele“ ist alles, was der Plan sagt, und die Seite druckt keine Zahl. Erfinden Sie keine: Die Aufgabe hängt nicht davon ab. Es gehört zu dem, was mit Absicht offen ist."]],

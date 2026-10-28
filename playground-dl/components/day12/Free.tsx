@@ -8,6 +8,8 @@ import { DeskSim, Sheet } from "@/components/sim/DeskSim";
 import { Fit } from "@/components/sim/Fit";
 import { OptionCards } from "@/components/sim/OptionCards";
 import { SimButton } from "@/components/sim/SimFrame";
+import { ReferenceButton } from "@/components/sim/ReferencePlatform";
+import { REF_21, REF_31 } from "@/data/day12/reference";
 import type { FreeKit } from "@/lib/dayFree/spec";
 import { tt } from "@/lib/lang";
 
@@ -77,6 +79,7 @@ function Situation() {
       <SimButton label={tt("Open AdaptLearn and try it", "AdaptLearn öffnen und ausprobieren")} sub={tt("Use the platform as one of its learners does: open the path, the updates and the learner model.", "Nutzen Sie die Plattform so, wie eine ihrer Lernenden es tut: den Pfad, die Aktualisierungen und das Lernermodell öffnen.")} url="adaptlearn.example/path" title={tt("Simulation: AdaptLearn", "Simulation: AdaptLearn")} note={NOTE()}>
         {() => <AdaptLearnSim />}
       </SimButton>
+      <ReferenceButton spec={REF_21()} />
     </div>
   );
 }
@@ -120,4 +123,4 @@ function Desk() {
   );
 }
 
-export const KIT: FreeKit = { MateriA, MateriB, slots: { platforms: () => <Platforms />, options: () => <Options />, situation: () => <Situation />, desk: () => <Desk />, observe: () => <ObserveDay12 /> } };
+export const KIT: FreeKit = { MateriA, MateriB, slots: { platforms: () => <Platforms />, options: () => <Options />, situation: () => <Situation />, desk: () => <Desk />, observe: () => <ObserveDay12 />, reference: () => <ReferenceButton spec={REF_31()} /> } };

@@ -19,7 +19,7 @@ export type ReferenceSpec = {
   visit: string;
   /** What the real platform is and why it is here, in the block's terms. */
   intro: string;
-  site: { url: string; page: string; shot: string; note: string };
+  site: { url: string; page: string; shot: string; note: string; /** The screenshot is a phone screen: shown narrow, not stretched. */ phone?: boolean };
   rows: RefRow[];
   discuss: string[];
 };
@@ -37,7 +37,7 @@ function SiteTab({ spec }: { spec: ReferenceSpec }) {
       </div>
       <figure>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={`${base()}${spec.site.shot}`} alt={tt(`Screenshot of ${spec.name}: ${spec.site.page}`, `Screenshot von ${spec.name}: ${spec.site.page}`)} className="w-full rounded border border-[#C9D0DA]" />
+        <img src={`${base()}${spec.site.shot}`} alt={tt(`Screenshot of ${spec.name}: ${spec.site.page}`, `Screenshot von ${spec.name}: ${spec.site.page}`)} className={spec.site.phone ? "mx-auto block max-h-[560px] w-auto max-w-[300px] rounded border border-[#C9D0DA]" : "w-full rounded border border-[#C9D0DA]"} />
         <figcaption className="mt-1 text-center text-[12px] text-[#5F5E5A]">
           {tt(`Screenshot of ${spec.site.page}, taken on ${spec.visit}.`, `Screenshot von ${spec.site.page}, aufgenommen am ${spec.visit}.`)} {spec.site.note}
         </figcaption>
