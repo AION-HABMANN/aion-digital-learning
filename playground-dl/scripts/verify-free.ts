@@ -72,7 +72,10 @@ for (const day of want) {
     const refTargets = f1.concat(f2).flatMap((f) => f.refs ?? []).map((r) => r.target);
     const badRefs = refTargets.filter((tg) => /-field$/.test(tg) && !domIds.has(tg.replace(/-field$/, "")));
     ok(badRefs.length === 0, "every reference to an earlier answer points at a field that exists" + (badRefs.length ? ": " + badRefs.join(", ") : ""));
-    const planCards = spec.cards.filter((c) => c.after !== "brief1" && c.after !== "brief2");
+    // reference-platform cards (DL-STANDARD section 16) are counted apart from the plan's coaching and feedback cards
+    const planCards = spec.cards.filter((c) => c.after !== "brief1" && c.after !== "brief2" && !c.id.startsWith("ref-card"));
+    const refCards = spec.cards.filter((c) => c.id.startsWith("ref-card"));
+    if (refCards.length) ok(refCards.every((c) => c.sections.length === 2 && c.sections[0].items!.length >= 3 && (c.after === "2.1" || c.after === "3.1")), "reference-platform cards sit under 2.1 or 3.1 with the analysis and the discussion prompts");
     ok(planCards.length === 2 && planCards.every((c) => c.sections.length >= 2), "two hidden facilitator cards (coaching and feedback round)");
     // DL-STANDARD section 14: each case brief names what is known and what is open, and a hidden card holds the standard answers
     for (const [n, b] of [["brief1", spec.brief1], ["brief2", spec.brief2]] as const) {
