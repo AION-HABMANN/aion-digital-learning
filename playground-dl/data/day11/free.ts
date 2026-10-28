@@ -1,5 +1,6 @@
 import { t } from "@/lib/lang";
 import { defineSpec } from "@/lib/dayFree/spec";
+import { REF_CARD_21, REF_CARD_31 } from "@/data/day11/reference";
 import { Q, assessField, caseCard, coachingCard, feedbackCard, frameTable, known, listsField, ref, rowsTable, textField, uncertainTable } from "@/data/free/kit";
 
 /**
@@ -439,7 +440,7 @@ export const SPEC = defineSpec({
     refs: ["B1", "B2", "B3"],
     minutes: 20,
     doc: t("3.1 · Gamification strategy", "3.1 · Gamification-Strategie"),
-    slots: ["desk", "observe"],
+    slots: ["desk", "observe", "reference"],
     fields: [
       textField({
         id: "decision", q: [1, 6],
@@ -589,6 +590,8 @@ export const SPEC = defineSpec({
     ],
   },
   cards: [
+    REF_CARD_21,
+    REF_CARD_31,
     caseCard("case-qa-card", "brief1", [
       [["What exactly is the budget?", "Wie hoch ist das Budget genau?"], ["It is not set, on purpose. Ask the participant to write down what they assume, and whether the order of the options would change if the budget were twice as large or half as large.", "Es ist mit Absicht nicht festgelegt. Bitten Sie die Teilnehmenden aufzuschreiben, was sie annehmen, und ob sich die Reihenfolge der Optionen ändern würde, wenn das Budget doppelt so groß oder halb so groß wäre."]],
       [["Which platform is the one in Block 1.2?", "Welche Plattform ist die in Block 1.2?"], ["GameLearn, the platform of the case. The three options are alternatives: the question is which one you start with.", "GameLearn, die Plattform des Falls. Die drei Optionen sind Alternativen: Die Frage ist, mit welcher Sie beginnen."]],
